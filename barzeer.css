@@ -1,0 +1,8 @@
+body { font-family: Verdana,Arial,Helvetica,Tahoma,sans-serif; }
+
+h1 { font-size: 2em; font-weight: bold; text-align: left; }
+h2 { font-size: 1.5em; font-weight: bold; text-align: left; }
+h3 { font-size: 1.25em; font-weight: bold; text-align: left; }
+h4 { font-size: 1em; font-weight: bold; text-align: left; }
+
+img.banner { max-width:60em; width:100% }
