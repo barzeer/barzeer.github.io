@@ -166,15 +166,6 @@ article a:hover { color: var(--link-hover-fg-color); }
 article a:active { color: var(--link-active-fg-color); }
 article a:visited { color: var(--link-visited-fg-color); }
 
-article span.solution {
-	color: var(--link-before-fg-color);
-	text-decoration: underline var(--link-before-fg-color) solid;
-}
-article span.solution:hover {
-	color: var(--link-hover-fg-color);
-	text-decoration: underline var(--link-hover-fg-color) solid;
-}
-
 article span.duration {
 	font-size: smaller;
 }
