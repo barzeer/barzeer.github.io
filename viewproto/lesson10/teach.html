@@ -19,9 +19,9 @@
 
 function showPythonProg(url, code) {
     const base = window.location.origin;
-    const icon = base + '/site/icon.png';
-    const style = base + '/site/style.css';
-    const color = base + '/site/color.js';
+    const icon = base + '/viewproto/site/icon.png';
+    const style = base + '/viewproto/site/style.css';
+    const color = base + '/viewproto/site/color.js';
 
     const html =
 ['<!DOCTYPE html>',
@@ -44,14 +44,15 @@ function showPythonProg(url, code) {
 '\t</div>',
 '\t<h2>CSE 111 | <span>Programming with Functions</span></h2>',
 '</header>',
+'',
 '<article>',
 '\t<h1>' + url + '</h1>',
-'\t<pre>',
+'\t<div class="pre"><pre class="python">',
 code,
-'\t</pre>',
+'\t</div></pre>',
 '\t',
-'',
 '</article>',
+'',
 '<footer>',
 '\t<small>Copyright &copy; 2020, Brigham Young University - Idaho. All',
 '\trights reserved.</small>',
