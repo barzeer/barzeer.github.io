@@ -35,7 +35,7 @@ code,
 '',
 '</body>',
 '</html>'].join('\n');
-    console.log(JSON.stringify(code));
+    console.log(JSON.stringify(html));
     let win = window.open('text/html', true);
     let doc = win.document;
     doc.write(html);
@@ -49,7 +49,7 @@ function displayo(url) {
     .then(function(response) {
         console.log(JSON.stringify(response));
         response.text()
-        .then(function(text) {
+        .then(function(url, text) {
             //console.log(text);
             showPythonProg(text);
         })
