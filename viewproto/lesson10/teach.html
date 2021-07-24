@@ -17,6 +17,30 @@
 <script>
 "use strict";
 
+function showPythonProg(url, code) {
+    const html =
+['<!DOCTYPE html>\n',
+'<html lang="en-us">\n',
+'<head>\n',
+'\t<meta charset="utf-8">\n',
+'\t<title>' + url + '<title>\n',
+'\t\n',
+'</head>\n',
+'<body>\n',
+'\t<pre>\n',
+code,
+'\t</pre>\n',
+'\t\n',
+'\n',
+'</body>\n',
+'</html>\n'].join();
+    let win = window.open('text/html', true);
+    let doc = win.document;
+    doc.write(html);
+    doc.close();
+}
+
+
 function displayo(url) {
     console.log(JSON.stringify(url));
     fetch(url)
@@ -25,6 +49,7 @@ function displayo(url) {
         response.text()
         .then(function(text) {
             console.log(text);
+            showPythonProg(text);
         })
         .catch(function(error) {
             console.log(JSON.stringify(error));
