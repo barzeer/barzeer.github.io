@@ -76,6 +76,7 @@ code,
 
 
     displayo : function(url) {
+        const self = this;
         console.log(JSON.stringify(url));
         fetch(url)
         .then(function(response) {
@@ -83,7 +84,7 @@ code,
             response.text()
             .then(function(text) {
                 //console.log(text);
-                showPythonProg(url, text);
+                self.showPythonProg(url, text);
             })
             .catch(function(error) {
                 console.log(JSON.stringify(error));
