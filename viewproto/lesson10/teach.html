@@ -45,7 +45,13 @@ cse111.solution = {
             const color = base + 'color.js';
             const linenums = base + 'linenums.js';
             const hljs = base + 'hljs/highlight.pack.js';
-            code = this.entityFromChar(code.trim());
+            console.log(icon);
+            console.log(style);
+            console.log(codestyle);
+            console.log(color);
+            console.log(linenums);
+            console.log(hljs);
+            code = entityFromChar(code.trim());
 
             const html =
 ['<!DOCTYPE html>',
@@ -80,13 +86,14 @@ cse111.solution = {
 '<pre class="python">' + code + '</pre>',
 '\t</div>',
 '</article>',
+'',
 '<footer>',
 '\t<small>Copyright &copy; 2020, Brigham Young University - Idaho. All',
 '\trights reserved.</small>',
 '</footer>',
 '</body>',
 '</html>'].join('\n');
-            //console.log(JSON.stringify(html));
+            console.log(JSON.stringify(html));
             let win = window.open('text/html', true);
             let doc = win.document;
             doc.write(html);
