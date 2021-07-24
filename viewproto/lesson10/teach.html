@@ -26,20 +26,25 @@ cse111.showcode = {
         const base = window.location.origin;
         const icon = base + '/viewproto/site/icon.png';
         const style = base + '/viewproto/site/style.css';
+        const codestyle = base + '/viewproto/site/hljs/style.css';
         const color = base + '/viewproto/site/color.js';
         const linenums = base + '/viewproto/site/linenums.js';
+        const hljs = base + '/viewproto/site/hljs/highlight.pack.js';
         code = this.entityFromChar(code);
 
         const html =
 ['<!DOCTYPE html>',
+'<!-- Copyright 2020, Brigham Young University - Idaho. All rights reserved. -->',
 '<html lang="en-us">',
 '<head>',
 '\t<meta charset="UTF-8">',
 '\t<title>' + url + '</title>',
 '\t<link rel="icon" type="image/png" href="' + icon + '">',
 '\t<link rel="stylesheet" type="image/css" href="' + style + '">',
+'\t<link rel="stylesheet" type="image/css" href="' + codestyle + '">',
 '\t<script src="' + color + '"><\x2fscript>',
 '\t<script src="' + linenums + '"><\x2fscript>',
+'\t<script src="' + hljs + '"><\x2fscript>',
 '\t',
 '</head>',
 '',
@@ -55,9 +60,9 @@ cse111.showcode = {
 '',
 '<article>',
 '\t<h1>' + url + '</h1>',
-'\t<div class="pre"><pre class="python">',
+'<div class="pre"><pre class="python">',
 code,
-'\t</pre></div>',
+'</pre></div>',
 '\t',
 '</article>',
 '',
