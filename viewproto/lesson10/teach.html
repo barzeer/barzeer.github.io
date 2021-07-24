@@ -38,8 +38,8 @@ cse111.showcode = {
 '\t<title>' + url + '</title>',
 '\t<link rel="icon" type="image/png" href="' + icon + '">',
 '\t<link rel="stylesheet" type="image/css" href="' + style + '">',
-//'\t<script src="' + color + '"><\x2fscript>',
-//'\t<script src="' + linenums + '"><\x2fscript>',
+'\t<script src="' + color + '"><\x2fscript>',
+'\t<script src="' + linenums + '"><\x2fscript>',
 '\t',
 '</head>',
 '',
@@ -117,7 +117,7 @@ code,
 				function(match0) { return '&' + assoc[match0] + ';'; });
 
 		// Encode non-ascii characters as HTML entities.
-		let encoded = intermed.replace(/[^ -~]/g,
+		let encoded = intermed.replace(/[^\t\n\r -~]/g,
 				function(match0) {
 					var pt = match0.charCodeAt(0);
 					var hex = pt.toString(16);
