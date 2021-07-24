@@ -18,12 +18,20 @@
 "use strict";
 
 function showPythonProg(url, code) {
+    const base = window.location.origin;
+    const icon = base + '/site/icon.png';
+    const style = base + '/site/style.css';
+    const color = base + '/site/color.js';
+
     const html =
 ['<!DOCTYPE html>',
 '<html lang="en-us">',
 '<head>',
-'\t<meta charset="utf-8">',
+'\t<meta charset="UTF-8">',
 '\t<title>' + url + '</title>',
+'\t<link rel="icon" type="image/png" href="' + icon + '">',
+'\t<link rel="stylesheet" type="image/css" href="' + style + '">',
+'\t<script src="' + color + '"><&#47;script>',
 '\t',
 '</head>',
 '',
