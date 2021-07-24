@@ -1,0 +1,643 @@
+@import url("reset.css");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
+
+:root {
+	--light-bk-color: #fefefe;
+	--light-fg-color: #040404;
+
+	--dark-bk-color: black;
+	--dark-fg-color: #b8b8b8;
+
+	--border: #707070;
+
+	--coral: rgba(255, 127, 80, 1);
+	--light-coral: rgba(255, 127, 80, 0.07);
+	--dark-coral: rgba(255, 127, 80, 0.13);
+
+	--byui-blue: rgba(0, 118, 182, 1);
+	--light-byui-blue: rgba(0, 118, 182, 0.07);
+	--dark-byui-blue: rgba(0, 118, 182, 0.2);
+
+	--link-before-fg-color: var(--byui-blue);
+	--link-hover-fg-color: var(--coral);
+	--link-active-fg-color: red;
+	--link-visited-fg-color: purple;
+
+	--dfn-fg-color: var(--coral);
+	--strong-fg-color: var(--coral);
+	--user-input-bk-color: var(--coral);
+	--user-input-fg-color: white;
+
+	--bullet-fg-color: var(--byui-blue);
+	--line-number-hilite: var(--byui-blue);
+}
+
+@media screen {
+	body {
+		--bk-color: var(--light-bk-color);
+		--fg-color: var(--light-fg-color);
+
+		--python-bk-color: var(--light-coral);
+		--console-bk-color: var(--light-byui-blue);
+
+		background-color: var(--bk-color);
+		color: var(--fg-color);
+
+		font-family: "Open Sans", Arial, Helvetica, Verdana, sans-serif;
+	}
+	body.dark {
+		--bk-color: var(--dark-bk-color);
+		--fg-color: var(--dark-fg-color);
+
+		--python-bk-color: var(--dark-coral);
+		--console-bk-color: var(--dark-byui-blue);
+	}
+}
+@media print {
+	body {
+		font-family: Garamond, Georgia, "Times New Roman", serif;
+	}
+}
+
+header {
+	padding: 0.5em 1.5em;
+	background-color: var(--byui-blue);
+	color: white;
+}
+header div.logo {
+	display: inline-block;
+	margin-right: 1em;
+	vertical-align: middle;
+	font-family: Georgia, Palatino, "Book Antiqua", serif;
+	text-transform: uppercase;
+	max-width: 5.5em;
+}
+header div.logo div.upper {
+	margin-bottom: -0.05em;
+	font-size: 160%;
+	font-weight: bolder;
+	text-align: center;
+}
+header div.logo div.lower {
+	border-top: 1px solid;
+	font-weight: lighter;
+	letter-spacing: 0.08em;
+	text-align: center;
+}
+header h2 {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 150%;
+	font-weight: normal;
+}
+header h2 span {
+	white-space: nowrap;
+}
+header div.colorCtrl {
+	float: right;
+	cursor: pointer;
+	margin: 0.5em 0 0 1em;
+	font-size: 125%;
+}
+
+/* Content */
+article {
+	margin: 1em auto;
+	padding: 1em;
+}
+@media screen {
+	article {
+		max-width: 40em;
+		font-size: 110%;
+		line-height: 1.4;
+	}
+}
+@media print {
+	article {
+		font-size: 100%;
+	}
+}
+
+article h1 {
+	clear: both;
+	text-align: center;
+	font-size: 175%;
+	margin: 0 0 1em 0;
+}
+
+article h2 {
+	clear: both;
+	font-size: 150%;
+	font-weight: bold;
+	margin: 1.5em 0 0.25em 0;
+	padding-bottom: 0.25em;
+	border-bottom: 1px solid;
+}
+
+article h3 {
+	font-weight: bold;
+	font-size: 130%;
+	color: var(--byui-blue);
+	margin: 1.5em 0 0.5em 0;
+}
+
+article h4 {
+	font-weight: bold;
+	font-size: 110%;
+	margin: 1em 0 0.5em 0;
+}
+
+article p,
+article iframe {
+	margin: 0 0 1em 0;
+}
+
+article blockquote {
+	margin: 1em 1em 1em 1em;
+	border-left: 0.12em solid var(--bullet-fg-color);
+	padding: 0 0 0 0.5em;
+}
+
+article a:link { color: var(--link-before-fg-color); }
+article a:hover { color: var(--link-hover-fg-color); }
+article a:active { color: var(--link-active-fg-color); }
+article a:visited { color: var(--link-visited-fg-color); }
+
+article span.solution {
+	color: var(--link-before-fg-color);
+	text-decoration: underline var(--link-before-fg-color) solid;
+}
+article span.solution:hover {
+	color: var(--link-hover-fg-color);
+	text-decoration: underline var(--link-hover-fg-color) solid;
+}
+
+article span.duration {
+	font-size: smaller;
+}
+
+article audio {
+	float: right;
+}
+
+article em {
+	font-style: italic;
+}
+
+article strong {
+	font-weight: bold;
+	font-style: italic;
+	color: var(--strong-fg-color);
+}
+
+article dfn {
+	color: var(--dfn-fg-color)
+}
+
+article var {
+	font-style: italic;
+}
+
+/* Lists */
+article ol {
+	margin: 0 0 1em 2em;
+	list-style-type: decimal;
+}
+
+article ol > li ol > li ol {
+	list-style-type: lower-roman;
+}
+
+article ol > li ol {
+	list-style-type: lower-alpha;
+}
+
+article ol.long > li {
+	margin-bottom: 1em;
+}
+
+article li {
+	color: var(--bullet-fg-color);
+}
+
+article li > div {
+	color: var(--fg-color);
+	margin-left: 0.25em;
+}
+
+article ul {
+	margin: 0 0 1em 2em;
+	list-style-type: disc;
+}
+
+article ul.long > li {
+	margin-bottom: 1em;
+}
+
+article li ul {
+	list-style-type: circle;
+}
+
+article ul.links {
+	list-style-type: "»";
+}
+
+article ul.links > li {
+	padding-left: 0.3em;
+}
+
+article ul.references,
+article ul.tutorials,
+article ul.videos {
+	list-style-type: none;
+	margin-left: 1.5em;
+}
+
+article ul.references > li {
+	background-image: url("reference.png");
+	background-repeat: no-repeat;
+	min-height: 30px;
+	padding-left: 22px;
+}
+
+article ul.tutorials > li {
+	background-image: url("tutorial.png");
+	background-repeat: no-repeat;
+	min-height: 30px;
+	padding-left: 22px;
+}
+
+article ul.videos > li {
+	background-image: url("video.png");
+	background-repeat: no-repeat;
+	min-height: 30px;
+	padding-left: 34px;
+}
+
+article ul.note {
+	list-style-type: "*";
+}
+
+article ul.note > li {
+	padding-left: 0.4em;
+	color: var(--bullet-fg-color);
+}
+
+article dl.function {
+	margin: 1em 1em 1em 1em;
+	border-left: 0.12em solid var(--bullet-fg-color);
+	padding: 0 0 0 0.5em;
+}
+
+article dl.function dd {
+	padding-left: 2em;
+}
+
+
+/* Figures */
+div.figure {
+	float: right;
+	margin: 0 0 1em 1em;
+	page-break-inside: avoid;
+}
+
+div.figure img {
+	width: 100%;
+	page-break-after: avoid;
+}
+
+div.figure div {
+	margin: 0.75em 0 0 0;
+	font-size: 90%;
+	page-break-before: avoid;
+}
+
+
+article span.nowrap {
+	white-space: nowrap;
+}
+
+
+/* Mathematical Formulas */
+article div.expr {
+	white-space: nowrap;
+	text-align: center;
+	font-family: "Palatino Linotype", Palatino, Garamond, serif;
+	font-size: large;
+}
+
+article div.expr.inline {
+	display: inline-block;
+	margin: 0 0.5em;
+	vertical-align: baseline;
+}
+
+article div.expr.block {
+	margin: 1em 0;
+	vertical-align: middle;
+}
+
+article div.expr div {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+}
+
+article div.expr.middle {
+	vertical-align: middle;
+}
+
+article div.expr .baseline {
+	vertical-align: baseline;
+}
+
+article div.expr sup,
+article div.expr sub {
+	margin-left: 0.12em;
+}
+
+article div.expr div.supsub {
+	font-size: smaller;
+	margin-left: 0.12em;
+	line-height: 0.8;
+	vertical-align: -0.35em;
+	text-align: left;
+}
+
+article div.expr span.abs:before,
+article div.expr span.abs:after {
+	font-size: xx-large;
+	font-weight: 100;
+	vertical-align: middle;
+	content: '\7c';
+}
+
+article div.expr .paren:before {
+	padding-left: 0.1em;
+	content: '\28';
+	font-size: xx-large;
+	font-weight: 100;
+}
+
+article div.expr .paren:after {
+	padding-left: 0.1em;
+	content: '\29';
+	font-size: xx-large;
+	font-weight: 100;
+}
+
+article div.expr div.paren {
+	vertical-align: baseline;
+}
+
+article div.expr span.radic:before {
+	font-size: x-large;
+	font-weight: 100;
+	vertical-align: bottom;
+	content: '\221a';
+}
+
+article div.expr div.radic:before {
+	font-size: xx-large;
+	font-weight: 100;
+	vertical-align: middle;
+	content: '\221a';
+}
+
+article div.expr .radic > * {
+	border-top: 1px solid;
+	padding: 0 0.2em;
+}
+
+article div.expr div.fract {
+}
+
+article div.expr div.fract > div.numer {
+	display: block;
+}
+
+article div.expr div.fract > div.denom {
+	display: block;
+	margin-top: 0.25em;
+	border-top: 1px solid;
+	padding-top: 0.1em;
+}
+
+article div.expr div.sum {
+	margin-right: 0.15em;
+}
+
+article div.expr div.sum > span.sum {
+	display: block;
+	margin-bottom: 0.25em;
+	vertical-align: middle;
+	font-size: xx-large;
+	font-weight: 100;
+}
+
+article div.expr div.sum > div.index {
+	display: block;
+	font-size: small;
+}
+
+
+/* Sections that can be expanded and collapsed. */
+article div.expand div.title,
+article div.collaps div.title {
+	cursor: pointer;
+}
+
+article div.expand div.title:before,
+article div.collaps div.title:before {
+	margin-right: 0.25em;
+	font-size: x-large;
+	cursor: pointer;
+}
+
+article div.expand div.title:before {
+	content: "+";
+}
+
+article div.collaps div.title:before {
+	content: "-";
+}
+
+article div.expand div.pre {
+	display: none;
+}
+
+article div.collaps div.pre {
+	display: block;
+}
+
+article div.search {
+	margin: 1em auto;
+	border: 1px solid var(--border);
+	padding: 0.25em 0.5em;
+	white-space: pre-line;
+}
+
+article code {
+	font-family: Menlo, Monaco, Consolas, monospace;
+	white-space: nowrap;
+}
+
+
+article pre {
+	font-family: Menlo, Monaco, Consolas, monospace;
+	line-height: 1.15;
+}
+
+article pre em,
+article code em {
+	font-weight: bold;
+	font-style: normal;
+}
+
+article pre.console {
+	margin: 1em auto;
+	border: 1px solid var(--border);
+	background-color: var(--console-bk-color);
+	padding: 0.25em 0.5em;
+}
+
+article pre.console span.input {
+	position: relative;
+	border: 1px solid var(--border);
+	padding: 0 0.25em;
+	background-color: var(--user-input-bk-color);
+	color: var(--user-input-fg-color);
+}
+
+/* Tooltip for user input spans inside the console pre elements. */
+article pre.console span.input:before {
+	display: none;
+	position: absolute;
+	top: 70%;
+	left: -5em;
+	border: 1px solid var(--border);
+	background-color: var(--light-bk-color);
+	color: var(--light-fg-color);
+	font-size: small;
+	padding: 0.1em 0.3em;
+	content: "User input";
+}
+article pre.console span.input:hover:before {
+	display: block;
+	z-index: 50;
+}
+
+article pre.console span.pass {
+	color: green;
+}
+
+article pre.console span.fail {
+	color: red;
+}
+
+/* Containers for line numbers and Python source code */
+article div.pre {
+	display: table;
+	position: relative;
+	margin: 1em auto 1em 0;
+	border: 1px solid var(--border);
+	background-color: var(--python-bk-color);
+	padding: 0.25em 0.5em;
+}
+
+article div.pre > button.copy {
+	position: absolute;
+	top: 0.5em;
+	right: 0.25em;
+	visibility: hidden;
+	background-color: var(--light-bk-color);
+}
+
+article div.pre > button.copy > img {
+	width: 2em;
+}
+
+article div.pre:hover > button.copy {
+	visibility: visible;
+}
+
+article div.pre > pre {
+	display: table-cell;
+	margin: 0;
+	border: 0;
+	padding: 0;
+}
+
+article div.pre > pre.linenums {
+	padding-right: 1.25em;
+	text-align: right;
+	color: var(--border);
+}
+
+article div.pre > pre.linenums > .hi {
+	background-color: var(--line-number-hilite);
+	color: white;
+}
+
+article div.pre > pre.python {
+	min-width: 18em;
+}
+
+article pre.python span.hiScope  { background-color: yellow; }
+article pre.python span.hiVarDef { background-color: orange; }
+article pre.python span.hiVarUse { background-color: yellow; }
+article pre.python span.hiError  { background-color: red; }
+
+
+article .cross {
+	text-decoration: underline var(--link-before-fg-color) dotted;
+}
+
+
+/* Tables */
+article table {
+	margin-bottom: 1em;
+}
+
+article th,
+article td {
+	padding: 0.1em 0.25em;
+}
+
+article td.center { text-align: center; }
+article td.number { text-align: right; }
+
+article table.center {
+	margin: 1em auto;
+}
+
+article table > thead > tr > th {
+	vertical-align: bottom;
+	text-align: center;
+	font-weight: bold;
+}
+
+article table > tbody > tr > th {
+	vertical-align: top;
+	text-align: left;
+	font-weight: bold;
+}
+
+article table.list > tbody > tr > td {
+	text-align: center;
+}
+
+article table.list > tbody > tr.elems > td {
+	border: 1px solid var(--border);
+}
+
+article table.list > tbody > tr > td.label {
+	border: none;
+	text-align: right;
+}
+
+footer {
+	margin: 1em auto;
+	max-width: 40em;
+	font-size: 90%;
+}

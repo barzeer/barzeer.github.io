@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!-- Copyright 2020, Brigham Young University - Idaho. All rights reserved. -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSE 111 - Checkpoint</title>
+    <link rel="icon" type="image/png" href="../site/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-database.js"></script>
+    <script src="../site/url.js"></script>
+    <script src="../site/urlWrite.js"></script>
+    <script src="../site/color.js"></script>
+</head>
+
+<body>
+<header>
+    <div class="colorCtrl">&nbsp;</div>
+    <div class="logo">
+        <div class="upper">BYU</div>
+        <div class="lower">Idaho</div>
+    </div>
+    <h2>CSE 111 | <span>Programming with Functions</span></h2>
+</header>
+<article>
+    <h1>10 Checkpoint: Handling Exceptions</h1>
+
+    <h2>Purpose</h2>
+    <p>Complete this individual checkpoint assignment to improve your
+    understanding of how to handle exceptions in a Python program.</p>
+
+    <h2>Assignment</h2>
+    <p>Do the following:</p>
+
+    <ol class="long">
+        <li><div>Download and save the
+        <a download href="accidents.csv"><code>accidents.csv</code></a>
+        and
+        <a download href="get_line.py"><code>get_line.py</code></a>
+        files in the same folder. <code>get_line.py</code> is a simple
+        program that asks a user to input the name of a text file and a
+        line number. Then it prints the text that is in the file on the
+        requested line.</div></li>
+
+        <li><div>Open <code>get_line.py</code> in VS Code and notice the
+        <code>try</code> block at line&nbsp;8 and the five
+        <code>except</code> blocks at lines&nbsp;25&ndash;66, each
+        handling a different type of exception.</div></li>
+
+        <li><div>Run the <code>get_line.py</code> program five times and
+        enter the input shown in the Sample Run section below. For each
+        of the first four times that you run the program, find the lines
+        of code in <code>get_line.py</code> that handled the exception
+        that was raised.</div></li>
+    </ol>
+
+    <h2>Sample Run</h2>
+<pre class="console">&gt; python get_line.py
+Enter the name of text file: <span class="input">notafile.csv</span>
+FileNotFoundError: [Errno 2] No such file or directory: 'notafile.csv'
+The file notafile.csv doesn't exist.
+Run the program again and enter the name of an existing file.
+
+&gt; python get_line.py
+Enter the name of text file: <span class="input">accidents.csv</span>
+Enter a line number: <span class="input">hey</span>
+ValueError: invalid literal for int() with base 10: 'hey'
+You entered an invalid integer for the line number.
+Run the program again and enter an integer for the line number.
+
+&gt; python get_line.py
+Enter the name of text file: <span class="input">accidents.csv</span>
+Enter a line number: <span class="input">-300</span>
+IndexError: list index out of range
+-300 is is a negative integer.
+Run the program again and enter a line number between 1 and 7.
+
+&gt; python get_line.py
+Enter the name of text file: <span class="input">accidents.csv</span>
+Enter a line number: <span class="input">75</span>
+IndexError: list index out of range
+75 is greater than the number of lines in accidents.csv.
+There are only 7 lines in accidents.csv.
+Run the program again and enter a line number between 1 and 7.
+
+&gt; python get_line.py
+Enter the name of text file: <span class="input">accidents.csv</span>
+Enter a line number: <span class="input">4</span>
+2012,33782,2362000,5615000,31006,3167,440,9420,6396,1262</pre>
+
+    <h2>Submission</h2>
+    <p>When complete, report your progress in the associated I-Learn
+    quiz.</p>
+</article>
+<footer>
+    <small>Copyright &copy; 2020, Brigham Young University - Idaho. All
+    rights reserved.</small>
+</footer>
+</body>
+</html>
