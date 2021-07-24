@@ -49,9 +49,9 @@ function displayo(url) {
     .then(function(response) {
         console.log(JSON.stringify(response));
         response.text()
-        .then(function(url, text) {
+        .then(function(text) {
             //console.log(text);
-            showPythonProg(text);
+            showPythonProg(url, text);
         })
         .catch(function(error) {
             console.log(JSON.stringify(error));
