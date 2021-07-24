@@ -18,10 +18,9 @@
 "use strict";
 
 function displayo(url) {
-    fetch(url)
-    .then(function(response) {
-        response.text();
-    })
+    Promise.all([
+        fetch(url).then(function(response) { response.text(); })
+    ])
     .then(function(text) {
         console.log(text);
     })
