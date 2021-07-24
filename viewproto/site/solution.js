@@ -22,7 +22,7 @@ cse111.solution = {
     getCode : function(url) {
         const showCode = function(url, code) {
             const parts = url.split('/');
-            filename = parts[parts.length - 1];
+            const filename = parts[parts.length - 1];
             code = entityFromChar(code.trim());
 
             const base = window.location.origin + '/viewproto/site/';
