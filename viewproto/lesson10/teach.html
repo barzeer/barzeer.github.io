@@ -20,7 +20,10 @@
 function displayo(url) {
     fetch(url)
     .then(function(response) {
-        console.log(response);
+        response.text();
+    })
+    .then(function(text)) {
+        console.log(text);
     })
     .catch(function(error) {
         console.log(error);
