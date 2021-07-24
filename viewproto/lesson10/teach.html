@@ -23,23 +23,19 @@ if (!window.hasOwnProperty('cse111')) {
 
 cse111.solution = {
     modifyLinks : function() {
-        const getCode = function(url) {
-            fetch(url)
-            .then(function(response) {
-                response.text()
-                .then(function(text) {
-                    showCode(url, text);
-                })
-                .catch(function(error) {
-                    console.log(JSON.stringify(error));
-                });
-            })
-            .catch(function(error) {
-                console.log(JSON.stringify(error));
-            });
-        };
+        let links = document.getElementsByTagName('a');
+        for (let i = 0, len = links.length;  i < len;  ++i) {
+            let link = links[i];
+            if (link.classList.contains('solution')) {
+                let href = link.href;
+                href = 'javascript:cse111.solution.getCode("' + href + '")';
+                link.setAttribute('href', href);
+            }
+        }
+    },
 
 
+    getCode : function(url) {
         const showCode = function(url, code) {
             const base = window.location.origin + '/viewproto/site/';
             console.log(base);
@@ -124,16 +120,19 @@ cse111.solution = {
             return encoded;
         };
 
-
-        let links = document.getElementsByTagName('a');
-        for (let i = 0, len = links.length;  i < len;  ++i) {
-            let link = links[i];
-            if (link.classList.contains('solution')) {
-                let href = link.href;
-                href = 'javascript:cse111.solution.getCode("' + href + '")';
-                link.setAttribute('href', href);
-            }
-        }
+        fetch(url)
+        .then(function(response) {
+            response.text()
+            .then(function(text) {
+                showCode(url, text);
+            })
+            .catch(function(error) {
+                console.log(JSON.stringify(error));
+            });
+        })
+        .catch(function(error) {
+            console.log(JSON.stringify(error));
+        });
     }
 };
 
