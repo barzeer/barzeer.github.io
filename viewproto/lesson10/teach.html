@@ -115,7 +115,7 @@ code,
 	entityFromChar : function(plain) {
 		// Encode characters in eFromC as HTML entities.
 		const assoc = this.eFromC;
-        const keys = Object.keys(assoc);
+        const keys = Object.keys(assoc).join('');
         const regex = new RegExp('[' + keys + ']', 'g');
         console.log(JSON.stringify(keys));
         console.log(JSON.stringify(regex));
