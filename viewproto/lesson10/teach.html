@@ -19,21 +19,23 @@
 
 function showPythonProg(url, code) {
     const html =
-['<!DOCTYPE html>\n',
-'<html lang="en-us">\n',
-'<head>\n',
-'\t<meta charset="utf-8">\n',
-'\t<title>' + url + '<title>\n',
-'\t\n',
-'</head>\n',
-'<body>\n',
-'\t<pre>\n',
+['<!DOCTYPE html>',
+'<html lang="en-us">',
+'<head>',
+'\t<meta charset="utf-8">',
+'\t<title>' + url + '</title>',
+'\t',
+'</head>',
+'',
+'<body>',
+'\t<pre>',
 code,
-'\t</pre>\n',
-'\t\n',
-'\n',
-'</body>\n',
-'</html>\n'].join();
+'\t</pre>',
+'\t',
+'',
+'</body>',
+'</html>'].join('\n');
+    console.log(JSON.stringify(code));
     let win = window.open('text/html', true);
     let doc = win.document;
     doc.write(html);
@@ -48,7 +50,7 @@ function displayo(url) {
         console.log(JSON.stringify(response));
         response.text()
         .then(function(text) {
-            console.log(text);
+            //console.log(text);
             showPythonProg(text);
         })
         .catch(function(error) {
