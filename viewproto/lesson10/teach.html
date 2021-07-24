@@ -22,6 +22,7 @@ function showPythonProg(url, code) {
     const icon = base + '/viewproto/site/icon.png';
     const style = base + '/viewproto/site/style.css';
     const color = base + '/viewproto/site/color.js';
+    const linenums = base + '/viewproto/site/linenums.js';
 
     const html =
 ['<!DOCTYPE html>',
@@ -31,7 +32,8 @@ function showPythonProg(url, code) {
 '\t<title>' + url + '</title>',
 '\t<link rel="icon" type="image/png" href="' + icon + '">',
 '\t<link rel="stylesheet" type="image/css" href="' + style + '">',
-'\t<script src="' + color + '"><\x2fscript>',
+//'\t<script src="' + color + '"><\x2fscript>',
+//'\t<script src="' + linenums + '"><\x2fscript>',
 '\t',
 '</head>',
 '',
