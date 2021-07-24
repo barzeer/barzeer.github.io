@@ -19,14 +19,19 @@
 
 function displayo(url) {
     console.log(JSON.stringify(url));
-    Promise.all([
-        fetch(url).then(function(response) { console.log(JSON.stringify(response)); response.text(); })
-    ])
-    .then(function(text) {
-        console.log(text);
+    fetch(url)
+    .then(function(response) {
+        console.log(JSON.stringify(response));
+        response.text()
+        .then(function(text) {
+            console.log(text);
+        })
+        .catch(function(error) {
+            console.log(JSON.stringify(error));
+        });
     })
     .catch(function(error) {
-        console.log(error);
+        console.log(JSON.stringify(error));
     });
 }
 </script>
