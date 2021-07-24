@@ -17,14 +17,20 @@
 <script>
 "use strict";
 
-function showPythonProg(url, code) {
-    const base = window.location.origin;
-    const icon = base + '/viewproto/site/icon.png';
-    const style = base + '/viewproto/site/style.css';
-    const color = base + '/viewproto/site/color.js';
-    const linenums = base + '/viewproto/site/linenums.js';
+if (!window.hasOwnProperty('cse111')) {
+    window.cse111 = {};
+}
 
-    const html =
+cse111.showcode = {
+    showPythonProg : function(url, code) {
+        const base = window.location.origin;
+        const icon = base + '/viewproto/site/icon.png';
+        const style = base + '/viewproto/site/style.css';
+        const color = base + '/viewproto/site/color.js';
+        const linenums = base + '/viewproto/site/linenums.js';
+        code = this.entityFromChar(code);
+
+        const html =
 ['<!DOCTYPE html>',
 '<html lang="en-us">',
 '<head>',
@@ -61,32 +67,62 @@ code,
 '</footer>',
 '</body>',
 '</html>'].join('\n');
-    console.log(JSON.stringify(html));
-    let win = window.open('text/html', true);
-    let doc = win.document;
-    doc.write(html);
-    doc.close();
-}
+        console.log(JSON.stringify(html));
+        let win = window.open('text/html', true);
+        let doc = win.document;
+        doc.write(html);
+        doc.close();
+    },
 
 
-function displayo(url) {
-    console.log(JSON.stringify(url));
-    fetch(url)
-    .then(function(response) {
-        console.log(JSON.stringify(response));
-        response.text()
-        .then(function(text) {
-            //console.log(text);
-            showPythonProg(url, text);
+    displayo : function(url) {
+        console.log(JSON.stringify(url));
+        fetch(url)
+        .then(function(response) {
+            console.log(JSON.stringify(response));
+            response.text()
+            .then(function(text) {
+                //console.log(text);
+                showPythonProg(url, text);
+            })
+            .catch(function(error) {
+                console.log(JSON.stringify(error));
+            });
         })
         .catch(function(error) {
             console.log(JSON.stringify(error));
         });
-    })
-    .catch(function(error) {
-        console.log(JSON.stringify(error));
-    });
-}
+    },
+
+
+	eFromC : {
+		//'\t':'#9', '\n':'#10', '\r':'#13',
+		'"':'quot', '#':'#35', '&':'amp',
+		"'":'apos', '<':'lt', '>':'gt',
+		'\u2018':'lsquo', '\u2019':'rsquo',
+		'\u201c':'ldquo', '\u201d':'rdquo'
+	},
+
+	/** Converts the characters \t, \n, \r, ", #, &, ', <,  and > to
+	 * HTML entities and converts non-ascii charaters to HTML entity
+	 * sequences. */
+	entityFromChar : function(plain) {
+		// Encode characters in eFromC as HTML entities.
+		const assoc = this.eFromC;
+		let intermed = plain.replace(/[\t\n\r"#&'<>\u2018\u2019\u201c\u201d]/g,
+				function(match0) { return '&' + assoc[match0] + ';'; });
+
+		// Encode non-ascii characters as HTML entities.
+		let encoded = intermed.replace(/[^ -~]/g,
+				function(match0) {
+					var pt = match0.charCodeAt(0);
+					var hex = pt.toString(16);
+					return '&#x' + '0000'.substring(hex.length) + hex + ';';
+				});
+
+		return encoded;
+	}
+};
 </script>
 </head>
 
