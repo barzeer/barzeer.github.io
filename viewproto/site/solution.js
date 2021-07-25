@@ -76,7 +76,7 @@ cse111.solution = {
 '</header>',
 '',
 '<article class="solution">',
-'\t<h2>' + filename + ' <a download title="Download ' + filename + '" href="' + href + '">[&darr;]</a></h2>',
+'\t<h1>' + filename + ' <a download title="Download ' + filename + '" href="' + href + '">[&darr;]</a></h1>',
 '\t<div class="pre">',
 '<pre class="linenums"></pre>',
 '<pre class="python">' + code + '</pre>',
@@ -89,7 +89,6 @@ cse111.solution = {
 '</footer>',
 '</body>',
 '</html>'].join('\n');
-            console.log(JSON.stringify(html));
             let win = window.open('text/html', true);
             let doc = win.document;
             doc.write(html);

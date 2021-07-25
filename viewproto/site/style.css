@@ -127,6 +127,9 @@ article h1 {
 	font-size: 175%;
 	margin: 0 0 1em 0;
 }
+article.solution h1 {
+	font-size: 150%;
+}
 
 article h2 {
 	clear: both;
