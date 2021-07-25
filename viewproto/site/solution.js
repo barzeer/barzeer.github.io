@@ -7,34 +7,38 @@ if (!window.hasOwnProperty('cse111')) {
 
 cse111.solution = {
     modifyLinks : function() {
+		const getFilename = cse111.solution.getFilename;
+
         let links = document.getElementsByTagName('a');
         for (let i = 0, len = links.length;  i < len;  ++i) {
             let link = links[i];
             if (link.classList.contains('solution')) {
                 let href = link.href;
+				let filename = getFilename(href);
                 let call = 'javascript:cse111.solution.getCode("' + href + '")';
                 link.setAttribute('href', call);
 
 				let downlink = document.createElement('a');
 				downlink.className = 'download';
 				downlink.setAttribute('download', '');
-				downlink.setAttribute('title', 'Download');
+				downlink.setAttribute('title', 'Download ' + filename);
 				downlink.setAttribute('href', href);
-				downlink.appendChild(document.createTextNode('[&darr;]'));
+				downlink.innerHTML = '[&darr;]';
 
 				let parent = link.parentNode;
 				let next = link.nextSibling;
-				parent.insertBefore(next, document.createTextNode(' '));
-				parent.insertBefore(next, document.createTextNode(downlink));
+				parent.insertBefore(document.createTextNode(' '), next);
+				parent.insertBefore(downlink, next);
             }
         }
     },
 
 
-    getCode : function(url) {
-        const showCode = function(url, code) {
-            const parts = url.split('/');
-            const filename = parts[parts.length - 1];
+    getCode : function(href) {
+		const getFilename = cse111.solution.getFilename;
+
+        const showCode = function(href, code) {
+            const filename = getFilename(href);
             code = entityFromChar(code.trim());
 
             const base = window.location.origin + '/viewproto/site/';
@@ -72,7 +76,7 @@ cse111.solution = {
 '</header>',
 '',
 '<article class="solution">',
-'\t<h3>' + filename + ' <a download title="Download" href="' + url + '">[&darr;]</a></h3>',
+'\t<h3>' + filename + ' <a download title="Download" href="' + href + '">[&darr;]</a></h3>',
 '\t<div class="pre">',
 '<pre class="linenums"></pre>',
 '<pre class="python">' + code + '</pre>',
@@ -119,11 +123,11 @@ cse111.solution = {
             return encoded;
         };
 
-        fetch(url)
+        fetch(href)
         .then(function(response) {
             response.text()
             .then(function(text) {
-                showCode(url, text);
+                showCode(href, text);
             })
             .catch(function(error) {
                 console.log(JSON.stringify(error));
@@ -132,7 +136,12 @@ cse111.solution = {
         .catch(function(error) {
             console.log(JSON.stringify(error));
         });
-    }
+    },
+
+
+	getFilename : function(path) {
+		return path.substring(path.lastIndexOf('/') + 1);
+	}
 };
 
 
