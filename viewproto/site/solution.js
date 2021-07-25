@@ -76,7 +76,7 @@ cse111.solution = {
 '</header>',
 '',
 '<article class="solution">',
-'\t<h3>' + filename + ' <a download title="Download" href="' + href + '">[&darr;]</a></h3>',
+'\t<h2>' + filename + ' <a download title="Download ' + filename + '" href="' + href + '">[&darr;]</a></h2>',
 '\t<div class="pre">',
 '<pre class="linenums"></pre>',
 '<pre class="python">' + code + '</pre>',
