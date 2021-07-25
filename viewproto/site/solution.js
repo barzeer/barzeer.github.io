@@ -12,8 +12,20 @@ cse111.solution = {
             let link = links[i];
             if (link.classList.contains('solution')) {
                 let href = link.href;
-                href = 'javascript:cse111.solution.getCode("' + href + '")';
-                link.setAttribute('href', href);
+                let call = 'javascript:cse111.solution.getCode("' + href + '")';
+                link.setAttribute('href', call);
+
+				let downlink = document.createElement('a');
+				downlink.className = 'download';
+				downlink.setAttribute('download', '');
+				downlink.setAttribute('title', 'Download');
+				downlink.setAttribute('href', href);
+				downlink.appendChild(document.createTextNode('[&darr;]'));
+
+				let parent = link.parentNode;
+				let next = link.nextSibling;
+				parent.insertBefore(next, document.createTextNode(' '));
+				parent.insertBefore(next, document.createTextNode(downlink));
             }
         }
     },
