@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<!-- Copyright 2020, Brigham Young University - Idaho. All rights reserved. -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>CSE 111 - Prove</title>
+    <script src="../site/color.js"></script>
+    <script src="../site/linenums.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" type="text/css" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<header>
+    <div class="colorCtrl">&nbsp;</div>
+    <a class="logo" href="https://www.byui.edu">
+        <div>BYU</div>
+        <div>Idaho</div>
+    </a>
+    <h2><a href="https://byui.instructure.com">CSE 111</a> |
+        <a href="../index.html">Programming with Functions</a></h2>
+</header>
+<article>
+    <h1>03 Prove Milestone: Writing Functions</h1>
+
+    <h2>Purpose</h2>
+    <p>Prove that you can write functions with parameters and call those
+    functions with arguments.</p>
+
+    <h2>Problem Statement</h2>
+    <p>Modern computers are capable of performing all sorts of
+    calculations to produce numbers. However, they are also capable of
+    performing calculations to produce art, illustrations, animations,
+    movies, and music.</p>
+
+    <h2>Assignment</h2>
+    <p>During this prove milestone and the next prove assignment, you
+    will write a Python program that draws a semi-realistic outdoor
+    scene in a computer window. To draw the shapes in the scene, your
+    program will call functions in a Python library named Draw 2-D.
+    Your program can draw any outdoor scene that you like as long as it
+    meets these requirements:</p>
+
+    <ul>
+        <li><div>The scene must be outdoor and include part of the
+        sky.</div></li>
+        <li><div>The sky must have clouds.</div></li>
+        <li><div>The scene must include repetitive objects such as
+        blades of grass, trees, leaves on a tree, birds, flowers,
+        insects, fish, pickets in a fence, dashed lines on a road,
+        buildings, bales of hay, snowmen, snowflakes, or
+        icicles.</div></li>
+        <li><div>Each of the objects in your scene should be drawn in
+        its own function such as <code>draw_sky</code>,
+        <code>draw_cloud</code>, <code>draw_ground</code>,
+        <code>draw_flower</code>, <code>draw_fence</code>,
+        <code>draw_fish</code>, etc.</div></li>
+    </ul>
+
+    <p>During this milestone, you will write code that draws the sky,
+    the ground, and clouds in your scene. During the next lesson, you
+    will write code that completes your scene. As you write your
+    program, write it so that it draws objects in the order of farthest
+    away to nearest. For example, you program should draw the sky first,
+    then clouds, then the ground, then trees, then insects in the trees.
+    Be creative.</p>
+
+    <h3>Scene Gallery</h3>
+    <p>The following example scene was drawn by a student's Python
+    program and fulfills the requirements of this assignment.</p>
+
+    <div class="figure full">
+    <img src="../lesson04/gallery/benjamin3.png"
+    alt="A semi-realistic outdoor scene drawn by a Python program"
+    title="A semi-realistic outdoor scene drawn by a Python program"></div>
+
+    <p>If you would like ideas about what your program can draw, look at
+    the scenes in <a href="../lesson04/gallery/index.html">this gallery</a>.
+    All the scenes in the gallery were drawn by programs written by
+    former CSE&nbsp;111 students.</p>
+
+    <h2 id="docs">Helpful Documentation</h2>
+    <ul class="long">
+        <li><div>The <a href="../lesson02/prepare.html">prepare content</a>
+        for the previous lesson explains how to call functions.</div></li>
+
+        <li><div>The <a href="prepare.html">prepare content</a> for this
+        lesson explains how to write functions.</div></li>
+
+        <li><div>The <a href="draw2d.html">documentation</a>
+        for the Draw 2-D library includes an overview, function
+        reference, color chart, and example programs.</div></li>
+
+        <li><div>The following videos walk through examples of using
+        functions to draw with <code>tkinter</code>.
+        <ul class="videos">
+            <li><div><a href="https://content.byui.edu/items/a9e60503-b5e7-40f0-bf48-ebf1a7441d25/1/drawing_with_functions_part1.mp4">Drawing with Functions, part 1</a> <span class="duration">(16 minutes)</span></div></li>
+
+            <li><div><a href="https://content.byui.edu/items/a9e60503-b5e7-40f0-bf48-ebf1a7441d25/1/drawing_with_functions_part2.mp4">Drawing with Functions, part 2</a> <span class="duration">(15 minutes)</span></div></li>
+        </ul></div></li>
+    </ul>
+
+    <h2>Steps</h2>
+    <p>Do the following:</p>
+
+    <ol class="long">
+        <li><div>Download the <code>draw2d/draw2d.py</code> file and
+        save it in the same folder where you will save your
+        program.</div></li>
+
+        <li><div>Using VS Code, create a new file and copy and paste the
+        following code into your new file. This beginning code imports
+        the functions from the Draw 2-D library and creates a window and
+        a canvas that your program will draw into.
+
+<div class="pre" id="ex1"><pre class="linenums"></pre>
+<pre class="python"># Import the functions from the Draw 2-D library
+# so that they can be used in this program.
+from draw2d import \
+    start_drawing, \
+    draw_line, draw_oval, draw_arc, draw_rectangle, \
+    draw_triangle, draw_polygon, draw_text, \
+    finish_drawing
+
+
+def main():
+    scene_width = 800
+    scene_height = 500
+
+    # Call the start_drawing function in the draw2d.py library
+    # which will open a window and create a canvas.
+    canvas = start_drawing(scene_width, scene_height, "Scene")
+
+    # Call your drawing functions such
+    # as draw_sky and draw_ground here.
+
+
+
+    # Call the finish_drawing function
+    # in the draw2d.py library.
+    finish_drawing(canvas)
+
+
+# Define your functions such as
+# draw_sky and draw_ground here.
+
+
+
+# Call the main function so that
+# this program will start executing.
+main()</pre></div>
+        </div></li>
+
+        <li><div>Save your new file as <code>scene.py</code> and run
+        your new program. When you run it, it should open a window that
+        contains an empty canvas as shown in the following figure.
+
+        <div class="figure full">
+        <img src="empty.png"
+        alt="An empty canvas created by the Draw 2-D library"
+        title="An empty canvas created by the Draw 2-D library"></div>
+        </div></li>
+
+        <li><div>Starting at
+        <span class="cross" data-ref="ex1">line&nbsp;30</span> of your
+        new program, write your functions to draw the sky, ground, and
+        clouds.</div></li>
+
+        <li><div>Starting at
+        <span class="cross" data-ref="ex1">line&nbsp;20</span>,
+        write calls to your drawing functions.</div></li>
+    </ol>
+
+    <h2>Intent</h2>
+    <p>The intent of this assignment is not to train you to become a
+    world-famous cloud artist. Instead, the intent is to teach you how
+    to apply the following principles to a real programming problem:</p>
+    <ol>
+        <li><div>Dividing a large program into parts (functions)</div></li>
+        <li><div>Writing a function</div></li>
+        <li><div>Deciding what needs to be a parameter in a function
+        definition</div></li>
+        <li><div>Calling a function with different argument values to
+        produce different results</div></li>
+        <li><div>Understanding how to separate the parts of a function
+        that should stay the same and the parts that depend on
+        parameters, in order to make the function as reusable as
+        possible.</div></li>
+    </ol>
+
+    <p>Your program must be divided into functions such as
+    <code>draw_sky</code>, <code>draw_cloud</code>,
+    <code>draw_ground</code>, <code>draw_bird</code>,
+    <code>draw_grass_blade</code>, or <code>draw_insect</code>. The
+    headers for the <code>draw_sky</code>, <code>draw_ground</code>,
+    and <code>draw_pine_tree</code> functions in the
+    <a href="draw2d.html#ex1">example program</a> of the Draw 2-D
+    documentation are good examples for the headers of all your draw_*
+    functions. Below are a few other examples of headers for functions
+    that you might want to include in your program. However, these are
+    simply examples, and you can change them in your program or even
+    exclude them from your program.</p>
+
+<div class="pre"><pre class="python">
+def draw_house(canvas, house_left, house_bottom):
+
+def draw_bird(canvas, bird_center, bird_top):
+
+def draw_pebble(canvas, pebble_left, pebble_top, pebble_radius):
+
+def draw_picket(canvas, picket_left, picket_bottom):
+
+def draw_grass_blade(canvas, blade_left, blade_top, blade_height):</pre></div>
+
+    <p>The following call graph shows the functions for a well-designed
+    scene drawing program. From the call graph we see that this program
+    is divided into small functions (<code>draw_sky</code>,
+    <code>draw_ground</code>, <code>draw_sun</code>,
+    <code>draw_cloud</code>, etc.). We see that the <code>main</code>
+    function calls the <code>draw_sky</code> and
+    <code>draw_ground</code> functions. The <code>draw_sky</code>
+    function calls the <code>draw_sun</code>, <code>draw_cloud</code>,
+    and <code>draw_bird</code> functions, and so on. This is a good
+    design because each function is relatively small and performs just
+    one task. Also, because the <code>draw_flower</code> function has
+    parameters (not shown in the diagram), a programmer can write
+    multiple calls to the <code>draw_flower</code> function, which will
+    easily draw multiple flowers in his scene. The
+    <code>draw_cloud</code>, <code>draw_bird</code>, and
+    <code>draw_tree</code> functions also have parameters, and a
+    programmer can write multiple calls to them, which will easily draw
+    multiple clouds, birds, and trees. This is a good design.</p>
+
+    <div class="figure center">
+        <img src="call_graph_prove.svg" style="width:36em"
+        alt="The call graph from a well-designed program that draws an outdoor scene"
+        title="The call graph from a well-designed program that draws an outdoor scene">
+        <div>The call graph for a well-designed program. Because the
+        program is divided into small functions that each perform a
+        single task, the program is well-designed.</div>
+    </div>
+
+    <p>The next call graph shows the functions for a different scene
+    drawing program. Notice that this program isn't separated into small
+    functions. Instead, all the code to draw an outdoor scene is inside
+    the <code>main</code> function. The scene that this program draws
+    may look very nice and have just as many objects as a well-designed
+    program. However, the <code>main</code> function in this second
+    program will be very long, complex, and confusing. This is a poor
+    design.</p>
+
+    <div class="figure center">
+        <img src="call_graph_prove_bad.svg" style="width:19em"
+        alt="The call graph from a poorly designed program that draws an outdoor scene"
+        title="The call graph from a poorly designed program that draws an outdoor scene">
+        <div>The call graph for a poorly designed program. Because the
+        program is not divided into small functions, the
+        <code>main</code> function calls the Draw 2-D functions to draw
+        all the objects in the scene. The <code>main</code>
+        function will be very long and confusing.</div>
+    </div>
+
+    <h2>Testing Procedure</h2>
+    <p>Verify that your program works correctly by following each
+    step in this testing procedure:</p>
+
+    <ol class="test">
+        <li><div>Run your program and verify that it correctly opens a
+        window and draws within that window an outdoor scene that
+        contains at least the sky, clouds, and the ground.</div></li>
+    </ol>
+
+    <h2>Submission</h2>
+    <p>On or before the due date, return to I-Learn and report your
+    progress on this milestone.</p>
+</article>
+<footer>
+    <small>Copyright &copy; 2020, Brigham Young University - Idaho. All
+    rights reserved.</small>
+</footer>
+</body>
+</html>

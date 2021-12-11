@@ -1,0 +1,772 @@
+@import url("reset.css");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Crimson+Text&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap");
+
+:root {
+	--transpar: rgba(0, 0, 0, 0);
+
+	--light-bk-color: rgba(255, 255, 255, 1);
+	--light-fg-color: rgba(4, 4, 4, 1);
+
+	--dark-bk-color: rgba(0, 0, 0, 1);
+	--dark-fg-color: rgba(184, 184, 184, 1);
+
+	--border: rgba(112, 112, 112, 1);
+
+	--light-coral: rgba(255, 245, 242, 1);
+	--coral: rgba(255, 127, 80, 1);
+	--dark-coral: rgba(33, 16, 10, 1);
+
+	--light-green: rgba(127, 255, 127, 1);
+	--dark-green: rgba(37, 76, 37, 1);
+
+	--light-byui-blue: rgba(237, 245, 249, 1);
+	--byui-blue: rgba(0, 118, 182, 1);
+	--dark-byui-blue: rgba(0, 23, 36, 1);
+
+	--bk-color: var(--light-bk-color);
+	--fg-color: var(--light-fg-color);
+
+	--link-before-fg-color: var(--byui-blue);
+	--link-hover-fg-color: var(--coral);
+	--link-active-fg-color: red;
+	--link-visited-fg-color: purple;
+
+	--heading-fg-color: var(--byui-blue);
+	--bullet-fg-color: var(--byui-blue);
+	--dfn-fg-color: var(--coral);
+	--strong-fg-color: var(--coral);
+	--user-input-bk-color: var(--coral);
+	--user-input-fg-color: white;
+
+	--line-number-hilite: var(--byui-blue);
+	--python-bk-color: var(--light-coral);
+	--console-bk-color: var(--light-byui-blue);
+
+	--code-line-hilite: var(--light-green);
+	--console-line-hilite: rgba(208, 229, 241, 1);
+}
+
+body {
+	background-color: var(--bk-color);
+	color: var(--fg-color);
+}
+@media screen {
+	body {
+		font-family: "Open Sans", Arial, Helvetica, Verdana, sans-serif;
+		font-size: 110%;
+	}
+	body.dark {
+		--bk-color: var(--dark-bk-color);
+		--fg-color: var(--dark-fg-color);
+
+		--python-bk-color: var(--dark-coral);
+		--code-line-hilite: var(--dark-green);
+		--console-bk-color: var(--dark-byui-blue);
+	}
+}
+@media print {
+	body {
+		font-family: "Crimson Text", Garamond, Georgia, serif;
+		font-size: 100%;
+
+		filter: grayscale(100%);
+
+		--bk-color: white;
+		--fg-color: black;
+
+		--heading-fg-color: var(darkgray);
+		--bullet-fg-color: var(darkgray);
+
+		--dfn-fg-color: darkgray;
+		--strong-fg-color: darkgray;
+		--user-input-bk-color: white;
+		--user-input-fg-color: darkgray;
+
+		--python-bk-color: white;
+		--console-bk-color: white;
+	}
+}
+
+
+@media screen {
+	header {
+		padding: 0.5em 1.5em;
+		background-color: var(--byui-blue);
+		color: white;
+	}
+	header a:link,
+	header a:hover,
+	header a:active,
+	header a:visited {
+		text-decoration: none;
+		color: inherit;
+	}
+	header > a.logo {
+		display: inline-block;
+		margin-right: 1.5em;
+		vertical-align: middle;
+		font-family: Georgia, Palatino, "Book Antiqua", serif;
+		text-transform: uppercase;
+		max-width: 5.5em;
+	}
+	header > a.logo > div:first-child {
+		margin-bottom: -0.02em;
+		font-size: 150%;
+		font-weight: bolder;
+		text-align: center;
+	}
+	header > a.logo > div:last-child {
+		border-top: 1px solid;
+		padding-top: 0.11em;
+		font-size: 94%;
+		font-weight: lighter;
+		letter-spacing: 0.08em;
+		text-align: center;
+	}
+	header > h2 {
+		display: inline-block;
+		vertical-align: middle;
+		font-size: 125%;
+		font-weight: normal;
+		white-space: normal;
+	}
+	header > h2 > a {
+		white-space: nowrap;
+	}
+	header > div.colorCtrl {
+		float: right;
+		cursor: pointer;
+		margin: 0.25em 0 0 1.5em;
+		font-size: 125%;
+	}
+}
+@media print {
+	iframe.video {
+		display: none;
+	}
+	section {
+		page-break-before: always !important;
+		widows: 2;
+		orphans: 2;
+	}
+
+
+	/* Paragraph classes that are used by overview/title.html which
+	* is a title page that is used when the content for this course
+	* is printed. */
+	p.course_code {
+		margin: 7em 0 0 0;
+		font-size: 150%;
+		text-align: center;
+	}
+	p.course_title {
+		margin: 0.5em 0 0 0;
+		color: var(--heading-fg-color);
+		font-size: 200%;
+		font-weight: bold;
+		text-align: center;
+	}
+	p.author {
+		margin: 25em 0 0 0;
+		text-align: center;
+	}
+}
+
+
+@media screen {
+	article {
+		line-height: 1.4;
+		max-width: 40em;
+		margin: 1em auto;
+		padding: 0 1em 0.5em 1em;
+	}
+
+	/* article.solution is used by overview/solution.html, which
+	 * shows sample solutions for checkpoints and team activities. */
+	article.solution {
+		max-width: none;
+	}
+	article.solution h1 {
+		font-size: 150%;
+	}
+}
+@media print {
+	article {
+		line-height: 1.15;
+		max-width: 6.5in;
+	}
+}
+
+article h1 {
+	clear: both;
+	text-align: center;
+	font-size: 175%;
+	margin: 0 0 1em 0;
+	page-break-after: avoid !important;
+}
+
+article h2 {
+	clear: both;
+	font-size: 150%;
+	font-weight: bold;
+	margin: 1.5em 0 0.25em 0;
+	padding-bottom: 0.25em;
+	border-bottom: 1px solid;
+	page-break-after: avoid !important;
+}
+
+article h3 {
+	font-weight: bold;
+	font-size: 130%;
+	color: var(--heading-fg-color);
+	margin: 1.5em 0 0.5em 0;
+	page-break-after: avoid !important;
+}
+
+article h4 {
+	font-weight: bold;
+	font-size: 110%;
+	margin: 1em 0 0.5em 0;
+	page-break-after: avoid !important;
+}
+
+/* As of November 2021, Chrome doesn't honor "page-break-after: avoid",
+so changing "-after" to "-inside" plus the following code is a work
+around.
+article h1::after,
+article h2::after,
+article h3::after,
+article h4::after {
+    content: " ";
+    display: block;
+    height: 100px;
+    margin-bottom: -100px;
+} */
+
+article p,
+article div.p,
+article iframe {
+	margin: 0 0 1em 0;
+}
+
+article blockquote {
+	margin: 1em 1em 1em 1em;
+	border-left: 0.12em solid var(--bullet-fg-color);
+	padding-left: 0.5em;
+}
+
+article div.search {
+	margin: 1em auto;
+	border: 1px solid var(--border);
+	padding: 0.25em 0.5em;
+	white-space: pre-line;
+}
+
+
+article a:link { color: var(--link-before-fg-color); }
+article a:hover { color: var(--link-hover-fg-color); }
+article a:active { color: var(--link-active-fg-color); }
+article a:visited { color: var(--link-visited-fg-color); }
+
+article dfn {
+	color: var(--dfn-fg-color)
+}
+
+article em {
+	font-style: italic;
+}
+
+article strong {
+	font-weight: bold;
+	font-style: italic;
+	color: var(--strong-fg-color);
+}
+
+article var {
+	font-style: italic;
+}
+
+article span.duration {
+	font-size: smaller;
+}
+
+article span.nowrap {
+	white-space: nowrap;
+}
+
+
+/* Lists */
+article ol {
+	margin: 0 0 1em 2em;
+	list-style-type: decimal;
+}
+
+article ol > li ol > li ol {
+	list-style-type: lower-roman;
+}
+
+article ol > li ol {
+	list-style-type: lower-alpha;
+}
+
+article ol.long > li {
+	margin-bottom: 1em;
+}
+
+article li {
+	color: var(--bullet-fg-color);
+}
+
+article li > div {
+	color: var(--fg-color);
+	margin-left: 0.25em;
+}
+
+article ul {
+	margin: 0 0 1em 2em;
+	list-style-type: disc;
+}
+
+article ul.long > li {
+	margin-bottom: 1em;
+}
+
+article li ul {
+	list-style-type: circle;
+}
+
+article ul.links {
+	list-style-type: "»";
+}
+
+article ul.links > li {
+	padding-left: 0.3em;
+}
+
+article ul.references,
+article ul.tutorials,
+article ul.videos {
+	list-style-type: none;
+	margin-left: 1.5em;
+}
+
+article ul.references > li {
+	background-image: url("reference.png");
+	background-repeat: no-repeat;
+	min-height: 30px;
+	padding-left: 22px;
+}
+
+article ul.tutorials > li {
+	background-image: url("tutorial.png");
+	background-repeat: no-repeat;
+	min-height: 30px;
+	padding-left: 22px;
+}
+
+article ul.videos > li {
+	background-image: url("video.png");
+	background-repeat: no-repeat;
+	min-height: 30px;
+	padding-left: 34px;
+}
+
+article ul.note {
+	list-style-type: "*";
+}
+
+article ul.note > li {
+	padding-left: 0.4em;
+	color: var(--bullet-fg-color);
+}
+
+article dl.function {
+	margin: 0em 1em 1em 1em;
+}
+
+article dl.function dt {
+	border-left: 0.12em solid var(--bullet-fg-color);
+	padding-left: 0.5em;
+}
+
+article dl.function dd {
+	border-left: 0.12em solid var(--bullet-fg-color);
+	padding-left: 2.5em;
+	margin-bottom: 1em;
+}
+
+article dl.long dt {
+	padding-bottom: 1em;
+}
+
+article dl.long dd {
+	margin-bottom: 2em;
+}
+
+
+/* Mathematical Formulas */
+article div.formula {
+	white-space: nowrap;
+	text-align: center;
+	font-family: "Palatino Linotype", Palatino, Garamond, serif;
+	font-size: large;
+	page-break-inside: avoid !important;
+}
+
+article div.inline.formula {
+	display: inline-block;
+	margin: 0 0.5em;
+	vertical-align: baseline;
+}
+
+article div.block.formula {
+	margin: 1em 0;
+	vertical-align: middle;
+}
+
+article div.formula div {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+}
+
+article div.formula .baseline {
+	vertical-align: baseline;
+}
+
+article div.formula sup,
+article div.formula sub {
+	margin-left: 0.12em;
+}
+
+article div.formula div.supsub {
+	font-size: smaller;
+	margin-left: 0.12em;
+	line-height: 0.8;
+	vertical-align: -0.35em;
+	text-align: left;
+}
+
+article div.formula span.abs::before,
+article div.formula span.abs::after {
+	font-size: xx-large;
+	font-weight: 100;
+	vertical-align: middle;
+	content: "\7c";
+}
+
+article div.formula .paren::before {
+	padding-left: 0.1em;
+	content: "\28";
+	font-size: xx-large;
+	font-weight: 100;
+}
+
+article div.formula .paren::after {
+	padding-left: 0.1em;
+	content: "\29";
+	font-size: xx-large;
+	font-weight: 100;
+}
+
+article div.formula div.paren {
+	vertical-align: baseline;
+}
+
+article div.formula div.radic {
+}
+
+article div.formula div.radic.one > div:first-child {
+	margin-right: -0.25em;
+}
+
+article div.formula div.radic.onePlus > div:first-child {
+	transform: scale(1.1, 1.6); /* W3C */
+}
+
+article div.formula div.radic.two > div:first-child {
+	transform: scale(1.8, 3); /* W3C */
+	margin-right: 0.2em;
+}
+
+article div.formula div.radic > div:last-child {
+	border-top: 1px solid;
+	padding: 0 0.2em;
+}
+
+article div.formula div.sum > div > span {
+	display: block;
+}
+
+article div.formula div.sum > div > span.index {
+	font-size: smaller;
+}
+
+article div.formula div.sum > div > span.one {
+	margin: -0.3em 0 -0.2em 0;
+	font-size: x-large;
+}
+
+article div.formula div.sum > div > span.onePlus {
+	margin: -0.3em 0 -0.2em 0;
+	font-size: xx-large;
+}
+
+article div.formula div.sum > div > span.two {
+	margin: 0.3em 0 1em 0;
+	transform: scale(2.5, 3.2); /* W3C */
+}
+
+article div.formula div.sum > div:last-child {
+	vertical-align: -1.2em;
+}
+
+article div.formula div.fract {
+}
+
+article div.formula div.fract > div:first-child {
+	display: block;
+}
+
+article div.formula div.fract > div:last-child {
+	display: block;
+	margin-top: 0.25em;
+	border-top: 1px solid;
+	padding-top: 0.1em;
+}
+
+
+/* Figures */
+article div.figure {
+	page-break-inside: avoid !important;
+}
+
+article div.figure.full {
+	margin: 1em 0;
+}
+
+article div.figure.center {
+	text-align: center;
+}
+
+article div.figure.right {
+	float: right;
+	margin: 0 0 1em 1em;
+}
+
+article div.figure.code {
+	/* Instead of --python-bk-color, we must use --light-coral for
+	 * figures with code in them, because the figure foreground
+	 * colors will not chnage if the reader switches to dark mode. */
+	margin: 1em auto 1em 1.5em;
+	border: 1px solid var(--border);
+	background-color: var(--light-coral);
+	padding: 0;
+}
+
+article div.figure > img {
+	max-width: 100%;
+}
+
+article div.figure > div {
+	margin: 0;
+	font-size: 90%;
+}
+
+
+/* Cross reference link for line numbers in example code. */
+article span.cross {
+	cursor: pointer;
+	text-decoration: underline var(--link-before-fg-color) dotted;
+}
+
+
+/* Code containers */
+article code {
+	font-family: "Source Code Pro", Menlo, Monaco, Consolas, monospace;
+	white-space: nowrap;
+}
+
+
+article pre {
+	font-family: "Source Code Pro", Menlo, Monaco, Consolas, monospace;
+	line-height: 1.15;
+}
+@media screen {
+	article code,
+	article pre {
+		font-size: 98%;
+	}
+}
+@media print {
+	article code {
+		font-size: 80%;
+	}
+	article pre {
+		font-size: 78%;
+	}
+}
+
+article pre em,
+article code em {
+	font-weight: bold;
+	font-style: normal;
+}
+
+/* Container for console (terminal) input and output. */
+article pre.console {
+	margin: 1em 0 1em 1.5em;
+	border: 1px solid var(--border);
+	background-color: var(--console-bk-color);
+	padding: 0.25em 0.5em;
+	page-break-inside: avoid !important;
+}
+
+article pre.console span.input {
+	border: 1px solid var(--border);
+	padding: 0 0.25em;
+	background-color: var(--user-input-bk-color);
+	color: var(--user-input-fg-color);
+}
+
+article pre.console span.pass {
+	color: green;
+}
+
+article pre.console span.fail {
+	color: red;
+}
+
+/* Containers for line numbers and Python source code */
+article div.pre {
+	display: table;
+	position: relative;
+	margin: 1em auto 1em 1.5em;
+	border: 1px solid var(--border);
+	background-color: var(--python-bk-color);
+	padding: 0.25em 0.5em;
+}
+article div.pre.solution {
+	margin: 1em 0;
+}
+
+@media screen {
+	article div.pre > button.copy {
+		position: absolute;
+		top: 0.5em;
+		right: 0.25em;
+		visibility: hidden;
+		background-color: var(--light-bk-color);
+	}
+
+	article div.pre:hover > button.copy {
+		visibility: visible;
+	}
+
+	article div.pre > button.copy > img {
+		width: 2em;
+	}
+}
+@media print {
+	article div.pre > button.copy {
+		display: none;
+	}
+}
+
+article div.pre > pre {
+	display: table-cell;
+	margin: 0;
+	border: 0;
+	padding: 0;
+}
+
+article div.pre > pre.linenums {
+	padding-right: 1.25em;
+	text-align: right;
+	color: var(--border);
+}
+
+article div.pre > pre.linenums > .hi {
+	background-color: var(--line-number-hilite);
+	color: white;
+}
+
+article div.pre > pre.python {
+	min-width: 18em;
+}
+
+article pre.python span.hiScope  { background-color: yellow; }
+article pre.python span.hiVarDef { background-color: orange; }
+article pre.python span.hiVarUse { background-color: yellow; }
+article pre.python span.hiError  { background-color: red; }
+
+
+/* Tables */
+article table {
+	margin-bottom: 1em;
+}
+
+article table.center {
+	margin: 1em auto;
+}
+
+article table th,
+article table td {
+	padding: 0.1em 0.25em;
+}
+
+article table td.center { text-align: center; }
+article table td.number { text-align: right; }
+
+article table > thead > tr > th {
+	vertical-align: bottom;
+	text-align: center;
+	font-weight: bold;
+}
+
+article table > tbody > tr > th {
+	vertical-align: top;
+	text-align: left;
+	font-weight: bold;
+}
+
+article table.contents tbody > tr > th {
+	font-weight: bold;
+	font-size: 120%;
+	color: var(--heading-fg-color);
+	padding: 1.5em 0 0.5em 0;
+}
+article table.contents tbody > tr > td { padding-top: 0.3em; }
+article table.contents tbody > tr > td:first-child { min-width: 10em; }
+
+article table.prec > tbody > tr > td {
+    border: 1px solid var(--border);
+}
+article table.prec > tbody > tr > td.prec {
+    border: none;
+    text-align: center;
+}
+
+article table.list > tbody > tr > td {
+	text-align: center;
+}
+
+article table.list > tbody > tr.elems > td {
+	border: 1px solid var(--border);
+}
+
+article table.list > tbody > tr > td.label {
+	border: none;
+	text-align: right;
+}
+
+
+@media screen {
+	footer {
+		margin: 1em auto;
+		max-width: 40em;
+		font-size: 80%;
+	}
+}

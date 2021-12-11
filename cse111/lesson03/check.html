@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<!-- Copyright 2020, Brigham Young University - Idaho. All rights reserved. -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>CSE 111 - Checkpoint</title>
+    <script src="../site/color.js"></script>
+    <script src="../site/solution.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" type="text/css" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<header>
+    <div class="colorCtrl">&nbsp;</div>
+    <a class="logo" href="https://www.byui.edu">
+        <div>BYU</div>
+        <div>Idaho</div>
+    </a>
+    <h2><a href="https://byui.instructure.com">CSE 111</a> |
+        <a href="../index.html">Programming with Functions</a></h2>
+</header>
+<article>
+    <h1>03 Checkpoint: Writing Functions</h1>
+
+    <h2>Purpose</h2>
+    <p>Check your understanding of writing your own functions with
+    parameters and then calling those functions.</p>
+
+    <h2>Problem Statement</h2>
+    <p>Many vehicle owners record the fuel efficiency of their vehicles
+    as a way to track the health of the vehicle. If the fuel efficiency
+    of a vehicle suddenly drops, there is probably something wrong with
+    the engine or drive train of the vehicle. In the United States, fuel
+    efficiency for gasoline powered vehicles is calculated as miles per
+    gallon. In most other countries, fuel efficiency is calculated as
+    liters per 100 kilometers.</p>
+
+    <p>The formula for computing fuel efficiency in miles per gallon
+    is the following:</p>
+    <div class="block formula"><var>mpg</var> = <div class="fract"><div><var>end</var> &minus; <var>start</var></div><div><var>gallons</var></div></div></div>
+    <p>where <var>start</var> and <var>end</var> are both odometer
+    values in miles and <var>gallons</var> is a fuel amount in U.S.
+    gallons.</p>
+
+    <p>The formula for converting miles per gallon to liters per 100
+    kilometers is the following:</p>
+    <div class="block formula"><var>lp100k</var> = <div class="fract"><div>235.215</div><div><var>mpg</var></div></div></div>
+
+    <h2>Assignment</h2>
+    <p>Write a Python program that asks the user for three numbers:</p>
+    <ol>
+        <li><div>A starting odometer value in miles</div></li>
+        <li><div>An ending odometer value in miles</div></li>
+        <li><div>An amount of fuel in gallons</div></li>
+    </ol>
+
+    <p>Your program must calculate and print fuel efficiency in both
+    miles per gallon and liters per 100 kilometers. Your program must
+    have three functions named as follows:</p>
+    <ol>
+        <li><div><code>main</code></div></li>
+        <li><div><code>miles_per_gallon</code></div></li>
+        <li><div><code>lp100k_from_mpg</code></div></li>
+    </ol>
+
+    <p>All user input and printing must be in the <code>main</code>
+    function. In other words, the <code>miles_per_gallon</code> and
+    <code>lp100k_from_mpg</code> functions must not call the the
+    <code>input</code> or <code>print</code> functions.
+
+    <h2>Helpful Documentation</h2>
+    <ul>
+        <li><div>The <a href="../lesson02/prepare.html">prepare content</a>
+        for the previous lesson explains how to call a
+        function.</div></li>
+
+        <li><div>The <a href="prepare.html">prepare content</a> for this
+        lesson explains how to write a function.</div></li>
+    </ul>
+
+    <h2>Steps</h2>
+    <p>Copy and paste the following code into a new program named
+    <code>fuel_usage.py</code>. Use the pasted code as a design as you
+    write your program. Write code for each of the three functions.</p>
+
+<div class="pre"><pre class="python">
+def main():
+    # Get an odometer value in U.S. miles from the user.
+
+    # Get another odometer value in U.S. miles from the user.
+
+    # Get a fuel amount in U.S. gallons from the user.
+
+    # Call the miles_per_gallon function and store
+    # the result in a variable named mpg.
+
+    # Call the lp100k_from_mpg function to convert the
+    # miles per gallon to liters per 100 kilometers and
+    # store the result in a variable named lp100k.
+
+    # Display the results for the user to see.
+    pass
+
+
+def miles_per_gallon(start_miles, end_miles, amount_gallons):
+    """Compute and return the average number of miles
+    that a vehicle traveled per gallon of fuel.
+
+    Parameters
+        start_miles: An odometer value in miles.
+        end_miles: Another odometer value in miles.
+        amount_gallons: A fuel amount in U.S. gallons.
+    Return: Fuel efficiency in miles per gallon.
+    """
+    return
+
+
+def lp100k_from_mpg(mpg):
+    """Convert miles per gallon to liters per 100
+    kilometers and return the converted value.
+
+    Parameter mpg: A value in miles per gallon
+    Return: The converted value in liters per 100km.
+    """
+    return
+
+
+# Call the main function so that
+# this program will start executing.
+main()</pre></div>
+
+    <h2>Testing Procedure</h2>
+    <p>Verify that your program works correctly by following each step
+    in this testing procedure:</p>
+    <ol>
+        <li><div>Run your program and enter the inputs shown below.
+        Ensure that your program's output matches the output below.
+<pre class="console">&gt; python fuel_usage.py
+Enter the first odometer reading (miles): <span class="input">30462</span>
+Enter the second odometer reading (miles): <span class="input">30810</span>
+Enter the amount of fuel used (gallons): <span class="input">11.2</span>
+31.1 miles per gallon
+7.57 liters per 100 kilometers</pre>
+        </div></li>
+    </ol>
+
+    <h2>Sample Solution</h2>
+    <p>When your program is finished, view the <a class="solution"
+    href="check_solution.py">sample solution</a> for this assignment to
+    compare your solution to that one. Before looking at the sample
+    solution, you should work to complete this checkpoint program.
+    However, if you have worked on it for at least an hour and are still
+    having problems, feel free to use the sample solution to help you
+    finish your program.</p>
+
+    <h3>Call Graph</h3>
+    <p>The following call graph shows the function calls and returns in
+    the sample solution for this assignment. From this call graph we see
+    that the computer starts executing the sample program by calling the
+    <code>main</code> function. While executing the <code>main</code>
+    function, the computer calls the <code>input</code> and
+    <code>float</code> functions. Then the computer calls the
+    <code>miles_per_gallon</code> and <code>lp100k_from_mpg</code>
+    functions. Finally the computer calls the <code>print</code>
+    function which is the end of the program.</p>
+
+    <div class="figure center">
+        <img style="width:23em" src="call_graph_check.svg"
+        alt="A function call graph for this assignment"
+        title="A function call graph for this assignment">
+    </div>
+
+    <h2>Ponder</h2>
+    <p>After you finish this assignment, congratulate yourself because
+    you wrote a Python program with three user-defined functions named
+    <code>main</code>, <code>miles_per_gallon</code>, and
+    <code>lp100k_from_mpg</code>. Is it important that you know how to
+    write your own functions? Why?</p>
+
+    <h2>Submission</h2>
+    <p>When complete, report your progress in the associated I-Learn
+    quiz.</p>
+</article>
+<footer>
+    <small>Copyright &copy; 2020, Brigham Young University - Idaho. All
+    rights reserved.</small>
+</footer>
+</body>
+</html>
