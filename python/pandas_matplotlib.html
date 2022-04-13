@@ -1,0 +1,376 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="python, pandas, matplotlib, data visualization">
+    <meta name="description" content="A brief introduction to drawing plots with Python pandas and matplotlib. Includes example Python code to draw a vertical column plot and a pie plot.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualization with Pandas</title>
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+</head>
+
+<body>
+<div class="back">
+<div class="top"></div>
+<div class="page">
+<header>
+    <h2>Barzee&rsquo;s Notes</h2>
+    <h3>Smart Software Development</h3>
+</header>
+<div class="side">
+    <h2>Technologies</h2>
+    <nav><ul>
+        <li><div><a href="../python/index.html">Python</a></div></li>
+        <li><div><a href="../javascript/index.html">JavaScript</a></div></li>
+        <li><div><a href="../java/index.html">Java</a></div></li>
+        <li><div><a href="../c_cpp/index.html">C and C++</a></div></li>
+        <li><div><a href="../shell/index.html">Shell Scripts</a></div></li>
+        <li><div><a href="../database/index.html">Database</a></div></li>
+        <li><div><a href="../modeling/index.html">Modeling</a></div></li>
+        <li><div><a href="../excel/index.html">Microsoft Excel</a></div></li>
+        <li><div><a href="../math/index.html">Math</a></div></li>
+    </ul></nav>
+
+    <h2>About the Author</h2>
+    <p>Rex A. Barzee is a professor of Computer Information Technology
+    at Brigham Young University&ndash;Idaho. He is an inventor of two
+    United States patents and the author of numerous books. He earned a
+    bachelor’s and a master’s degree in Computer Science from Brigham
+    Young University. Before becoming a professor, he worked for eight
+    years as a software engineer. You can see his
+    <a href="https://www.linkedin.com/in/rex-barzee-306a0b37/">full profile</a>
+    at LinkedIn.</p>
+</div>
+
+<article>
+<h1>Data Visualization with Pandas&mdash;a quick introduction</h1>
+<p><dfn>Data visualization</dfn> is the graphical representation of data
+in charts and graphs to help people visualize and understand data more
+easily than they would by looking at tables of numbers. Data
+visualization is closely related to and often comes after data analysis.
+In other words, a data scientist will often perform data analysis to
+process large data sets and then employ data visualization techniques to
+make charts and graphs from the data.</p>
+
+<p>The <code>pandas</code> module includes functions to draw different
+types of charts. In <code>pandas</code>, charts are called plots.
+Interestingly, the plots are not actually drawn by <code>pandas</code>
+but instead by another Python module named
+<code>matplotlib.pyplot</code>.</p>
+
+<p>Drawing a plot with the <code>pandas</code> module can be as simple
+as these three steps:</p>
+<ol>
+    <li><div>read the data</div></li>
+    <li><div>define the plot</div></li>
+    <li><div>draw (show) the plot</div></li>
+</ol>
+
+<p>For example:</p>
+<div class="pre">
+<pre class="linenums">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10
+11</pre>
+<pre class="python" id="ex1">
+import pandas as pd
+import matplotlib.pyplot as pyplot
+
+# Step 1. Read a DataFrame from a CSV file.
+df = pd.read_csv("filename.csv")
+
+# Step 2. From the DataFrame, define a vertical bar plot.
+df.plot(kind="bar", x="column_name_1", y="column_name_2")
+
+# Step 3. Draw and show all defined plots.
+pyplot.show()</pre></div>
+
+<p>In the above example,
+<span class="cross" data-ref="ex1">lines&nbsp;2 and&nbsp;11</span> are
+easy to forget but without them, the plots that your code defines will
+not be shown on the computer's monitor.</p>
+
+<p><span class="cross" data-ref="ex1">Line&nbsp;8</span> in the example
+code above contains a call to the pandas <code>DataFrame.plot</code>
+method. The <var>kind</var> named argument tells the
+<code>DataFrame.plot</code> method what type of plot to draw. There are
+at least nine types of plots that <code>DataFrame.plot</code> can draw
+by changing the value for the <var>kind</var> named parameter as
+follows:</p>
+
+<ul>
+    <li><div><code>area</code> - area plot</div></li>
+    <li><div><code>bar</code> - vertical bar plot</div></li>
+    <li><div><code>barh</code> - horizontal bar plot</div></li>
+    <li><div><code>box</code> - box plot</div></li>
+    <li><div><code>density</code> - density plot</div></li>
+    <li><div><code>hexbin</code> - hexagonal bin plot</div></li>
+    <li><div><code>hist</code> - histogram</div></li>
+    <li><div><code>pie</code> - pie plot</div></li>
+    <li><div><code>scatter</code> - scatter plot</div></li>
+</ul>
+
+<p>In addition to the <code>kind</code> named argument, the
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.html">plot method</a>
+can take many other named arguments including these:</p>
+
+<ul>
+    <li><div><code>x</code>: string or list of strings - The column or
+    columns to plot along the x-axis.</div></li>
+    <li><div><code>y</code>: string or list of strings - The column or
+    columns to plot along the y-axis.</div></li>
+    <li><div><code>title</code>: string - The title to use for the
+    plot.</div></li>
+    <li><div><code>xlabel</code>: string - The label for the x-axis.</div></li>
+    <li><div><code>ylabel</code>: string - The label for the y-axis.</div></li>
+    <li><div><code>color</code>: string - The of the color that the plot
+    will be drawn in.</div></li>
+    <li><div><code>legend</code>: boolean - True to draw the legend,
+    False to hide the legend.</div></li>
+</ul>
+
+<p>The <var>x</var> and <var>y</var> named arguments tell the
+<code>DataFrame.plot</code> method which columns in the data frame to
+use as the x and y axes in the plot. You can cause pandas to draw the
+data from multiple columns on the same plot by passing a list of strings
+for the <var>y</var> named argument as shown on <span class="cross"
+data-ref="ex2">line&nbsp;3</span> in the next code example.</p>
+
+<div class="pre">
+<pre class="linenums">1<br>2<br>3</pre>
+<pre class="python" id="ex2">
+# Define a vertical bar plot from the DataFrame.
+df.plot(kind="bar", x="column_name_1",
+    y=["column_name_2", "column_name_3", "column_name_4"])</pre></div>
+
+<p>Writing code to define a plot for a pandas DataFrame is usually
+simple. Unfortunately, writing code to define a plot for a pandas Series
+can be very confusing. Recall that a pandas DataFrame contains multiple
+rows and columns but that a pandas Series contains only a single column.
+When we call <code>DataFrame.plot</code>, we can use both the
+<var>x</var> and <var>y</var> named arguments to chose the columns for
+the x and y axes. However, when we call <code>Series.plot</code>, a
+Series has one column only, so we shouldn't use both the <var>x</var>
+and <var>y</var> named arguments, but instead we should use only one of
+them. This problem is most often seen when we write code to group and
+aggregate a DataFrame which often produces a Series. In that situation,
+when we call Series.plot we should use just the <var>y</var> named
+argument.</p>
+
+<p>Although drawing a plot can be very simple, a data scientist may have
+to write significant amounts of code to analyze and process the data
+before defining a plot.</p>
+
+<p>There are many options that you can use in your code to modify the
+look and layout of a plot. Some of these options are not available
+through the <code>pandas</code> functions but instead are available
+through the <code>matplotlib.pyplot</code> functions.</p>
+
+<h2>Examples</h2>
+<p>Below are two plots that were drawn by this Python program that uses
+<code>pandas</code> and <code>matplotlib.pyplot</code>.</p>
+
+<div class="pre">
+<pre class="linenums">
+1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9
+10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19
+20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29
+30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39
+40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49
+50<br>51<br>52<br>53<br>54<br>55<br>56<br>57<br>58<br>59
+60<br>61<br>62<br>63<br>64<br>65<br>66<br>67<br>68<br>69
+70<br>71<br>72<br>73<br>74<br>75<br>76<br>77<br>78<br>79
+80<br>81<br>82<br>83<br>84<br>85<br>86<br>87<br>88<br>89
+90<br>91<br>92<br>93<br>94<br>95<br>96<br>97<br>98<br>99
+100<br>101<br>102<br>103<br>104<br>105<br>106<br>107<br>108<br>109
+110<br>111<br>112<br>113<br>114<br>115<br>116<br>117<br>118<br>119
+120<br>121<br>122<br>123<br>124<br>125<br>126<br>127<br>128<br>129
+130<br>131</pre>
+<pre class="python">
+import matplotlib.pyplot as pyplot
+import matplotlib.ticker as ticker
+import pandas as pd
+
+
+def main():
+    try:
+        # Read the water.csv file and convert the
+        # readDate column from a string to a datetime64.
+        df = pd.read_csv("water.csv", parse_dates=["readDate"])
+
+        combine_account_types(df)
+        sum_df = sum_usage_by_account_type(df)
+
+        # Call the show_usage_sum function which will define two plots.
+        show_usage_sum(sum_df)
+
+        # Show all defined plots.
+        pyplot.show()
+
+    except RuntimeError as run_err:
+        print(type(run_err).__name__, run_err, sep=": ")
+
+
+def combine_account_types(df):
+    """The water.csv file contains too many account types to be
+    shown neatly in a pie plot, so combine some of the account types.
+    """
+    categories = {
+        "Airport Hanger" : "Other",
+        "Apartment Complex" : "Apt. Complex",
+        "Business" : "Business",
+        "Business with Apartment" : "Business",
+        "University" : "University",
+        "Church" : "Church",
+        "City" : "City",
+        "Free" : "Other",
+        "Out of Town" : "Out of Town",
+        "Residence" : "Residence",
+        "Residence with Apartment" : "Residence",
+        "School" : "School",
+        "Sprinklers" : "Other",
+        "Town Homes" : "Town Homes",
+        "Trailer Court" : "Trailer Court",
+        "Vacant" : "Other",
+    }
+
+    # Use the Pandas DataFrame.map function
+    # to combine some of the account types.
+    df["accountType"] = df["accountType"].map(categories)
+
+
+def sum_usage_by_account_type(df):
+    """Create and return a new data frame that
+    contains total water usage by account type.
+    """
+    group = df.groupby("accountType")
+    sum_df = group.aggregate(sumUsage=("usage", "sum")).reset_index()
+    return sum_df
+
+
+def show_usage_sum(sum_df):
+    """Define a pie plot and a vertical bar plot
+    that both show total water usage by account type.
+    """
+    colors = {
+        "City":"gold", "School":"purple", "University":"violet",
+        "Apt. Complex":"pink",
+        "Trailer Court":"green", "Town Homes":"lime",
+        "Out of Town":"gray",
+        "Residence":"yellow",
+        "Business":"skyblue",
+        "Other":"brown", "Church":"orange",
+    }
+
+    # Create a dictionary that contains the
+    # desired order for the account types.
+    order = colors.keys()
+    order = dict(zip(order, range(len(order))))
+
+    # Get the colors that will be used in both plots.
+    colors = colors.values()
+
+    # Add a column named order that contains the desired sort order.
+    sum_df["order"] = sum_df["accountType"].map(order)
+
+    # Sort the data by the values in the "order" column.
+    sum_df.sort_values("order", inplace=True)
+
+    # Keep only the accountType and usage columns.
+    columns = ["accountType", "sumUsage"]
+    sum_df = sum_df[columns]
+
+    # Make the accountType column be the index.
+    sum_df.set_index("accountType", inplace=True)
+
+    # Print the data frame so we can verify that it's correct.
+    print(sum_df)
+
+    # Define a pie plot.
+    title = "Water Usage 2015 - 2019"
+    sum_df.plot(kind="pie", y="sumUsage", colors=colors,
+            title=title, label="", legend=None)
+
+    # Call the pyplot.tight_layout function, which will format the
+    # previously defined plot so that all of its parts are spaced
+    # nicely. Strangely, pyplot.tight_layout must be called multiple
+    # times, once for each defined plot, but pyplot.show needs to be
+    # called only once.
+    pyplot.tight_layout()
+
+    # Define a vertical bar plot.
+    bar_plot = sum_df.plot(kind="bar", y="sumUsage", color=colors,
+            title=title, xlabel="", ylabel="x1000 gallons", legend=None)
+    fmtr = ticker.FuncFormatter(lambda val, pos: f"{val:,.0f}")
+    bar_plot.yaxis.set_major_formatter(fmtr)
+
+    # Call the pyplot.tight_layout function, which will format the
+    # previously defined plot so that all of its parts are spaced
+    # nicely. Strangely, pyplot.tight_layout must be called multiple
+    # times, once for each defined plot, but pyplot.show needs to be
+    # called only once.
+    pyplot.tight_layout()
+
+
+# If this file is executed like this:
+# &gt; python sample_plots.py
+# then call the main function. However, if this file is simply
+# imported (e.g. into a test file), then skip the call to main.
+if __name__ == "__main__":
+    main()</pre>
+</div>
+
+<p>Both plots show the exact same data, first as a pie plot and then as
+a vertical bar plot. Although pie plots are very popular, most data
+scientists don't use them because they convey less information than a
+bar plot.</p>
+
+<figure class="center" style="width:642px">
+    <img src="pie.png"
+    alt="A pie plot that shows total water used in the city during the
+    years 2015 through 2019"
+    title="A pie plot that shows total water used in the city during
+    the years 2015 through 2019">
+    <figcaption><em>Figure 1</em>: A pie plot that shows the amount of
+    water used in the city during the years 2015 through
+    2019.</figcaption>
+</figure>
+
+<figure class="center" style="width:642px">
+    <img src="vbar.png"
+    alt="A vertical bar plot that shows the amount of water used in the
+    city during the years 2015 through 2019"
+    title="A vertical bar plot that shows the amount of water used in
+    the city during the years 2015 through 2019">
+    <figcaption><em>Figure 2</em>: A vertical bar plot that shows the
+    amount of water used in the city during the years 2015 through
+    2019.</figcaption>
+</figure>
+
+<h2>Documentation</h2>
+<ul>
+    <li><div>The <code>pandas</code> Getting Started Tutorials contain a
+    helpful
+    <a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/intro_tutorials/04_plotting.html">short section about creating plots</a>.</div></li>
+
+    <li><div>The <code>pandas</code> User Guide contains a
+    <a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/visualization.html">long section about creating plots</a>.</div></li>
+</ul>
+</article>
+
+<footer>
+    <p>Rex A. Barzee used his best efforts in preparing this article.
+    These efforts include the development, research, and testing of the
+    theories and computer programs in this article to determine their
+    correctness. Mr. Barzee makes no warranty of any kind, expressed or
+    implied, with regard to these programs or the documentation
+    contained in this article. Mr. Barzee shall not be liable in any
+    event for incidental or consequential damages in connection with, or
+    arising out of, the furnishing, performance, or use of these
+    programs.</p>
+
+    <p>Copyright &copy; 2022 Rex A. Barzee. All rights reserved.</p>
+</footer>
+</div>  <!-- page -->
+</div>  <!-- back -->
+</body>
+</html>
+
