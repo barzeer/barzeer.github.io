@@ -6,42 +6,12 @@
     <meta name="description" content="A brief introduction to drawing plots with Python pandas and matplotlib. Includes example Python code to draw a vertical column plot and a pie plot.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Visualization with Pandas</title>
+    <script src="../site/template.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
     <link rel="stylesheet" type="text/css" href="../site/style.css">
 </head>
 
 <body>
-<div class="back">
-<div class="top"></div>
-<div class="page">
-<header>
-    <h2>Barzee&rsquo;s Notes</h2>
-    <h3>Smart Software Development</h3>
-</header>
-<div class="side">
-    <h2>Technologies</h2>
-    <nav><ul>
-        <li><div><a href="../python/index.html">Python</a></div></li>
-        <li><div><a href="../javascript/index.html">JavaScript</a></div></li>
-        <li><div><a href="../java/index.html">Java</a></div></li>
-        <li><div><a href="../c_cpp/index.html">C and C++</a></div></li>
-        <li><div><a href="../shell/index.html">Shell Scripts</a></div></li>
-        <li><div><a href="../database/index.html">Database</a></div></li>
-        <li><div><a href="../modeling/index.html">Modeling</a></div></li>
-        <li><div><a href="../excel/index.html">Microsoft Excel</a></div></li>
-        <li><div><a href="../math/index.html">Math</a></div></li>
-    </ul></nav>
-
-    <h2>About the Author</h2>
-    <p>Rex A. Barzee is a professor of Computer Information Technology
-    at Brigham Young University&ndash;Idaho. He is an inventor of two
-    United States patents and the author of numerous books. He earned a
-    bachelor’s and a master’s degree in Computer Science from Brigham
-    Young University. Before becoming a professor, he worked for eight
-    years as a software engineer. You can see his
-    <a href="https://www.linkedin.com/in/rex-barzee-306a0b37/">full profile</a>
-    at LinkedIn.</p>
-</div>
-
 <article>
 <h1>Data Visualization with Pandas&mdash;a quick introduction</h1>
 <p><dfn>Data visualization</dfn> is the graphical representation of data
@@ -68,8 +38,11 @@ as these three steps:</p>
 
 <p>For example:</p>
 <div class="pre">
+<!--
 <pre class="linenums">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10
 11</pre>
+-->
+<pre class="linenums"></pre>
 <pre class="python" id="ex1">
 import pandas as pd
 import matplotlib.pyplot as pyplot
@@ -135,7 +108,10 @@ for the <var>y</var> named argument as shown on <span class="cross"
 data-ref="ex2">line&nbsp;3</span> in the next code example.</p>
 
 <div class="pre">
+<!--
 <pre class="linenums">1<br>2<br>3</pre>
+-->
+<pre class="linenums"></pre>
 <pre class="python" id="ex2">
 # Define a vertical bar plot from the DataFrame.
 df.plot(kind="bar", x="column_name_1",
@@ -169,6 +145,7 @@ through the <code>matplotlib.pyplot</code> functions.</p>
 <code>pandas</code> and <code>matplotlib.pyplot</code>.</p>
 
 <div class="pre">
+<!--
 <pre class="linenums">
 1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9
 10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19
@@ -184,6 +161,8 @@ through the <code>matplotlib.pyplot</code> functions.</p>
 110<br>111<br>112<br>113<br>114<br>115<br>116<br>117<br>118<br>119
 120<br>121<br>122<br>123<br>124<br>125<br>126<br>127<br>128<br>129
 130<br>131</pre>
+-->
+<pre class="linenums"></pre>
 <pre class="python">
 import matplotlib.pyplot as pyplot
 import matplotlib.ticker as ticker
@@ -355,22 +334,5 @@ bar plot.</p>
     <a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/visualization.html">long section about creating plots</a>.</div></li>
 </ul>
 </article>
-
-<footer>
-    <p>Rex A. Barzee used his best efforts in preparing this article.
-    These efforts include the development, research, and testing of the
-    theories and computer programs in this article to determine their
-    correctness. Mr. Barzee makes no warranty of any kind, expressed or
-    implied, with regard to these programs or the documentation
-    contained in this article. Mr. Barzee shall not be liable in any
-    event for incidental or consequential damages in connection with, or
-    arising out of, the furnishing, performance, or use of these
-    programs.</p>
-
-    <p>Copyright &copy; 2022 Rex A. Barzee. All rights reserved.</p>
-</footer>
-</div>  <!-- page -->
-</div>  <!-- back -->
 </body>
 </html>
-
