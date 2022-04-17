@@ -151,6 +151,14 @@ header > h3 {
 	margin: 1em 0 0 0;
 }
 
+header a:link,
+header a:hover,
+header a:active,
+header a:visited {
+	text-decoration: none;
+	color: inherit;
+}
+
 
 div.side > h2 {
 	font-weight: bold;
@@ -303,7 +311,7 @@ article pre.console span.input {
 }
 
 
-/* Containers for line numbers and Python source code */
+/* Containers for line numbers and source code */
 article div.pre {
 	display: table;
 	position: relative;

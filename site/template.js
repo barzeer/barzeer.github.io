@@ -1,7 +1,6 @@
 "use strict";
 
 if (!window.hasOwnProperty('barzee')) {
-
 window.barzee = {
 	/** Reorganizes the structure of an HTML document or in other words,
 	 * surrounds the article with this structure:
@@ -48,8 +47,12 @@ window.barzee = {
 
 	createHeader : function() {
 		let header = this.createElem('header');
-		let h2 = this.createElem('h2', null, null, 'Barzee’s Notes');
-		let h3 = this.createElem('h3', null, null, 'Smart Software Development');
+		let h2 = this.createElem('h2');
+		let a = this.createElem('a',
+				null, {'href': '../index.html'}, 'Barzee’s Notes');
+		h2.appendChild(a);
+		let h3 = this.createElem('h3',
+				null, null, 'Smart Software Development');
 		header.appendChild(h2);
 		header.appendChild(h3);
 		return header;
@@ -166,12 +169,171 @@ window.barzee = {
 				elem.appendChild(span);
 			}
 		}
+	},
+
+
+	/** Adds a button to div.pre elements that will copy the code
+	 * within the div's last child pre element to the clipboard. */
+	addCopyButtons : function() {
+		const copyFunc = function(event) {
+			const button = event.currentTarget;
+			const div = button.parentElement;
+			const elems = div.getElementsByTagName('pre');
+			const pre = elems[elems.length - 1];
+
+			// Copy the text to the clipboard.
+			const text = pre.textContent;
+			const listener = function(event) {
+				event.clipboardData.setData('text/plain', text);
+				event.preventDefault();
+			};
+			document.addEventListener('copy', listener);
+			document.execCommand('copy');
+			document.removeEventListener('copy', listener);
+
+			// Select the text as a hint to the user that it was
+			// copied to clipboard. Selecting the text is not
+			// necessary for copying the text to the clipboard.
+			const select = window.getSelection();
+			let range = document.createRange();
+			range.selectNodeContents(pre);
+			select.removeAllRanges();
+			select.addRange(range);
+		};
+
+		const elems = document.querySelectorAll('div.pre');
+		for (let i = 0;  i < elems.length;  ++i) {
+			let image = this.createElem('img', null,
+					{'src': '../site/icons/copy.png',
+					 'alt': 'Copy code to the clipboard'});
+			let button = this.createElem('button', 'copy',
+					{'type': 'button',
+					 'title': 'Copy code to the clipboard'});
+			button.addEventListener('click', copyFunc);
+			button.appendChild(image);
+			elems[i].appendChild(button);
+		}
+	},
+
+
+	addCrossRefs : function() {
+		const getReferences = function(target) {
+			const space = /(\s|&nbsp;|<br>)+/g;
+
+			// Notice the dash and en dash in the character class.
+			const dash = /[-–]|&ndash;/;
+
+			let text = target.innerText;
+			let candidates = text.split(space);
+			let references = [];
+			for (let i = 0;  i < candidates.length;  ++i) {
+				let candidate = candidates[i];
+				if (dash.test(candidate)) {
+					let limits = candidate.split(dash);
+					let start = parseInt(limits[0]);
+					let end = parseInt(limits[1]);
+					if (! (Number.isNaN(start) || Number.isNaN(end))) {
+						for (let j = start;  j <= end;  ++j) {
+							references.push(j);
+						}
+					}
+				}
+				else {
+					let linenum = parseInt(candidate);
+					if (! Number.isNaN(linenum)) {
+						references.push(linenum);
+					}
+				}
+			}
+			return references;
+		};
+
+		const getAllLineNumbers = function(target) {
+			let refId = target.getAttribute('data-ref');
+			let div = document.getElementById(refId);
+			let lineNumPre = div.getElementsByTagName('pre')[0];
+			return lineNumPre.children;
+		};
+
+		const findLineNumber = function(lineNumbers, key) {
+			// The line numbers begin with 1 at index 0 and are
+			// sequential, so it's easy to find and return the
+			// span with the desired line number.
+			return lineNumbers[key - 1];
+		};
+
+		const on = function(event) {
+			/** Turn on highlighting for one or more line numbers. */
+			let target = event.target;
+			let lineNumbers = getAllLineNumbers(target);
+			let references = getReferences(target);
+			for (let i = 0;  i < references.length;  ++i) {
+				let number = references[i];
+				let elem = findLineNumber(lineNumbers, number);
+				elem.classList.add('hi');
+			}
+		};
+
+		const off = function(event) {
+			/** Turn off highlighting for one or more line numbers. */
+			let target = event.target;
+			let lineNumbers = getAllLineNumbers(target);
+			let references = getReferences(target);
+			for (let i = 0;  i < references.length;  ++i) {
+				let number = references[i];
+				let elem = findLineNumber(lineNumbers, number);
+				elem.classList.remove('hi');
+			}
+		};
+
+		const toggle = function(event) {
+			let target = event.target;
+			let state = target.getAttribute('data-on');
+			if (state == null) {
+				// Highlights are on because the user moved the mouse
+				// into the target before clicking on it. Because the
+				// user clicked on the target, set the highlights to
+				// stay on after the user moves out of the target.
+				target.removeEventListener('mouseover', on);
+				target.removeEventListener('mouseout', off);
+				target.setAttribute('data-on', 'true');
+				target.setAttribute('title', 'Click to turn off highlights.');
+			}
+			else {
+				// Highlights are on because the user clicked on the
+				// target. The user has now clicked on the target again,
+				// so turn the highlights off.
+				let lineNumbers = getAllLineNumbers(target);
+				let references = getReferences(target);
+				for (let i = 0;  i < references.length;  ++i) {
+					let number = references[i];
+					let elem = findLineNumber(lineNumbers, number);
+					elem.classList.remove('hi');
+				}
+				target.removeAttribute('data-on');
+				target.addEventListener('mouseover', on);
+				target.addEventListener('mouseout', off);
+				target.setAttribute('title', 'Move mouse over to turn on highlights.\nClick to keep highlights on.');
+			}
+		};
+
+		// Add event handlers to each span that has a class of 'cross'.
+		let targets = document.querySelectorAll('span.cross');
+		for (let i = 0;  i < targets.length;  ++i) {
+			let target = targets[i];
+			target.addEventListener('mouseover', on);
+			target.addEventListener('mouseout', off);
+			target.addEventListener('click', toggle);
+			target.setAttribute('title', 'Move mouse over to turn on highlights.\nClick to keep highlights on.');
+		}
 	}
 };
 
 
-	window.addEventListener('DOMContentLoaded', function() {
-		barzee.surroundArticle();
-		barzee.addLineNumbers();
-	});
+window.addEventListener('DOMContentLoaded', function() {
+	barzee.surroundArticle();
+	barzee.addLineNumbers();
+	barzee.addCopyButtons();
+	barzee.addCrossRefs();
+});
 }

@@ -1,0 +1,90 @@
+.hljs-addition { color: red; }
+.hljs-attr { color: red; }
+.hljs-attribute { color: red; }
+.hljs-builtin-name { color: red; }
+.hljs-bullet { color: red; }
+.hljs-class { color: red; }
+.hljs-code { color: red; }
+.hljs-constructor { color: red; }
+.hljs-deletion { color: red; }
+.hljs-doctag { color: red; }
+.hljs-emphasis { color: red; }
+.hljs-formula { color: red; }
+.hljs-link { color: red; }
+.hljs-link_label { color: red; }
+.hljs-meta { color: red; }
+.hljs-meta-keyword { color: red; }
+.hljs-meta-string { color: red; }
+.hljs-module { color: red; }
+.hljs-module-access { color: red; }
+.hljs-name { color: red; }
+.hljs-pattern-match { color: red; }
+.hljs-quote { color: red; }
+.hljs-regexp { color: red; }
+.hljs-section { color: red; }
+.hljs-selector-attr { color: red; }
+.hljs-selector-class { color: red; }
+.hljs-selector-id { color: red; }
+.hljs-selector-pseudo { color: red; }
+.hljs-selector-tag { color: red; }
+.hljs-strong { color: red; }
+.hljs-stronge { color: red; }
+.hljs-symbol { color: red; }
+.hljs-tag { color: red; }
+.hljs-template-tag { color: red; }
+.hljs-template-variable { color: red; }
+.hljs-type { color: red; }
+.hljs-typing { color: red; }
+.hljs-variable { color: red; }
+
+:root {
+	--pitch-black: rgb(4, 4, 4);
+	--tamarillo-red: rgb(163, 21, 21);
+	--dallas-brown: rgb(121, 94, 38);
+	--salem-green: rgb(9, 134, 88);
+	--half-green: rgb(0, 128, 0);
+	--jelly-bean-blue: rgb(38, 127, 153);
+	--blue: rgb(0, 0, 255);
+	--navy-blue: rgb(0, 16, 128);
+	--electric-violet: rgb(175, 0, 216);
+
+	--silver: rgb(184, 184, 184);
+	--viola-pink: rgb(197, 134, 192);
+	--pumpkin: rgb(206, 145, 120);
+	--deco-yellow: rgb(220, 220, 139);
+	--coriander-green: rgb(181, 206, 168);
+	--asparagus-green: rgb(106, 153, 85);
+	--havelock-blue: rgb(86, 156, 214);
+	--anakiwa-blue: rgb(156, 220, 254);
+}
+
+/* Light */
+.hljs { }
+
+.hljs-number  { color: var(--salem-green); }
+.hljs-literal { color: var(--blue); }
+.hljs-string  { color: var(--tamarillo-red); }
+.hljs-subst   { color: var(--pitch-black); }
+
+.hljs-comment { color: var(--half-green); }
+
+.hljs-keyword  { color: var(--electric-violet); }
+.hljs-built_in { color: var(--jelly-bean-blue); }
+
+.hljs-function { }
+.hljs-title    { color: var(--dallas-brown); }
+.hljs-params   { color: var(--navy-blue); }
+
+/* Dark */
+body.dark .hljs-number  { color: var(--coriander-green); }
+body.dark .hljs-literal { color: var(--havelock-blue); }
+body.dark .hljs-string  { color: var(--pumpkin); }
+body.dark .hljs-subst   { color: var(--silver); }
+
+body.dark .hljs-comment { color: var(--asparagus-green); }
+
+body.dark .hljs-keyword  { color: var(--viola-pink); }
+body.dark .hljs-built_in { color: var(--deco-yellow); }
+
+body.dark .hljs-title    { color: var(--deco-yellow); }
+body.dark .hljs-params   { color: var(--anakiwa-blue); }
