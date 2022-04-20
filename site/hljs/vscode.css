@@ -33,9 +33,7 @@
 .hljs-tag { color: red; }
 .hljs-template-tag { color: red; }
 .hljs-template-variable { color: red; }
-.hljs-type { color: red; }
 .hljs-typing { color: red; }
-.hljs-variable { color: red; }
 
 :root {
 	--pitch-black: rgb(4, 4, 4);
@@ -46,7 +44,7 @@
 	--jelly-bean-blue: rgb(38, 127, 153);
 	--blue: rgb(0, 0, 255);
 	--navy-blue: rgb(0, 16, 128);
-	--electric-violet: rgb(175, 0, 216);
+	--electric-violet: rgb(175, 0, 219);
 
 	--silver: rgb(184, 184, 184);
 	--viola-pink: rgb(197, 134, 192);
@@ -54,6 +52,7 @@
 	--deco-yellow: rgb(220, 220, 139);
 	--coriander-green: rgb(181, 206, 168);
 	--asparagus-green: rgb(106, 153, 85);
+	--puerto-rico-green: rgb(78, 201, 176);
 	--havelock-blue: rgb(86, 156, 214);
 	--anakiwa-blue: rgb(156, 220, 254);
 }
@@ -65,6 +64,9 @@
 .hljs-literal { color: var(--blue); }
 .hljs-string  { color: var(--tamarillo-red); }
 .hljs-subst   { color: var(--pitch-black); }
+
+.hljs-type     { color: var(--jelly-bean-blue); }
+.hljs-variable { color: var(--navy-blue); }
 
 .hljs-comment { color: var(--half-green); }
 
@@ -80,6 +82,9 @@ body.dark .hljs-number  { color: var(--coriander-green); }
 body.dark .hljs-literal { color: var(--havelock-blue); }
 body.dark .hljs-string  { color: var(--pumpkin); }
 body.dark .hljs-subst   { color: var(--silver); }
+
+body.dark .hljs-type     { color: var(--puerto-rico-green); }
+body.dark .hljs-variable { color: var(--anakiwa-blue); }
 
 body.dark .hljs-comment { color: var(--asparagus-green); }
 
