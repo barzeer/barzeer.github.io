@@ -5,17 +5,15 @@ window.barzee = {
 	/** Reorganizes the structure of an HTML document or in other words,
 	 * surrounds the article with this structure:
 	 * <body>
-	 *     <div class="back">
-	 *         <div class="top"></div>
-	 *         <div class="page">
-	 *             <header></header>
-	 *             <side>
-	 *                 <nav></nav>
-	 *                 <div class="author"></div>
-	 *             </side>
-	 *             <article></article>
-	 *             <footer></footer>
+	 *     <div class="top"></div>
+	 *     <div class="page">
+	 *         <header></header>
+	 *         <div class="side">
+	 *             <nav></nav>
+	 *             <div class="author"></div>
 	 *         </div>
+	 *         <article></article>
+	 *         <footer></footer>
 	 *     </div>
 	 * </body>
 	 */
@@ -27,9 +25,8 @@ window.barzee = {
 		let modif = this.createModified();
 		article.appendChild(modif);
 
-		let back = this.createElem('div', 'back');
 		let top = this.createElem('div', 'top');
-		back.appendChild(top);
+		body.appendChild(top);
 
 		let page = this.createElem('div', 'page');
 		let header = this.createHeader();
@@ -40,8 +37,7 @@ window.barzee = {
 		page.appendChild(article);
 		page.appendChild(footer);
 
-		back.appendChild(page);
-		body.appendChild(back);
+		body.appendChild(page);
 	},
 
 
@@ -302,7 +298,7 @@ window.barzee = {
 			else {
 				// Highlights are on because the user clicked on the
 				// target. The user has now clicked on the target again,
-				// so turn the highlights off.
+				// so turn off the highlights.
 				let lineNumbers = getAllLineNumbers(target);
 				let references = getReferences(target);
 				for (let i = 0;  i < references.length;  ++i) {

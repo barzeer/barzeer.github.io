@@ -41,17 +41,17 @@
 
 	--outside-grad-top: var(--sky-blue);
 	--outside-grad-bottom: var(--light-sky-blue);
-	--outside-bk-color: var(--light-yellow);
+	--outside-bg-color: var(--light-yellow);
 
-	--light-bk-color: rgba(255, 255, 255, 1);
+	--light-bg-color: rgba(255, 255, 255, 1);
 	--light-fg-color: rgba(4, 4, 4, 1);
 
-	--dark-bk-color: rgba(0, 0, 0, 1);
+	--dark-bg-color: rgba(0, 0, 0, 1);
 	--dark-fg-color: rgba(184, 184, 184, 1);
 
 	--border-color: rgba(112, 112, 112, 1);
 
-	--bk-color: var(--light-bk-color);
+	--bg-color: var(--light-bg-color);
 	--fg-color: var(--light-fg-color);
 
 	--link-before-fg-color: var(--night-sky-blue);
@@ -63,32 +63,29 @@
 	--bullet-fg-color: var(--outside-grad-top);
 	--dfn-fg-color: var(--coral);
 	--strong-fg-color: var(--coral);
-	--user-input-bk-color: var(--coral);
+	--user-input-bg-color: var(--coral);
 	--user-input-fg-color: white;
 
 	--line-number-hilite: var(--night-sky-blue);
-	--code-bk-color: var(--pale-yellow);
-	--console-bk-color: var(--light-sky-blue);
+	--code-bg-color: var(--pale-yellow);
+	--console-bg-color: var(--light-sky-blue);
 
 	--code-line-hilite: var(--light-green);
 	--console-line-hilite: rgba(208, 229, 241, 1);
 
-	--footer-bk-color: var(--outside-grad-bottom);
+	--footer-bg-color: var(--outside-grad-bottom);
 }
 
 
 body {
 	font-family: "Open Sans", Arial, Helvetica, Verdana, sans-serif;
-}
-
-body > div.back {
 	position: relative;
 	z-index: 0;
-	background-color: var(--outside-bk-color);
+	background-color: var(--outside-bg-color);
     padding-bottom: 3em;
 }
 
-body > div.back > div.top {
+body > div.top {
 	position: absolute;
 	top: 0; left: 0;
 	z-index: 1;
@@ -98,20 +95,20 @@ body > div.back > div.top {
 		linear-gradient(0deg, var(--outside-grad-bottom), var(--outside-grad-top));
 }
 
-body > div.back > div.page {
+body > div.page {
     position: relative;
 	box-shadow: 0 0 40px rgba(0, 0, 0, .15);
 	margin: 0 auto;
 	width: 60em;
 	z-index: 2;
-	background-color: var(--bk-color);
+	background-color: var(--bg-color);
 	color: var(--fg-color);
 	font-size: var(--body-font-size);
 	line-height: 1.3;
 	display: grid;
 }
 
-body > div.back > div.page > header {
+div.page > header {
 	grid-row: 1;
 	grid-column: 1 / span 2;
 	background-color: white;
@@ -120,7 +117,7 @@ body > div.back > div.page > header {
 	border-bottom: 1px solid var(--border-color);
 }
 
-body > div.back > div.page > div.side {
+div.page > div.side {
 	grid-row: 2;
 	grid-column: 1;
 	background-color: white;
@@ -130,7 +127,7 @@ body > div.back > div.page > div.side {
 	line-height: 1.1;
 }
 
-body > div.back > div.page > article {
+div.page > article {
 	grid-row: 2;
 	grid-column: 2;
 	background-color: white;
@@ -214,6 +211,20 @@ article h4 {
 	margin: 1em 0 0.5em 0;
 	page-break-after: avoid !important;
 }
+
+
+article .left { text-align: left; }
+article .center { text-align: center; }
+article .right { text-align: right; }
+article .number { text-align: right; }
+
+article .top { vertical-align: top; }
+article .middle { vertical-align: middle; }
+article .bottom { vertical-align: bottom; }
+
+article .clear { clear: both; }
+article .unseen { display: none; }
+article .nowrap { white-space: nowrap; }
 
 article p {
 	margin: 0 0 1em 0;
@@ -439,20 +450,8 @@ article div.formula div.fract > div:last-child {
 
 
 
-.left { text-align: left; }
-.center { text-align: center; }
-.right { text-align: right; }
-.number { text-align: right; }
 
-.top { vertical-align: top; }
-.middle { vertical-align: middle; }
-.bottom { vertical-align: bottom; }
-
-.nowrap { white-space: nowrap; }
-.clear { clear: both; }
-.unseen { display: none; }
-
-
+/* Tables */
 div.table { display: table; }
 div.row   { display: table-row; }
 div.head  { display: table-cell; text-align: center; font-weight: bold; }
@@ -584,7 +583,7 @@ article code em {
 article pre.console {
 	margin: 1em 0 1em 1.25em;
 	border: 1px solid var(--border-color);
-	background-color: var(--console-bk-color);
+	background-color: var(--console-bg-color);
 	padding: 0.25em 0.5em;
 	page-break-inside: avoid !important;
 }
@@ -592,7 +591,7 @@ article pre.console {
 article pre.console span.input {
 	border: 1px solid var(--border-color);
 	padding: 0 0.25em;
-	background-color: var(--user-input-bk-color);
+	background-color: var(--user-input-bg-color);
 	color: var(--user-input-fg-color);
 }
 
@@ -603,7 +602,7 @@ article div.pre {
 	position: relative;
 	margin: 1em auto 1em 1.25em;
 	border: 1px solid var(--border-color);
-	background-color: var(--code-bk-color);
+	background-color: var(--code-bg-color);
 	padding: 0.25em 0.5em;
 }
 article div.pre.solution {
@@ -615,7 +614,7 @@ article div.pre > button.copy {
 	top: 0.5em;
 	right: 0.25em;
 	visibility: hidden;
-	background-color: var(--light-bk-color);
+	background-color: var(--light-bg-color);
 }
 
 article div.pre:hover > button.copy {
@@ -652,6 +651,24 @@ article pre.python span.hiError  { background-color: red; }
 
 
 /* Figures */
+figure.pitch {
+	page-break-inside: avoid !important;
+	position: absolute;
+	right: 1.5em;
+	z-index: 3;
+	box-shadow: 0 0 40px rgba(0, 0, 0, .15);
+	background-color: var(--bg-color);
+}
+figure.pitch img {
+	max-width: 100%;
+	border: 1px solid var(--border-color);
+}
+figure.pitch figcaption {
+	font-size: 90%;
+	border: 1px solid var(--bg-color);
+	padding: 0.25em 0.5em 0.75em 0.5em;
+}
+
 article figure {
 	page-break-inside: avoid !important;
 	margin: 0 0 1em 0;
@@ -667,7 +684,7 @@ article figure.right {
 	margin: 0 0 1em 1em;
 }
 
-article figure > img {
+article figure img {
 	max-width: 100%;
 }
 
@@ -690,7 +707,7 @@ article div.modified {
 footer {
 	grid-row: 3;
 	grid-column: 1 / span 2;
-	background-color: var(--footer-bk-color);
+	background-color: var(--footer-bg-color);
 	padding: 2em 2em 1em 2em;
 	font-size: 90%;
 }

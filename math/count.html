@@ -1,0 +1,399 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="positional number system, binary, octal, decimal, hexadecimal">
+    <meta name="description" content="An interactive form that allows students to count in many different bases, including binary, octal, and hexadecimal.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count in Different Bases</title>
+    <script src="../site/template.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+"use strict";
+
+var count = {
+	resetAll : function() {
+		// Change the number of rows to 16 (0 - 15).
+		$('input#txtMin').val(0);
+		$('input#txtMax').val(15);
+		count.changeLimits();
+
+		// Reset the bases
+		let bases = [2, 8, 16];
+		$('table#count thead :text.base').each(function(index) {
+			$(this).val(bases[index]);
+			let event = {"target" : $(this).get(0)};
+			count.changeBase(event);
+		});
+
+		let icon = $('img#unchecked').get(0);
+		let iconAttrs = {
+			src : icon.src,
+			alt : icon.alt,
+			title : icon.title
+		};
+
+		// Clear all the inputs and icons.
+		let inputs = $('table#count tbody input:text:not([readonly])');
+		inputs.attr('title', icon.title)
+			.val('');
+		inputs.next().attr(iconAttrs);
+	},
+
+
+	/** Selects all the text in an input. */
+	selectAll : function(ev) { ev.target.select(); },
+
+
+	/** Changes the keyboard focus to the previous or next input when
+	* the user types an "up arrow", "down arrow", or the "enter" key. */
+	changeFocus : function(ev) {
+		let input = ev.target;
+		let keynum = ev.which;
+		switch (keynum) {
+			case 38:  // up arrow
+			case 13:  // enter
+			case 40:  // down arrow
+			{
+				let cell = $(input).closest('td');
+				let row = cell.closest('tr');
+				let columnIndex = row.children('td').index(cell);
+				let nextRow = keynum == 38 ? row.prev() : row.next();
+				if (nextRow) {
+					nextRow.children('td').eq(columnIndex)
+						.children('input:text').focus();
+					ev.preventDefault();
+				}
+			}
+			break;
+		}
+	},
+
+
+	fireChanged : function(ev) {
+		let keycode = ev.which;
+		if (keycode == 13) {
+			$(ev.target).trigger('change');
+		}
+	},
+
+
+	validateDecimal : function(ev) {
+		return count.validate(ev, '0123456789');
+	},
+
+	/** Allows integers in any base up to base 36. */
+	validateHigher : function(ev) {
+		return count.validate(ev,
+			'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz');
+	},
+
+	validate : function(ev, valids) {
+		let keycode = ev.which;
+		if (keycode != 0 && keycode != 8/*backspace*/) {
+			let c = String.fromCharCode(keycode);
+			if (valids.indexOf(c) == -1) {
+				ev.preventDefault();
+			}
+		}
+	},
+
+
+	/** Changes the number of rows in the counting table. */
+	changeLimits : function() {
+		let min = parseInt($('input#txtMin').val());
+		let max = parseInt($('input#txtMax').val());
+		let desiredRows = Math.abs(max - min) + 1;
+		let numRows = $('table#count tbody tr').length;
+		if (numRows < desiredRows) {
+			let firstAttrs = {
+				size : 2,
+				maxlength : 5,
+				readonly : 'readonly'
+			};
+			let otherAttrs = {
+				size : 8,
+				maxlength : 8
+			};
+			let icon = $('img#unchecked').get(0);
+			let iconAttrs = {
+				src : icon.src,
+				alt : icon.alt,
+				title : icon.title
+			};
+
+			// Create rows and cells and add them
+			// to the end of the counting table.
+			let tbody = $('table#count tbody');
+			for (let r = numRows;  r < desiredRows;  ++r) {
+				let input = $('<input type="text">')
+					.addClass('number')
+					.attr(firstAttrs)
+					.on('focus', count.selectAll)
+					.on('keydown', count.changeFocus)
+					.val(r);
+				let cell = $('<td>').append(input);
+				let row = $('<tr>').append(cell);
+
+				for (let c = 0;  c < 3;  ++c) {
+					let input = $('<input type="text">')
+						.addClass('number')
+						.attr(otherAttrs)
+						.on('focus', count.selectAll)
+						.on('keydown', count.changeFocus)
+						.on('keypress', count.validateHigher)
+						.on('blur', count.checkAnswer);
+					let icon = $('<img>')
+						.attr(iconAttrs);
+					cell = $('<td>')
+						.addClass('check')
+						.append(input)
+						.append(icon);
+					row.append(cell);
+				}
+
+				tbody.append(row);
+			}
+		}
+		else if (numRows > desiredRows) {
+			// Remove the correct number of rows
+			// from the end of the counting table.
+			$('table#count tbody tr').slice(desiredRows).remove();
+		}
+
+		// Put numbers in the inputs in the Base 10 column.
+		let val = min;
+		let step = min < max ? 1 : -1;
+		$('table#count tbody tr').each(function() {
+			$(this).find('td:first input:text').val(val);
+			val += step;
+		});
+
+		// Get the bases.
+		let bases = [];
+		$('table#count thead tr th input:text').each(function() {
+			let base = parseInt($(this).val());
+			bases.push(base);
+		});
+
+		// Check responses in all inputs.
+		$('table#count tbody tr').each(function(rowIndex) {
+			$(this).find('td input:text:not([readonly])').each(
+			function(index) {
+				count.checkAnswer2(bases[index], rowIndex, this);
+			});
+		});
+	},
+
+
+	changeBase : function(ev) {
+		let baseInput = ev.target;
+		let base = parseInt(baseInput.value);
+
+		// Ensure the base is in the range [2, 36].
+		base = Math.max(2, base);
+		base = Math.min(base, 36);
+		baseInput.value = base;
+
+		let cell = $(baseInput).closest('th');
+		let row = cell.closest('tr');
+		let columnIndex = row.children('th').index(cell);
+
+		// Check the contents of each cell of the column that baseInput is in.
+		let body = row.closest('table').children('tbody');
+		body.children('tr').each(function(rowIndex) {
+			let row = $(this);
+			let cell = row.children('td').eq(columnIndex);
+			count.checkAnswer2(base, rowIndex, cell.find(':text'));
+		});
+	},
+
+
+	/** Checks a single student response. */
+	checkAnswer : function(ev) {
+		let input = ev.target;
+		let cell = $(input).closest('td');
+		let row = cell.closest('tr');
+		let columnIndex = row.children('td').index(cell);
+		let rowIndex = row.closest('tbody').children('tr').index(row);
+		let thead = row.closest('table').children('thead');
+		let baseInput = thead.find('th').eq(columnIndex).find(':text');
+		let base = parseInt($(baseInput).val());
+		count.checkAnswer2(base, rowIndex, input);
+	},
+
+
+	checkAnswer2 : function(base, rowIndex, input) {
+		let icon;
+		let value = $(input).val();
+		if (value == '') {
+			icon = $('img#unchecked').get(0);
+		}
+		else {
+			value = parseInt(value, base);
+			let row = $('table#count tbody tr').eq(rowIndex)
+			let correct = parseInt(row.find('td:first input').val());
+			icon = value == correct ? $('img#correct') : $('img#incorrect');
+			icon = icon.get(0);
+		}
+		$(input).attr('title', icon.title);
+		$(input).next().attr({
+			src   : icon.src,
+			alt   : icon.alt,
+			title : icon.title
+		});
+	}
+};
+
+
+$(document).ready(function() {
+    $('input#txtMin').on('change', count.changeLimits);
+    $('input#txtMax').on('change', count.changeLimits);
+    $('input.base').on('change', count.changeBase);
+
+    // Add a jquery keypress handler to the five inputs at the top of the
+    // document so the keypress events can all be handled by the same
+    // function, even on non-conforming browsers such as IE.
+    $('input#txtMin').add($('input#txtMax')).add($('input.base'))
+        .on('keypress', count.validateDecimal)
+        .on('keyup', count.fireChanged);
+
+    count.resetAll();
+});
+</script>
+</head>
+
+<body>
+<figure class="pitch" style="top:36em;width:15em">
+    <a href="https://www.amazon.com/dp/0983384096">
+    <img alt='Front cover of "Really Understand Binary"'
+    src="../site/images/binary_front_small.jpg">
+    </a>
+<figcaption>If you want to learn more about base&nbsp;2 and how
+computers use it to perform calculations, check out the book
+<a href="https://www.amazon.com/dp/0983384096">Really Understand
+Binary</a>.</figcaption>
+</figure>
+
+<article>
+<h1>Count in Different Bases</h1>
+
+<p>A <dfn>number system</dfn> is a set of rules for writing numbers.
+Throughout history, people have used many different number systems,
+including tally marks, Chinese numerals, and Roman numerals. A
+positional number system is a number system where the position of a
+digit has value. Today most people count and do arithmetic in a
+positional number system called base&nbsp;10. It is called <dfn>base
+10</dfn> because the number system has ten symbols. In most countries
+and languages today, those ten symbols are the Arabic numerals:
+0,&nbsp;1, 2, 3, 4, 5, 6, 7, 8,&nbsp;9. Humans probably started counting
+and doing arithmetic in base&nbsp;10 because we have ten fingers.</p>
+
+<p>It is possible to count and do arithmetic in other bases. Some
+ancient communities counted in base&nbsp;5 and others in base&nbsp;20,
+meaning their number system had only five symbols or twenty symbols,
+respectively. Computers count and perform arithmetic in base&nbsp;2
+because internally computers are composed of billions of tiny two-state
+electronic circuits. Each circuit may be either off or on, electric
+current not flowing or flowing. These two states represent two symbols:
+0&nbsp;and&nbsp;1, so computers use base&nbsp;2. The table below will
+help you practice counting in different bases.</p>
+
+<p>Count vertically from
+<input type="text" id="txtMin" class="number"
+	size="2" maxlength="5" value="0" onfocus="this.select()">
+to
+<input type="text" id="txtMax" class="number"
+	size="2" maxlength="5" value="15" onfocus="this.select()">
+in three bases.</p>
+
+<table id="count" class="count">
+	<thead><tr>
+		<th scope="col">Base 10</th>
+		<th scope="col" class="base">Base
+			<input type="text" class="number base"
+			size="2" maxlength="2"
+			onfocus="this.select()"></th>
+		<th scope="col" class="base">Base
+			<input type="text" class="number base"
+			size="2" maxlength="2"
+			onfocus="this.select()"></th>
+		<th scope="col" class="base">Base
+			<input type="text" class="number base"
+			size="2" maxlength="2"
+			onfocus="this.select()"></th>
+	</tr></thead>
+	<tbody>
+	</tbody>
+</table>
+
+<p><button type="button" onclick="count.resetAll();">Reset</button></p>
+
+<img id="unchecked" class="unseen" alt="unchecked" title="unchecked"
+src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAwBQTFRF
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAszD0iAAAAQB0Uk5T////////////////////////
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+////////////AFP3ByUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAAHdElNRQfTBBgQJSz+XgLlAAAA
+GXRFWHRTb2Z0d2FyZQBQYWludC5ORVQgdjMuNS44NzuAXQAAAA9JREFUKFNj+I8GGEa2AACA+f8B
+MlfUigAAAABJRU5ErkJggg==">
+
+<img id="correct" class="unseen" alt="correct" title="correct"
+src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAK3RFWHRDcmVhdGlvbiBUaW1lAEZy
+IDE1IE5vdiAyMDAyIDEwOjA4OjI5ICswMTAw9aJixgAAAAd0SU1FB9MEGBAlLP5eAuUAAAAJcEhZ
+cwAACvAAAArwAUKsNJgAAAAEZ0FNQQAAsY8L/GEFAAACjUlEQVR42qWTX0iTURjGf9+3uRnppqWL
+GGT5L0SErroLQzO72kV00VUiGBWKEURJilAiSBfddFFkQoi3dTOILMjKS8MphgSr6dYfN3Xp9m1z
+375/HbUUsa488MJ5D+d53vd5zntgj0vadfKMAqK0yQ7Zd2h/cbWh69JSSglaGdPPPgbpIvl/gmFO
+l2TdIy0nmr01nmNElAjR9CK/VIVgLMrs3EJMs2mXuMnr3QQCXGsvf9V9qsUZSX8lmJxhVc2QUnOk
+cjpKTiWpqvwIKzlNNn2CZHQdJv9tu2TNNdJT3+qcWZ0gqExhWKZgl7EsSYRFIpvmckU7ZRVuB3Fp
+mNsUbRP8oO1iXZM3ooSIrUUwTQlVN1ANE900hYw4b5sC3Knrx18/Sn5poQeVa9sEefhqPJVMxyf4
+lkiQ1nJkRGQ1je/KEm/OTFPurgI7jK28IGvmCfGSb4ugVLi9kPnJRGiJRvt1JheiJNQ0kWSM0cYp
+yosF2AZPQj10jA9ALl+gnMe3CCzDlD4th7hX/ZAbtR08P/kOJWPjZUOAo0WVG00+FeDO8X5MXSQZ
+F5ib3m8QLCfFO0smfeFbJPQkFYWVfDwXprygauPSUKiXzg/9aIZIcgKSLgQtG9z2YM30z8eWSFhR
+LkzWI8kSmmVsaB6a66X9fZ8wVRRdrxorA2MVdPzbBC4GP4ciUd2yEYjP0hJoYMWYF213c2VMgDUB
+Xq++fABWDgvwXByDRzsHaYCzdkP2272yI2voFDpAWRPnxp9YPAJxrzBsVic/cZ4Hmx3sHOW7NJMV
+Q+J2eshzCp1CQ6YAUgfFPiUiHMeltnJ/E/zvz9QlJizNVUybDzmvCksShuS+CA1+4fxjhojv9Qfv
+WL8Bzesu9yCbl+cAAAAASUVORK5CYII=">
+
+<img id="incorrect" class="unseen" alt="incorrect" title="incorrect"
+src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAK3RFWHRDcmVhdGlvbiBUaW1lAEZy
+IDE1IE5vdiAyMDAyIDEwOjA4OjI5ICswMTAw9aJixgAAAAd0SU1FB9MEGBAbNzX+0HQAAAAJcEhZ
+cwAACvAAAArwAUKsNJgAAAAEZ0FNQQAAsY8L/GEFAAAClUlEQVR42qWTTUgUYRjHf7O7s67uaNau
+HxVGiiZs1CEv0akoqEDFhIJORkFEH3YJukTn6BRIZIcIQ4igLLS6eJCCOkRiHlLWj9Rd19VyV/ej
+2Zmd2Zne1Vgo6+QLw/C+zzy/5/88839hk0v6+yBWh9cwuGR7pRZnua/BzFmoy/EJXWdA0ugOxFH/
+C7AbOZ70+3uKW9qr5No6WAjBjwikVsjMhAiPRaLFqtGxa5HBDQB7DyfSgb39yoUrMqEgxugnZJcI
+qCp2Kom0FAWXi6nZn1lXym6uja1DHGvJNSgr1ZVPlItX5ez7twTHl4nKO8HIiqCFlVQx7g9B02Hq
+K3BHHfSOgLcACEtcV5rbK5gNYoWncbd34L7Tg/YthBWaw376BXn/QezIdL4cfoXKkMK1AkAq9bTK
+1aLi2DAevw/vy24cnhLMW48wH37E5auGe51Ik+OQA49jTVhrPte1Rinb0kh0TgwrAbKM7+trEnOT
+cOgkDrcL+10fUm8XOB2iKwtNQGyJxoICMye2MTEkNY09PUH6yBmsrRWimrE+4R27oaqKXNpCNyGh
+i5C1HloDqPGEyEpiRxeYP3+XxM1ubHcRJON5xUgNB+DFFNLRY6SFC1ICoJpMFgDJhD6gzy8iaRrZ
+QJOgS8jDgyin63B86MfMf+RRhJIawquQFj8nYzBQ8MHnEkrc1UXhfT5929KNBygzo3ifd4OoZLhF
+67fvYw29IvhskFAavqvEinLUnhViCkaaLKclq9AX8OEyRes5J4h5YYonI2RHUsKU4jyuYSoGbafg
+zQYrj5TSsirzeHsZPo8A6Ln1fhOaeAvZqxrL5TnOtf1O/udlEv4sXfbQKabXLDmpz087YzJlWAzY
+0HVZsDZ7g/9YvwCCDhudXwcSxAAAAABJRU5ErkJggg==">
+</article>
+</body>
+</html>
