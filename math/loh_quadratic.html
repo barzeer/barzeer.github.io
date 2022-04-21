@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="quadratic equation, Po-Shen Loh, quadratic formula">
+    <meta name="description" content="Implements in Python the traditional quadratic formula and Po-Shen Loh's method for finding the roots of a quadratic equation.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Po-Shen Loh's Quadratic Method</title>
+    <script src="../site/template.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Po-Shen Loh's Quadratic Method</h1>
+
+<p>A quadratic equation is one that can be written as</p>
+<div class="block formula"><var>y</var> = <var>a</var><var>x</var><sup>2</sup> + <var>b</var><var>x</var> + <var>c</var></div>
+
+<p>Young math students are taught in an algebra course that they can
+compute the roots of a quadratic equation by using the quadratic
+formula, which is</p>
+
+<div class="block formula"><var>x</var> = <div class="fract"><div class="numer">&minus;<var>b</var> &plusmn; <div class="radic onePlus"><div>&radic;</div><div><var>b</var><sup>2</sup> &minus; 4<var>a</var><var>c</var></div></div></div><div class="denom">2<var>a</var></div></div></div>
+
+<p>In 2019,
+<a href="https://en.wikipedia.org/wiki/Po-Shen_Loh">Po-Shen Loh</a>,
+a professor of mathematics at Carnegie Mellon University, published
+<a href="https://arxiv.org/pdf/1910.06709.pdf">a new method</a>
+for computing the roots of a quadratic equation. Loh's method can be
+expressed with these two formulas:</p>
+
+<div class="block formula"><var>V</var> = <div class="fract"><div class="numer"><var>b</var></div><div class="denom">2<var>a</var></div></div></div>
+
+<div class="block formula"><var>x</var> = &minus;<var>V</var> &plusmn; <div class="radic two"><div>&radic;</div><div><var>V</var><sup>2</sup> &minus; <div class="fract"><div class="numer"><var>&thinsp;c&thinsp;</var></div><div class="denom"><var>a</var></div></div></div></div></div>
+
+<p>After reading his paper, I decided to implement both the traditional
+quadratic formula and Loh's new method in Python and compare them. Of
+course, both methods give the same results. As you can see from the code
+below, Loh's method is slightly simpler and requires fewer
+computations.</p>
+
+<div class="pre">
+<pre class="linenums"></pre>
+<pre class="code lang-python">import math
+
+def main():
+    tests = [
+        (0, -3, 3),
+        (1, -4, 4),
+        (2, -6, 22.5),
+        (2, -14, 24),
+        (3, 0, -27),
+        (0.5, 5, 12)
+    ]
+    for coeffs in tests:
+        roots = quadratic(*coeffs)
+        print(roots)
+        verify_roots(*coeffs, *roots)
+        roots = poshenloh(*coeffs)
+        print(roots)
+        verify_roots(*coeffs, *roots)
+
+
+def quadratic(a, b, c):
+    """Compute and return the roots of a quadratic equation
+    using the traditional quadratic formula.
+
+    Parameters
+        a, b, c: The coefficients of a quadratic equation in the form
+        y = ax**2 + bx + c
+    Return: the roots of a quadratic equation in a tuple
+    """
+    r1 = None
+    r2 = None
+    if a == 0:
+        r1 = -c / b
+    else:
+        discr = b * b - 4 * a * c
+        b = -b
+        denom = 2 * a
+        if discr &gt; 0:
+            sq = math.sqrt(discr)
+            r1 = (b - sq) / denom
+            r2 = (b + sq) / denom
+        elif discr == 0:
+            r1 = b / denom
+        else:
+            sq = math.sqrt(-discr)
+            real = b / denom
+            imag = sq / denom
+            r1 = complex(real, -imag)
+            r2 = complex(real, imag)
+    return (r1, r2)
+
+
+def poshenloh(a, b, c):
+    """Compute and return the roots of a quadratic equation
+    using the method developed by Po-Shen Loh in 2019.
+
+    Parameters
+        a, b, c: The coefficients of a quadratic equation in the form
+        y = ax**2 + bx + c
+    Return: the roots of a quadratic equation in a tuple
+    """
+    r1 = None
+    r2 = None
+    if a == 0:
+        r1 = -c / b
+    else:
+        avg = -b / (2 * a)
+        discr = avg * avg - c / a
+        if discr &gt; 0:
+            u = math.sqrt(discr)
+            r1 = avg - u
+            r2 = avg + u
+        elif discr == 0:
+            r1 = avg
+        else:
+            u = math.sqrt(-discr)
+            r1 = complex(avg, -u)
+            r2 = complex(avg, u)
+    return (r1, r2)
+
+
+def verify_roots(a, b, c, r1, r2):
+    verify_root(a, b, c, r1)
+    verify_root(a, b, c, r2)
+
+
+def verify_root(a, b, c, x):
+    """Verify that x is a root of y = ax**2 + bx + c.
+    In other words, verify that ax**2 + bx + c is zero.
+    """
+    if x:
+        y = a * x**2 + b * x + c
+        if abs(y) &gt; 1e-9:
+            print("Error: invalid root " + x)
+
+
+if __name__ == "__main__":
+    main()</pre></div>
+</article>
+</body>
+</html>

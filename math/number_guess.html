@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="number guessing game, two equations with two unknowns">
+    <meta name="description" content="Implements a system of two equations with two unknowns as part of a simple number guessing game.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <script src="../site/template.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Number Guessing Game</h1>
+
+<p>Very often we study mathematics but fail to see its application in
+life. As a simple example consider the experience of one of my students.
+He decided to write a computer program that would ask a user to think of
+a integer between 0 and 99, then ask the user two questions about the
+digits of the integer, and then guess the integer. The two questions
+about the digits of the integer were:</p>
+
+<ol>
+    <li><div>What is the sum of the two digits of your
+    integer?</div></li>
+    <li><div>What is the difference between the first digit and second
+    digit of your integer?</div></li>
+</ol>
+
+<p>As an example consider the integer 36.</p>
+<ol>
+    <li><div>What is the sum of the two digits of your integer?<br>
+    3 + 6 = 9</div></li>
+    <li><div>What is the difference between the first and second digits?<br>
+    3 &minus; 6 = &minus;3</div></li>
+</ol>
+
+<p>My student wrote a program that contained 100 <code>if</code>
+statements similar to this:</p>
+
+<div class="pre"><pre class="code lang-java">if (sum == 0 &amp;&amp; diff == 0) {
+    number = 0;
+}
+else if (sum == 1 &amp;&amp; diff == -1) {
+    number = 1;
+}
+else if (sum == 2 &amp;&amp; diff == -2) {
+    number = 2;
+}
+ &vellip;
+</pre></div>
+
+<p>Of course, it is not necessary to write 100 <code>if</code> statements to solve this problem. In fact, by asking the user the two questions, the student created a set of two algebraic equations with two unknowns. We can solve this system of two equations algebraically and write a <strong>much</strong> shorter program to guess the user&rsquo;s integer. Let&rsquo;s write the two equations.</p>
+
+<h2>Equations</h2>
+<p>Consider any integer between 0 and 99 inclusive. Any integer in this range will have two digits. We will call the first digit (the tens digit) <var>x</var> and the second digit (the ones digit) <var>y</var>. Each of the two questions leads to an equation:</p>
+
+<ol class="long">
+    <li><div>What is the sum of the two digits of your integer?
+    <div class="formula"><var>x</var> + <var>y</var> = <var>s</var></div></div></li>
+    <li><div>What is the difference between the first and second digits?
+    <div class="formula"><var>x</var> &minus; <var>y</var> = <var>d</var></div></div></li>
+</ol>
+
+<p>We can solve these two equations for <var>x</var> and <var>y</var>. Starting with equation #1, we solve for <var>y</var> and get equation #3:</p>
+
+<ol class="long">
+    <li value="1"><div class="formula"><var>x</var> + <var>y</var> = <var>s</var></div></li>
+    <li value="3"><div class="formula"><var>y</var> = <var>s</var> &minus; <var>x</var></div></li>
+</ol>
+
+<p>Substituting <var>y</var> from equation #3 into equation #2, and solving for <var>x</var>, we get equation #4:</p>
+
+<ol class="long">
+    <li value="2"><div class="formula"><var>x</var> &minus; <var>y</var> = <var>d</var></div></li>
+    <li class="nosym"><div class="formula"><var>x</var> &minus; (<var>s</var> &minus; <var>x</var>) = <var>d</var></div></li>
+    <li class="nosym"><div class="formula"><var>x</var> &minus; <var>s</var> + <var>x</var> = <var>d</var></div></li>
+    <li class="nosym"><div class="formula">2<var>x</var> = <var>s</var> + <var>d</var></div></li>
+    <li value="4"><div class="formula"><var>x</var> = <div class="fract"><div class="numer"><var>s</var> + <var>d</var></div><div class="denom">2</div></div></div></li>
+</ol>
+
+<p>Substituting <var>x</var> from equation #4 into equation #1 and solving for <var>y</var>, we get equation #5:</p>
+
+<ol class="long">
+    <li value="1"><div class="formula"><var>x</var> + <var>y</var> = <var>s</var></div></li>
+    <li class="nosym"><div class="formula"><div class="fract"><div class="numer"><var>s</var> + <var>d</var></div><div class="denom">2</div></div> + <var>y</var> = <var>s</var></div></li>
+    <li class="nosym"><div class="formula">s + d + 2<var>y</var> = 2<var>s</var></div></li>
+    <li class="nosym"><div class="formula">2<var>y</var> = 2<var>s</var> &minus; <var>s</var> &minus; <var>d</var></div></li>
+    <li class="nosym"><div class="formula">2<var>y</var> = <var>s</var> &minus; <var>d</var></div></li>
+    <li value="5"><div class="formula"><var>y</var> = <div class="fract"><div class="numer"><var>s</var> &minus; <var>d</var></div><div class="denom">2</div></div></div></li>
+</ol>
+
+<h2>Example 1</h2>
+<p>Now we can use equations #4 and #5 to easily and quickly calculate a person&rsquo;s integer. Again consider the integer 36.</p>
+<ol>
+    <li><div>What is the sum of the two digits of your integer? 9</div></li>
+    <li><div>What is the difference between the first and second digits?
+    &minus;3</div></li>
+</ol>
+
+<p>We substitute 9 and &minus;3 into equations #4 and #5 for <var>s</var> and <var>d</var>:</p>
+
+<ol class="long">
+    <li value="4"><div class="formula"><var>x</var> = <div class="fract"><div class="numer"><var>s</var> + <var>d</var></div><div class="denom">2</div></div> = <div class="fract"><div class="numer">9 + &minus;3</div><div class="denom">2</div></div> = <div class="fract"><div class="numer">6</div><div class="denom">2</div></div> = 3</div></li>
+
+    <li><div class="formula"><var>y</var> = <div class="fract"><div class="numer"><var>s</var> &minus; <var>d</var></div><div class="denom">2</div></div> = <div class="fract"><div class="numer">9 &minus; &minus;3</div><div class="denom">2</div></div> = <div class="fract"><div class="numer">12</div><div class="denom">2</div></div> = 6</div></li>
+</ol>
+
+<p>We calculated that <var>x</var> is 3 and <var>y</var> is 6, so we know the integer chosen by the user was 36.</p>
+
+<h2>Example 2</h2>
+<p>Let&rsquo;s try another integer, 51.</p>
+<ol>
+    <li><div>What is the sum of the two digits of your integer? 6</div></li>
+    <li><div>What is the difference between the first and second digits?
+    4</div></li>
+</ol>
+
+<p>We substitute 6 and 4 into equations #4 and #5 for <var>s</var> and <var>d</var>:</p>
+
+<ol class="long">
+    <li value="4"><div class="formula"><var>x</var> = <div class="fract"><div class="numer"><var>s</var> + <var>d</var></div><div class="denom">2</div></div> = <div class="fract"><div class="numer">6 + 4</div><div class="denom">2</div></div> = <div class="fract"><div class="numer">10</div><div class="denom">2</div></div> = 5</div></li>
+
+    <li><div class="formula"><var>y</var> = <div class="fract"><div class="numer"><var>s</var> &minus; <var>d</var></div><div class="denom">2</div></div> = <div class="fract"><div class="numer">6 &minus; 4</div><div class="denom">2</div></div> = <div class="fract"><div class="numer">2</div><div class="denom">2</div></div> = 1</div></li>
+</ol>
+
+<p>We calculated that <var>x</var> is 5 and <var>y</var> is 1, so we
+know the integer chosen by the user was 51.</p>
+
+<h2>Python Program</h2>
+<p>Here is a simple python program that uses equations #5 and #4 as part
+of a number guessing game. Notice that the code to calculate the integer
+requires only three lines instead of 100 <code>if</code> statements.</p>
+
+<div class="pre"><pre class="code lang-python">#!/bin/python3
+
+print("Think of a integer between 0 and 99.")
+print("I will ask you two questions about your")
+print("integer, and then guess your integer.")
+
+print()
+print("Question #1")
+s = int(input("What is the sum of the two digits of your integer? "))
+
+print()
+print("Question #2")
+d = int(input("What is the difference between the\n"
+        "first and second digits of your integer? "))
+
+# Calculate the integer chosen by the user.
+x = (s + d) / 2
+y = (s - d) / 2
+n = int(x * 10 + y)
+
+print()
+print(f"Your integer is {n}.")</pre></div>
+</article>
+</body>
+</html>
