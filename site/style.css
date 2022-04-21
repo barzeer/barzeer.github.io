@@ -267,6 +267,292 @@ article.directory dl > dd {
 }
 
 
+/* Mathematical Formulas */
+article table.division {
+	font-family: "Palatino Linotype", Palatino, Garamond, serif;
+}
+article table.division tr > td:nth-child(2) {
+	padding: 0 0.2em;
+}
+article table.division tr > td:nth-child(3) {
+	padding: 0 0.2em;
+	text-align: right;
+}
+article table.division td.dividend {
+	border-top: 1px solid;
+	border-left: 1px solid;
+}
+article table.division td.sum {
+	border-top: 1px solid;
+}
+
+article div.formula {
+	white-space: nowrap;
+	font-family: "Palatino Linotype", Palatino, Garamond, serif;
+	page-break-inside: avoid !important;
+}
+
+article div.inline.formula {
+	display: inline-block;
+	margin: 0 0.5em;
+	vertical-align: baseline;
+}
+
+article div.block.formula {
+	margin: 1em 0;
+	vertical-align: middle;
+	text-align: center;
+}
+
+article div.group {
+	display: table;
+	margin: 0 auto;
+}
+article div.group > div.formula {
+	margin: 1em 0;
+	vertical-align: middle;
+}
+
+article div.formula div {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+}
+
+article div.formula .baseline {
+	vertical-align: baseline;
+}
+
+article sup {
+	font-size: smaller;
+	margin-left: 0.12em;
+	vertical-align: 0.35em;
+}
+article sub {
+	font-size: smaller;
+	margin-left: 0.12em;
+	vertical-align: -0.35em;
+}
+article div.formula div.supsub {
+	font-size: smaller;
+	margin-left: 0.12em;
+	line-height: 0.8;
+	vertical-align: -0.35em;
+	/*text-align: left;*/
+}
+
+article div.formula span.abs::before,
+article div.formula span.abs::after {
+	font-size: 140%;
+	font-weight: 100;
+	vertical-align: middle;
+	content: "\7c";
+}
+
+article div.formula .paren::before {
+	display: inline-block;  /* Required so that transform will work */
+	padding-left: 0.1em;
+	content: "\28";
+	font-weight: 100;
+	transform: scale(1.2, 1.2);
+}
+
+article div.formula .paren::after {
+	display: inline-block;  /* Required so that transform will work */
+	padding-left: 0.1em;
+	content: "\29";
+	font-weight: 100;
+	transform: scale(1.2, 1.2);
+}
+
+article div.formula .paren.onePlus::before {
+	padding-left: 0.2em;
+	padding-right: 0.1em;
+	transform: scale(1.5, 1.8);
+}
+article div.formula .paren.onePlus::after {
+	padding-left: 0.1em;
+	padding-right: 0.2em;
+	transform: scale(1.5, 1.8);
+}
+
+article div.formula div.paren {
+	vertical-align: baseline;
+}
+
+article div.formula div.radic {
+}
+article div.formula div.radic.one > div:first-child {
+}
+article div.formula div.radic.onePlus > div:first-child {
+	transform: scale(1.1, 1.6);
+}
+article div.formula div.radic.two > div:first-child {
+	transform: scale(1.8, 3);
+	margin-right: 0.2em;
+}
+article div.formula div.radic > div:last-child {
+	border-top: 1px solid;
+	padding: 0 0.2em;
+}
+
+article div.formula div.sum > div > span {
+	display: block;
+}
+
+article div.formula div.sum > div > span.index {
+	font-size: smaller;
+}
+
+article div.formula div.sum > div > span.one {
+	margin: -0.3em 0 -0.2em 0;
+	font-size: 110%;
+}
+
+article div.formula div.sum > div > span.onePlus {
+	margin: -0.3em 0 -0.2em 0;
+	font-size: 130%;
+}
+
+article div.formula div.sum > div > span.two {
+	margin: 0.3em 0 1em 0;
+	transform: scale(2.5, 3.2); /* W3C */
+}
+
+article div.formula div.sum > div:last-child {
+	vertical-align: -1.2em;
+}
+
+article div.formula div.fract {
+}
+
+article div.formula div.fract > div:first-child {
+	display: block;
+}
+
+article div.formula div.fract > div:last-child {
+	display: block;
+	margin-top: 0.25em;
+	border-top: 1px solid;
+	padding-top: 0.1em;
+}
+
+
+
+.left { text-align: left; }
+.center { text-align: center; }
+.right { text-align: right; }
+.number { text-align: right; }
+
+.top { vertical-align: top; }
+.middle { vertical-align: middle; }
+.bottom { vertical-align: bottom; }
+
+.nowrap { white-space: nowrap; }
+.clear { clear: both; }
+.unseen { display: none; }
+
+
+div.table { display: table; }
+div.row   { display: table-row; }
+div.head  { display: table-cell; text-align: center; font-weight: bold; }
+div.cell  { display: table-cell; }
+
+div.package { display: table;
+	border: 1px solid darkSlateGray; border-spacing: 0.5em; }
+div.package div.class { display: table-cell;
+	padding: 0 0.1em 0 0.1em;
+	border: 1px solid darkSlateGray; vertical-align: top; }
+
+table td.nobr { white-space: nowrap; }
+table > tbody.top > tr > td { vertical-align: top; }
+
+table tr.center > td { text-align: center; }
+
+table#count { border-collapse: collapse; }
+table#count th { vertical-align: middle; }
+table#count th.base { padding-left: 2em; text-align: center; }
+table#count td { padding-top: 0.2em; vertical-align: top; }
+table#count td.check { padding-left: 2em; }
+table#count td.check input { vertical-align: top; }
+table#count td.check img { margin: 0; border: none; padding: 0;
+	box-shadow: none; vertical-align: top; }
+
+table.class { border-collapse: collapse; border: 1px solid darkSlateGray; }
+table.class td { white-space: nowrap; }
+table.class td.constraint { border: none; }
+table.class td.name { text-align: center; }
+table.class td.rule { border-bottom: 1px solid darkSlateGray; }
+table.class span.abstract { font-style: italic; }
+table.class span.static { text-decoration: underline; }
+
+table.clazz { margin: auto; border-collapse: collapse }
+table.clazz td { white-space: nowrap }
+table.clazz td.name { border: 1px solid darkSlateGray; text-align: center }
+table.clazz td.member {
+	border-left: 1px solid darkSlateGray;
+	border-right: 1px solid darkSlateGray;
+}
+table.clazz td.last { border-bottom: 1px solid }
+
+table.classdia td { text-align: center }
+table.classdia td.class { border: 1px solid darkSlateGray; text-align: center }
+
+table.sparse {
+	border-collapse: separate;
+	border-spacing: 5px 2px;
+	border-bottom: 1px solid darkSlateGray
+}
+table.sparse th {
+	padding: 0.5em 0 0.25em 0;
+	vertical-align: bottom;
+	font-weight: bold;
+	border-bottom: 1px solid darkSlateGray
+}
+table.sparse th.left {
+	vertical-align: top;
+	text-align: left;
+	border-bottom: none
+}
+table.sparse td { padding: 0.5em 0 0.25em 0 }
+
+span.nobr { white-space: nowrap; }
+span.menu {
+	border: 1px solid green;
+	color: green;
+	white-space: nowrap;
+}
+span.null {
+	font-size: small;
+	background-color: dimGray;
+	color: white;
+}
+
+ul.nosym { list-style-type: none }
+li.nosym { list-style-type: none; }
+
+span.key {
+    vertical-align: baseline;
+    line-height: 1.6em;
+    background-color: #f0f0f0;
+    border: 1px solid #0a0a0a; border-radius: 4px; border-style: outset;
+    margin: 0 0 0 0;
+    padding: 0.1em 0.2em 0.1em 0.2em;
+}
+
+.highlight  { background-color: yellow; }
+.highlight2 { background-color: orange; }
+
+/*
+table.expr { margin-left: 2em; border-collapse: collapse }
+table.expr td { white-space: nowrap; text-align: center; font-style: italic }
+table.expr td hr { border-style: solid; border-color: darkSlateGray }
+p.expr { margin-left: 2em; white-space: nowrap; font-style: italic }
+span.expr { white-space: nowrap; font-style: italic }
+*/
+
+
+
 /* Cross reference link for line numbers in example code. */
 article span.cross {
 	cursor: pointer;
