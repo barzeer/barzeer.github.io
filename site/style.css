@@ -152,7 +152,7 @@ header > h3 {
 	font-family: Neucha, "Brush Script MT", cursive;
 	font-size: 150%;
 	color: var(--border-color);
-	margin: 1em 0 0 0;
+	margin: 0.5em 0 0 0;
 }
 
 header a:link,

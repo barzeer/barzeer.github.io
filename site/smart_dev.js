@@ -4,24 +4,23 @@ if (!window.hasOwnProperty('smartDev')) {
 window.smartDev = {
 	surroundIndex : function() {
 		let body = document.querySelector('body');
-		let side = document.querySelector('div.side');
 		let article = document.querySelector('article');
-		body.removeChild(side);
 		body.removeChild(article);
 
 		let modif = this.createModified();
 		article.appendChild(modif);
 
-		let h2 = this.createElem('h2', null, null, 'About the Author');
-		let author = this.createAuthor();
-		side.appendChild(h2);
-		side.appendChild(author);
-
 		let top = this.createElem('div', 'top');
 
 		let page = this.createElem('div', 'page');
 		let header = this.createHeader();
-		let footer = this.createFooter();
+		let side = this.createSide(window.location.pathname);
+
+		let footer = this.createElem('footer');
+		let copy = this.createElem('p', null, null,
+				'Copyright © 2022 Rex A. Barzee. All rights reserved.');
+		footer.appendChild(copy);
+
 		page.appendChild(header);
 		page.appendChild(side);
 		page.appendChild(article);
@@ -85,10 +84,10 @@ window.smartDev = {
 	},
 
 
-	createSide : function() {
+	createSide : function(pathname) {
 		let side = this.createElem('div', 'side');
 		let h2 = this.createElem('h2', null, null, 'Categories');
-		let nav = this.createNav();
+		let nav = this.createNav(pathname);
 		side.appendChild(h2);
 		side.appendChild(nav);
 		h2 = this.createElem('h2', null, null, 'About the Author');
@@ -99,7 +98,7 @@ window.smartDev = {
 	},
 
 
-	createNav : function() {
+	createNav : function(pathname) {
 		let nav = this.createElem('nav');
 		let ul = this.createElem('ul');
 		let items = [
@@ -113,14 +112,23 @@ window.smartDev = {
 			['excel', 'Microsoft Excel'],
 			['math', 'Math']
 		];
+		let folder = null;
+		if (pathname) {
+			let slash = pathname.lastIndexOf('/');
+			let path = pathname.substring(0, slash);
+			slash = path.lastIndexOf('/');
+			folder = path.substring(slash + 1);
+		}
 		for (let i = 0;  i < items.length;  ++i) {
 			let direc = items[i][0];
 			let name = items[i][1];
 			let li = this.createElem('li');
 			let div = this.createElem('div');
-			let a = this.createElem('a', null,
+			let text = folder == direc ?
+				this.createText(name) :
+				this.createElem('a', null,
 					{'href': '../' + direc + '/index.html'}, name);
-			div.appendChild(a);
+			div.appendChild(text);
 			li.appendChild(div);
 			ul.appendChild(li);
 		}
@@ -146,10 +154,10 @@ window.smartDev = {
 
 	createFooter : function() {
 		let footer = this.createElem('footer');
-		let disclaim = this.createElem('p');
-		disclaim.innerText = 'Rex A. Barzee used his best efforts in preparing this article.  These efforts include the development, research, and testing of the theories and computer programs in this article to determine their correctness. Mr. Barzee makes no warranty of any kind, expressed or implied, with regard to these programs or the documentation contained in this article. Mr. Barzee shall not be liable in any event for incidental or consequential damages in connection with, or arising out of, the furnishing, performance, or use of these programs.';
-		let copy = this.createElem('p');
-		copy.innerText = 'Copyright © 2022 Rex A. Barzee. All rights reserved.';
+		let disclaim = this.createElem('p', null, null,
+				'Rex A. Barzee used his best efforts in preparing this article.  These efforts include the development, research, and testing of the theories and computer programs in this article to determine their correctness. Mr. Barzee makes no warranty of any kind, expressed or implied, with regard to these programs or the documentation contained in this article. Mr. Barzee shall not be liable in any event for incidental or consequential damages in connection with, or arising out of, the furnishing, performance, or use of these programs.');
+		let copy = this.createElem('p', null, null,
+				'Copyright © 2022 Rex A. Barzee. All rights reserved.');
 		footer.appendChild(disclaim);
 		footer.appendChild(copy);
 		return footer;
