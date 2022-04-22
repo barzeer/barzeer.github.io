@@ -1,0 +1,241 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="database design, look up table">
+    <meta name="description" content="A question and answer about the database design of apartment housing type.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apartment Housing Type</title>
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Apartment Housing Type</h1>
+
+<h3>Question by Jarom Rial</h3>
+<p>I’m working on creating a database for a website I am developing. In
+the process of creating the housing table in the database, I came across
+an issue that I am not sure how to resolve. The table contains apartment
+complexes for single housing. One of the columns in the table is
+entitled “tenant_type” and reflects whether a complex is men’s or
+women’s housing. The unresolved issue is that a number of complexes are
+both men’s and women’s housing. I thought to change the column name to
+“type_id” that refers to a look up table named “tenant_type”. I still
+run into the problem of how to classify a complex as both men’s and
+women’s housing. Then I thought to make the original “tenant_type”
+column into two Boolean columns titled “mens_housing” and
+“womens_housing”. With this solution, whenever there was a men’s housing
+complex I would put “True” in the “mens_housing” column and “False” in
+the “womens_housing” column. The women’s housing complexes would be the
+reverse. Then if a complex was both men’s and women’s, I could put
+“True” in both columns. I’m not sure about that idea though. Do you have
+a suggestion for what the best way to approach this might be?</p>
+
+<h3>Answer</h3>
+<p>I believe that either of your two solutions will work:</p>
+<ol>
+    <li><div>housing_complex table contains type_id column and
+    tenant_type table contains three rows: 1, men; 2, women; 3,
+    both</div></li>
+
+    <li><div>housing_complex table contains two Boolean columns: men and
+    women</div></li>
+</ol>
+
+<p>There are at least two other solutions you may want to consider:</p>
+<ol start="3">
+    <li><div>Instead of creating a tenant_type table, you could add an
+    enumerated column to the housing_complex table. The allowed values
+    for the enumerated column are “men”, “women”, and “both”. This
+    solution is roughly equivalent to creating a tenant_type table as
+    you described in your first solution.</div></li>
+
+    <li><div>A fourth possible solution is a housing_complex table and a
+    tenant_type table with a linking table between them. Of the four
+    solutions, this is the most extensible solution but may also be
+    overkill.</div></li>
+</ol>
+
+<p>Let’s examine each solution in a bit more detail with an ERD, sample
+data, and a query that lists all men’s housing complexes.</p>
+
+<ol class="long">
+    <li><div>housing_complex table and tenant_type table
+    <div><img style="float:left;width:14em" src="housing1.svg">
+    <table><thead>
+        <tr><th colspan="4">housing_complex</th></tr>
+        <tr><th>cmplx_id</th> <th>name</th> <th>office_address</th>
+            <th>type_id</th></tr>
+    </thead><tbody>
+        <tr><td class="number">1</td> <td>Bonaventure</td>
+            <td>1024 Main St</td> <td class="number">101</td></tr>
+        <tr><td class="number">2</td> <td>Windsor</td>
+            <td>205 Heritage Dr</td> <td class="number">103</td></tr>
+        <tr><td class="number">3</td> <td>Beacon Hill</td>
+            <td>460 Hubalta Rd</td> <td class="number">102</td></tr>
+        <tr><td class="number">4</td> <td>Glenmore</td>
+            <td>305 Centre St</td> <td class="number">102</td></tr>
+    </tbody></table>
+    <table><thead>
+        <tr><th colspan="2">tenant_type</th></tr>
+        <tr><th>type_id</th> <th>type</th></tr>
+    </thead><tbody>
+        <tr><td class="number">101</td> <td>men</td></tr>
+        <tr><td class="number">102</td> <td>women</td></tr>
+        <tr><td class="number">103</td> <td>both</td></tr>
+    </tbody></table></div>
+    <div class="clear"></div>
+<div class="pre">
+<pre class="code lang-sql">-- List all single student complexes that serve men.
+SELECT housing_complex.*
+FROM housing_complex AS c
+    INNER JOIN tenant_type AS t ON t.type_id = c.type_id
+WHERE t.type = 'men' OR t.type = 'both';</pre></div>
+    <table><thead>
+        <tr><th>cmplx_id</th> <th>name</th> <th>office_address</th>
+            <th>type_id</th></tr>
+    </thead><tbody>
+        <tr><td class="number">1</td> <td>Bonaventure</td>
+            <td>1024 Main St</td> <td class="number">101</td></tr>
+        <tr><td class="number">2</td> <td>Windsor</td>
+            <td>205 Heritage Dr</td> <td class="number">103</td></tr>
+    </tbody></table>
+    </div></li>
+
+    <li><div>housing_complex table with two Boolean columns
+    <div><img style="float:left;width:14em" src="housing2.svg">
+    <table><thead>
+        <tr><th colspan="5">housing_complex</th></tr>
+        <tr><th>cmplx_id</th> <th>name</th> <th>office_address</th>
+            <th>men</th> <th>women</th></tr>
+    </thead><tbody>
+        <tr><td class="number">1</td> <td>Bonaventure</td>
+            <td>1024 Main St</td> <td>True</td> <td>False</td></tr>
+        <tr><td class="number">2</td> <td>Windsor</td>
+            <td>205 Heritage Dr</td> <td>True</td> <td>True</td></tr>
+        <tr><td class="number">3</td> <td>Beacon Hill</td>
+            <td>460 Hubalta Rd</td> <td>False</td> <td>True</td></tr>
+        <tr><td class="number">4</td> <td>Glenmore</td>
+            <td>305 Centre St</td> <td>False</td> <td>True</td></tr>
+    </tbody></table></div>
+    <div class="clear"></div>
+<div class="pre">
+<pre class="code lang-sql">-- List all single student complexes that serve men.
+SELECT *
+FROM housing_complex
+WHERE men = True;</pre></div>
+    <table><thead>
+        <tr><th>cmplx_id</th> <th>name</th> <th>office_address</th>
+            <th>men</th> <th>women</th></tr>
+    </thead><tbody>
+        <tr><td class="number">1</td> <td>Bonaventure</td>
+            <td>1024 Main St</td> <td>True</td> <td>False</td></tr>
+        <tr><td class="number">2</td> <td>Windsor</td>
+            <td>205 Heritage Dr</td> <td>True</td> <td>True</td></tr>
+    </tbody></table>
+    </div></li>
+
+    <li><div>housing_complex table with an enumerated column
+    <div><img style="float:left;width:14em" src="housing3.svg">
+    <table><thead>
+        <tr><th colspan="4">housing_complex</th></tr>
+        <tr><th>cmplx_id</th> <th>name</th> <th>office_address</th>
+            <th>type</th></tr>
+    </thead><tbody>
+        <tr><td class="number">1</td> <td>Bonaventure</td>
+            <td>1024 Main St</td> <td>men</td></tr>
+        <tr><td class="number">2</td> <td>Windsor</td>
+            <td>205 Heritage Dr</td> <td>both</td></tr>
+        <tr><td class="number">3</td> <td>Beacon Hill</td>
+            <td>460 Hubalta Rd</td> <td>women</td></tr>
+        <tr><td class="number">4</td> <td>Glenmore</td>
+            <td>305 Centre St</td> <td>women</td></tr>
+    </tbody></table></div>
+    <div class="clear"></div>
+<div class="pre">
+<pre class="code lang-sql">-- List all single student complexes that serve men.
+SELECT *
+FROM housing_complex
+WHERE type = 'men' OR type = 'both';</pre></div>
+    <table><thead>
+        <tr><th>cmplx_id</th> <th>name</th> <th>office_address</th>
+            <th>type</th></tr>
+    </thead><tbody>
+        <tr><td class="number">1</td> <td>Bonaventure</td>
+            <td>1024 Main St</td> <td>men</td></tr>
+        <tr><td class="number">2</td> <td>Windsor</td>
+            <td>205 Heritage Dr</td> <td>both</td></tr>
+    </tbody></table>
+    </div></li>
+
+    <li><div>housing_complex table and tenant_type table with a linking
+    table between
+    <div><img style="float:left;width:14em" src="housing4.svg">
+    <table><thead>
+        <tr><th colspan="3">housing_complex</th></tr>
+        <tr><th>cmplx_id</th> <th>name</th> <th>office_address</th></tr>
+    </thead><tbody>
+        <tr><td class="number">1</td> <td>Bonaventure</td>
+            <td>1024 Main St</td></tr>
+        <tr><td class="number">2</td> <td>Windsor</td>
+            <td>205 Heritage Dr</td></tr>
+        <tr><td class="number">3</td> <td>Beacon Hill</td>
+            <td>460 Hubalta Rd</td></tr>
+        <tr><td class="number">4</td> <td>Glenmore</td>
+            <td>305 Centre St</td></tr>
+    </tbody></table>
+    <table><thead>
+        <tr><th colspan="2">complex_is_type</th></tr>
+        <tr><th>cmplx_id</th> <th>type_id</th></tr>
+    </thead><tbody>
+        <tr class="number"><td>1</td> <td>101</td></tr>
+        <tr class="number"><td>2</td> <td>101</td></tr>
+        <tr class="number"><td>2</td> <td>102</td></tr>
+        <tr class="number"><td>3</td> <td>102</td></tr>
+        <tr class="number"><td>4</td> <td>102</td></tr>
+    </tbody></table>
+    <table><thead>
+        <tr><th colspan="2">tenant_type</th></tr>
+        <tr><th>type_id</th> <th>type</th></tr>
+    </thead><tbody>
+        <tr><td class="number">101</td> <td>men</td></tr>
+        <tr><td class="number">102</td> <td>women</td></tr>
+    </tbody></table></div>
+    <div class="clear"></div>
+<div class="pre">
+<pre class="code lang-sql">-- List all single student complexes that serve men.
+SELECT housing_complex.*
+FROM housing_complex AS c
+    INNER JOIN complex_has_type AS ct ON c.cmplx_id = ct.cmplx_id
+    INNER JOIN tenant_type AS t ON t.type_id = ct.type_id
+WHERE t.name = 'men';</pre></div>
+    <table><thead>
+        <tr><th>cmplx_id</th> <th>name</th> <th>office_address</th></tr>
+    </thead><tbody>
+        <tr><td class="number">1</td> <td>Bonaventure</td>
+            <td>1024 Main St</td></tr>
+        <tr><td class="number">2</td> <td>Windsor</td>
+            <td>205 Heritage Dr</td></tr>
+    </tbody></table>
+    </div></li>
+</ol>
+
+<p>As you can see from the SQL queries, the first and last solutions
+should use a join to list all the housing complexes that serve men (or
+women). The second and third solutions don’t need a join.</p>
+
+<p>The last solution is more extensible than the other three solutions
+because it would later allow you to define other housing types, such as
+assisted, summer camp, teen, dog, cat, animal, and allow the same
+housing complex to serve all the types of tenants. Of course, if you
+can’t imagine needing this extensibility in the future then choose one
+of the first three solutions.</p>
+</article>
+</body>
+</html>
