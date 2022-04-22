@@ -12,7 +12,6 @@
 .hljs-formula { color: red; }
 .hljs-link { color: red; }
 .hljs-link_label { color: red; }
-.hljs-meta { color: red; }
 .hljs-meta-keyword { color: red; }
 .hljs-meta-string { color: red; }
 .hljs-module { color: red; }
@@ -68,6 +67,7 @@
 .hljs-type     { color: var(--jelly-bean-blue); }
 .hljs-variable { color: var(--navy-blue); }
 
+.hljs-meta { color: var(--half-green); }
 .hljs-comment { color: var(--half-green); }
 
 .hljs-keyword  { color: var(--electric-violet); }
@@ -86,6 +86,7 @@ body.dark .hljs-subst   { color: var(--silver); }
 body.dark .hljs-type     { color: var(--puerto-rico-green); }
 body.dark .hljs-variable { color: var(--anakiwa-blue); }
 
+body.dark .hljs-meta { color: var(--asparagus-green); }
 body.dark .hljs-comment { color: var(--asparagus-green); }
 
 body.dark .hljs-keyword  { color: var(--viola-pink); }

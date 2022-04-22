@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="bash shell script, set operations, set intersection, set union, relative complement, symmetric difference">
+    <meta name="description" content="Describes and implements the set operations intersection, union, relative complement, and symmetric difference using bash shell script commands.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Operations</title>
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Set Operations Using Shell Script Commands</h1>
+
+<p>On many occasions I&rsquo;ve had lists of names or other data stored
+in text files. The lists were really sets of names since no name was
+duplicated in the list. I often wanted to quickly and easily compute the
+intersection, union, relative complement, and symmetric difference of
+those sets. Because the sets were stored in text files, it seemed to me
+that the easiest way to compute these set operations was from a command
+line or shell. So I wrote the following four bash scripts. All the
+scripts use existing Unix commands, such as sort, sed, and comm and
+therefore assume that the sets are stored in text files with only one
+element listed on each line. All four scripts write their output to
+stdout.</p>
+
+<p>Beside computing the set operations, each of the scripts provides
+an interesting study of the basic shell commands sort, sed, and
+comm.</p>
+
+<h3>Intersection</h3>
+<div class="pre"><pre class="code lang-bash">#!/bin/bash
+
+# intersect
+# Purpose: Compute intersection of sets $1 and $2.
+#   A ^ B = {x : x e A and x e B}
+#
+# Expected format of sets:
+# 1. One element per line.
+# 2. Blank lines are allowed.
+# 3. Comments start with '#' and continue to end of line.
+# 4. Leading and trailing white space will be removed.
+
+TMP1=`mktemp --tmpdir --suffix=.txt intse-XXXXX`
+TMP2=`mktemp --tmpdir --suffix=.txt intse-XXXXX`
+
+trap "rm -f $TMP1 $TMP2 ; exit 0" EXIT
+trap "rm -f $TMP1 $TMP2 ; exit 1" ABRT BUS HUP INT KILL QUIT SEGV
+
+# Remove comments, leading and trailing white space and
+# blank lines, and sort input files.
+sed -e 's/#.*$//' \
+    -e 's/^[[:space:]]*\([^[:space:]]*\)[[:space:]]*$/\1/' \
+    -e '/^[[:space:]]*$/d' $1 | \
+sort -u &gt; $TMP1
+sed -e 's/#.*$//' \
+    -e 's/^[[:space:]]*\([^[:space:]]*\)[[:space:]]*$/\1/' \
+    -e '/^[[:space:]]*$/d' $2 | \
+sort -u &gt; $TMP2
+
+comm -12 $TMP1 $TMP2
+exit 0</pre></div>
+
+<h3>Union</h3>
+<div class="pre"><pre class="code lang-bash">#!/bin/bash
+
+# union
+# Purpose:  Compute the union of sets, i.e. merge sets.
+#   A U B = {x : x e A or x e B or x e both}
+#
+# Expected format of sets:
+# 1. One element per line.
+# 2. Blank lines are allowed.
+# 3. Comments start with '#' and continue to end of line.
+# 4. Leading and trailing white space will be removed.
+
+TMP=`mktemp --tmpdir --suffix=.txt union-XXXXX`
+trap "rm -f $TMP ; exit 0" EXIT
+trap "rm -f $TMP ; exit 1" ABRT BUS HUP INT KILL QUIT SEGV
+
+# Remove comments, leading and trailing white space and
+# blank lines from the sets and append all sets to $TMP.
+for i in "$@"; do
+    sed -e 's/#.*$//' \
+        -e 's/^[[:space:]]*\([^[:space:]]*\)[[:space:]]*$/\1/' \
+        -e '/^[[:space:]]*$/d' "$i" | \
+    sort -u &gt;&gt; $TMP
+done
+
+# Merge sets using sort with unique flag.
+sort -u $TMP
+
+exit 0</pre></div>
+
+<h3>Relative Complement</h3>
+<div class="pre"><pre class="code lang-bash">#!/bin/bash
+
+# relcompl
+# Purpose: Compute the complement of set $2 relative to set $1.
+# In other words compute set $1 - set $2
+#   A \ B = {x : x e A and x ne B}
+#
+# Expected format of sets:
+# 1. One element per line.
+# 2. Blank lines are allowed.
+# 3. Comments start with '#' and continue to end of line.
+# 4. Leading and trailing white space will be removed.
+
+TMP1=`mktemp --tmpdir --suffix=.txt relc-XXXXX`
+TMP2=`mktemp --tmpdir --suffix=.txt relc-XXXXX`
+trap "rm -f $TMP1 $TMP2 ; exit 0" EXIT
+trap "rm -f $TMP1 $TMP2 ; exit 1" ABRT BUS HUP INT KILL QUIT SEGV
+
+# Remove comments, leading and trailing white space and
+# blank lines, and sort input files.
+sed -e 's/#.*$//' \
+    -e 's/^[[:space:]]*\([^[:space:]]*\)[[:space:]]*$/\1/' \
+    -e '/^[[:space:]]*$/d' $1 | \
+sort -u &gt; $TMP1
+sed -e 's/#.*$//' \
+    -e 's/^[[:space:]]*\([^[:space:]]*\)[[:space:]]*$/\1/' \
+    -e '/^[[:space:]]*$/d' $2 | \
+sort -u &gt; $TMP2
+
+comm -23 $TMP1 $TMP2
+exit 0</pre></div>
+
+<h3>Symmetric Difference</h3>
+<div class="pre"><pre class="code lang-bash">#!/bin/bash
+
+# symdif
+# Purpose: Compute the symmetric difference
+#   of sets $1 and $2
+#   A @ B = {x : x e A or x e B but x ne both}
+#
+# Expected format of sets:
+# 1. One element per line.
+# 2. Blank lines are allowed.
+# 3. Comments start with '#' and continue to end of line.
+# 4. Leading and trailing white space will be removed.
+
+TMP1=`mktemp --tmpdir --suffix=.txt symdif-XXXXX`
+TMP2=`mktemp --tmpdir --suffix=.txt symdif-XXXXX`
+
+trap "rm -f $TMP1 $TMP2 ; exit 0" EXIT
+trap "rm -f $TMP1 $TMP2 ; exit 1" ABRT BUS HUP INT KILL QUIT SEGV
+
+# Remove comments, leading and trailing white space and
+# blank lines, and sort input files.
+sed -e 's/#.*$//' \
+    -e 's/^[[:space:]]*\([^[:space:]]*\)[[:space:]]*$/\1/' \
+    -e '/^[[:space:]]*$/d' $1 | \
+sort -u &gt; $TMP1
+sed -e 's/#.*$//' \
+    -e 's/^[[:space:]]*\([^[:space:]]*\)[[:space:]]*$/\1/' \
+    -e '/^[[:space:]]*$/d' $2 | \
+sort -u &gt; $TMP2
+
+comm -3 $TMP1 $TMP2 | sed 's/\t//g'
+exit 0</pre></div>
+</article>
+</body>
+</html>

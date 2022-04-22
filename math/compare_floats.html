@@ -6,7 +6,8 @@
     <meta name="description" content="Demonstrates how to correctly compare floating-point numbers for equality in the Java programming language.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comparing Floating-Point Numbers</title>
-    <script src="../site/template.js"></script>
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
     <script src="../site/hljs/highlight.min.js"></script>
     <link rel="icon" type="image/png" href="../site/icons/icon.png">
     <link rel="stylesheet" type="text/css" href="../site/style.css">
@@ -14,8 +15,19 @@
 </head>
 
 <body>
+<figure class="pitch" style="width:15em" data-sibling="ex6">
+    <a href="https://www.amazon.com/dp/0983384096">
+    <img alt='Front cover of "Really Understand Binary"'
+    src="../site/images/binary_front_small.jpg"></a>
+<figcaption>If you want to learn more about how computers store and
+process numbers, check out the book
+<a href="https://www.amazon.com/dp/0983384096">Really Understand
+Binary</a>.</figcaption>
+</figure>
+
 <article>
 <h1>Comparing Floating-Point Numbers</h1>
+
 <p>Within a computer program, comparing floating-point numbers for
 equality is problematic. This is because the computer approximates most
 real numbers as floating-point numbers. There is almost always rounding
@@ -114,17 +126,7 @@ contains two functions in the Math class for computing ulps.</p>
 the distance between them is less than or equal to two ulps of the
 larger float.</p>
 
-<figure class="right" style="width:15em">
-    <a href="https://www.amazon.com/dp/0983384096">
-    <img alt='Front cover of "Really Understand Binary"'
-    src="../site/images/binary_front_small.jpg"></a>
-<figcaption>If you want to learn more about how computers store and
-process numbers, check out the book
-<a href="https://www.amazon.com/dp/0983384096">Really Understand
-Binary</a>.</figcaption>
-</figure>
-
-<div class="pre">
+<div class="pre" id="ex5">
 <pre class="code lang-java">float max = Math.max(Math.abs(e), Math.abs(f));
 float ulp = Math.ulp(max);
 if (Math.abs(e - f) &lt;= ulp * 2) {
@@ -141,7 +143,7 @@ else {
 <p>We could use this code to build a small function that we can use to
 compare two floating-point numbers for equality.</p>
 
-<div class="pre">
+<div class="pre" id="ex6">
 <pre class="code lang-java">public static boolean equals(float e, float f, int maxULPs) {
     boolean eq;
     boolean enan = Float.isNaN(e);

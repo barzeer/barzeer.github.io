@@ -1,7 +1,37 @@
 "use strict";
 
-if (!window.hasOwnProperty('barzee')) {
-window.barzee = {
+if (!window.hasOwnProperty('smartDev')) {
+window.smartDev = {
+	surroundIndex : function() {
+		let body = document.querySelector('body');
+		let side = document.querySelector('div.side');
+		let article = document.querySelector('article');
+		body.removeChild(side);
+		body.removeChild(article);
+
+		let modif = this.createModified();
+		article.appendChild(modif);
+
+		let h2 = this.createElem('h2', null, null, 'About the Author');
+		let author = this.createAuthor();
+		side.appendChild(h2);
+		side.appendChild(author);
+
+		let top = this.createElem('div', 'top');
+
+		let page = this.createElem('div', 'page');
+		let header = this.createHeader();
+		let footer = this.createFooter();
+		page.appendChild(header);
+		page.appendChild(side);
+		page.appendChild(article);
+		page.appendChild(footer);
+
+		body.appendChild(top);
+		body.appendChild(page);
+	},
+
+
 	/** Reorganizes the structure of an HTML document or in other words,
 	 * surrounds the article with this structure:
 	 * <body>
@@ -17,16 +47,15 @@ window.barzee = {
 	 *     </div>
 	 * </body>
 	 */
-	surroundArticle: function() {
-		let body = this.getByTagName('body');
-		let article = this.getByTagName('article');
+	surroundArticle : function() {
+		let body = document.querySelector('body');
+		let article = document.querySelector('article');
 		body.removeChild(article);
 
 		let modif = this.createModified();
 		article.appendChild(modif);
 
 		let top = this.createElem('div', 'top');
-		body.appendChild(top);
 
 		let page = this.createElem('div', 'page');
 		let header = this.createHeader();
@@ -37,6 +66,7 @@ window.barzee = {
 		page.appendChild(article);
 		page.appendChild(footer);
 
+		body.appendChild(top);
 		body.appendChild(page);
 	},
 
@@ -62,10 +92,9 @@ window.barzee = {
 		side.appendChild(h2);
 		side.appendChild(nav);
 		h2 = this.createElem('h2', null, null, 'About the Author');
-		let p = this.createElem('p');
-		p.innerHTML = 'Rex A. Barzee is a professor of Computer Information Technology at Brigham Young University–Idaho. He is an inventor of two United States patents and the author of numerous books. He earned a bachelor’s and a master’s degree in Computer Science from Brigham Young University. Before becoming a professor, he worked for eight years as a software engineer. You can see his <a href="https://www.linkedin.com/in/rex-barzee-306a0b37/">full profile</a> at LinkedIn.';
+		let author = this.createAuthor();
 		side.appendChild(h2);
-		side.appendChild(p);
+		side.appendChild(author);
 		return side;
 	},
 
@@ -97,6 +126,13 @@ window.barzee = {
 		}
 		nav.appendChild(ul);
 		return nav;
+	},
+
+
+	createAuthor : function() {
+		let author = this.createElem('p');
+		author.innerHTML = 'Rex A. Barzee is a professor of Computer Information Technology at Brigham Young University–Idaho. He is an inventor of two United States patents and the author of numerous books. He earned a bachelor’s and a master’s degree in Computer Science from Brigham Young University. Before becoming a professor, he worked for eight years as a software engineer. You can see his <a href="https://www.linkedin.com/in/rex-smartDev-306a0b37/">full profile</a> at LinkedIn.';
+		return author;
 	},
 
 
@@ -140,11 +176,6 @@ window.barzee = {
 
 	createText : function(text) {
 		return document.createTextNode(text);
-	},
-
-
-	getByTagName : function(name) {
-		return document.getElementsByTagName(name)[0];
 	},
 
 
@@ -322,14 +353,21 @@ window.barzee = {
 			target.addEventListener('click', toggle);
 			target.setAttribute('title', 'Move mouse over to turn on highlights.\nClick to keep highlights on.');
 		}
+	},
+
+
+	movePitches : function() {
+		const figures = document.querySelectorAll('figure.pitch[data-sibling]');
+		for (let i = 0;  i < figures.length;  ++i) {
+			let figure = figures[i];
+			let id = figure.getAttribute('data-sibling');
+			let sibling = document.getElementById(id);
+			let top = sibling.getBoundingClientRect().top;
+			console.log(top);
+			figure.style.top = top + "px";
+			console.log(figure.style.top);
+			console.log(figure.getBoundingClientRect().top);
+		}
 	}
 };
-
-
-window.addEventListener('DOMContentLoaded', function() {
-	barzee.surroundArticle();
-	barzee.addLineNumbers();
-	barzee.addCopyButtons();
-	barzee.addCrossRefs();
-});
 }

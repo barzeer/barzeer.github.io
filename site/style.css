@@ -1,6 +1,12 @@
 @import url("reset.css");
+/*
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kalam&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
+*/
+@import url('https://fonts.googleapis.com/css2?family=Neucha&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
 
 :root {
@@ -143,7 +149,8 @@ header > h2 {
 }
 
 header > h3 {
-	font-size: 110%;
+	font-family: Neucha, "Brush Script MT", cursive;
+	font-size: 150%;
 	color: var(--border-color);
 	margin: 1em 0 0 0;
 }
