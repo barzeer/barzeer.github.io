@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="MySQL, MySQL Workbench, date format, NULL">
+    <meta name="description" content="Tips for entering data into a database using the MySQL Workbench.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Templates for Basic SQL Queries</title>
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Templates for Basic SQL Queries</h1>
+
+<p>Here are six templates that may help you write SQL queries. Within
+the templates, the words written in UPPERCASE are SQL keywords and the
+words written in <i>lowercase italics</i> are the ones that you should
+replace for each specific query.</p>
+
+<h3>Simple Query</h3>
+<div class="pre">
+<pre class="code lang-sql">SELECT <i>columns</i>
+FROM <i>schema.table</i>
+WHERE <i>filter</i>
+ORDER BY <i>columns</i></pre></div>
+
+<h3>Arithmetic Operators</h3>
+<p>The arithmetic operators cause the database server to perform
+arithmetic on the data in cells. The arithmetic operators available in
+MySQL include &minus; (negation), * (multiplication), / (division), DIV
+(integer division), MOD (modulus), + (addition), and &minus;
+(subtraction).</p>
+
+<div class="pre">
+<pre class="code lang-sql">SELECT <i>column</i> <i>operator</i> <i>column</i>, &hellip;
+FROM <i>schema.table</i>
+WHERE <i>filter</i>
+ORDER BY <i>columns</i></pre></div>
+
+<h3>Scalar Functions</h3>
+<p>Scalar functions are functions that operate on the data in one row.
+The scalar functions available in MySQL include YEAR(), MONTH(),
+CONCAT(), LOWER(), UPPER(), SUBSTRING(), POW(), ROUND(), and
+SQRT()</p>
+
+<div class="pre">
+<pre class="code lang-sql">SELECT <i>func(column)</i>, &hellip;
+FROM <i>schema.table</i>
+WHERE <i>filter</i>
+ORDER BY <i>columns</i></pre></div>
+
+<h3>Aggregate Functions</h3>
+<p>Aggregate functions are functions that operate on the data in
+multiple rows. In other words, aggregate functions combine or aggregate
+the data in multiple rows into one value. The aggregate functions
+available in MySQL include MIN(), MAX(), COUNT(), SUM(), AVG(),
+STDDEV(), and VARIANCE()</p>
+
+<div class="pre">
+<pre class="code lang-sql">SELECT <i>func(column)</i>, &hellip;
+FROM <i>schema.table</i>
+WHERE <i>filter</i>
+GROUP BY <i>columns</i>
+HAVING <i>aggregate_filter</i>
+ORDER BY <i>columns</i></pre></div>
+
+<h3>Join Tables</h3>
+<p>Use a join to select columns from multiple tables.</p>
+
+<div class="pre">
+<pre class="code lang-sql">SELECT <i>columns</i>
+FROM <i>schema.table1</i>
+    INNER JOIN <i>schema.table2</i> ON <i>table1.pk</i> = <i>table2.fk</i>
+    INNER JOIN <i>schema.table3</i> ON <i>table2.pk</i> = <i>table3.fk</i>
+    &vellip;
+WHERE <i>filter</i>
+ORDER BY <i>columns</i></pre></div>
+
+<h3>Join Tables and Aggregate Functions</h3>
+<div class="pre">
+<pre class="code lang-sql">SELECT <i>columns</i>, <i>func(column)</i>, &hellip;
+FROM <i>schema.table1</i>
+    INNER JOIN <i>schema.table2</i> ON <i>table1.pk</i> = <i>table2.fk</i>
+    INNER JOIN <i>schema.table3</i> ON <i>table2.pk</i> = <i>table3.fk</i>
+    &vellip;
+WHERE <i>filter</i>
+GROUP BY <i>columns</i>
+HAVING <i>aggregate_filter</i>
+ORDER BY <i>columns</i></pre></div>
+
+<p>Of course a single query can include elements from all the templates.
+For example, a single query can</p>
+<ul>
+    <li><div>select columns from multiple tables with a join</div></li>
+    <li><div>select values calculated using the arithmetic operators</div></li>
+    <li><div>select values calculated using the scalar functions</div></li>
+    <li><div>select values calculated using the aggregate functions</div></li>
+    <li><div>filter the results</div></li>
+    <li><div>group the results</div></li>
+    <li><div>sort the results</div></li>
+    <li><div>and much more</div></li>
+</ul>
+</article>
+</body>
+</html>

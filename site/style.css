@@ -169,19 +169,22 @@ div.side > h2 {
 	margin: 0 0 0.5em 0;
 }
 
-nav {
+div.side nav {
 	margin: 0 0 5em 0;
 }
-nav ul {
+div.side nav ul {
 	margin: 0 0 0 1.5em;
 	list-style-type: disc;
 }
-nav ul > li {
+div.side nav ul > li {
 	margin: 0 0 0.5em 0;
 	color: var(--bullet-fg-color);
 }
-nav > ul >  li > div {
+div.side nav ul > li > div {
 	color: var(--fg-color);
+}
+div.side nav ul > li > div > em {
+	font-weight: bold;
 }
 
 

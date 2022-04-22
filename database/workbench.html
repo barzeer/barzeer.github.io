@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="MySQL, MySQL Workbench, date format, NULL">
+    <meta name="description" content="Tips for entering data into a database using the MySQL Workbench.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entering Data with MySQL Workbench</title>
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Entering Data with MySQL Workbench</h1>
+
+<ul class="long">
+    <li><div>After you enter data in the MySQL Workbench, you must click
+    the <span class="menu">Apply</span> button in order to save the data
+    in your MySQL database. If you forget to click the
+    <span class="menu">Apply</span> button your data will not be written
+    to the database and will be lost when you close the
+    Workbench.</div></li>
+
+    <li><div>You must enter data in the order of its dependencies.
+    Consider a database for a pizza restaurant. You must enter the
+    <code>customer</code> and <code>employee</code> data before you can
+    enter the <code>order</code> data because the <code>order</code>
+    data includes <code>customer_keys</code> and
+    <code>employee_keys</code>. In other words, the <code>order</code>
+    data is dependent on the <code>customer</code> and
+    <code>employee</code> data, so you must enter the
+    <code>customer</code> and <code>employee</code> data before entering
+    the <code>order</code> data.</div></li>
+
+    <li><div>You must enter dates in MySQL Workbench in this format:
+    yyyy-mm-dd, meaning
+    <ol>
+        <li><div>a four digit year</div></li>
+        <li><div>a dash</div></li>
+        <li><div>a two digit month number (01 is January)</div></li>
+        <li><div>a dash</div></li>
+        <li><div>a two digit day of the month</div></li>
+    </ol>
+    </div></li>
+
+    <li><div>You must enter times in MySQL Workbench using 24 hour
+    format, also called military time. For example you must enter
+    8:00&nbsp;AM as 8:00 and 2:00&nbsp;PM as 14:00</div></li>
+
+    <li><div>You must enter Boolean values in MySQL Workbench as 0 and
+    1. 0 means FALSE and 1 means TRUE. When I enter FALSE or TRUE into
+    the Workbench datasheet, the Workbench always treats them as text
+    values and not Boolean values. I cannot find any way to enter the
+    words FALSE, false, F, f, TRUE, true, T, or t into the MySQL
+    Workbench and get the Workbench to write them to a BOOLEAN
+    cell.</div></li>
+
+    <li><div>To store a file into a BLOB cell, right click on the cell
+    and and click <span class="menu">Load Value From File...</span> To
+    retrieve an object from a BLOB cell, right click on the cell and
+    click <span class="menu">Save Value To File...</span></div></li>
+
+    <li><div>If you want to enter a <span class="null">NULL</span> in a
+    cell, you cannot simply type the word &ldquo;NULL&rdquo;. If you
+    simply type NULL, the Workbench will try to store the word NULL as a
+    VARCHAR or CHAR into the cell. If you want to enter a
+    <span class="null">NULL</span> in a cell, right click on the cell
+    and click <span class="menu">Set Field To NULL</span>.</div></li>
+</ul>
+</article>
+</body>
+</html>

@@ -125,7 +125,7 @@ window.smartDev = {
 			let li = this.createElem('li');
 			let div = this.createElem('div');
 			let text = folder == direc ?
-				this.createText(name) :
+				this.createElem('em', null, null, name) :
 				this.createElem('a', null,
 					{'href': '../' + direc + '/index.html'}, name);
 			div.appendChild(text);
