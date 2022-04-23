@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="relational database, database design, entity relationship diagram, ERD, identifying relationship, non-identifying relationship">
+    <meta name="description" content="Diagrams, examples, and explanations showing the difference between a non-identifying (dashed line) relationship and an identifying (solid line) relationship in a relational database design.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Non-Identifying vs. Indentifying Relationships</title>
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Non-Identifying vs. Indentifying Relationships</h1>
+
+<p>Within an entity relationship diagram (ERD), what is the difference
+between a relationship that is drawn as a dashed line and one that is
+drawn as a solid line?</p>
+
+<h3>Legend</h3>
+<p>Before answering the question, here is a legend for the various parts
+of a simple entity relationship diagram (ERD). Knowing the names of
+these parts as shown in the legend will help you understand the answer
+to the question.</p>
+
+<figure class="center">
+<img alt="A legend for entity relationship diagrams"
+title="A legend for entity relationship diagrams"
+src="erd_legend.gif"></figure>
+
+<h3>Non-Identifying Relationship (Dashed Line)</h3>
+<p>A relationship with a dashed line (such as
+<img alt="A one to many, non-identifying relationship"
+title="A one to many, non-identifying relationship"
+src="data:image/gif;base64,
+R0lGODlhcQAXAPcAAAAAAAEBAQICAgMDAwUFBQYGBggICAkJCQsLCw0NDQ4ODg8PDxAQEBERERMT
+ExUVFRcXFxgYGBsbGx4eHh8fHyEhISIiIiMjIyQkJCYmJigoKCkpKS0tLS8vLzAwMDExMTIyMjQ0
+NDU1NTY2Njk5OTw8PD09PT4+PkNDQ0REREZGRkhISEpKSktLS05OTk9PT1BQUFFRUVJSUlRUVFdX
+V1hYWFtbW1xcXF5eXl9fX2JiYmVlZWZmZmhoaGpqamxsbG5ubm9vb3JycnNzc3Z2dnd3d3h4eH5+
+foKCgoODg4+Pj5KSkpaWlpiYmJmZmZ+fn6CgoKGhoaWlpaampqenp6qqqq2trbGxsbOzs7W1tbe3
+t7q6uru7u729vb6+vsLCwsTExMvLy83Nzc7OztDQ0NHR0dLS0tPT09TU1NXV1dbW1tfX19nZ2dra
+2tvb293d3d7e3t/f3+Dg4OHh4ePj4+Xl5ebm5ufn5+jo6Onp6evr6+zs7O3t7e/v7/Hx8fPz8/T0
+9Pb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAAcQAXAAAI/wAVCRxI
+sKDBgwgTKlzIsKHDhxAjSpxIsaLFixgzThwkqBDBRIIEaRw5UtCfP4YWJirkpeAQGE8I9oEBg6TN
+ioa0zNDAAYmcRAnnGEFQEASAIQTxAABws2lEKw+WAiCAAxDCLScKMCVoFOlApVudilUYhwSAClF+
+AAgAxWAhJgoADCBS9GjSpWPzIqRSwAAYgTsAUBg08NAaHQQAdKjikavdr3j1Sh54A4CMgWCifhEo
+SMoHAAd4lDnY9W7YyXozAMAykE4JAEkUDQKCAAADJ1YFitm9WwOAHmZ4b8EL6Azv3XAUBUpzXMwb
+kGqauzk0aE3zNoYKsWnOppChNs3XDP865Ka5GkGJ3jRPE0gRnN1Ls5yxigYFgBVcRCxF4KS51P8k
+SPAfXmFYMCANipixwYAxGMKGBwOyAIgcIwyIAh93mDCgCXbwkcKAI8QBCAsDdsCGITEMqIEZitQw
+oAVhKJLDgDTWKFWANCpS4IEJLvhfgw9GOGGF/12Y4YYdfvhfiCOWeGKK/63Y4osxzmjjgHV5JRBY
+qE0WVRcD5aECAEUoMkUEAgBwAx2IIFQaZKd1KZYLAAQx0BgTAHCFQGfYUEAAIlBBCGmPbRmZnGMx
+IYADcwh0hAAL+DGQHk1AAEADPtRh0JuGxonoTWRcAEALdFyRWGwFuRHCUh2ckaVpn45OVYgSB8gF
+gAAp7HFQHUBElUBBQrwQ00B9vPBCrGMBsgQGS9UwRpsHEWLFCAEUNEggjQmUSCDtISvWIX6soQd6
+CiGChw3epqvuuuy2q25AADs=">) is called a non-identifying relationship,
+and the primary key of one entity is not part of the primary key of
+another entity.</p>
+
+<h3>Identifying Relationship (Solid Line)</h3>
+<p>A relationship with a solid line (such as
+<img alt="A one to many, identifying relationship"
+title="A one to many, identifying relationship"
+src="data:image/gif;base64,
+R0lGODlhcQAXAPcAAAAAAAEBAQICAgMDAwUFBQYGBggICAkJCQsLCw0NDQ4ODg8PDxAQEBERERMT
+ExUVFRcXFxgYGB4eHh8fHyEhISIiIiMjIyQkJCYmJigoKC0tLS8vLzExMTIyMjQ0NDU1NTY2Njk5
+OTw8PD4+PkNDQ0REREZGRkhISEtLS05OTk9PT1BQUFJSUlRUVFhYWFtbW1xcXF5eXl9fX2JiYmVl
+ZWZmZmhoaGpqamxsbG5ubm9vb3JycnNzc3Z2dnd3d3h4eH5+foKCgoODg4+Pj5KSkpaWlpiYmJmZ
+mZ+fn6CgoKGhoaWlpaampqenp6qqqq2trbGxsbOzs7W1tbe3t7q6uru7u729vb6+vsLCwsTExMvL
+y83Nzc7OztDQ0NHR0dPT09TU1NfX19vb29/f3+Dg4OHh4ePj4+Xl5ejo6Onp6evr6+zs7O/v7/Hx
+8fPz8/T09Pb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///wAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAAcQAXAAAI/wDzCBxI
+sKDBgwgTKlzIsKHDhxAjSpxIsaLFixgzTpQThw5BPHHiaBw5Mo4bN3UW4qFzpSCPFUgIslmxgqTN
+inWmtMigIQgZPAnL/EBQsAMAHgTRAABws2nEJw+WAiAQ4w1CKiMKMCVoFOlApVudilU4JgQACkpw
+AAiQxCCdIgoADOhR9GjSpWPzImxSwEAWgTQATJAz0E6YGQQAbHDikavdr3j1Sh4IAwCLgVmiYhEY
+ZwkHAAdqeDnY9W7YyXoxAIgy0IwIAELyyMmBAACDI1YFbtm9OwMAG7x3Lw1OvLjx48iTK19OfKmU
+L1bBkABwosqHpQiONJcq1Sz37+DDi9cfT768+fMAKmjJIwN9eO/u48ufT189e/R1vQoEi3pyVCsD
+pWECAD7kwUQEAgAAgxl3IFQaZKf1J1YKAOgwEBcSAACFQF+8UEAAHzQxB2mP7ReZhGMVIYADZQgE
+hAALtDGQGkZAAEADN5xh0IMmRojiTV1YAAAKZkCRWGwFieHBUht8kZ9pP45FxxAHyAWAACWscdAZ
+OUSVQEE7qBDTQGyooEKUY71BxAVLucBFgwfN8QQIARQkBxyNCYQHHHCgOZYdbYShRhxAJXQHGi/4
+qeiijDbq6KIBAQA7">) is called an identifying relationship, and the
+primary key of one entity is part of the primary key of another
+entity.</p>
+
+<h3>Example 1</h3>
+<p>Notice in the next diagram that all the relationships among the
+tables are non-identifying (dashed lines). This means that all foreign
+keys are just plain foreign keys and not part of the primary key in the
+foreign table.</p>
+<figure class="center">
+<img alt="Examples of non-identifying relationships"
+title="Examples of non-identifying relationships"
+src="employee_non_ident.gif">
+</figure>
+
+<h3>Example 2</h3>
+<p>Notice in the next diagram that the relationship between Title and
+Employee is a non-identifying relationship (dashed line) which means the
+primary key of Title is not part of the primary key of Employee.
+However, the relationship between Employee and assignment is an
+identifying relationship (solid line) which means the primary key of
+Employee is part of the primary key of Assignment.</p>
+<figure class="center">
+<img alt="Examples of identifying and non-identifying relationships"
+title="Examples of identifying and non-identifying relationships"
+src="employee_ident.gif">
+</figure>
+
+<h3>Example 3</h3>
+<p>Notice in the following diagram that the relationship between Album
+and Track is a non-identifying relationship (dashed line). This means
+the primary key for Album is not part of the primary key for Track.</p>
+<figure class="center">
+<img alt="Example of a non-identifying relationship"
+title="Example of a non-identifying relationship"
+src="music_non_ident.gif">
+</figure>
+
+<h3>Example 4</h3>
+<p>In the next diagram notice that the relationship between Album and
+Track is an identifying relationship (solid line). This means the
+primary key for Album is part of the primary key for Track.</p>
+<figure class="center">
+<img alt="Example of an identifying relationship"
+title="Example of an identifying relationship"
+src="music_ident.gif">
+</figure>
+
+</article>
+</body>
+</html>
