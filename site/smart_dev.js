@@ -11,23 +11,19 @@ window.smartDev = {
 		article.appendChild(modif);
 
 		let top = this.createElem('div', 'top');
-
 		let page = this.createElem('div', 'page');
-		let header = this.createHeader();
-		let side = this.createSide(window.location.pathname);
-
-		let footer = this.createElem('footer');
-		let copy = this.createElem('p', null, null,
-				'Copyright © 2022 Rex A. Barzee. All rights reserved.');
-		footer.appendChild(copy);
-
-		page.appendChild(header);
-		page.appendChild(side);
-		page.appendChild(article);
-		page.appendChild(footer);
-
 		body.appendChild(top);
 		body.appendChild(page);
+
+		let header = this.createHeader();
+		let nav = this.createNav(false, window.location.pathname);
+		let side = this.createSide(window.location.pathname, false);
+		//let footer = this.createElem('footer');
+		page.appendChild(header);
+		page.appendChild(nav);
+		page.appendChild(side);
+		page.appendChild(article);
+		//page.appendChild(footer);
 	},
 
 
@@ -60,8 +56,8 @@ window.smartDev = {
 		body.appendChild(page);
 
 		let header = this.createHeader();
-		let nav = this.createNav(false);
-		let side = this.createSide();
+		let nav = this.createNav(false, null);
+		let side = this.createSide(null, true);
 		let footer = this.createFooter();
 		page.appendChild(header);
 		page.appendChild(nav);
@@ -85,12 +81,14 @@ window.smartDev = {
 	},
 
 
-	createSide : function(pathname) {
+	createSide : function(pathname, withAuthor) {
 		let side = this.createElem('div', 'side');
 		let nav = this.createNav(true, pathname);
 		side.appendChild(nav);
-		let author = this.createAuthor();
-		side.appendChild(author);
+		if (withAuthor) {
+			let author = this.createAuthor();
+			side.appendChild(author);
+		}
 		return side;
 	},
 
