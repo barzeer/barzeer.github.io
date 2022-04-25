@@ -55,18 +55,19 @@ window.smartDev = {
 		article.appendChild(modif);
 
 		let top = this.createElem('div', 'top');
-
 		let page = this.createElem('div', 'page');
+		body.appendChild(top);
+		body.appendChild(page);
+
 		let header = this.createHeader();
+		let nav = this.createNav(false);
 		let side = this.createSide();
 		let footer = this.createFooter();
 		page.appendChild(header);
+		page.appendChild(nav);
 		page.appendChild(side);
 		page.appendChild(article);
 		page.appendChild(footer);
-
-		body.appendChild(top);
-		body.appendChild(page);
 	},
 
 
@@ -86,21 +87,25 @@ window.smartDev = {
 
 	createSide : function(pathname) {
 		let side = this.createElem('div', 'side');
-		let h2 = this.createElem('h2', null, null, 'Categories');
-		let nav = this.createNav(pathname);
-		side.appendChild(h2);
+		let nav = this.createNav(true, pathname);
 		side.appendChild(nav);
-		h2 = this.createElem('h2', null, null, 'About the Author');
 		let author = this.createAuthor();
-		side.appendChild(h2);
 		side.appendChild(author);
 		return side;
 	},
 
 
-	createNav : function(pathname) {
+	createNav : function(withHeading, pathname) {
 		let nav = this.createElem('nav');
+
+		if (withHeading) {
+			let h2 = this.createElem('h2', null, null, 'Categories');
+			nav.appendChild(h2);
+		}
+
 		let ul = this.createElem('ul');
+		nav.appendChild(ul);
+
 		let items = [
 			['python', 'Python'],
 			['javascript', 'JavaScript'],
@@ -132,14 +137,17 @@ window.smartDev = {
 			li.appendChild(div);
 			ul.appendChild(li);
 		}
-		nav.appendChild(ul);
 		return nav;
 	},
 
 
 	createAuthor : function() {
-		let author = this.createElem('p');
-		author.innerHTML = 'Rex A. Barzee is a professor of Computer Information Technology at Brigham Young University–Idaho. He is an inventor of <a href="https://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO2&Sect2=HITOFF&u=%2Fnetahtml%2FPTO%2Fsearch-adv.htm&r=0&p=1&f=S&l=50&Query=IN%2F%22Barzee%3B+Rex+A.%22&d=PTXT">two United States patents</a> and the author of <a href="https://www.amazon.com/Rex-Barzee/e/B006SYU4S0">numerous books</a>. He earned a bachelor’s and a master’s degree in Computer Science from Brigham Young University. Before becoming a professor, he worked for eight years as a software engineer. You can see his <a href="https://www.linkedin.com/in/rex-barzee-306a0b37/">full profile</a> at LinkedIn.';
+		let author = this.createElem('div', 'author');
+		let h2 = this.createElem('h2', null, null, 'About the Author');
+		author.appendChild(h2);
+		let para = this.createElem('p');
+		para.innerHTML = 'Rex A. Barzee is a professor of Computer Information Technology at Brigham Young University–Idaho. He is an inventor of <a href="https://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO2&Sect2=HITOFF&u=%2Fnetahtml%2FPTO%2Fsearch-adv.htm&r=0&p=1&f=S&l=50&Query=IN%2F%22Barzee%3B+Rex+A.%22&d=PTXT">two United States patents</a> and the author of <a href="https://www.amazon.com/Rex-Barzee/e/B006SYU4S0">numerous books</a>. He earned a bachelor’s and a master’s degree in Computer Science from Brigham Young University. Before becoming a professor, he worked for eight years as a software engineer. You can see his <a href="https://www.linkedin.com/in/rex-barzee-306a0b37/">full profile</a> at LinkedIn.';
+		author.appendChild(para);
 		return author;
 	},
 
@@ -154,12 +162,14 @@ window.smartDev = {
 
 	createFooter : function() {
 		let footer = this.createElem('footer');
-		let disclaim = this.createElem('p', null, null,
-				'Rex A. Barzee used his best efforts in preparing this article.  These efforts include the development, research, and testing of the theories and computer programs in this article to determine their correctness. Mr. Barzee makes no warranty of any kind, expressed or implied, with regard to these programs or the documentation contained in this article. Mr. Barzee shall not be liable in any event for incidental or consequential damages in connection with, or arising out of, the furnishing, performance, or use of these programs.');
 		let copy = this.createElem('p', null, null,
 				'Copyright © 2022 Rex A. Barzee. All rights reserved.');
-		footer.appendChild(disclaim);
 		footer.appendChild(copy);
+		let author = this.createAuthor();
+		footer.appendChild(author);
+		let disclaim = this.createElem('p', null, null,
+				'Mr. Barzee used his best efforts in preparing this article. These efforts include the development, research, and testing of the theories and computer programs in this article to determine their correctness. Mr. Barzee makes no warranty of any kind, expressed or implied, with regard to these programs or the documentation contained in this article. Mr. Barzee shall not be liable in any event for incidental or consequential damages in connection with, or arising out of, the furnishing, performance, or use of these programs.');
+		footer.appendChild(disclaim);
 		return footer;
 	},
 
