@@ -1,0 +1,829 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="relational database design, first normal form, second normal form, third normal form">
+    <meta name="description" content="An article that compares various relational database designs in first, second, and third normal form.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unnormalized Database Designs</title>
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Unnormalized Database Designs</h1>
+<p>It is important to recognize when a database design violates the
+rules for the normal forms.</p>
+
+<h2>Albums, Tracks, and Artists</h2>
+<p>Below are five different designs (ERDs) and corresponding data tables
+for a database that stores data about albums, songs, and musical
+artists. The first four designs violate first, second, or third normal
+form. The last design does not violate any of the rules for first,
+second, or third normal form and is therefore normalized to third normal
+form.</p>
+
+<h3>Violates First Normal Form</h3>
+<p>The following design and the corresponding data table violate first
+normal form, because there are lists in the tracks column. Some track
+names, such as &ldquo;Jesu, Joy of Man&rsquo;s Desiring&rdquo; by
+Beethoven, include commas. How will the computer distinguish between a
+comma that is part of a track name and a comma that separates track
+names?</p>
+
+<figure class="erd_data">
+    <img style="width:8em" src="music/zero_normal_1.svg"
+    alt="An entity relationship diagram containing a non-normalized
+    design for artists, albums, and tracks that violates first normal
+    form">
+
+    <div><table class="data">
+    <caption class="name">album</caption><thead>
+        <tr><th scope="col">albumTitle</th>
+            <th scope="col">yearReleased</th>
+            <th scope="col">label</th>
+            <th scope="col">tracks</th>
+            <th scope="col">artist</th>
+            <th scope="col">artistCountry</th></tr>
+    </thead><tbody>
+        <tr><td>Abbey Road</td>
+            <td class="center">1969</td>
+            <td>Apple</td>
+            <td>Here Comes the Sun, Octopus&rsquo;s Garden, Something, etc.</td>
+            <td>Beatles</td>
+            <td class="center">UK</td></tr>
+        <tr><td>Fearless</td>
+            <td class="center">2008</td>
+            <td>Big Machine Records</td>
+            <td>Love Story, White Horse, You Belong with Me, Fifteen</td>
+            <td>Taylor Swift</td>
+            <td class="center">US</td></tr>
+    </tbody></table></div>
+</figure>
+
+<p>The next design and its corresponding data table also violate first
+normal form because there is a list of columns: track1, track2, &hellip;
+With such a design, how will the designer know how many track columns to
+add to the table? How many of those track columns will be empty most of
+the time? When the computer searches for a particular track, it will
+have to search in all the track columns which is inefficient.</p>
+
+<figure class="erd_data">
+    <img style="width:8em" src="music/zero_normal_2.svg"
+    alt="An entity relationship diagram containing a non-normalized
+    design for artists, albums, and tracks that violates first normal
+    form">
+
+    <div><table class="data">
+    <caption class="name">album</caption><thead>
+        <tr><th scope="col">albumTitle</th>
+            <th scope="col">yearReleased</th>
+            <th scope="col">label</th>
+            <th scope="col">track1</th>
+            <th scope="col">track2</th>
+            <th scope="col">track3</th>
+            <th scope="col">track4</th>
+            <th scope="col">track5</th>
+            <th scope="col">artist</th>
+            <th scope="col">artistCountry</th></tr>
+    </thead><tbody>
+        <tr><td>Abbey Road</td>
+            <td class="center">1969</td>
+            <td>Apple</td>
+            <td>Here Comes the Sun</td>
+            <td>Octopus&rsquo;s Garden</td>
+            <td>Something, etc.</td>
+            <td></td>
+            <td></td>
+            <td>Beatles</td>
+            <td class="center">UK</td></tr>
+        <tr><td>Fearless</td>
+            <td class="center">2008</td>
+            <td>Big Machine Records</td>
+            <td>Love Story</td>
+            <td>White Horse</td>
+            <td>You Belong with Me</td>
+            <td>fifteen</td>
+            <td></td>
+            <td>Taylor Swift</td>
+            <td class="center">US</td></tr>
+    </tbody></table></div>
+</figure>
+
+<h3>Violates Second Normal Form</h3>
+<p>The next design and corresponding data table are normalized to first
+normal form because there are no lists within cells and no lists of
+columns. However, they violate second normal form because the track
+table contains sub-themes. Album and artist are sub-themes within the
+track table and should be separated.</p>
+
+<figure class="erd_data">
+    <img style="width:8em" src="music/first_normal.svg"
+    alt="An entity relationship diagram containing a non-normalized
+    design for artists, albums, and tracks that doesn't violate first
+    normal form but does violate second normal form">
+
+    <div><table class="data">
+    <caption class="name">album</caption><thead>
+    <tr><th scope="col">albumTitle</th>
+        <th scope="col">yearReleased</th>
+        <th scope="col">label</th>
+        <th scope="col">track</th>
+        <th scope="col">length</th>
+        <th scope="col">artist</th>
+        <th scope="col">artistCountry</th></tr>
+    </thead><tbody>
+        <tr><td>Abbey Road</td> <td class="center">1969</td>
+            <td>Apple</td>
+            <td>Here Comes the Sun</td> <td class="number">3:06</td>
+            <td>Beatles</td> <td class="center">UK</td></tr>
+        <tr><td>Abbey Road</td> <td class="center">1969</td>
+            <td>Apple</td>
+            <td>Octopus&rsquo;s Garden</td> <td class="number">2:48</td>
+            <td>Beatles</td> <td class="center">UK</td></tr>
+        <tr class="shaded"><td>Abbey Road</td> <td class="center">1969</td>
+            <td>Apple</td>
+            <td>Something</td> <td class="number">2:59</td>
+            <td>Beatles</td> <td class="center">UK</td></tr>
+        <tr><td>Fearless</td> <td class="center">2008</td>
+            <td>Big Machine Records</td>
+            <td>Love Story</td> <td class="number">3:57</td>
+            <td>Taylor Swift</td> <td class="center">US</td></tr>
+        <tr><td>Fearless</td> <td class="center">2008</td>
+            <td>Big Machine Records</td>
+            <td>White Horse</td> <td class="number">3:55</td>
+            <td>Taylor Swift</td> <td class="center">US</td></tr>
+        <tr class="shaded"><td>Fearless</td> <td class="center">2008</td>
+            <td>Big Machine Records</td>
+            <td>You Belong with Me</td> <td class="number">3:52</td>
+            <td>Taylor Swift</td> <td class="center">US</td></tr>
+        <tr><td>Fearless</td> <td class="center">2008</td>
+            <td>Big Machine Records</td>
+            <td>Fifteen</td> <td class="number">4:55</td>
+            <td>Taylor Swift</td> <td class="center">US</td></tr>
+    </tbody></table></div>
+</figure>
+
+<h3>Violates Third Normal Form</h3>
+<p>In the next design, the album table is normalized to third normal
+form meaning it doesn&rsquo;t violate the rules for first, second, or
+third normal forms. The track table doesn&rsquo;t violate the rules for
+first or second normal form but does violate the rules for third normal
+form because the artistCountry column is not determined by the primary
+key (trackKey column) but is determined by the artist column.</p>
+
+<figure class="erd_data">
+    <img style="width:8em" src="music/second_normal.svg"
+    alt="An entity relationship diagram containing a non-normalized
+    design for artists, albums, and tracks that doesn't violate first
+    normal form because all multi-valued columns and repeated columns
+    have been removed but does violate third normal form because
+    artistCountry doesn't depend on trackKey">
+
+    <div><table class="data">
+    <caption class="name">album</caption><thead>
+        <tr><th scope="col">albumKey</th>
+            <th scope="col">albumTitle</th>
+            <th scope="col">yearReleased</th>
+            <th scope="col">label</th></tr>
+    </thead><tbody>
+        <tr><td>ABRD</td> <td>Abbey Road</td>
+            <td class="center">1969</td> <td>Apple</td></tr>
+        <tr><td>FRLS</td> <td>Fearless</td>
+            <td class="center">2008</td> <td>Big Machine Records</td></tr>
+    </tbody></table>
+
+    <table class="data">
+    <caption class="name">track</caption><thead>
+        <tr><th scope="col">trackKey</th>
+            <th scope="col">trackTitle</th>
+            <th scope="col">length</th>
+            <th scope="col">artist</th>
+            <th scope="col">artistCountry</th>
+            <th scope="col">albumKey</th></tr>
+    </thead><tbody>
+        <tr><td class="key">1</td>
+            <td>Here Comes the Sun</td> <td class="number">3:06</td>
+            <td>Beatles</td> <td class="center">UK</td>
+            <td>ABRD</td></tr>
+        <tr><td class="key">2</td>
+            <td>Something</td> <td class="number">2:48</td>
+            <td>Beatles</td> <td class="center">UK</td>
+            <td>ABRD</td></tr>
+        <tr class="shaded"><td class="key">3</td>
+            <td>Octopus&rsquo;s Garden</td> <td class="number">2:59</td>
+            <td>Beatles</td> <td class="center">UK</td>
+            <td>ABRD</td></tr>
+        <tr><td class="key">4</td>
+            <td>Love Story</td> <td class="number">3:57</td>
+            <td>Taylor Swift</td> <td class="center">US</td>
+            <td>FRLS</td></tr>
+        <tr><td class="key">5</td>
+            <td>White Horse</td> <td class="number">3:55</td>
+            <td>Taylor Swift</td> <td class="center">US</td>
+            <td>FRLS</td></tr>
+        <tr class="shaded"><td class="key">6</td>
+            <td>You Belong with Me</td> <td class="number">3:52</td>
+            <td>Taylor Swift</td> <td class="center">US</td>
+            <td>FRLS</td></tr>
+        <tr><td class="key">7</td>
+            <td>Fifteen</td> <td class="number">4:55</td>
+            <td>Taylor Swift</td> <td class="center">US</td>
+            <td>FRLS</td></tr>
+    </tbody></table></div>
+</figure>
+
+<h3>Normalized to Third Normal Form</h3>
+<p>The entities in the next design and the corresponding data tables do
+not violate any of the rules for first, second, or third normal form, so
+we say the design is normalized to third normal form.</p>
+
+<figure class="erd_data">
+    <img style="width:8em" src="music/third_normal.svg"
+    alt="An entity relationship diagram for artists, albums, and tracks
+    that is normalized to third normal form">
+
+    <div><table class="data">
+    <caption class="name">album</caption><thead>
+        <tr><th scope="col">albumKey</th>
+            <th scope="col">albumTitle</th>
+            <th scope="col">yearReleased</th>
+            <th scope="col">label</th></tr>
+    </thead><tbody>
+        <tr><td>ABRD</td> <td>Abbey Road</td>
+            <td class="center">1969</td> <td>Apple</td></tr>
+        <tr><td>FRLS</td> <td>Fearless</td>
+            <td class="center">2008</td> <td>Big Machine Records</td></tr>
+    </tbody></table>
+
+    <table class="data">
+    <caption class="name">track</caption><thead>
+        <tr><th scope="col">trackKey</th>
+            <th scope="col">trackTitle</th>
+            <th scope="col">length</th>
+            <th scope="col">albumKey</th>
+            <th scope="col">artistKey</th></tr>
+    </thead><tbody>
+        <tr><td class="key">1</td>
+            <td>Here Comes the Sun</td> <td class="number">3:06</td>
+            <td>ABRD</td> <td>BTLS</td></tr>
+        <tr><td class="key">2</td>
+            <td>Something</td> <td class="number">2:48</td>
+            <td>ABRD</td> <td>BTLS</td></tr>
+        <tr class="shaded"><td class="key">3</td>
+            <td>Octopus&rsquo;s Garden</td> <td class="number">2:59</td>
+            <td>ABRD</td> <td>BTLS</td></tr>
+        <tr><td class="key">4</td>
+            <td>Love Story</td> <td class="number">3:57</td>
+            <td>FRLS</td> <td>TSWF</td></tr>
+        <tr><td class="key">5</td>
+            <td>White Horse</td> <td class="number">3:55</td>
+            <td>FRLS</td> <td>TSWF</td></tr>
+        <tr class="shaded"><td class="key">6</td>
+            <td>You Belong with Me</td> <td class="number">3:52</td>
+            <td>FRLS</td> <td>TSWF</td></tr>
+        <tr><td class="key">7</td>
+            <td>Fifteen</td> <td class="number">4:55</td>
+            <td>FRLS</td> <td>TSWF</td></tr>
+    </tbody></table>
+
+    <table class="data">
+    <caption class="name">artist</caption><thead>
+        <tr><th scope="col">artistKey</th>
+            <th scope="col">artistName</th>
+            <th scope="col">artistCountry</th></tr>
+    </thead><tbody>
+        <tr><td>BTLS</td>
+            <td>Beatles</td>
+            <td class="center">UK</td></tr>
+        <tr><td>TSWF</td>
+            <td>Taylor Swift</td>
+            <td class="center">US</td></tr>
+    </tbody></table></div>
+</figure>
+
+<h2>Magazines, Subscriptions, and Subscribers</h2>
+<p>Below are five different designs (ERDs) and corresponding data tables
+for a database that stores data about magazines, subscriptions, and
+subscribers. The first four designs violate first, second, or third
+normal form. The last design does not violate any of the rules for
+first, second, or third normal form and is therefore normalized to third
+normal form.</p>
+
+<h3>Violates First Normal Form</h3>
+<p>This first design violates first normal form because some of the
+cells contain multiple values.</p>
+
+<figure class="erd_data">
+    <img style="width:11em" src="magazine/zero_normal_1.svg"
+    alt="An entity relationship diagram containing a non-normalized
+    design for subscribers, magazines, and subscriptions that violates
+    first normal form">
+
+    <div><table class="data">
+    <caption class="name">subscriber</caption><thead>
+        <tr><th scope="col" colspan="6">Subscriber</th>
+            <th scope="col" colspan="2">Magazine</th>
+            <th scope="col" colspan="2">Subscription</th></tr>
+        <tr class="sub"><th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Address</th> <th scope="col">City</th>
+            <th scope="col">State</th> <th scope="col">ZIP Code</th>
+            <th scope="col">Name</th> <th scope="col">Price</th>
+            <th scope="col">Start Date</th> <th scope="col">Length</th></tr>
+    </thead><tbody>
+        <tr><td>Albert</td> <td>Anderson</td>
+            <td>220 K Street Southeast</td> <td>Auburn</td>
+            <td>WA</td> <td class="zip">98002</td>
+            <td>Car Racing Made Easy</td> <td class="money">$15.45</td>
+            <td class="date">2011-3-1</td> <td class="number">14</td></tr>
+        <tr><td>Jose</td> <td>Jimenez</td>
+            <td>187 27th Ave</td> <td>Seattle</td>
+            <td>WA</td> <td class="zip">98122</td>
+            <td>Fishing in the Mojave,<br>Corn Shucking for Fun and Profit</td>
+            <td class="money">$13.95,<br>$15.05</td>
+            <td class="date">2011-9-1,<br>2012-8-1</td>
+            <td class="number">12,<br>12</td></tr>
+        <tr class="shaded"><td>Julie</td> <td>Johnston</td>
+            <td>10336 NE 187th St</td> <td>Bothell</td>
+            <td>WA</td> <td class="zip">98012</td>
+            <td>Fishing in the Mojave</td> <td class="money">$13.95</td>
+            <td class="date">2011-3-1</td> <td class="number">12</td></tr>
+        <tr><td>Lucy</td> <td>Lamont</td>
+            <td>175 Smokey Point Dr</td> <td>Lakewood</td>
+            <td>WA</td> <td class="zip">98409</td>
+            <td>Beautiful Birds,<br>Corn Shucking for Fun and Profit</td>
+            <td class="money">$12.45,<br>$15.05</td>
+            <td class="date">2012-2-1,<br>2012-7-1</td>
+            <td class="number">12,<br>24</td></tr>
+        <tr><td>Samantha</td> <td>Sanders</td>
+            <td>316 Union Ave</td> <td>Snohomish</td>
+            <td>WA</td> <td class="zip">98290</td>
+            <td>Fishing in the Mojave,<br>
+            Pine Cone Computing,<br>
+            Cooking Like Mad,<br>
+            If Only I Could Sing,<br>
+            Beautiful Birds</td>
+            <td class="money">$13.95,<br>
+            $17.50,<br>
+            $18.00,<br>
+            $12.45,<br>
+            $12.45</td>
+            <td class="date">2011-5-1,<br>
+            2011-5-1,<br>
+            2011-9-1,<br>
+            2011-12-1,<br>
+            2012-2-1</td>
+            <td class="number">12,<br>
+            18,<br>
+            12,<br>
+            12,<br>
+            12</td></tr>
+        <tr class="shaded"><td>Walter</td> <td>Wong</td>
+            <td>1073 South 323rd Street</td> <td>Federal Way</td>
+            <td>WA</td> <td class="zip">98003</td>
+            <td>If Only I Could Sing</td> <td class="money">$12.45</td>
+            <td class="date">2012-7-1</td> <td class="number">24</td></tr>
+    </tbody></table></div>
+</figure>
+
+<p>The next design violates first normal form because some of the
+columns are repeated (consider Magazine 1 Name, Magazine 2
+Name,&hellip;).</p>
+
+<figure class="erd_data">
+    <img style="width:11em" src="magazine/zero_normal_2.svg"
+        alt="An entity relationship diagram containing a non-normalized
+        design for subscribers, magazines, and subscriptions that violates
+        first normal form">
+
+    <div><table class="data">
+    <caption class="name">subscriber</caption><thead>
+        <tr><th scope="col" colspan="6">Subscriber</th>
+            <th scope="col" colspan="4">Magazine 1</th>
+            <th scope="col" colspan="4">Magazine 2</th>
+            <th scope="col" colspan="4">Magazine 3</th>
+            <th scope="col" colspan="4">Magazine 4</th>
+            <th scope="col" colspan="4">Magazine 5</th></tr>
+        <tr class="sub">
+            <th scope="col">First Name</th> <th scope="col">Last Name</th>
+            <th scope="col">Address</th> <th scope="col">City</th>
+            <th scope="col">State</th> <th scope="col">ZIP Code</th>
+            <th scope="col">Name</th> <th scope="col">Price</th>
+            <th scope="col">Start Date</th> <th scope="col">Length</th>
+            <th scope="col">Name</th> <th scope="col">Price</th>
+            <th scope="col">Start Date</th> <th scope="col">Length</th>
+            <th scope="col">Name</th> <th scope="col">Price</th>
+            <th scope="col">Start Date</th> <th scope="col">Length</th>
+            <th scope="col">Name</th> <th scope="col">Price</th>
+            <th scope="col">Start Date</th> <th scope="col">Length</th>
+            <th scope="col">Name</th> <th scope="col">Price</th>
+            <th scope="col">Start Date</th> <th scope="col">Length</th></tr>
+    </thead><tbody>
+        <tr><td>Albert</td> <td>Anderson</td>
+            <td>220 K Street Southeast</td> <td>Auburn</td>
+            <td>WA</td> <td class="zip">98002</td>
+            <td>Car Racing Made Easy</td> <td class="money">$15.45</td>
+            <td class="date">2011-3-1</td> <td class="number">14</td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td></tr>
+        <tr><td>Jose</td> <td>Jimenez</td>
+            <td>187 27th Ave</td> <td>Seattle</td>
+            <td>WA</td> <td class="zip">98122</td>
+            <td>Fishing in the Mojave</td> <td class="money">$13.95</td>
+            <td class="date">2011-9-1</td> <td class="number">12</td>
+            <td>Corn Shucking for Fun and Profit</td> <td class="money">$15.05</td>
+            <td class="date">2012-8-1</td> <td class="number">12</td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td></tr>
+        <tr class="shaded"><td>Julie</td> <td>Johnston</td>
+            <td>10336 NE 187th St</td> <td>Bothell</td>
+            <td>WA</td> <td class="zip">98012</td>
+            <td>Fishing in the Mojave</td> <td class="money">$13.95</td>
+            <td class="date">2011-3-1</td> <td class="number">12</td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td></tr>
+        <tr><td>Samantha</td> <td>Sanders</td>
+            <td>316 Union Ave</td> <td>Snohomish</td>
+            <td>WA</td> <td class="zip">98290</td>
+            <td>Fishing in the Mojave</td> <td class="money">$13.95</td>
+            <td class="date">2011-5-1</td> <td class="number">12</td>
+            <td>Pine Cone Computing</td> <td class="money">$17.50</td>
+            <td class="date">2011-5-1</td> <td class="number">18</td>
+            <td>Cooking Like Mad</td> <td class="money">$18.00</td>
+            <td class="date">2011-9-1</td> <td class="number">12</td>
+            <td>If Only I Could Sing</td> <td class="money">$12.45</td>
+            <td class="date">2011-12-1</td> <td class="number">12</td>
+            <td>Beautiful Birds</td> <td class="money">$12.45</td>
+            <td class="date">2012-2-1</td> <td class="number">12</td></tr>
+        <tr><td>Lucy</td> <td>Lamont</td>
+            <td>175 Smokey Point Dr</td> <td>Lakewood</td>
+            <td>WA</td> <td class="zip">98409</td>
+            <td>Beautiful Birds</td> <td class="money">$12.45</td>
+            <td class="date">2012-2-1</td> <td class="number">12</td>
+            <td>Corn Shucking for Fun and Profit</td> <td class="money">$15.05</td>
+            <td class="date">2012-7-1</td> <td class="number">24</td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td></tr>
+        <tr class="shaded"><td>Walter</td> <td>Wong</td>
+            <td>1073 South 323rd Street</td> <td>Federal Way</td>
+            <td>WA</td> <td class="zip">98003</td>
+            <td>If Only I Could Sing</td> <td class="money">$12.45</td>
+            <td class="date">2012-7-1</td> <td class="number">24</td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td></tr>
+    </tbody></table></div>
+</figure>
+
+<p>The following design violates first normal form because some of the
+columns are repeated (consider Subscriber 1 Last Name, Subscriber 2 Last
+Name, &hellip;).</p>
+
+<figure class="erd_data">
+    <img style="width:11em" src="magazine/zero_normal_3.svg"
+    alt="An entity relationship diagram containing a non-normalized
+    design for subscribers, magazines, and subscriptions that violates
+    first normal form">
+
+    <div><table class="data">
+    <caption class="name">magazine</caption><thead>
+        <tr><th scope="col" colspan="2">Magazine</th>
+            <th scope="col" colspan="8">Subscriber 1</th>
+            <th scope="col" colspan="8">Subscriber 2</th>
+            <th scope="col" colspan="8">Subscriber 3</th></tr>
+        <tr class="sub"><th scope="col">Name</th> <th scope="col">Price</th>
+            <th scope="col">Start Date</th> <th scope="col">Length</th>
+            <th scope="col">First Name</th> <th scope="col">Last Name</th>
+            <th scope="col">Address</th> <th scope="col">City</th>
+            <th scope="col">State</th> <th scope="col">ZIP Code</th>
+            <th scope="col">Start Date</th> <th scope="col">Length</th>
+            <th scope="col">First Name</th> <th scope="col">Last Name</th>
+            <th scope="col">Address</th> <th scope="col">City</th>
+            <th scope="col">State</th> <th scope="col">ZIP Code</th>
+            <th scope="col">Start Date</th> <th scope="col">Length</th>
+            <th scope="col">First Name</th> <th scope="col">Last Name</th>
+            <th scope="col">Address</th> <th scope="col">City</th>
+            <th scope="col">State</th> <th scope="col">ZIP Code</th></tr>
+    </thead><tbody>
+        <tr><td>Car Racing Made Easy</td> <td class="money">$15.45</td>
+            <td class="date">2011-3-1</td> <td class="number">14</td>
+            <td>Albert</td> <td>Anderson</td>
+            <td>220 K Street Southeast</td> <td>Auburn</td>
+            <td>WA</td> <td class="zip">98002</td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td></tr>
+        <tr><td>Fishing in the Mojave</td> <td class="money">$13.95</td>
+            <td class="date">2011-3-1</td> <td class="number">12</td>
+            <td>Julie</td> <td>Johnston</td>
+            <td>10336 NE 187th St</td> <td>Bothell</td>
+            <td>WA</td> <td class="zip">98012</td>
+            <td class="date">2011-5-1</td> <td class="number">12</td>
+            <td>Samantha</td> <td>Sanders</td>
+            <td>316 Union Ave</td> <td>Snohomish</td>
+            <td>WA</td> <td class="zip">98290</td>
+            <td class="date">2011-9-1</td> <td class="number">12</td>
+            <td>Jose</td> <td>Jimenez</td>
+            <td>187 27th Ave</td> <td>Seattle</td>
+            <td>WA</td> <td class="zip">98122</td></tr>
+        <tr class="shaded"><td>Beautiful Birds</td> <td class="money">$12.45</td>
+            <td class="date">2012-2-1</td> <td class="number">12</td>
+            <td>Samantha</td> <td>Sanders</td>
+            <td>316 Union Ave</td> <td>Snohomish</td>
+            <td>WA</td> <td class="zip">98290</td>
+            <td class="date">2012-2-1</td> <td class="number">12</td>
+            <td>Lucy</td> <td>Lamont</td>
+            <td>175 Smokey Point Dr</td> <td>Lakewood</td>
+            <td>WA</td> <td class="zip">98409</td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td></tr>
+        <tr><td>Pine Cone Computing</td> <td class="money">$17.50</td>
+            <td class="date">2011-5-1</td> <td class="number">18</td>
+            <td>Samantha</td> <td>Sanders</td>
+            <td>316 Union Ave</td> <td>Snohomish</td>
+            <td>WA</td> <td class="zip">98290</td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td></tr>
+        <tr><td>Corn Shucking for Fun and Profit</td> <td class="money">$15.05</td>
+            <td class="date">2012-7-1</td> <td class="number">24</td>
+            <td>Lucy</td> <td>Lamont</td>
+            <td>175 Smokey Point Dr</td> <td>Lakewood</td>
+            <td>WA</td> <td class="zip">98409</td>
+            <td class="date">2012-8-1</td> <td class="number">12</td>
+            <td>Jose</td> <td>Jimenez</td>
+            <td>187 27th Ave</td> <td>Seattle</td>
+            <td>WA</td> <td class="zip">98122</td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td></tr>
+        <tr class="shaded"><td>If Only I Could Sing</td> <td class="money">$12.45</td>
+            <td class="date">2012-7-1</td> <td class="number">24</td>
+            <td>Walter</td> <td>Wong</td>
+            <td>1073 South 323rd Street</td> <td>Federal Way</td>
+            <td>WA</td> <td class="zip">98003</td>
+            <td class="date">2011-12-1</td> <td class="number">12</td>
+            <td>Samantha</td> <td>Sanders</td>
+            <td>316 Union Ave</td> <td>Snohomish</td>
+            <td>WA</td> <td class="zip">98290</td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td></tr>
+        <tr><td>Cooking Like Mad</td> <td class="money">$18.00</td>
+            <td class="date">2011-9-1</td> <td class="number">12</td>
+            <td>Samantha</td> <td>Sanders</td>
+            <td>316 Union Ave</td> <td>Snohomish</td>
+            <td>WA</td> <td class="zip">98290</td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td>
+            <td></td> <td></td></tr>
+    </tbody></table></div>
+</figure>
+
+<h3>Violates Second Normal Form</h3>
+<p>The next design doesn't violate first normal form because all
+multi-valued cells and repeated columns have been removed but does
+violate second normal form because the subscription table contains
+sub-themes that should be separated.</p>
+
+<figure class="erd_data">
+    <img style="width:11em" src="magazine/first_normal.svg"
+    alt="An entity relationship diagram containing a non-normalized
+    design for magazines, subscriptions, and subscribers that doesn't
+    violate first normal form but does violate second normal">
+
+    <div><table class="data">
+    <caption class="name">subscription</caption><thead>
+        <tr><th scope="col" colspan="2">Magazine</th>
+            <th scope="col" colspan="2">Subscription</th>
+            <th scope="col" colspan="6">Subscriber</th></tr>
+        <tr class="sub"> <th scope="col">Name</th> <th scope="col">Price</th>
+            <th scope="col">Start Date</th> <th scope="col">Length</th>
+            <th scope="col">First Name</th> <th scope="col">Last Name</th>
+            <th scope="col">Address</th> <th scope="col">City</th>
+            <th scope="col">State</th> <th scope="col">ZIP Code</th></tr>
+    </thead><tbody>
+        <tr><td>Car Racing Made Easy</td> <td class="money">$15.45</td>
+            <td class="date">2011-3-1</td> <td class="number">14</td>
+            <td>Albert</td> <td>Anderson</td>
+            <td>220 K Street Southeast</td> <td>Auburn</td>
+            <td>WA</td> <td class="zip">98002</td></tr>
+        <tr><td>Fishing in the Mojave</td> <td class="money">$13.95</td>
+            <td class="date">2011-3-1</td> <td class="number">12</td>
+            <td>Julie</td> <td>Johnston</td>
+            <td>10336 NE 187th St</td> <td>Bothell</td>
+            <td>WA</td> <td class="zip">98012</td></tr>
+        <tr class="shaded"><td>Fishing in the Mojave</td> <td class="money">$13.95</td>
+            <td class="date">2011-5-1</td> <td class="number">12</td>
+            <td>Samantha</td> <td>Sanders</td>
+            <td>316 Union Ave</td> <td>Snohomish</td>
+            <td>WA</td> <td class="zip">98290</td></tr>
+        <tr><td>Pine Cone Computing</td> <td class="money">$17.50</td>
+            <td class="date">2011-5-1</td> <td class="number">18</td>
+            <td>Samantha</td> <td>Sanders</td>
+            <td>316 Union Ave</td> <td>Snohomish</td>
+            <td>WA</td> <td class="zip">98290</td></tr>
+        <tr><td>Cooking Like Mad</td> <td class="money">$18.00</td>
+            <td class="date">2011-9-1</td> <td class="number">12</td>
+            <td>Samantha</td> <td>Sanders</td>
+            <td>316 Union Ave</td> <td>Snohomish</td>
+            <td>WA</td> <td class="zip">98290</td></tr>
+        <tr class="shaded"><td>Fishing in the Mojave</td> <td class="money">$13.95</td>
+            <td class="date">2011-9-1</td> <td class="number">12</td>
+            <td>Jose</td> <td>Jimenez</td>
+            <td>187 27th Ave</td> <td>Seattle</td>
+            <td>WA</td> <td class="zip">98122</td></tr>
+        <tr><td>If Only I Could Sing</td> <td class="money">$12.45</td>
+            <td class="date">2011-12-1</td> <td class="number">12</td>
+            <td>Samantha</td> <td>Sanders</td>
+            <td>316 Union Ave</td> <td>Snohomish</td>
+            <td>WA</td> <td class="zip">98290</td></tr>
+        <tr><td>Beautiful Birds</td> <td class="money">$12.45</td>
+            <td class="date">2012-2-1</td> <td class="number">12</td>
+            <td>Lucy</td> <td>Lamont</td>
+            <td>175 Smokey Point Dr</td> <td>Lakewood</td>
+            <td>WA</td> <td class="zip">98409</td></tr>
+        <tr class="shaded"><td>Beautiful Birds</td> <td class="money">$12.45</td>
+            <td class="date">2012-2-1</td> <td class="number">12</td>
+            <td>Samantha</td> <td>Sanders</td>
+            <td>316 Union Ave</td> <td>Snohomish</td>
+            <td>WA</td> <td class="zip">98290</td></tr>
+        <tr><td>Corn Shucking for Fun and Profit</td> <td class="money">$15.05</td>
+            <td class="date">2012-7-1</td> <td class="number">24</td>
+            <td>Lucy</td> <td>Lamont</td>
+            <td>175 Smokey Point Dr</td> <td>Lakewood</td>
+            <td>WA</td> <td class="zip">98409</td></tr>
+        <tr><td>If Only I Could Sing</td> <td class="money">$12.45</td>
+            <td class="date">2012-7-1</td> <td class="number">24</td>
+            <td>Walter</td> <td>Wong</td>
+            <td>1073 South 323rd Street</td> <td>Federal Way</td>
+            <td>WA</td> <td class="zip">98003</td></tr>
+        <tr class="shaded"><td>Corn Shucking for Fun and Profit</td> <td class="money">$15.05</td>
+            <td class="date">2012-8-1</td> <td class="number">12</td>
+            <td>Jose</td> <td>Jimenez</td>
+            <td>187 27th Ave</td> <td>Seattle</td>
+            <td>WA</td> <td class="zip">98122</td></tr>
+    </tbody></table></div>
+</figure>
+
+<h3>Normalized to Third Normal Form</h3>
+<p>The entities in the next design and the corresponding data tables do
+not violate any of the rules for first, second, or third normal form, so
+we say the design is normalized to third normal form.</p>
+
+<figure class="erd_data">
+    <img style="width:11em" src="magazine/third_normal.svg"
+    alt="An entity relationship diagram for magazines, subscriptions,
+    and subscribers normalized to third normal form">
+
+    <div><table class="data">
+    <caption class="name">magazine</caption><thead>
+        <tr><th scope="col">magazineKey</th>
+            <th scope="col">magazineName</th>
+            <th scope="col">price</th></tr>
+    </thead><tbody>
+        <tr><td class="key">1</td>
+            <td>Fishing in the Mojave</td> <td class="money">$13.95</td></tr>
+        <tr><td class="key">2</td>
+            <td>Car Racing Made Easy</td> <td class="money">$15.45</td></tr>
+        <tr class="shaded"><td class="key">3</td>
+            <td>Pine Cone Computing</td> <td class="money">$17.50</td></tr>
+        <tr><td class="key">4</td>
+            <td>Cooking Like Mad</td> <td class="money">$18.00</td></tr>
+        <tr><td class="key">5</td>
+            <td>If Only I Could Sing</td> <td class="money">$12.45</td></tr>
+        <tr class="shaded"><td class="key">6</td>
+            <td>Beautiful Birds</td> <td class="money">$12.45</td></tr>
+        <tr><td class="key">7</td>
+            <td>Corn Shucking for Fun and Profit</td> <td class="money">$15.05</td></tr>
+    </tbody></table>
+
+    <table class="data">
+    <caption class="name">subscription</caption><thead>
+        <tr><th scope="col">subscriptionKey</th>
+            <th scope="col">magazineKey</th>
+            <th scope="col">subscriberKey</th>
+            <th scope="col">startDate</th>
+            <th scope="col">length</th></tr>
+    </thead><tbody>
+        <tr><td class="key">1</td>
+            <td class="key">1</td> <td class="key">1</td>
+            <td class="date">2011-03-01</td> <td class="number">12</td></tr>
+        <tr><td class="key">2</td>
+            <td class="key">2</td> <td class="key">2</td>
+            <td class="date">2011-03-01</td> <td class="number">14</td></tr>
+        <tr class="shaded"><td class="key">3</td>
+            <td class="key">6</td> <td class="key">3</td>
+            <td class="date">2012-02-01</td> <td class="number">12</td></tr>
+        <tr><td class="key">4</td>
+            <td class="key">6</td> <td class="key">5</td>
+            <td class="date">2012-02-01</td> <td class="number">12</td></tr>
+        <tr><td class="key">5</td>
+            <td class="key">4</td> <td class="key">3</td>
+            <td class="date">2011-09-01</td> <td class="number">12</td></tr>
+        <tr class="shaded"><td class="key">6</td>
+            <td class="key">7</td> <td class="key">5</td>
+            <td class="date">2012-07-01</td> <td class="number">24</td></tr>
+        <tr><td class="key">7</td>
+            <td class="key">7</td> <td class="key">4</td>
+            <td class="date">2012-08-01</td> <td class="number">12</td></tr>
+        <tr><td class="key">8</td>
+            <td class="key">1</td> <td class="key">3</td>
+            <td class="date">2011-05-01</td> <td class="number">12</td></tr>
+        <tr class="shaded"><td class="key">9</td>
+            <td class="key">1</td> <td class="key">4</td>
+            <td class="date">2011-09-01</td> <td class="number">12</td></tr>
+        <tr><td class="key">10</td>
+            <td class="key">5</td> <td class="key">3</td>
+            <td class="date">2011-12-01</td> <td class="number">12</td></tr>
+        <tr><td class="key">11</td>
+            <td class="key">5</td> <td class="key">6</td>
+            <td class="date">2012-07-01</td> <td class="number">24</td></tr>
+        <tr class="shaded"><td class="key">12</td>
+            <td class="key">3</td> <td class="key">3</td>
+            <td class="date">2011-05-01</td> <td class="number">18</td></tr>
+    </tbody></table>
+
+    <table class="data">
+    <caption class="name">subscriber</caption><thead>
+        <tr><th scope="col">subscriberKey</th>
+            <th scope="col">firstName</th>
+            <th scope="col">lastName</th>
+            <th scope="col">address</th>
+            <th scope="col">city</th>
+            <th scope="col">state</th>
+            <th scope="col">ZIP</th></tr>
+    </thead><tbody>
+        <tr><td class="key">1</td> <td>Julie</td> <td>Johnston</td>
+            <td>10336 NE 187th St</td> <td>Bothell</td> <td>WA</td>
+            <td class="zip">98012</td></tr>
+        <tr><td class="key">2</td> <td>Albert</td> <td>Anderson</td>
+            <td>220 K Street Southeast</td> <td>Auburn</td> <td>WA</td>
+            <td class="zip">98002</td></tr>
+        <tr class="shaded"><td class="key">3</td> <td>Samantha</td> <td>Sanders</td>
+            <td>316 Union Ave</td> <td>Snohomish</td> <td>WA</td>
+            <td class="zip">98290</td></tr>
+        <tr><td class="key">4</td> <td>Jose</td> <td>Jimenez</td>
+            <td>187 27th Ave</td> <td>Seattle</td> <td>WA</td>
+            <td class="zip">98122</td></tr>
+        <tr><td class="key">5</td> <td>Lucy</td> <td>Lamont</td>
+            <td>175 Smokey Point Dr</td> <td>Lakewood</td>
+            <td>WA</td> <td class="zip">98409</td></tr>
+        <tr class="shaded"><td class="key">6</td> <td>Walter</td> <td>Wong</td>
+            <td>1073 South 323rd Street</td> <td>Federal Way</td>
+            <td>WA</td> <td class="zip">98003</td></tr>
+    </tbody></table></div>
+</figure>
+</article>
+</body>
+</html>

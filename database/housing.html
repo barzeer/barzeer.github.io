@@ -68,10 +68,10 @@ data, and a query that lists all men’s housing complexes.</p>
 <ol class="long">
     <li><div>housing_complex and tenant_type tables
     <figure class="erd_data">
-        <img style="width:14em" src="housing1.svg"
+        <img style="width:14em" src="housing/housing1.svg"
         alt="The design for a housing database with two tables.">
 
-        <table class="data">
+        <div><table class="data">
         <caption class="name">housing_complex</caption>
         <thead>
             <tr><th>cmplx_id</th> <th>name</th> <th>office_address</th>
@@ -95,8 +95,7 @@ data, and a query that lists all men’s housing complexes.</p>
             <tr><td class="number">101</td> <td>men</td></tr>
             <tr><td class="number">102</td> <td>women</td></tr>
             <tr><td class="number">103</td> <td>both</td></tr>
-        </tbody></table>
-        <div class="clear"></div>
+        </tbody></table></div>
     </figure>
 
 <div class="pre">
@@ -119,10 +118,10 @@ WHERE t.type = 'men' OR t.type = 'both';</pre></div>
 
     <li><div>housing_complex table with two Boolean columns
     <figure class="erd_data">
-        <img style="width:12.5em;margin-right:0.5em" src="housing2.svg"
+        <img style="width:14em" src="housing/housing2.svg"
         alt="The design for a housing database with one table.">
 
-        <table class="data">
+        <div><table class="data">
         <caption class="name">housing_complex</caption>
         <thead>
             <tr><th>cmplx_id</th> <th>name</th> <th>office_address</th>
@@ -136,8 +135,7 @@ WHERE t.type = 'men' OR t.type = 'both';</pre></div>
                 <td>460 Hubalta Rd</td> <td>False</td> <td>True</td></tr>
             <tr><td class="number">4</td> <td>Glenmore</td>
                 <td>305 Centre St</td> <td>False</td> <td>True</td></tr>
-        </tbody></table>
-        <div class="clear"></div>
+        </tbody></table></div>
     </figure>
 
 <div class="pre">
@@ -159,10 +157,10 @@ WHERE men = True;</pre></div>
 
     <li><div>housing_complex table with an enumerated column
     <figure class="erd_data">
-        <img style="width:14em" src="housing3.svg"
+        <img style="width:14em" src="housing/housing3.svg"
         alt="The design for a housing database with one table.">
 
-        <table class="data">
+        <div><table class="data">
         <caption class="name">housing_complex</caption>
         <thead>
             <tr><th>cmplx_id</th> <th>name</th> <th>office_address</th>
@@ -176,8 +174,7 @@ WHERE men = True;</pre></div>
                 <td>460 Hubalta Rd</td> <td>women</td></tr>
             <tr><td class="number">4</td> <td>Glenmore</td>
                 <td>305 Centre St</td> <td>women</td></tr>
-        </tbody></table>
-        <div class="clear"></div>
+        </tbody></table></div>
     </figure>
 
 <div class="pre">
@@ -200,10 +197,10 @@ WHERE type = 'men' OR type = 'both';</pre></div>
     <li><div>housing_complex table and tenant_type table with a linking
     table between
     <figure class="erd_data">
-        <img style="width:14em" src="housing4.svg"
+        <img style="width:14em" src="housing/housing4.svg"
         alt="The design for a housing database with three tables.">
 
-        <table class="data">
+        <div><table class="data">
         <caption class="name">housing_complex</caption>
         <thead>
             <tr><th>cmplx_id</th> <th>name</th> <th>office_address</th></tr>
@@ -237,8 +234,7 @@ WHERE type = 'men' OR type = 'both';</pre></div>
         </thead><tbody>
             <tr><td class="number">101</td> <td>men</td></tr>
             <tr><td class="number">102</td> <td>women</td></tr>
-        </tbody></table>
-        <div class="clear"></div>
+        </tbody></table></div>
     </figure>
 
 <div class="pre">
