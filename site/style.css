@@ -527,13 +527,13 @@ table > tbody.top > tr > td { vertical-align: top; }
 
 table tr.center > td { text-align: center; }
 
-table#count { border-collapse: collapse; }
-table#count th { vertical-align: middle; }
-table#count th.base { padding-left: 2em; text-align: center; }
-table#count td { padding-top: 0.2em; vertical-align: top; }
-table#count td.check { padding-left: 2em; }
-table#count td.check input { vertical-align: top; }
-table#count td.check img { margin: 0; border: none; padding: 0;
+article table#count { border-collapse: collapse; }
+article table#count th { vertical-align: middle; }
+article table#count th.base { padding-left: 2em; text-align: center; }
+article table#count td { padding-top: 0.2em; vertical-align: top; }
+article table#count td.check { padding-left: 2em; }
+article table#count td.check input { vertical-align: top; }
+article table#count td.check img { margin: 0; border: none; padding: 0;
 	box-shadow: none; vertical-align: top; }
 
 table.class { border-collapse: collapse; border: 1px solid darkSlateGray; }
@@ -556,6 +556,7 @@ table.clazz td.last { border-bottom: 1px solid }
 table.classdia td { text-align: center }
 table.classdia td.class { border: 1px solid darkSlateGray; text-align: center }
 
+/*
 table.sparse {
 	border-collapse: separate;
 	border-spacing: 5px 2px;
@@ -573,13 +574,15 @@ table.sparse th.left {
 	border-bottom: none
 }
 table.sparse td { padding: 0.5em 0 0.25em 0 }
+*/
 
-span.nobr { white-space: nowrap; }
+
 span.menu {
 	border: 1px solid green;
 	color: green;
 	white-space: nowrap;
 }
+/*
 span.null {
 	font-size: small;
 	background-color: dimGray;
@@ -588,6 +591,7 @@ span.null {
 
 ul.nosym { list-style-type: none }
 li.nosym { list-style-type: none; }
+*/
 
 span.key {
     vertical-align: baseline;
@@ -730,7 +734,7 @@ figure.pitch figcaption {
 
 article figure {
 	page-break-inside: avoid !important;
-	margin: 0 0 1em 0;
+	margin-bottom: 1em;
 }
 article figure.full {
 }
@@ -754,6 +758,55 @@ article figure > figcaption {
 }
 article figure > figcaption > em {
 	font-weight: bold;
+}
+
+article figure.erd_data img {
+	float: left;
+	/*display: inline;*/
+	margin-right: 2em;
+}
+
+article table.data {
+	margin: 1em 0;
+	border-collapse: collapse;
+}
+article table.data caption.name {
+	caption-side: top;
+	padding-left: 1em;
+	font-weight: bold;
+	text-align: left;
+}
+article table.data th {
+	border: 1px solid var(--border-color);
+	padding: 0 0.5em 0 0.5em;
+	vertical-align: bottom;
+	background-color: #fabf8f;
+}
+/*article table.data tr.sub th {
+	border: none;
+	background-color: #f79646;
+}*/
+article table.data td {
+	border: 1px solid var(--border-color);
+	padding: 0 0.5em 0 0.5em;
+	vertical-align: top;
+}
+article table.data td.key { text-align: center; }
+article table.data td.zip { text-align: center; }
+article table.data td.null {
+	background-color: dimGray;
+	color: white;
+	font-size: smaller;
+}
+article table.data tr.shaded td {
+	background: #fde9d9;
+}
+/*article table.data caption {
+	caption-side: bottom;
+}*/
+
+article table.resultset {
+	margin: 1em auto 1em 1.25em;
 }
 
 
