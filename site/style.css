@@ -364,6 +364,29 @@ article.directory dl > dd {
 	margin: 0 0 1em 2em;
 }
 
+article dl.function {
+	margin: 1em;
+}
+
+article dl.function dt {
+	border-left: 0.12em solid var(--bullet-fg-color);
+	padding-left: 0.5em;
+}
+
+article dl.function dd {
+	border-left: 0.12em solid var(--bullet-fg-color);
+	padding-left: 2.5em;
+	margin-bottom: 1em;
+}
+
+article dl.long dt {
+	padding-bottom: 1em;
+}
+
+article dl.long dd {
+	margin-bottom: 2em;
+}
+
 
 /* Mathematical Formulas */
 article table.division {

@@ -1,0 +1,240 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="MySQL, sample data, test data">
+    <meta name="description" content="The design and implementation of a MySQL database containing functions that will quickly populate tables with pseudo random sample data.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Data</title>
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Sample Data</h1>
+<p>Quite often I need to add sample data to tables for testing or
+demonstration. I built this small MySQL database complete with names
+from the U.S. Social Security Administration to help me populate other
+tables with sample data. The sample database has this design.</p>
+
+<figure style="width:38em"><img src="sample_data.svg"
+alt=""></figure>
+
+<h2>Creation Script</h2>
+<p>You can use this <a download href="sample_data.sql">SQL script</a> to
+build the sample database in a schema named <code>sample</code> which
+will have these functions:</p>
+
+<dl class="function">
+    <dt><code>randBool()</code></dt>
+    <dd>Returns either TRUE or FALSE.</dd>
+
+    <dt><code>randInt(low INT, high INT)</code></dt>
+    <dd>Returns a pseudo random integer between low and high inclusive.</dd>
+
+    <dt><code>roundToFrac(value DOUBLE, frac DOUBLE)</code></dt>
+    <dd>Returns a value rounded to a fractional value. For example roundToFrac(12.167, 0.25) returns 12.25</dd>
+
+    <dt><code>gender()</code></dt>
+    <dd>Returns either 'M' or 'F'.</dd>
+
+    <dt><code>givenName()</code></dt>
+    <dd>Returns a person's given name, often called the first name.</dd>
+
+    <dt><code>givenMaleName()</code></dt>
+    <dd>Returns a male person's given name, often called the first name.</dd>
+
+    <dt><code>givenFemaleName()</code></dt>
+    <dd>Returns a female person's given name, often called the first name.</dd>
+
+    <dt><code>familyName()</code></dt>
+    <dd>Returns a person's family name, often called the last name.</dd>
+
+    <dt><code>email(givenName TEXT, familyName TEXT)</code></dt>
+    <dd>Returns a pseudo random email address.</dd>
+
+    <dt><code>phone(area TEXT)</code></dt>
+    <dd>Returns a telephone area code for given zip code.</dd>
+
+    <dt><code>street1()</code></dt>
+    <dd>Returns the first part of a street address such as
+    '4708 Ridge Way'.</dd>
+
+    <dt><code>street2()</code></dt>
+    <dd>Returns the optional second part of a street address such as
+    'Apt 25'.</dd>
+
+    <dt><code>zipCode()</code></dt>
+    <dd>Returns a ZIP code chosen pseudo randomly.</dd>
+
+    <dt><code>zipCodeFromState(abbrev TEXT)</code></dt>
+    <dd>Returns a ZIP code picked pseudo randomly from the given state.</dd>
+
+    <dt><code>city(zip TEXT)</code></dt>
+    <dd>Returns a city for given zip code.</dd>
+
+    <dt><code>state(zip TEXT)</code></dt>
+    <dd>Returns the state for given zip code.</dd>
+
+    <dt><code>areaCode(zip TEXT)</code></dt>
+    <dd>Returns a telephone area code for given zip code.</dd>
+
+    <dt><code>password()</code></dt>
+    <dd>Returns a psuedo random password. This is NOT a secure way to
+    generate a password.</dd>
+</dl>
+
+<p>The functions that pseudo randomly choose a row, such as
+<code>givenName()</code>, <code>familyName()</code>, and
+<code>zipCode()</code>, choose the row using a query similar to this
+one:</p>
+
+<div class="pre">
+<pre class="code lang-sql">-- Select one name from the familyName table.
+SELECT name
+FROM familyName AS t
+INNER JOIN (SELECT 1 + FLOOR(RAND() *
+    (SELECT MAX(id) FROM familyName)) AS id) AS r
+WHERE t.id &gt;= r.id
+ORDER BY t.id
+LIMIT 1;</pre></div>
+
+<p>This query to pseudo randomly choose a row from a table came from
+an article about
+<a href="http://jan.kneschke.de/projects/mysql/order-by-rand/">ORDER BY
+RAND()</a> written by Jan Kneschke. As long as the sample database
+contains an index for the <code>familyName.id</code> column, which it
+will because the <code>id</code> column is the primary key of the
+<code>familyName</code> table, this query will run much faster than the
+naive solution to pseudo randomly choose a row which is:</p>
+
+<div class="pre">
+<pre class="code lang-sql">-- NAIVE SOLUTION
+-- Select one name from the familyName table.
+SELECT name
+FROM familyName
+ORDER BY RAND()
+LIMIT 1;</pre></div>
+
+<p>Unfortunately, if someone deletes some of the rows from a table, the
+very fast solution from Jan Kneshke will not select each row with the
+same probability. If you must have a pseudo randomly chosen row with
+equal probability that each row is chosen, then you will need to rewrite
+some of the functions to use two queries like this:</p>
+
+<div class="pre">
+<pre class="code lang-sql">-- Pseudo randomly choose a row number.
+DECLARE size, `row` INT;
+SET size = (SELECT COUNT(*) FROM familyName);
+SET rowNum = 1 + FLOOR(RAND() * size);
+
+-- Select one name from the familyName table.
+SELECT name
+FROM familyName
+ORDER BY id
+LIMIT rowNum, 1;</pre></div>
+
+<h2>Using the Sample Database</h2>
+<p>Here is an example SQL script that shows how to use the functions in
+the sample schema to populate a customer table in a schema named
+company.</p>
+
+<div class="pre">
+<pre class="code lang-sql">
+-- -----------------------------------------------------
+-- Schema company
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS company ;
+
+CREATE SCHEMA IF NOT EXISTS company DEFAULT CHARACTER SET utf8mb4 ;
+USE company ;
+
+-- -----------------------------------------------------
+-- Table company.customer
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS customer ;
+
+CREATE TABLE IF NOT EXISTS customer (
+    customer_id INT NOT NULL AUTO_INCREMENT,
+    givenName VARCHAR(45) NOT NULL,
+    familyName VARCHAR(45) NOT NULL,
+    phone VARCHAR(45) NULL DEFAULT NULL,
+    email VARCHAR(45) NULL DEFAULT NULL,
+    emailList TINYINT NULL DEFAULT NULL,
+    `password` VARCHAR(45) NULL DEFAULT NULL,
+    address VARCHAR(45) NOT NULL,
+    city VARCHAR(45) NOT NULL,
+    state CHAR(2) NOT NULL,
+    zip CHAR(5) NOT NULL,
+    PRIMARY KEY (customer_id))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1 ;
+
+
+-- Inserts N people into the customer table.
+DROP PROCEDURE IF EXISTS addCustomers;
+DELIMITER //
+CREATE PROCEDURE addCustomers(n INT)
+    NOT DETERMINISTIC
+    MODIFIES SQL DATA
+BEGIN
+    REPEAT
+        CALL addCustomer();
+        SET n = n - 1;
+    UNTIL n = 0
+    END REPEAT;
+END//
+DELIMITER ;
+
+
+-- Inserts one person into the customer table.
+DROP PROCEDURE IF EXISTS addCustomer;
+DELIMITER //
+CREATE PROCEDURE addCustomer()
+    NOT DETERMINISTIC
+    MODIFIES SQL DATA
+BEGIN
+    DECLARE gn, fn, e, p, el, pw, a, c, s, z TEXT;
+
+    -- Get a given name and family name.
+    SET gn = sample.givenName();
+    SET fn = sample.familyName();
+
+    -- Possibly get an email address and password.
+    SET el = sample.randBool();
+    IF el THEN
+        SET e = sample.email(gn, fn);
+        SET pw = sample.password();
+    END IF;
+
+    -- Get a physical address.
+    SET a = sample.street1();
+    SET z = sample.zipCode();
+    SET c = sample.city(z);
+    SET s = sample.state(z);
+
+    -- Get a phone number.
+    SET p = sample.phone(sample.areaCode(z));
+
+    -- Insert one row into the customer table.
+    INSERT INTO company.customer
+        (givenName, familyName, phone, email, emailList,
+	`password`, address, city, state, zip)
+    VALUES
+        (gn, fn, p, e, el, pw, a, c, s, z);
+END//
+DELIMITER ;
+
+
+-- Call the addCustomers stored procedure which
+-- will insert 1000 people into the customer table.
+CALL addCustomers(1000) ;
+</pre></div>
+</article>
+</body>
+</html>
