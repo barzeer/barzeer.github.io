@@ -2,6 +2,8 @@ https://barzeer.github.io/index.html
 https://barzeer.github.io/database/index.html
 https://barzeer.github.io/database/housing.html
 https://barzeer.github.io/database/identifying.html
+https://barzeer.github.io/database/sample_data.html
+https://barzeer.github.io/database/shuffle.html
 https://barzeer.github.io/database/sql_templates.html
 https://barzeer.github.io/database/unnormalized.html
 https://barzeer.github.io/database/workbench.html

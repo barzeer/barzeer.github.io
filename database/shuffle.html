@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="MySQL, sample data, test data">
+    <meta name="description" content="The design and implementation of a MySQL database containing functions that will quickly populate tables with pseudo random sample data.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shuffle Column Values</title>
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Shuffle Column Values</h1>
+<p>Recently, I needed to shuffle all the values in one column of a MySQL
+table. I implemented the
+<a href="http://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle</a>
+as described at Wikipedia as a procedure in MySQL. I implemented the
+shuffle entirely in place, and it turned out to be much slower than I
+thought it would. On my HP laptop, it took more than 47 seconds to
+shuffle the values in a single column in a table with 6240 rows.</p>
+
+<p>Here is the shuffle code.</p>
+
+<div class="pre">
+<pre class="code lang-sql">-- Shuffles the contents of a column using the Fisher-Yates
+-- shuffle algorithm. This is SLOW in MySQL.
+DROP PROCEDURE IF EXISTS shuffle;
+DELIMITER //
+CREATE PROCEDURE shuffle()
+BEGIN
+    -- Get the number of rows in the table.
+    DECLARE numRows INT DEFAULT (SELECT COUNT(*) FROM customer);
+
+    DECLARE rowI, rowJ, idI, idJ INT;
+    DECLARE valueI, valueJ TEXT;
+
+    -- Start at the first row in the table.
+    SET rowI = 0;
+
+    WHILE rowI &lt; numRows - 1 DO
+        -- Get a random integer in the range [rowI, numRows)
+        SET rowJ = rowI + FLOOR(RAND() * (numRows - rowI + 1));
+
+        IF rowI &lt; rowJ THEN
+            -- Get the data from the table for rowI.
+            SELECT customer_id, address INTO idI, valueI
+            FROM customer ORDER BY customer_id LIMIT rowI, 1;
+
+            -- Get the data from the table for rowJ.
+            SELECT customer_id, address INTO idJ, valueJ
+            FROM customer ORDER BY customer_id LIMIT rowJ, 1;
+
+            -- Put the data from rowI into rowJ
+            -- and the data from rowJ into rowI.
+            UPDATE customer
+            SET address = IF(customer_id = idJ, valueI, valueJ)
+            WHERE customer_id = idI OR customer_id = idJ;
+        END IF;
+
+        -- Move to the next row.
+        SET rowI = rowI + 1;
+    END WHILE;
+END//
+DELIMITER ;</pre>
+</div>
+
+<p>I thought the shuffle would be faster because the Fisher-Yates
+shuffle algorithm is O(n), and I used the primary key in the <code>ORDER
+BY</code> clause in the <code>SELECT</code> queries and in the
+<code>WHERE</code> clause in the <code>UPDATE</code> statement, and of
+course the table has an index on the primary key. I know that I could
+simply use <code>ORDER BY RAND()</code>, but this is simply a random
+permutation of the order and not the same as a shuffle.</p>
+</article>
+</body>
+</html>
