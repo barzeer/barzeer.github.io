@@ -1,351 +1,324 @@
 "use strict";
 
 if (!window.hasOwnProperty('smartDev')) {
-window.smartDev = {
-	surroundIndex : function() {
-		let body = document.querySelector('body');
-		let article = document.querySelector('article');
-		body.removeChild(article);
+	window.smartDev = {
+		/** Reorganizes the structure of an index.html file. */
+		surroundIndex : function() {
+			let body = document.querySelector('body');
+			let article = document.querySelector('article');
+			body.removeChild(article);
 
-		let modif = this.createModified();
-		article.appendChild(modif);
+			let modif = this.createModified();
+			article.appendChild(modif);
 
-		let top = this.createElem('div', 'top');
-		let page = this.createElem('div', 'page');
-		body.appendChild(top);
-		body.appendChild(page);
+			let top = this.createElem('div', 'top');
+			let page = this.createElem('div', 'page');
+			body.appendChild(top);
+			body.appendChild(page);
 
-		let header = this.createHeader();
-		let nav = this.createNav(false, window.location.pathname);
-		let side = this.createSide(window.location.pathname, false);
-		//let footer = this.createElem('footer');
-		page.appendChild(header);
-		page.appendChild(nav);
-		page.appendChild(side);
-		page.appendChild(article);
-		//page.appendChild(footer);
-	},
-
-
-	/** Reorganizes the structure of an HTML document or in other words,
-	 * surrounds the article with this structure:
-	 * <body>
-	 *     <div class="top"></div>
-	 *     <div class="page">
-	 *         <header></header>
-	 *         <div class="side">
-	 *             <nav></nav>
-	 *             <div class="author"></div>
-	 *         </div>
-	 *         <article></article>
-	 *         <footer></footer>
-	 *     </div>
-	 * </body>
-	 */
-	surroundArticle : function() {
-		let body = document.querySelector('body');
-		let article = document.querySelector('article');
-		body.removeChild(article);
-
-		let modif = this.createModified();
-		article.appendChild(modif);
-
-		let top = this.createElem('div', 'top');
-		let page = this.createElem('div', 'page');
-		body.appendChild(top);
-		body.appendChild(page);
-
-		let header = this.createHeader();
-		let nav = this.createNav(false, null);
-		let side = this.createSide(null, true);
-		let footer = this.createFooter();
-		page.appendChild(header);
-		page.appendChild(nav);
-		page.appendChild(side);
-		page.appendChild(article);
-		page.appendChild(footer);
-	},
+			let header = this.createHeader();
+			let nav = this.createNav(false, window.location.pathname);
+			let side = this.createSide(window.location.pathname, false);
+			page.appendChild(header);
+			page.appendChild(nav);
+			page.appendChild(side);
+			page.appendChild(article);
+		},
 
 
-	createHeader : function() {
-		let header = this.createElem('header');
-		let h2 = this.createElem('h2');
-		let a = this.createElem('a',
-				null, {'href': '../index.html'}, 'Barzee’s Notes');
-		h2.appendChild(a);
-		let h3 = this.createElem('h3',
-				null, null, 'Smart Software Development');
-		header.appendChild(h2);
-		header.appendChild(h3);
-		return header;
-	},
+		/** Reorganizes the structure of an HTML document or in other
+		 * words, surrounds the article with this structure:
+		 * <body>
+		 *     <div class="top"></div>
+		 *     <div class="page">
+		 *         <header></header>
+		 *         <div class="side">
+		 *             <nav></nav>
+		 *             <div class="author"></div>
+		 *         </div>
+		 *         <article></article>
+		 *         <footer></footer>
+		 *     </div>
+		 * </body>
+		 */
+		surroundArticle : function() {
+			let body = document.querySelector('body');
+			let article = document.querySelector('article');
+			body.removeChild(article);
+
+			let modif = this.createModified();
+			article.appendChild(modif);
+
+			let top = this.createElem('div', 'top');
+			let page = this.createElem('div', 'page');
+			body.appendChild(top);
+			body.appendChild(page);
+
+			let header = this.createHeader();
+			let nav = this.createNav(false, null);
+			let side = this.createSide(null, true);
+			let footer = this.createFooter();
+			page.appendChild(header);
+			page.appendChild(nav);
+			page.appendChild(side);
+			page.appendChild(article);
+			page.appendChild(footer);
+		},
 
 
-	createSide : function(pathname, withAuthor) {
-		let side = this.createElem('div', 'side');
-		let nav = this.createNav(true, pathname);
-		side.appendChild(nav);
-		if (withAuthor) {
+		createHeader : function() {
+			let header = this.createElem('header');
+			let h2 = this.createElem('h2');
+			let a = this.createElem('a',
+					null, {'href': '../index.html'}, 'Barzee’s Notes');
+			h2.appendChild(a);
+			let h3 = this.createElem('h3',
+					null, null, 'Smart Software Development');
+			header.appendChild(h2);
+			header.appendChild(h3);
+			return header;
+		},
+
+
+		createSide : function(pathname, withAuthor) {
+			let side = this.createElem('div', 'side');
+			let nav = this.createNav(true, pathname);
+			side.appendChild(nav);
+			if (withAuthor) {
+				let author = this.createAuthor();
+				side.appendChild(author);
+			}
+			return side;
+		},
+
+
+		createNav : function(withHeading, pathname) {
+			let nav = this.createElem('nav');
+
+			if (withHeading) {
+				let h2 = this.createElem('h2', null, null, 'Categories');
+				nav.appendChild(h2);
+			}
+
+			let ul = this.createElem('ul');
+			nav.appendChild(ul);
+
+			let items = [
+				['python', 'Python'],
+				['javascript', 'JavaScript'],
+				['java', 'Java'],
+				['c_cpp', 'C and C++'],
+				['shell', 'Shell Scripts'],
+				['database', 'Database'],
+				['modeling', 'Modeling'],
+				['excel', 'Microsoft Excel'],
+				['math', 'Math']
+			];
+			let folder = null;
+			if (pathname) {
+				let slash = pathname.lastIndexOf('/');
+				let path = pathname.substring(0, slash);
+				slash = path.lastIndexOf('/');
+				folder = path.substring(slash + 1);
+			}
+			for (let i = 0;  i < items.length;  ++i) {
+				let direc = items[i][0];
+				let name = items[i][1];
+				let li = this.createElem('li');
+				let div = this.createElem('div');
+				let text = folder == direc ?
+					this.createElem('em', null, null, name) :
+					this.createElem('a', null,
+						{'href': '../' + direc + '/index.html'}, name);
+				div.appendChild(text);
+				li.appendChild(div);
+				ul.appendChild(li);
+			}
+			return nav;
+		},
+
+
+		createAuthor : function() {
+			let author = this.createElem('div', 'author');
+			let h2 = this.createElem('h2', null, null, 'About the Author');
+			author.appendChild(h2);
+			let para = this.createElem('p');
+			para.innerHTML = 'Rex A. Barzee is a professor of Computer Information Technology at Brigham Young University–Idaho. He is an inventor of <a href="https://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO2&Sect2=HITOFF&u=%2Fnetahtml%2FPTO%2Fsearch-adv.htm&r=0&p=1&f=S&l=50&Query=IN%2F%22Barzee%3B+Rex+A.%22&d=PTXT">two United States patents</a> and the author of <a href="https://www.amazon.com/Rex-Barzee/e/B006SYU4S0">numerous books</a>. He earned a bachelor’s and a master’s degree in Computer Science from Brigham Young University. Before becoming a professor, he worked for eight years as a software engineer. You can see his <a href="https://www.linkedin.com/in/rex-barzee-306a0b37/">full profile</a> at LinkedIn.';
+			author.appendChild(para);
+			return author;
+		},
+
+
+		createModified : function() {
+			let modified = new Date(document.lastModified);
+			let text = 'Last modified: ' + modified.toLocaleDateString();
+			let div = this.createElem('div', 'modified', null, text);
+			return div;
+		},
+
+
+		createFooter : function() {
+			let footer = this.createElem('footer');
+			let copy = this.createElem('p', null, null,
+					'Copyright © 2022 Rex A. Barzee. All rights reserved.');
+			footer.appendChild(copy);
 			let author = this.createAuthor();
-			side.appendChild(author);
-		}
-		return side;
-	},
+			footer.appendChild(author);
+			let disclaim = this.createElem('p', null, null,
+					'Mr. Barzee used his best efforts in preparing this article. These efforts include the development, research, and testing of the theories and computer programs in this article to determine their correctness. Mr. Barzee makes no warranty of any kind, expressed or implied, with regard to these programs or the documentation contained in this article. Mr. Barzee shall not be liable in any event for incidental or consequential damages in connection with, or arising out of, the furnishing, performance, or use of these programs.');
+			footer.appendChild(disclaim);
+			return footer;
+		},
 
 
-	createNav : function(withHeading, pathname) {
-		let nav = this.createElem('nav');
-
-		if (withHeading) {
-			let h2 = this.createElem('h2', null, null, 'Categories');
-			nav.appendChild(h2);
-		}
-
-		let ul = this.createElem('ul');
-		nav.appendChild(ul);
-
-		let items = [
-			['python', 'Python'],
-			['javascript', 'JavaScript'],
-			['java', 'Java'],
-			['c_cpp', 'C and C++'],
-			['shell', 'Shell Scripts'],
-			['database', 'Database'],
-			['modeling', 'Modeling'],
-			['excel', 'Microsoft Excel'],
-			['math', 'Math']
-		];
-		let folder = null;
-		if (pathname) {
-			let slash = pathname.lastIndexOf('/');
-			let path = pathname.substring(0, slash);
-			slash = path.lastIndexOf('/');
-			folder = path.substring(slash + 1);
-		}
-		for (let i = 0;  i < items.length;  ++i) {
-			let direc = items[i][0];
-			let name = items[i][1];
-			let li = this.createElem('li');
-			let div = this.createElem('div');
-			let text = folder == direc ?
-				this.createElem('em', null, null, name) :
-				this.createElem('a', null,
-					{'href': '../' + direc + '/index.html'}, name);
-			div.appendChild(text);
-			li.appendChild(div);
-			ul.appendChild(li);
-		}
-		return nav;
-	},
-
-
-	createAuthor : function() {
-		let author = this.createElem('div', 'author');
-		let h2 = this.createElem('h2', null, null, 'About the Author');
-		author.appendChild(h2);
-		let para = this.createElem('p');
-		para.innerHTML = 'Rex A. Barzee is a professor of Computer Information Technology at Brigham Young University–Idaho. He is an inventor of <a href="https://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO2&Sect2=HITOFF&u=%2Fnetahtml%2FPTO%2Fsearch-adv.htm&r=0&p=1&f=S&l=50&Query=IN%2F%22Barzee%3B+Rex+A.%22&d=PTXT">two United States patents</a> and the author of <a href="https://www.amazon.com/Rex-Barzee/e/B006SYU4S0">numerous books</a>. He earned a bachelor’s and a master’s degree in Computer Science from Brigham Young University. Before becoming a professor, he worked for eight years as a software engineer. You can see his <a href="https://www.linkedin.com/in/rex-barzee-306a0b37/">full profile</a> at LinkedIn.';
-		author.appendChild(para);
-		return author;
-	},
-
-
-	createModified : function() {
-		let modified = new Date(document.lastModified);
-		let text = 'Last modified: ' + modified.toLocaleDateString();
-		let div = this.createElem('div', 'modified', null, text);
-		return div;
-	},
-
-
-	createFooter : function() {
-		let footer = this.createElem('footer');
-		let copy = this.createElem('p', null, null,
-				'Copyright © 2022 Rex A. Barzee. All rights reserved.');
-		footer.appendChild(copy);
-		let author = this.createAuthor();
-		footer.appendChild(author);
-		let disclaim = this.createElem('p', null, null,
-				'Mr. Barzee used his best efforts in preparing this article. These efforts include the development, research, and testing of the theories and computer programs in this article to determine their correctness. Mr. Barzee makes no warranty of any kind, expressed or implied, with regard to these programs or the documentation contained in this article. Mr. Barzee shall not be liable in any event for incidental or consequential damages in connection with, or arising out of, the furnishing, performance, or use of these programs.');
-		footer.appendChild(disclaim);
-		return footer;
-	},
-
-
-	createElem : function(tagName, clss, attrs, text) {
-		let elem = document.createElement(tagName);
-		if (clss) {
-			elem.classList.add(clss);
-		}
-		if (attrs) {
-			for (let name in attrs) {
-				let value = attrs[name];
-				elem.setAttribute(name, value);
+		createElem : function(tagName, clss, attrs, text) {
+			let elem = document.createElement(tagName);
+			if (clss) {
+				elem.classList.add(clss);
 			}
-		}
-		if (text) {
-			elem.innerText = text;
-		}
-		return elem;
-	},
+			if (attrs) {
+				for (let name in attrs) {
+					let value = attrs[name];
+					elem.setAttribute(name, value);
+				}
+			}
+			if (text) {
+				elem.innerText = text;
+			}
+			return elem;
+		},
 
 
-	createText : function(text) {
-		return document.createTextNode(text);
-	},
+		createText : function(text) {
+			return document.createTextNode(text);
+		},
 
 
-	/** Adds line numbers to all pre elements. */
-	addLineNumbers : function() {
-		const newline = /\n|<br>/g;
-		const elems = document.querySelectorAll('pre.linenums');
-		for (let i = 0;  i < elems.length;  ++i) {
-			let elem = elems[i];
-			let code = elem.nextElementSibling.innerHTML;
-			let count = code.split(newline).length;
+		/** Adds line numbers to all pre elements. */
+		addLineNumbers : function() {
+			const newline = /\n|<br>/g;
+			const elems = document.querySelectorAll('pre.linenums');
+			for (let i = 0;  i < elems.length;  ++i) {
+				let elem = elems[i];
+				let code = elem.nextElementSibling.innerHTML;
+				let count = code.split(newline).length;
 
-			let span = this.createElem('span', null, null, '1');
-			elem.appendChild(span);
-			for (let n = 2;  n <= count;  ++n) {
-				elem.appendChild(this.createText('\n'));
-				let span = this.createElem('span', null, null, n.toString());
+				let span = this.createElem('span', null, null, '1');
 				elem.appendChild(span);
+				for (let n = 2;  n <= count;  ++n) {
+					elem.appendChild(this.createText('\n'));
+					let span = this.createElem('span', null, null, n.toString());
+					elem.appendChild(span);
+				}
 			}
-		}
-	},
+		},
 
 
-	/** Adds a button to div.pre elements that will copy the code
-	 * within the div's last child pre element to the clipboard. */
-	addCopyButtons : function() {
-		const copyFunc = function(event) {
-			const button = event.currentTarget;
-			const div = button.parentElement;
-			const elems = div.getElementsByTagName('pre');
-			const pre = elems[elems.length - 1];
+		/** Adds a button to div.pre elements that will copy the code
+		 * within the div's last child pre element to the clipboard. */
+		addCopyButtons : function() {
+			const copyFunc = function(event) {
+				const button = event.currentTarget;
+				const div = button.parentElement;
+				const elems = div.getElementsByTagName('pre');
+				const pre = elems[elems.length - 1];
 
-			// Copy the text to the clipboard.
-			const text = pre.textContent;
-			const listener = function(event) {
-				event.clipboardData.setData('text/plain', text);
-				event.preventDefault();
+				// Copy the text to the clipboard.
+				const text = pre.textContent;
+				const listener = function(event) {
+					event.clipboardData.setData('text/plain', text);
+					event.preventDefault();
+				};
+				document.addEventListener('copy', listener);
+				document.execCommand('copy');
+				document.removeEventListener('copy', listener);
+
+				// Select the text as a hint to the user that it was
+				// copied to clipboard. Selecting the text is not
+				// necessary for copying the text to the clipboard.
+				const select = window.getSelection();
+				let range = document.createRange();
+				range.selectNodeContents(pre);
+				select.removeAllRanges();
+				select.addRange(range);
 			};
-			document.addEventListener('copy', listener);
-			document.execCommand('copy');
-			document.removeEventListener('copy', listener);
 
-			// Select the text as a hint to the user that it was
-			// copied to clipboard. Selecting the text is not
-			// necessary for copying the text to the clipboard.
-			const select = window.getSelection();
-			let range = document.createRange();
-			range.selectNodeContents(pre);
-			select.removeAllRanges();
-			select.addRange(range);
-		};
-
-		const elems = document.querySelectorAll('div.pre');
-		for (let i = 0;  i < elems.length;  ++i) {
-			let image = this.createElem('img', null,
-					{'src': '../site/icons/copy.png',
-					 'alt': 'Copy code to the clipboard'});
-			let button = this.createElem('button', 'copy',
-					{'type': 'button',
-					 'title': 'Copy code to the clipboard'});
-			button.addEventListener('click', copyFunc);
-			button.appendChild(image);
-			elems[i].appendChild(button);
-		}
-	},
+			const elems = document.querySelectorAll('div.pre');
+			for (let i = 0;  i < elems.length;  ++i) {
+				let image = this.createElem('img', null,
+						{'src': '../site/icons/copy.png',
+						 'alt': 'Copy code to the clipboard'});
+				let button = this.createElem('button', 'copy',
+						{'type': 'button',
+						 'title': 'Copy code to the clipboard'});
+				button.addEventListener('click', copyFunc);
+				button.appendChild(image);
+				elems[i].appendChild(button);
+			}
+		},
 
 
-	addCrossRefs : function() {
-		const getReferences = function(target) {
-			const space = /(\s|&nbsp;|<br>)+/g;
+		addCrossRefs : function() {
+			const getReferences = function(target) {
+				const space = /(\s|&nbsp;|<br>)+/g;
 
-			// Notice the dash and en dash in the character class.
-			const dash = /[-–]|&ndash;/;
+				// Notice the dash and en dash in the character class.
+				const dash = /[-–]|&ndash;/;
 
-			let text = target.innerText;
-			let candidates = text.split(space);
-			let references = [];
-			for (let i = 0;  i < candidates.length;  ++i) {
-				let candidate = candidates[i];
-				if (dash.test(candidate)) {
-					let limits = candidate.split(dash);
-					let start = parseInt(limits[0]);
-					let end = parseInt(limits[1]);
-					if (! (Number.isNaN(start) || Number.isNaN(end))) {
-						for (let j = start;  j <= end;  ++j) {
-							references.push(j);
+				let text = target.innerText;
+				let candidates = text.split(space);
+				let references = [];
+				for (let i = 0;  i < candidates.length;  ++i) {
+					let candidate = candidates[i];
+					if (dash.test(candidate)) {
+						let limits = candidate.split(dash);
+						let start = parseInt(limits[0]);
+						let end = parseInt(limits[1]);
+						if (! (Number.isNaN(start) || Number.isNaN(end))) {
+							for (let j = start;  j <= end;  ++j) {
+								references.push(j);
+							}
+						}
+					}
+					else {
+						let linenum = parseInt(candidate);
+						if (! Number.isNaN(linenum)) {
+							references.push(linenum);
 						}
 					}
 				}
-				else {
-					let linenum = parseInt(candidate);
-					if (! Number.isNaN(linenum)) {
-						references.push(linenum);
-					}
+				return references;
+			};
+
+			const getAllLineNumbers = function(target) {
+				let refId = target.getAttribute('data-ref');
+				let div = document.getElementById(refId);
+				let lineNumPre = div.getElementsByTagName('pre')[0];
+				return lineNumPre.children;
+			};
+
+			const findLineNumber = function(lineNumbers, key) {
+				// The line numbers begin with 1 at index 0 and are
+				// sequential, so it's easy to find and return the
+				// span with the desired line number.
+				return lineNumbers[key - 1];
+			};
+
+			const on = function(event) {
+				/** Turn on highlighting for one or more line numbers. */
+				let target = event.target;
+				let lineNumbers = getAllLineNumbers(target);
+				let references = getReferences(target);
+				for (let i = 0;  i < references.length;  ++i) {
+					let number = references[i];
+					let elem = findLineNumber(lineNumbers, number);
+					elem.classList.add('hi');
 				}
-			}
-			return references;
-		};
+			};
 
-		const getAllLineNumbers = function(target) {
-			let refId = target.getAttribute('data-ref');
-			let div = document.getElementById(refId);
-			let lineNumPre = div.getElementsByTagName('pre')[0];
-			return lineNumPre.children;
-		};
-
-		const findLineNumber = function(lineNumbers, key) {
-			// The line numbers begin with 1 at index 0 and are
-			// sequential, so it's easy to find and return the
-			// span with the desired line number.
-			return lineNumbers[key - 1];
-		};
-
-		const on = function(event) {
-			/** Turn on highlighting for one or more line numbers. */
-			let target = event.target;
-			let lineNumbers = getAllLineNumbers(target);
-			let references = getReferences(target);
-			for (let i = 0;  i < references.length;  ++i) {
-				let number = references[i];
-				let elem = findLineNumber(lineNumbers, number);
-				elem.classList.add('hi');
-			}
-		};
-
-		const off = function(event) {
-			/** Turn off highlighting for one or more line numbers. */
-			let target = event.target;
-			let lineNumbers = getAllLineNumbers(target);
-			let references = getReferences(target);
-			for (let i = 0;  i < references.length;  ++i) {
-				let number = references[i];
-				let elem = findLineNumber(lineNumbers, number);
-				elem.classList.remove('hi');
-			}
-		};
-
-		const toggle = function(event) {
-			let target = event.target;
-			let state = target.getAttribute('data-on');
-			if (state == null) {
-				// Highlights are on because the user moved the mouse
-				// into the target before clicking on it. Because the
-				// user clicked on the target, set the highlights to
-				// stay on after the user moves out of the target.
-				target.removeEventListener('mouseover', on);
-				target.removeEventListener('mouseout', off);
-				target.setAttribute('data-on', 'true');
-				target.setAttribute('title', 'Click to turn off highlights.');
-			}
-			else {
-				// Highlights are on because the user clicked on the
-				// target. The user has now clicked on the target again,
-				// so turn off the highlights.
+			const off = function(event) {
+				/** Turn off highlighting for one or more line numbers. */
+				let target = event.target;
 				let lineNumbers = getAllLineNumbers(target);
 				let references = getReferences(target);
 				for (let i = 0;  i < references.length;  ++i) {
@@ -353,37 +326,76 @@ window.smartDev = {
 					let elem = findLineNumber(lineNumbers, number);
 					elem.classList.remove('hi');
 				}
-				target.removeAttribute('data-on');
+			};
+
+			const toggle = function(event) {
+				let target = event.target;
+				let state = target.getAttribute('data-on');
+				if (state == null) {
+					// Highlights are on because the user moved the mouse
+					// into the target before clicking on it. Because the
+					// user clicked on the target, set the highlights to
+					// stay on after the user moves out of the target.
+					target.removeEventListener('mouseover', on);
+					target.removeEventListener('mouseout', off);
+					target.setAttribute('data-on', 'true');
+					target.setAttribute('title', 'Click to turn off highlights.');
+				}
+				else {
+					// Highlights are on because the user clicked on the
+					// target. The user has now clicked on the target again,
+					// so turn off the highlights.
+					let lineNumbers = getAllLineNumbers(target);
+					let references = getReferences(target);
+					for (let i = 0;  i < references.length;  ++i) {
+						let number = references[i];
+						let elem = findLineNumber(lineNumbers, number);
+						elem.classList.remove('hi');
+					}
+					target.removeAttribute('data-on');
+					target.addEventListener('mouseover', on);
+					target.addEventListener('mouseout', off);
+					target.setAttribute('title', 'Move mouse over to turn on highlights.\nClick to keep highlights on.');
+				}
+			};
+
+			// Add event handlers to each span that has a class of 'cross'.
+			let targets = document.querySelectorAll('span.cross');
+			for (let i = 0;  i < targets.length;  ++i) {
+				let target = targets[i];
 				target.addEventListener('mouseover', on);
 				target.addEventListener('mouseout', off);
+				target.addEventListener('click', toggle);
 				target.setAttribute('title', 'Move mouse over to turn on highlights.\nClick to keep highlights on.');
 			}
-		};
+		},
 
-		// Add event handlers to each span that has a class of 'cross'.
-		let targets = document.querySelectorAll('span.cross');
-		for (let i = 0;  i < targets.length;  ++i) {
-			let target = targets[i];
-			target.addEventListener('mouseover', on);
-			target.addEventListener('mouseout', off);
-			target.addEventListener('click', toggle);
-			target.setAttribute('title', 'Move mouse over to turn on highlights.\nClick to keep highlights on.');
+
+		/** Add the "shaded" class to every third row in data tables. */
+		shadeDataRows : function() {
+			let tables = document.querySelectorAll('table.data');
+			for (let t = 0;  t < tables.length;  ++t) {
+				let table = tables[t];
+				let rows = table.querySelectorAll('tbody tr');
+				for (let r = 2;  r < rows.length;  r += 3) {
+					rows[r].classList.add('shaded');
+				}
+			}
+		},
+
+
+		movePitches : function() {
+			let figures = document.querySelectorAll('figure.pitch[data-sibling]');
+			for (let i = 0;  i < figures.length;  ++i) {
+				let figure = figures[i];
+				let id = figure.getAttribute('data-sibling');
+				let sibling = document.getElementById(id);
+				let top = sibling.getBoundingClientRect().top;
+				console.log(top);
+				figure.style.top = top + "px";
+				console.log(figure.style.top);
+				console.log(figure.getBoundingClientRect().top);
+			}
 		}
-	},
-
-
-	movePitches : function() {
-		const figures = document.querySelectorAll('figure.pitch[data-sibling]');
-		for (let i = 0;  i < figures.length;  ++i) {
-			let figure = figures[i];
-			let id = figure.getAttribute('data-sibling');
-			let sibling = document.getElementById(id);
-			let top = sibling.getBoundingClientRect().top;
-			console.log(top);
-			figure.style.top = top + "px";
-			console.log(figure.style.top);
-			console.log(figure.getBoundingClientRect().top);
-		}
-	}
-};
+	};
 }

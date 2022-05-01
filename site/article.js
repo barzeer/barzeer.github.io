@@ -6,6 +6,7 @@ if (window.hasOwnProperty('smartDev')) {
 		smartDev.addLineNumbers();
 		smartDev.addCopyButtons();
 		smartDev.addCrossRefs();
+		smartDev.shadeDataRows();
 	});
 
 

@@ -1,0 +1,337 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example Queries</title>
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Example Queries</h1>
+<p>Many students learn well by seeing examples. Below you will find six
+example SQL queries from simple to intermediate.
+
+<h2>Design and Data</h2>
+<p>Here is a simple design and sample data for a magazine and subscriber
+database. If you want to run the example queries, you can download and
+run this <a download href="magazine/create.sql">SQL script to create the
+magazine database</a>.</p>
+
+<figure class="erd_data">
+    <img style="width:11em" src="magazine/third_normal.svg"
+    alt="An entity relationship diagram for magazines, subscriptions,
+    and subscribers normalized to third normal form">
+
+    <div><table class="data">
+    <caption class="name">magazine</caption><thead>
+        <tr><th scope="col">magazineKey</th>
+            <th scope="col">magazineName</th>
+            <th scope="col">price</th></tr>
+    </thead><tbody>
+        <tr><td class="key">1</td>
+            <td>Fishing in the Mojave</td> <td class="money">$13.95</td></tr>
+        <tr><td class="key">2</td>
+            <td>Car Racing Made Easy</td> <td class="money">$15.45</td></tr>
+        <tr><td class="key">3</td>
+            <td>Pine Cone Computing</td> <td class="money">$17.50</td></tr>
+        <tr><td class="key">4</td>
+            <td>Cooking Like Mad</td> <td class="money">$18.00</td></tr>
+        <tr><td class="key">5</td>
+            <td>If Only I Could Sing</td> <td class="money">$12.45</td></tr>
+        <tr><td class="key">6</td>
+            <td>Beautiful Birds</td> <td class="money">$12.45</td></tr>
+        <tr><td class="key">7</td>
+            <td>Corn Shucking for Fun and Profit</td> <td class="money">$15.05</td></tr>
+        <tr><td class="key">8</td>
+            <td>MySQL Magic</td> <td class="money">$10.95</td></tr>
+    </tbody></table>
+
+    <table class="data">
+    <caption class="name">subscription</caption><thead>
+        <tr><th scope="col">subscriptionKey</th>
+            <th scope="col">magazineKey</th>
+            <th scope="col">subscriberKey</th>
+            <th scope="col">startDate</th>
+            <th scope="col">length</th></tr>
+    </thead><tbody>
+        <tr><td class="key">1</td>
+            <td class="key">1</td> <td class="key">1</td>
+            <td class="date">2011-03-01</td> <td class="number">12</td></tr>
+        <tr><td class="key">2</td>
+            <td class="key">2</td> <td class="key">2</td>
+            <td class="date">2011-03-01</td> <td class="number">14</td></tr>
+        <tr><td class="key">3</td>
+            <td class="key">6</td> <td class="key">3</td>
+            <td class="date">2012-02-01</td> <td class="number">12</td></tr>
+        <tr><td class="key">4</td>
+            <td class="key">6</td> <td class="key">5</td>
+            <td class="date">2012-02-01</td> <td class="number">12</td></tr>
+        <tr><td class="key">5</td>
+            <td class="key">4</td> <td class="key">3</td>
+            <td class="date">2011-09-01</td> <td class="number">12</td></tr>
+        <tr><td class="key">6</td>
+            <td class="key">7</td> <td class="key">5</td>
+            <td class="date">2012-07-01</td> <td class="number">24</td></tr>
+        <tr><td class="key">7</td>
+            <td class="key">7</td> <td class="key">4</td>
+            <td class="date">2012-08-01</td> <td class="number">12</td></tr>
+        <tr><td class="key">8</td>
+            <td class="key">1</td> <td class="key">3</td>
+            <td class="date">2011-05-01</td> <td class="number">12</td></tr>
+        <tr><td class="key">9</td>
+            <td class="key">1</td> <td class="key">4</td>
+            <td class="date">2011-09-01</td> <td class="number">12</td></tr>
+        <tr><td class="key">10</td>
+            <td class="key">5</td> <td class="key">3</td>
+            <td class="date">2011-12-01</td> <td class="number">12</td></tr>
+        <tr><td class="key">11</td>
+            <td class="key">3</td> <td class="key">3</td>
+            <td class="date">2011-05-01</td> <td class="number">18</td></tr>
+    </tbody></table>
+
+    <table class="data">
+    <caption class="name">subscriber</caption><thead>
+        <tr><th scope="col">subscriberKey</th>
+            <th scope="col">firstName</th>
+            <th scope="col">lastName</th>
+            <th scope="col">address</th>
+            <th scope="col">city</th>
+            <th scope="col">state</th>
+            <th scope="col">ZIP</th></tr>
+    </thead><tbody>
+        <tr><td class="key">1</td> <td>Julie</td> <td>Johnston</td>
+            <td>10336 NE 187th St</td> <td>Bothell</td> <td>WA</td>
+            <td class="zip">98012</td></tr>
+        <tr><td class="key">2</td> <td>Albert</td> <td>Anderson</td>
+            <td>220 K Street Southeast</td> <td>Auburn</td> <td>WA</td>
+            <td class="zip">98002</td></tr>
+        <tr><td class="key">3</td> <td>Samantha</td> <td>Sanders</td>
+            <td>316 Union Ave</td> <td>Snohomish</td> <td>WA</td>
+            <td class="zip">98290</td></tr>
+        <tr><td class="key">4</td> <td>Jose</td> <td>Jimenez</td>
+            <td>187 27th Ave</td> <td>Seattle</td> <td>WA</td>
+            <td class="zip">98122</td></tr>
+        <tr><td class="key">5</td> <td>Lucy</td> <td>Lamont</td>
+            <td>175 Smokey Point Dr</td> <td>Lakewood</td>
+            <td>WA</td> <td class="zip">98409</td></tr>
+        <tr><td class="key">6</td> <td>Walter</td> <td>Wong</td>
+            <td>1073 South 323rd Street</td> <td>Federal Way</td>
+            <td>WA</td> <td class="zip">98003</td></tr>
+    </tbody></table></div>
+</figure>
+
+<h2>Example Queries</h2>
+
+<h3>Address List of All Subscribers</h3>
+<p>Write a SQL query that produces an address list of all subscribers
+ordered alphabetically by last name and then first name.</p>
+
+<div class="pre"><pre class="code lang-sql">
+SELECT subscriberFirstName, subscriberLastName, subscriberAddress,
+    subscriberCity, subscriberState, subscriberZIP
+FROM subscriber
+ORDER BY subscriberLastName, subscriberFirstName
+</pre></div>
+
+<table class="data resultset"><thead>
+<tr>
+    <th scope="col">firstName</th>
+    <th scope="col">lastName</th>
+    <th scope="col">address</th>
+    <th scope="col">city</th>
+    <th scope="col">state</th>
+    <th scope="col">ZIP</th>
+</tr>
+</thead><tbody>
+    <tr><td>Albert</td> <td>Anderson</td> <td>220 K Street Southeast</td>
+        <td>Auburn</td> <td>WA</td> <td class="zip">98002</td></tr>
+    <tr><td>Jose</td> <td>Jimenez</td> <td>187 27th Ave</td>
+        <td>Seattle</td> <td>WA</td> <td class="zip">98122</td></tr>
+    <tr><td>Julie</td> <td>Johnston</td> <td>10336 NE 187th St</td>
+        <td>Bothell</td> <td>WA</td> <td class="zip">98012</td></tr>
+    <tr><td>Lucy</td> <td>Lamont</td> <td>175 Smokey Point Dr</td>
+        <td>Lakewood</td> <td>WA</td> <td class="zip">98409</td></tr>
+    <tr><td>Samantha</td> <td>Sanders</td> <td>316 Union Ave</td>
+        <td>Snohomish</td> <td>WA</td> <td class="zip">98290</td></tr>
+    <tr><td>Walter</td> <td>Wong</td> <td>1073 South 323rd Street</td>
+        <td>Federal Way</td> <td>WA</td> <td class="zip">98003</td></tr>
+</tbody></table>
+
+<h3>List of All Subscriptions</h3>
+<p>Write a SQL query that produces an list of all subscriptions ordered
+alphabetically by magazine name, subscriber last name, and then
+subscriber first name.</p>
+
+<div class="pre"><pre class="code lang-sql">
+SELECT magazineName, subscriberFirstName, subscriberLastName,
+    subscriptionStartDate, subscriptionLength
+FROM magazine AS m
+    INNER JOIN subscription AS p ON m.magazineKey = p.magazineKey
+    INNER JOIN subscriber AS s ON p.subscriberKey = s.subscriberKey
+ORDER BY magazineName, subscriberLastName, subscriberFirstName
+</pre></div>
+
+<table class="data resultset"><thead>
+    <tr><th scope="col">magazineName</th>
+        <th scope="col">firstName</th>
+        <th scope="col">lastName</th>
+        <th scope="col">startDate</th>
+        <th scope="col">length</th></tr>
+</thead><tbody>
+    <tr><td>Beautiful Birds</td>
+        <td>Lucy</td> <td>Lamont</td>
+        <td class="date">2012-02-01</td> <td class="number">12</td></tr>
+    <tr><td>Beautiful Birds</td>
+        <td>Samantha</td> <td>Sanders</td>
+        <td class="date">2012-02-01</td> <td class="number">12</td></tr>
+    <tr><td>Car Racing Made Easy</td>
+        <td>Albert</td> <td>Anderson</td>
+        <td class="date">2011-03-01</td> <td class="number">14</td></tr>
+    <tr><td>Cooking Like Mad</td>
+        <td>Samantha</td> <td>Sanders</td>
+        <td class="date">2011-09-01</td> <td class="number">12</td></tr>
+    <tr><td>Corn Shucking for Fun and Profit</td>
+        <td>Jose</td> <td>Jimenez</td>
+        <td class="date">2012-08-01</td> <td class="number">12</td></tr>
+    <tr><td>Corn Shucking for Fun and Profit</td>
+        <td>Lucy</td> <td>Lamont</td>
+        <td class="date">2012-07-01</td> <td class="number">24</td></tr>
+    <tr><td>Fishing in the Mojave</td>
+        <td>Jose</td> <td>Jimenez</td>
+        <td class="date">2011-09-01</td> <td class="number">12</td></tr>
+    <tr><td>Fishing in the Mojave</td>
+        <td>Julie</td> <td>Johnston</td>
+        <td class="date">2011-03-01</td> <td class="number">12</td></tr>
+    <tr><td>Fishing in the Mojave</td>
+        <td>Samantha</td> <td>Sanders</td>
+        <td class="date">2011-05-01</td> <td class="number">12</td></tr>
+    <tr><td>If Only I Could Sing</td>
+        <td>Samantha</td> <td>Sanders</td>
+        <td class="date">2011-12-01</td> <td class="number">12</td></tr>
+    <tr><td>Pine Cone Computing</td>
+        <td>Samantha</td> <td>Sanders</td>
+        <td class="date">2011-05-01</td> <td class="number">18</td></tr>
+</tbody></table>
+
+<h3>List of Subscribers to Fishing in the Mojave</h3>
+<p>Write a SQL query that produces an list of the last and first names
+of the people that subscribe to &ldquo;Fishing in the Mojave&rdquo;.</p>
+
+<div class="pre"><pre class="code lang-sql">
+SELECT s.subscriberFirstName, s.subscriberLastName
+FROM subscriber AS s
+    INNER JOIN subscription AS p ON s.subscriberKey = p.subscriberKey
+    INNER JOIN magazine AS m ON p.magazineKey = m.magazineKey
+WHERE m.magazineName = 'Fishing in the Mojave'
+ORDER BY subscriberLastName, subscriberFirstName
+</pre></div>
+
+<table class="data resultset"><thead>
+    <tr><th scope="col">firstName</th> <th scope="col">lastName</th></tr>
+</thead><tbody>
+    <tr><td>Jose</td> <td>Jimenez</td></tr>
+    <tr><td>Julie</td> <td>Johnston</td></tr>
+    <tr><td>Samantha</td> <td>Sanders</td></tr>
+</tbody></table>
+
+<h3>List of Magazines</h3>
+<p>Write a SQL query that produces a list of all magazines with a
+count of how many subscribers each magazine has.</p>
+
+<div class="pre"><pre class="code lang-sql">
+SELECT magazineName, COUNT(subscriberKey) AS subscribers
+FROM magazine AS m
+    INNER JOIN subscription AS p ON m.magazineKey = p.magazineKey
+GROUP BY p.magazineKey
+ORDER BY magazineName
+</pre></div>
+
+<table class="data resultset"><thead>
+    <tr><th scope="col">magazineName</th>
+        <th scope="col">subscribers</th></tr>
+</thead><tbody>
+    <tr><td>Beautiful Birds</td> <td class="number">2</td></tr>
+    <tr><td>Car Racing Made Easy</td> <td class="number">1</td></tr>
+    <tr><td>Cooking Like Mad</td> <td class="number">1</td></tr>
+    <tr><td>Corn Shucking for Fun and Profit</td> <td class="number">2</td></tr>
+    <tr><td>Fishing in the Mojave</td> <td class="number">3</td></tr>
+    <tr><td>If Only I Could Sing</td> <td class="number">1</td></tr>
+    <tr><td>Pine Cone Computing</td> <td class="number">1</td></tr>
+</tbody></table>
+
+<h3>Total Revenue</h3>
+<p>Write a SQL query that produces a list of all magazines with a count
+of how many subscribers each magazine has and the amount of total
+revenue that will be earned from the subscriptions to each magazine. The
+magazine price that is stored in the magazine table is for a twelve
+month subscription, so your query must account for length of each
+subscription.</p>
+
+<div class="pre"><pre class="code lang-sql">
+SELECT magazineName, COUNT(subscriberKey) AS subscribers,
+    SUM(magazinePrice) AS totalRevenue
+FROM magazine AS m
+    INNER JOIN subscription AS p ON m.magazineKey = p.magazineKey
+GROUP BY p.magazineKey
+ORDER BY magazineName
+</pre></div>
+
+<table class="data resultset"><thead>
+    <tr><th scope="col">magazineName</th>
+        <th scope="col">subscribers</th>
+        <th scope="col">totalRevenue</th></tr>
+</thead><tbody>
+    <tr><td>Beautiful Birds</td>
+        <td class="number">2</td> <td class="number">24.90</td></tr>
+    <tr><td>Car Racing Made Easy</td>
+        <td class="number">1</td> <td class="number">15.45</td></tr>
+    <tr><td>Cooking Like Mad</td>
+        <td class="number">1</td> <td class="number">18.00</td></tr>
+    <tr><td>Corn Shucking for Fun and Profit</td>
+        <td class="number">2</td> <td class="number">30.10</td></tr>
+    <tr><td>Fishing in the Mojave</td>
+        <td class="number">3</td> <td class="number">41.85</td></tr>
+    <tr><td>If Only I Could Sing</td>
+        <td class="number">1</td> <td class="number">12.45</td></tr>
+    <tr><td>Pine Cone Computing</td>
+        <td class="number">1</td> <td class="number">17.50</td></tr>
+</tbody></table>
+
+<h3>List of Active Subscriptions</h3>
+<p>Write a SQL query that produces a list of subscriptions that were
+active on October 1, 2011.</p>
+
+<div class="pre"><pre class="code lang-sql">
+SELECT magazineName, subscriberFirstName, subscriberLastName
+FROM magazine AS m
+    INNER JOIN subscription AS p ON m.magazineKey = p.magazineKey
+    INNER JOIN subscriber AS s ON p.subscriberKey = s.subscriberKey
+WHERE '2011-10-01' BETWEEN p.subscriptionStartDate AND
+    DATE_ADD(p.subscriptionStartDate, INTERVAL p.subscriptionLength MONTH)
+ORDER BY magazineName, subscriberLastName, subscriberFirstName
+</pre></div>
+
+<table class="data resultset"><thead>
+    <tr><th scope="col">magazineName</th>
+        <th scope="col">firstName</th>
+        <th scope="col">lastName</th></tr>
+</thead><tbody>
+    <tr><td>Car Racing Made Easy</td> <td>Albert</td> <td>Anderson</td></tr>
+    <tr><td>Cooking Like Mad</td> <td>Samantha</td> <td>Sanders</td></tr>
+    <tr><td>Fishing in the Mojave</td> <td>Jose</td> <td>Jimenez</td></tr>
+    <tr><td>Fishing in the Mojave</td> <td>Julie</td> <td>Johnston</td></tr>
+    <tr><td>Fishing in the Mojave</td> <td>Samantha</td> <td>Sanders</td></tr>
+    <tr><td>Pine Cone Computing</td> <td>Samantha</td> <td>Sanders</td></tr>
+</tbody></table>
+</article>
+</body>
+</html>
