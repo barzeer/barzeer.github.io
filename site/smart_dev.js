@@ -159,8 +159,9 @@ if (!window.hasOwnProperty('smartDev')) {
 
 		createFooter : function() {
 			let footer = this.createElem('footer');
+			let year = new Date(document.lastModified).getFullYear();
 			let copy = this.createElem('p', null, null,
-					'Copyright © 2022 Rex A. Barzee. All rights reserved.');
+					'Copyright © '+year+' Rex A. Barzee. All rights reserved.');
 			footer.appendChild(copy);
 			let author = this.createAuthor();
 			footer.appendChild(author);
