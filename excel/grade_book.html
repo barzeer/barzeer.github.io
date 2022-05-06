@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Microsoft Excel, grade book template, reference intersect operator, VLOOKUP, COUNTIF">
+    <meta name="description" content="Describes and implements a Microsoft Excel spreadsheet that is a simply, highly functional grade book for teachers that includes weighted assignments and exams and various distribution charts.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Date Column</title>
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Grade Book Template</h1>
+<p>Keeping track of student scores and grades shouldn&rsquo;t be a
+difficult, time consuming exercise as it is with several e-learning
+software systems. Teachers should spend the majority of their time
+preparing and teaching instead of wrestling with difficult grading
+systems. Using Microsoft&reg; Excel&reg; we created a simple and
+flexible grade book template, shown below, that includes</p>
+
+<ul>
+    <li><div>weighted assignments and exams</div></li>
+    <li><div>alternating row colors making the score table easier to
+    read</div></li>
+    <li><div>letter grades automatically assigned from a table that you
+    can change</div></li>
+    <li><div>accurate midterm and final grades</div></li>
+    <li><div>simple statistical measures</div></li>
+    <li><div>several easy to read distribution charts</div></li>
+    <li><div>all the power and ease of use of Excel at your finger
+    tips</div></li>
+</ul>
+
+<p><img src="grade_book.png"
+alt="Screenshot of a Microsoft Excel spreadsheet that is grade book for
+teachers."
+title="Screenshot of a Microsoft Excel spreadsheet that is grade book for
+teachers."></p>
+
+<p><a download href="grade_book.xlsx">Download it</a>, give it a try,
+and give us your feedback.</p>
+
+<h2>Excel Features Used</h2>
+<p>Intermediate and advanced users of Excel may find this grade book
+template interesting because it uses the following Excel features.</p>
+
+<ul>
+    <li><div>Conditional formatting rule with a formula that uses the
+    ROW and MOD functions to produce highlights on every third row which
+    is easier to read than every other row</div></li>
+    <li><div>Named ranges to make common references easier to read,
+    understand, and maintain and to be used in macros</div></li>
+    <li><div>Reference intersect operator (space character) instead of
+    the range operator (colon : character) in cells D32:X32 to make the
+    references easier to read, understand, and maintain</div></li>
+    <li><div>IF and COUNT functions in cells D32:X32 to automatically
+    include an assignment in the overall grade calculations only when at
+    least one score for that assignment is entered and to exclude that
+    assignment otherwise</div></li>
+    <li><div>VLOOKUP in cells AE4:AE28 to automatically assign a letter
+    grade based on a student&rsquo;s overall score</div></li>
+    <li><div>Array formulas (sometimes called Control+Shift+Enter
+    formulas or CSE formulas) in cells AA40:AC49 to count how many
+    scores fall within each range</div></li>
+    <li><div>COUNTIF in cells AF40:AF51 to count how many students have
+    earned each letter grade</div></li>
+    <li><div>Nice examples of XY scatter and column charts</div></li>
+</ul>
+</article>
+</body>
+</html>
