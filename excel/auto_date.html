@@ -18,11 +18,11 @@
 <article>
 <h1>Spreadsheet with Auto Date Column</h1>
 <p>In the past, several people have asked me if there is a way to get
-Microsoft Excel to automatically fill in today&rsquo;s date in a column.
+Microsoft Excel to automatically fill in today’s date in a column.
 These people have tried the <code>=TODAY()</code> function only to find
 that it updates the date to the current date each time the spreadsheet
 is opened. What they really want is a spread sheet that when they enter
-data in one column, the sheet will automatically enter today&rsquo;s
+data in one column, the sheet will automatically enter today’s
 date in a different column. There may be some built-in functionality in
 Excel that will do this, but I am unaware of it. So, I wrote a short VBA
 macro that will fill in a date column.</p>
@@ -30,7 +30,7 @@ macro that will fill in a date column.</p>
 <p>After you have <a download href="auto_date.xlsm">downloaded the
 Excel file</a>, opened it in Excel, and <b>enabled macros</b>, you will
 be able to enter anything in columns B, C, or D, and Excel will
-automatically enter today&rsquo;s date in column A of the same row.</p>
+automatically enter today’s date in column A of the same row.</p>
 
 <p><img src="auto_date.png"
 alt="Screenshot of a Microsoft Excel spreadsheet where the current date
@@ -57,14 +57,14 @@ the macro to be</p>
 
 <div class="pre"><pre class="code lang-vb">    Set keyCells = Range("C1:E32765")</pre></div>
 
-<p><strong>Warning</strong>: don&rsquo;t change the <code>dateCol</code>
-or the <code>keyCells</code> so that they overlap. For example
-dont&rsquo;t change <code>dateCol</code> to 3 and leave
-<code>keyCells</code> as "B1:D32765" because 3 means column C and
-B1:D3275 includes column C. In other words they overlap. Doing this will
-probably cause Excel to freeze or crash.</p>
+<p><strong>Warning</strong>: don’t change the <code>dateCol</code> or
+the <code>keyCells</code> so that they overlap. For example dont’t
+change <code>dateCol</code> to 3 and leave <code>keyCells</code> as
+"B1:D32765" because 3 means column C and B1:D3275 includes column C. In
+other words they overlap. Doing this will probably cause Excel to freeze
+or crash.</p>
 
-<div class="pre">
+<div class="pre"><pre class="linenums"></pre>
 <pre class="code lang-vb">Private Sub Worksheet_Change(ByVal target As Range)
     ' keyCells contains the range of cells that when
     ' they are changed will cause a date to be entered.

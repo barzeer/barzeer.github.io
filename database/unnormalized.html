@@ -29,10 +29,9 @@ form.</p>
 <h3>Violates First Normal Form</h3>
 <p>The following design and the corresponding data table violate first
 normal form, because there are lists in the tracks column. Some track
-names, such as &ldquo;Jesu, Joy of Man&rsquo;s Desiring&rdquo; by
-Beethoven, include commas. How will the computer distinguish between a
-comma that is part of a track name and a comma that separates track
-names?</p>
+names, such as “Jesu, Joy of Man’s Desiring” by Beethoven, include
+commas. How will the computer distinguish between a comma that is part
+of a track name and a comma that separates track names?</p>
 
 <figure class="erd_data">
     <img style="width:8em" src="music/zero_normal_1.svg"
@@ -52,7 +51,7 @@ names?</p>
         <tr><td>Abbey Road</td>
             <td class="center">1969</td>
             <td>Apple</td>
-            <td>Here Comes the Sun, Octopus&rsquo;s Garden, Something, etc.</td>
+            <td>Here Comes the Sun, Octopus’s Garden, Something, etc.</td>
             <td>Beatles</td>
             <td class="center">UK</td></tr>
         <tr><td>Fearless</td>
@@ -94,7 +93,7 @@ have to search in all the track columns which is inefficient.</p>
             <td class="center">1969</td>
             <td>Apple</td>
             <td>Here Comes the Sun</td>
-            <td>Octopus&rsquo;s Garden</td>
+            <td>Octopus’s Garden</td>
             <td>Something, etc.</td>
             <td></td>
             <td></td>
@@ -123,7 +122,7 @@ track table and should be separated.</p>
 <figure class="erd_data">
     <img style="width:8em" src="music/first_normal.svg"
     alt="An entity relationship diagram containing a non-normalized
-    design for artists, albums, and tracks that doesn't violate first
+    design for artists, albums, and tracks that doesn’t violate first
     normal form but does violate second normal form">
 
     <div><table class="data">
@@ -142,7 +141,7 @@ track table and should be separated.</p>
             <td>Beatles</td> <td class="center">UK</td></tr>
         <tr><td>Abbey Road</td> <td class="center">1969</td>
             <td>Apple</td>
-            <td>Octopus&rsquo;s Garden</td> <td class="number">2:48</td>
+            <td>Octopus’s Garden</td> <td class="number">2:48</td>
             <td>Beatles</td> <td class="center">UK</td></tr>
         <tr><td>Abbey Road</td> <td class="center">1969</td>
             <td>Apple</td>
@@ -169,8 +168,8 @@ track table and should be separated.</p>
 
 <h3>Violates Third Normal Form</h3>
 <p>In the next design, the album table is normalized to third normal
-form meaning it doesn&rsquo;t violate the rules for first, second, or
-third normal forms. The track table doesn&rsquo;t violate the rules for
+form meaning it doesn’t violate the rules for first, second, or
+third normal forms. The track table doesn’t violate the rules for
 first or second normal form but does violate the rules for third normal
 form because the artistCountry column is not determined by the primary
 key (trackKey column) but is determined by the artist column.</p>
@@ -178,10 +177,10 @@ key (trackKey column) but is determined by the artist column.</p>
 <figure class="erd_data">
     <img style="width:8em" src="music/second_normal.svg"
     alt="An entity relationship diagram containing a non-normalized
-    design for artists, albums, and tracks that doesn't violate first
+    design for artists, albums, and tracks that doesn’t violate first
     normal form because all multi-valued columns and repeated columns
     have been removed but does violate third normal form because
-    artistCountry doesn't depend on trackKey">
+    artistCountry doesn’t depend on trackKey">
 
     <div><table class="data">
     <caption class="name">album</caption><thead>
@@ -214,7 +213,7 @@ key (trackKey column) but is determined by the artist column.</p>
             <td>Beatles</td> <td class="center">UK</td>
             <td>ABRD</td></tr>
         <tr><td class="key">3</td>
-            <td>Octopus&rsquo;s Garden</td> <td class="number">2:59</td>
+            <td>Octopus’s Garden</td> <td class="number">2:59</td>
             <td>Beatles</td> <td class="center">UK</td>
             <td>ABRD</td></tr>
         <tr><td class="key">4</td>
@@ -274,7 +273,7 @@ we say the design is normalized to third normal form.</p>
             <td>Something</td> <td class="number">2:48</td>
             <td>ABRD</td> <td>BTLS</td></tr>
         <tr><td class="key">3</td>
-            <td>Octopus&rsquo;s Garden</td> <td class="number">2:59</td>
+            <td>Octopus’s Garden</td> <td class="number">2:59</td>
             <td>ABRD</td> <td>BTLS</td></tr>
         <tr><td class="key">4</td>
             <td>Love Story</td> <td class="number">3:57</td>
@@ -629,7 +628,7 @@ Name, &hellip;).</p>
 </figure>
 
 <h3>Violates Second Normal Form</h3>
-<p>The next design doesn't violate first normal form because all
+<p>The next design doesn’t violate first normal form because all
 multi-valued cells and repeated columns have been removed but does
 violate second normal form because the subscription table contains
 sub-themes that should be separated.</p>
@@ -637,7 +636,7 @@ sub-themes that should be separated.</p>
 <figure class="erd_data">
     <img style="width:11em" src="magazine/first_normal.svg"
     alt="An entity relationship diagram containing a non-normalized
-    design for magazines, subscriptions, and subscribers that doesn't
+    design for magazines, subscriptions, and subscribers that doesn’t
     violate first normal form but does violate second normal">
 
     <div><table class="data">
