@@ -9,9 +9,6 @@
     <script src="../site/smart_dev.js"></script>
     <script src="../site/article.js"></script>
     <script src="../site/hljs/highlight.min.js"></script>
-    <link rel="icon" type="image/png" href="../site/icons/icon.png">
-    <link rel="stylesheet" type="text/css" href="../site/style.css">
-    <link rel="stylesheet" href="../site/hljs/vscode.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
@@ -267,6 +264,21 @@ $(document).ready(function() {
     count.resetAll();
 });
 </script>
+
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+<style>
+article table#count th { vertical-align: middle; }
+article table#count th.base { padding-left: 2em; text-align: center; }
+article table#count td { padding-top: 0.2em; vertical-align: top; }
+article table#count td.check { padding-left: 2em; }
+article table#count td.check input { vertical-align: top; }
+article table#count td.check img {
+    margin: 0; border: none; padding: 0;
+	box-shadow: none; vertical-align: top;
+}
+</style>
 </head>
 
 <body>
