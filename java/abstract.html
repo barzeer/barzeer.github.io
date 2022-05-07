@@ -1,0 +1,216 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Java, Java programming language, static, instance, interface, abstract class, concrete class, static attribute, static method, abstract method, concrete method">
+    <meta name="description" content="Notes and examples that teach how to use interfaces, abstract classes, and regular classes in the Java programming language.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interfaces and Abstract Classes</title>
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Interfaces and Abstract Classes in Java</h1>
+<p>This article compares and contrasts interface, abstract class, and
+concrete class in the Java programming language.</p>
+
+<h2>Objectives</h2>
+<ul>
+    <li><div>Distinguish among interface, abstract class, and concrete
+    class</div></li>
+    <li><div>Know and understand the purpose of an interface and an
+    abstract class</div></li>
+    <li><div>Know what is allowed in an interface, an abstract class,
+    and a concrete class</div></li>
+</ul>
+
+<h2>Prerequisites</h2>
+<ul>
+    <li><div>Understand Java classes, objects, and
+    <a href="methods.html">methods</a></div></li>
+    <li><div>Understand Java <a href="scope.html">variable scope</a>
+    (local, instance, and class) and
+    <a href="scope.html">method scope</a> (instance and class)</div></li>
+</ul>
+
+<h2>Definitions</h2>
+<dl class="long">
+    <dt><dfn>abstract method</dfn></dt>
+    <dd>A method without a body (only a header followed by a semicolon)</dd>
+
+    <dt><dfn>concrete method</dfn></dt>
+    <dd>A normal method; a method with a body</dd>
+
+    <dt><dfn>interface</dfn></dt>
+    <dd>A class-like entity that contains only class (static) attributes
+    and abstract methods. Used as a parent in a realizes hierarchy and
+    as a type for reference variables.</dd>
+
+    <dt><dfn>abstract class</dfn></dt>
+    <dd>A class that cannot be used to create objects (cannot be
+    instantiated) and may contain abstract methods. Used as a parent in
+    an inheritance hierarchy and as a type for reference variables.</dd>
+
+    <dt><dfn>concrete class</dfn></dt>
+    <dd>A normal class. Used for creating objects.</dd>
+</dl>
+
+<h2>Rules</h2>
+<ul>
+    <li><div>It is <em>not</em> possible to create an object from an
+    interface or abstract class.</div></li>
+    <li><div>Interfaces may <em>not</em> contain instance
+    attributes.</div></li>
+    <li><div>Interfaces may <em>not</em> contain concrete instance
+    methods.</div></li>
+    <li><div>Concrete classes may <em>not</em> contain abstract instance
+    methods.</div></li>
+    <li><div>There is no such thing as an abstract class (static)
+    method. It doesn’t make sense.</div></li>
+    <li><div>Summary
+    <table><thead>
+        <tr class="center"><td></td>
+            <td style="min-width:7.5em">(most abstract)</td>
+            <td style="min-width:7.5em"></td>
+            <td style="min-width:7.5em">(least abstract)</td></tr>
+        <tr><td></td>
+            <th scope="col">interface</th>
+            <th scope="col">abstract class</th>
+            <th scope="col">concrete class</th></tr>
+    </thead><tbody>
+        <tr><td class="right">Can be instantiated</td>
+            <td></td>
+            <td></td>
+            <td class="center">&#x2713;</td></tr>
+        <tr><td class="right">May contain
+            <dfn title="(static)">class</dfn> attributes</td>
+            <td class="center">&#x2713;</td>
+            <td class="center">&#x2713;</td>
+            <td class="center">&#x2713;</td></tr>
+        <tr><td class="right">May contain
+            <dfn title="(non-static)">instance</dfn> attributes</td>
+            <td></td>
+            <td class="center">&#x2713;</td>
+            <td class="center">&#x2713;</td></tr>
+        <tr><td class="right">May contain
+            <dfn title="(static)">class</dfn> methods</td>
+            <td class="center">&#x2713;</td>
+            <td class="center">&#x2713;</td>
+            <td class="center">&#x2713;</td></tr>
+        <tr><td class="right">May contain <dfn
+            title="(no body, non-static)">abstract instance</dfn> methods</td>
+            <td class="center">&#x2713;</td>
+            <td class="center">&#x2713;</td>
+            <td></td></tr>
+        <tr><td class="right">May contain <dfn
+            title="(with body, non-static)">concrete instance</dfn> methods</td>
+            <td></td>
+            <td class="center">&#x2713;</td>
+            <td class="center">&#x2713;</td></tr>
+    </tbody></table>
+    </div></li>
+</ul>
+
+<h2>Example</h2>
+<div>
+<figure>
+<img style="vertical-align:top" src="chess_uml.png"
+alt="UML class diagram showing part of a design for a chess game"
+title="UML class diagram showing part of a design for a chess game">
+</figure>
+
+<div class="pre">
+<pre class="code lang-java">import java.awt.Graphics2D;
+
+
+interface Drawable {
+
+    // class attribute because it is static
+    public static final double SPARKLE_COEFFICIENT = 0.26;
+
+    // abstract method because it has no body
+    public void draw(Graphics2D g);
+}
+
+
+// concrete class because it isn't abstract
+class ChessBoard implements Drawable {
+
+    // concrete method because it has a body
+    public void draw(Graphics2D g) {
+        &vellip;
+    }
+}
+
+
+// abstract class
+abstract class ChessPiece implements Drawable {
+
+    // instance attribute because it isn't static
+    protected String color;
+
+    // abstract method because is has no body
+    public abstract boolean move(int location);
+}
+
+
+// concrete class because it isn't abstract
+class King extends ChessPiece {
+
+    // instance attribute because it isn't static
+    private boolean moved = false;
+
+    // concrete method because it has a body
+    public boolean move(int location) {
+        &vellip;
+        moved = true;
+        return &hellip;
+    }
+
+    // concrete method because it has a body
+    public void draw(Graphics2D g) {
+        &vellip;
+    }
+}
+
+
+// concrete class because it isn't abstract
+class Queen extends ChessPiece {
+
+    // concrete method because it has a body
+    public boolean move(int location) {
+        &vellip;
+        return &hellip;
+    }
+
+    // concrete method because it has a body
+    public void draw(Graphics2D g) {
+        &vellip;
+    }
+}
+
+
+// concrete class because it isn't abstract
+class Pawn extends ChessPiece {
+
+    // concrete method because it has a body
+    public boolean move(int location) {
+        &vellip;
+        return &hellip;
+    }
+
+    // concrete method because it has a body
+    public void draw(Graphics2D g) {
+        &vellip;
+    }
+}</pre></div>
+</div>
+</article>
+</body>
+</html>

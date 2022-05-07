@@ -93,7 +93,7 @@ if (!window.hasOwnProperty('smartDev')) {
 				['shell', 'Shell Scripts'],
 				['database', 'Database'],
 				//['modeling', 'Modeling'],
-				['excel', 'Microsoft Excel'],
+				['excel', 'Excel'],
 				['math', 'Math']
 			];
 			let folder = null;

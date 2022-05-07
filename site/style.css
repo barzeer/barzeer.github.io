@@ -147,14 +147,14 @@ div.page > footer {
 	div.page > nav {
 		display: inline-block;
 		margin: 0 0 1em 2em;
-		width: 10em;
+		width: 8em;
 		vertical-align: top;
 		line-height: 1.2;
 	}
 
 	div.page > article {
 		display: inline-block;
-		width: 43em;
+		width: 46em;
 	}
 
 	nav > h2 {
@@ -348,27 +348,27 @@ article.directory dl > dd {
 	margin: 0 0 1em 2em;
 }
 
-article dl.function {
-	margin: 1em;
+article dl {
+	margin: 0 0 1em 1em;
+}
+article dl > dd {
+	margin-left: 2em;
 }
 
-article dl.function dt {
+article dl.function > dt {
 	border-left: 0.12em solid var(--bullet-fg-color);
 	padding-left: 0.5em;
 }
 
-article dl.function dd {
+article dl.function > dd {
+	margin-left: 0;
 	border-left: 0.12em solid var(--bullet-fg-color);
 	padding-left: 2.5em;
 	margin-bottom: 1em;
 }
 
-article dl.long dt {
-	padding-bottom: 1em;
-}
-
-article dl.long dd {
-	margin-bottom: 2em;
+article dl.long > dd {
+	margin-bottom: 1em;
 }
 
 
