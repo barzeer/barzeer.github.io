@@ -377,8 +377,8 @@ article table {
 	margin-bottom: 1em;
 }
 article table > thead > tr > th {
-	text-align: center;
 	vertical-align: bottom;
+	text-align: center;
 	font-weight: bold;
 }
 article table > tbody > tr > th,
@@ -386,13 +386,24 @@ article table > tbody > tr > td {
 	vertical-align: top;
 }
 article table > tbody > tr > th {
-	text-align: center;
+	vertical-align: top;
+	text-align: left;
 	font-weight: bold;
 }
 
-table > tbody.top > tr > td { vertical-align: top; }
-table > tbody.center > tr > td { text-align: center; }
-table tr.center > td { text-align: center; }
+article table > tbody.top > tr > td { vertical-align: top; }
+article table > tbody.middle > tr > td { vertical-align: middle; }
+article table > tbody.center > tr > td { text-align: center; }
+article table tr.center > td { text-align: center; }
+
+article table.features > tbody > tr > td {
+	padding: 0.5em 0.5em 0 0;
+	vertical-align: middle;
+	text-align: center;
+}
+article table.features > tbody > tr > td:first-child {
+	text-align: right;
+}
 
 article table.excel > thead > tr > th[scope="col"] {
 	border-right: 1px solid var(--border-color);
