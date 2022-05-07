@@ -66,7 +66,7 @@ if (!window.hasOwnProperty('smartDev')) {
 			let header = this.createElem('header');
 			let h2 = this.createElem('h2');
 			let a = this.createElem('a',
-					null, {'href': '../index.html'}, 'Barzee’s Notes');
+					null, {href: '../'}, 'Barzee’s Notes');
 			h2.appendChild(a);
 			let h3 = this.createElem('h3',
 					null, null, 'Smart Software Development');
@@ -111,7 +111,7 @@ if (!window.hasOwnProperty('smartDev')) {
 				let text = folder == direc ?
 					this.createElem('em', null, null, name) :
 					this.createElem('a', null,
-						{'href': '../' + direc + '/index.html'}, name);
+						{'href': '../' + direc + '/'}, name);
 				div.appendChild(text);
 				li.appendChild(div);
 				ul.appendChild(li);
