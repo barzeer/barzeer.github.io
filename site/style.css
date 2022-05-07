@@ -85,9 +85,7 @@ body {
 }
 
 @media (max-width: 768px) {
-	body > div.top {
-		display: none;
-	}
+	body > div.top { display: none; }
 }
 @media (min-width: 768px) {
 	body {
@@ -122,26 +120,27 @@ div.page > article {
 	margin: 0 2em 1em 2em;
 }
 
+div.page > footer {
+	background-color: var(--footer-bg-color);
+	padding: 2em 2em 1em 2em;
+	font-size: 90%;
+}
+
+
 @media (max-width: 768px) {
 	div.page > nav {
 		display: block;
 		margin: 0 2em 2em 2em;
 	}
-	div.page > nav ul {
-		list-style-type: none;
-	}
-	div.page > nav ul > li {
-		display: inline-block;
-		margin-right: 0.75em;
-	}
-
-	div.page > div.side {
+	nav > h2 {
 		display: none;
 	}
-
-	footer div.author {
-		display: block;
-		margin-bottom: 1em;
+	nav > ul {
+		list-style-type: none;
+	}
+	nav > ul > li {
+		display: inline-block;
+		margin-right: 0.75em;
 	}
 }
 @media (min-width: 768px) {
@@ -153,18 +152,13 @@ div.page > article {
 		width: 60em;
 	}
 
-	div.page > nav,
-	footer div.author {
-		display: none;
-	}
-
-	div.page > div.side {
+	div.page > nav {
 		display: inline-block;
 		margin: 0 0 1em 2em;
-		width: 11em;
+		width: 10em;
 		vertical-align: top;
-		font-size: 95%;
-		line-height: 1.1;
+		/*font-size: 95%;*/
+		line-height: 1.2;
 	}
 
 	div.page > article {
@@ -172,40 +166,37 @@ div.page > article {
 		width: 43em;
 	}
 
-	div.side nav {
-		display: block;
-		margin-bottom: 5em;
+	nav > h2 {
+		font-weight: bold;
+		margin-bottom: 0.5em;
 	}
-	div.side nav ul {
+	nav > ul {
 		margin-left: 1.5em;
 		list-style-type: disc;
 	}
-	div.side nav ul > li {
+	nav > ul > li {
 		margin-bottom: 0.5em;
 		color: var(--bullet-fg-color);
 	}
-	div.side nav ul > li > div {
+	nav > ul > li > div {
 		color: var(--fg-color);
 	}
 }
 
-nav h2,
-div.author h2 {
-	font-weight: bold;
-	margin-bottom: 0.5em;
-}
 nav em {
 	font-weight: bold;
 }
 
-div.page > footer {
-	background-color: var(--footer-bg-color);
-	padding: 2em 2em 1em 2em;
-	font-size: 95%;
-}
 
-footer > p,
-footer > div {
+footer > h2 {
+	font-weight: bold;
+	margin-bottom: 0.5em;
+}
+footer > img {
+	float: right;
+	margin: 0 0 0.5em 0.5em;
+}
+footer > p {
 	margin-bottom: 1em;
 }
 
