@@ -137,7 +137,7 @@ div.page > header {
 
 	div.page > nav {
 		display: inline-block;
-		margin: 0 0 1em 2em;
+		margin-left: 2em;
 		width: 8em;
 		vertical-align: top;
 		line-height: 1.2;
