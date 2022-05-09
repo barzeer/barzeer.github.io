@@ -108,18 +108,8 @@ div.page > header {
 	border-bottom: 1px solid var(--border-color);
 }
 
-div.page > article {
-	margin: 0 2em 1em 2em;
-}
-
-div.page > footer {
-	background-color: var(--footer-bg-color);
-	padding: 2em 2em 1em 2em;
-	font-size: 90%;
-}
-
-
 @media (max-width: 768px) {
+	/* Devices with a small screen or in a small window. */
 	div.page > nav {
 		display: block;
 		margin: 0 2em 2em 2em;
@@ -132,10 +122,11 @@ div.page > footer {
 	}
 	nav > ul > li {
 		display: inline-block;
-		margin-right: 0.75em;
+		margin: 0 1em 0.5em 0;
 	}
 }
 @media (min-width: 768px) {
+	/* In a medium or large window. */
 	body > div.page {
 		position: relative;
 		z-index: 2;
@@ -167,7 +158,7 @@ div.page > footer {
 		list-style-type: disc;
 	}
 	nav > ul > li {
-		margin-bottom: 0.5em;
+		margin-bottom: 0.75em;
 		color: var(--bullet-fg-color);
 	}
 	nav > ul > li > div {
@@ -175,10 +166,16 @@ div.page > footer {
 	}
 }
 
-nav em {
-	font-weight: bold;
+div.page > article {
+	margin: 0 2em 1em 2em;
 }
 
+
+div.page > footer {
+	background-color: var(--footer-bg-color);
+	padding: 2em 2em 1em 2em;
+	font-size: 90%;
+}
 
 footer > h2 {
 	font-weight: bold;
@@ -711,6 +708,7 @@ article pre {
 	line-height: 1.15;
 }
 
+nav em,
 article pre em,
 article code em {
 	font-weight: bold;

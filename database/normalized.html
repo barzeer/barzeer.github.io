@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <title>Normalized Database Designs</title>
+    <meta name="description" content="An article that contains various relational database designs in third normal form.">
+    <meta name="keywords" content="relational database design, first normal form, second normal form, third normal form">
+    <link rel="canonical" href="https://barzeer.github.io/database/normalized.html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+</head>
+
+<body>
+<article>
+<h1>Normalized Database Designs</h1>
+<p>Each of the following relational database designs is normalized to at
+least third normal form. Each design has at least one interesting
+feature that may help you as you design databases.</p>
+
+<h2>Magazine</h2>
+<p>This very simple design shows that a linking table can be expanded to
+contain more columns than just the foreign keys from the two parent
+tables. Notice that the subscription table has relationships with the
+magazine and subscriber tables like a linking table would have. However,
+the subscription table also includes additional columns.</p>
+<figure style="width:40em">
+<img src="normalized/magazine.svg"
+alt="A relational database design for magazines and subscribers">
+</figure>
+
+<h2>Automobile Dealership</h2>
+<p>One interesting feature of this simple database design for an
+automobile dealership is the purchase table. The purchase table allows a
+single automobile to be purchased multiple times which often happens at
+a dealership when a customer buys a new automobile and then several
+years later trades in that automobile, and the dealership sells the
+automobile as a used vehicle to a different customer.</p>
+<figure style="width:40em">
+<img src="normalized/dealership.svg"
+alt="A relational database design for an automobile dealership">
+</figure>
+
+<h2>Business Directory</h2>
+<p>The business directory design contains a table with a
+self-relationship. Notice in the category table how the
+<code>parent_id</code> column is a foreign key that is connected to the
+category_id primary key in the same table.</p>
+<figure style="width:38em">
+<img src="normalized/business_directory.svg"
+alt="A relational database design for a business directory">
+</figure>
+
+<h2>Church Ward</h2>
+<figure style="width:40em">
+<img src="normalized/ward.svg"
+alt="A relational database design for a church congregation">
+</figure>
+
+<h2>Personal Finance Ledger</h2>
+<figure style="width:45em">
+<img src="normalized/ledger.svg"
+alt="A relational database design for a personal finance ledger">
+</figure>
+
+</article>
+</body>
+</html>
