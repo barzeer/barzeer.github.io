@@ -1,0 +1,1162 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <title>Faster C and C++ Code</title>
+    <meta name="description" content="Tips for writing faster C and C++ code.">
+    <meta name="keywords" content="C, C++, computer programming, software optimization, software performance">
+    <link rel="canonical" href="https://barzeer.github.io/c_cpp/faster_c.html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<p>Here is the text of a book that I began writing many years ago. I
+never found the time to finish it. However, you may find some useful
+tips.</p>
+
+<h1>Faster C and C++ Code</h1>
+<p>Copyright &copy; 2000 by Rex A. Barzee. All rights reserved.</p>
+
+<h2>Contents</h2>
+<ul>
+    <li><div><a href="#intro">Introduction</a></div></li>
+
+    <li><div>Coding Techniques
+    <ol>
+        <li><div><a href="#outside">Move statements outside of loops</a></div></li>
+        <li><div><a href="#decr">Write loops to count backwards (decrement) to zero</a></div></li>
+        <li><div><a href="#deref">Use pointer dereference instead of array subscript</a></div></li>
+        <li><div><a href="#fewVars">Use as few variables as possible in a function</a></div></li>
+        <li><div><a href="#params">Use the formal parameters of a function like local variables</a></div></li>
+        <li><div><a href="#memset">Use memset when setting more than N bytes to the same value</a></div></li>
+        <li><div><a href="#memcpy">Use memcpy when copying more than N bytes</a></div></li>
+        <li><div><a href="#arith">Use integer arithmetic instead of floating point arithmetic</a></div></li>
+        <li><div><a href="#lut">Use look up tables</a></div></li>
+        <li><div><a href="#static">Declare functions and global variables as static</a></div></li>
+        <li><div><a href="#inline">Declare functions and global variables as inline</a></div></li>
+        <li><div><a href="#combo">Use combinatorial algorithms</a></div></li>
+        <li><div><a href="#sizeof">Understand and use the sizeof operator</a></div></li>
+    </ol></div></li>
+
+    <li><div><a href="#image">Image Processing Example</a></div></li>
+</ul>
+
+<h2 id="intro">Introduction</h2>
+<p>This book documents programming techniques and tips that cause the
+compiled vesion of a C or C++ function to contain less assembly
+instructions, or use faster assembly instructions, or execute fewer
+assembly instructions, causing the function to run faster. In a few
+cases, these techniques may cause code to be less intuitive (as if any
+code is) or less readable. However, in many cases these techniques will
+make code more concise and more readable; to paraphrase, “brevity
+is the essence of programming.”</p>
+
+<p>The techniques discussed in this book apply to both C and C++ because
+C++ is a superset of C and despite C++ classes, methods, overloaded
+operators, virtual functions, templates, exceptions, run time type
+checking, etc., the C++ programmer must still write the body of
+functions using loops, arrays, pointers, primitive types, and other C
+expressions. I assume the reader of this book is a C and/or C++
+programmer, and I make no attempt to explain C or C++ language
+constructs or concepts. There are already many excellent books which do
+this.</p>
+
+<p>The two most important points about writing faster code are:</p>
+<ol>
+    <li><div>Write correct code before writing fast code.</div></li>
+    <li><div>Use a profiler or other technique to choose where to write fast
+    code.</div></li>
+</ol>
+
+<p>I cannot emphasize those two points enough. What good is fast code if
+it gives incorrect results? Also, it does no good to optimize the code
+for a function that executes for a small amount of the overall time that
+your program executes. If you work hard and rewrite a function making it
+run twice as fast as it was previously, but it was only taking only 1%
+of the total execution time, you will have sped up the entire program by
+only 0.5% (one half of one percent).</p>
+
+<h2>Coding Techniques</h2>
+
+<h3 id="outside">1. Move statements outside of loops</h3>
+<p>The simpliest and best way to make any code run faster is to reduce
+the amount of code or reduce the number of times the computer must
+execute that code. I often see code that has statements that don’t
+need to be repeated placed inside a loop where they are repeated.
+Consider this simple function to compute the average of an array of
+numbers.</p>
+
+<h4>Example 1.1</h4>
+<div class="pre">
+<pre class="code lang-c">/** Computes and returns the average of the values in a. */
+double average(const double *a, int n) {
+    double sum = 0;
+    double avg = 0;
+    for (int i = 0;  i &lt; n;  ++i) {
+        sum += a[i];
+        avg = sum / n;
+    }
+    return avg;
+}</pre>
+</div>
+
+<p>Of course the average doesn’t need to be and shouldn’t be
+calculated each time through the loop. Instead it should be calculated
+only once after the loop is finished.</p>
+
+<h4>Example 1.2</h4>
+<div class="pre">
+<pre class="code lang-c">/** Computes and returns the average of the values in a. */
+double average(const double *a, int n) {
+    double sum = 0;
+    for (int i = 0;  i &lt; n;  ++i) {
+        sum += a[i];
+    }
+    double avg = sum / n;
+    return avg;
+}</pre>
+</div>
+
+<p>Consider this C++ example that counts the number of upper case
+letters in a string. It contains a more subtle example of code that is
+repeated that doesn’t need to be.</p>
+
+<h4>Example 1.3</h4>
+<div class="pre">
+<pre class="code lang-cpp">/** Counts and returns the number upper case letters in a string. */
+int countUppers(const string &amp;s) {
+    int count = 0;
+    for (int i = 0;  i &lt; s.length();  ++i) {
+        if (isupper(s[i])) {
+            count++;
+        }
+    }
+    return count;
+}</pre>
+</div>
+
+<p>In example 1.3 the comparison <code>i &lt; s.length()</code> causes
+the computer to make an extra function call each time through the loop.
+Also, for a C++ string, the subscript operator ([ ]) is a function call.
+Example 1.3 should be rewritten to move the call to the
+<code>length</code> function outside of the loop and to eliminate the
+subscript operator function call.</p>
+
+<h4>Example 1.4</h4>
+<div class="pre">
+<pre class="code lang-cpp">/** Counts and returns the number upper case letters in a string. */
+int countUppers(const string &amp;s) {
+    int count = 0;
+    int length = s.length();
+    const char *data = s.data();
+    for (int i = 0;  i &lt; length;  ++i) {
+        if (isupper(data[i])) {
+            count++;
+        }
+    }
+    return count;
+}</pre>
+</div>
+
+<h3 id="decr">2. Write loops to count backwards (decrement) to zero</h3>
+<p>When writing a loop, instead of writing it to count from 0 to
+<var>n</var>,
+
+<h4>Example 2.1</h4>
+<div class="pre">
+<pre class="code lang-c">    for (int i = 0;  i != n;  ++i) {
+    }</pre>
+</div>
+
+<p>write the loop to count backwards from <var>n</var> to zero.</p>
+
+<h4>Example 2.2</h4>
+<div class="pre">
+<pre class="code lang-c">    for (int i = n;  i != 0;  --i) {
+    }</pre>
+</div>
+
+<p>Many CPUs have a single instruction for decrement and compare to
+zero, for example Hewlett-Packard Company’s PA-RISC instruction
+<code>addib,znv -1,r,r</code>, but have no such single instruction for
+increment and compare. So after being compiled, the end of loop 2.1 will
+consist of two or three assembly instructions:</p>
+
+<ul>
+    <li><div>increment i</div></li>
+    <li><div>compare to N</div></li>
+</ul>
+<p>or</p>
+<ul>
+    <li><div>increment i</div></li>
+    <li><div>subtract from i from N</div></li>
+    <li><div>compare the result to zero</div></li>
+</ul>
+<p>The end of loop 2.2 will (should) consist of a single assembly
+instruction because the optimizer will combine <code>i != 0</code> and
+<code>--i</code> into a single instruction.</p>
+
+<!--
+If, however, you find your optimizer won’t combine these, you can
+rewrite the loop to explicitly place the decrement in the test portion
+of the for loop which is slightly less intuitive but not beyond
+reason.</p>
+
+<h4>Example 2.3</h4>
+<div class="pre">
+<pre class="code lang-c">for (int i = n;  i-- != 0;  ) {
+}</pre>
+</div>
+-->
+
+<h3 id="deref">3. Use pointer dereference instead of array subscript</h3>
+<p>On many computer architectures, the array subscript operator requires
+two instructions:</p>
+<ol>
+    <li><div>adding the index value (<code>i</code> in example 3.1) to
+    the base of the array (<code>samples</code> in example 3.1) giving a
+    pointer into the array</div></li>
+    <li><div>dereferencing the resultant pointer</div></li>
+</ol>
+
+<p>However, many CPUs have a single dereference and increment
+instruction, and so <code>*p++</code> in example 3.2 can be done in a
+single instruction. Also, because example 3.2 uses a pointer dereference
+instead of an array subscript, we can rewrite the counting loop to count
+down to 0 as explained in tip 2.</p>
+
+<h4>Example 3.1</h4>
+<div class="pre">
+<pre class="code lang-c">    double sum = 0;
+    for (int i = 0;  i &lt; length;  ++i) {
+        sum += samples[i];
+    }</pre>
+</div>
+
+<h4>Example 3.2</h4>
+<div class="pre">
+<pre class="code lang-c">    double sum = 0;
+    double *p = samples;
+    for (int i = n;  i != 0;  --i) {
+        sum += *p++;
+    }</pre>
+</div>
+
+<h3 id="fewVars">4. Use as few variables as possible in a function</h3>
+<p>Space for local variables in a function is allocated from the
+CPU’s registers or on the call stack or both. Since a variable
+stored on the stack must first be loaded into a register before its
+value can be manipulated, we want to write code that maintains as many
+variables as possible in the CPU registers. In modern computer
+architectures, some CPU registers are designated as parameter passing
+registers, some as return value registers, and some as scratch or
+temporary registers. These are all available to be used as local
+variables. The compiler and optimizer decide which registers are
+allocated to which variables. Of course, the compiler tries to allocate
+registers in a way to make the function run as fast as possible, but it
+doesn’t always find the most optimal mapping of variables to
+registers. This is one of the reasons for the existence of the C keyword
+<code>register</code>. Using <code>register</code> a programmer can hint
+to the compiler which variables should be allocated in registers.</p>
+
+<p>If a function uses more variables than are available for local
+registers, the compiler must output code to spill to the stack and
+restore from the stack registers specified as non-local and to swap to
+and from the stack the contents of local registers.</p>
+
+<p>Often programmers write code that uses more variables than necessary.
+In other words some variables are synonyms for others as in example 4.1.
+Also many variables are used during only a small part of a function. A
+good optimizer combines synonyms and allocates a register for a variable
+only while that variable is in use. Also, many modern CPUs perform
+register renaming which helps use registers more efficiently. However,
+not all optimizers are good ones, and even good ones don’t find
+the optimal variable to register mapping every time. Therefore, help the
+compiler out by eliminating synonyms and other unecessary variables.
+Also, don’t intialize local variables long before they are
+actually needed as ____ is in example 4.1. Instead initialize them
+immediately before they are needed. C++ programmers and C programmers
+using C99 can go a step further and not declare variables until they are
+needed as ____ is in example 4.2.</p>
+
+<p>I’m not suggesting that you name all your variables tmp1, tmp2,
+etc. and use the variables for anything that is needed. Give
+variables meaningful names and use as many as necessary but no more.</p>
+
+<h3 id="params">5. Use the formal parameters of a function like local variables</h3>
+<p>Many programmers forget that the formal parameters of a C function
+are passed by value from the calling function to the called function, so
+they are copies of the values used in the calling function. In other
+words, they are local variables and can be modified like local
+variables. Notice that both examples 5.1 and 5.2 compute and return the
+sum of the numbers in an array. Notice that example 5.1 has two more
+variables (<code>i</code> and <code>p</code>) than example 5.2 has.
+Example 5.2 uses both of its parameters as local variables and modifies
+them within the while loop. For all the reasons given in the previous
+tip, it is a good idea to use fewer variables in a function, and using
+the formal parameters as local variables often reduces the number of
+variables that a function needs.</p>
+
+<h4>Example 5.1</h4>
+<div class="pre">
+<pre class="code lang-c">/** Calculates and returns the sum of the numbers in array. */
+double sum(const double *array, int n) {
+    const double *p = array;
+    double s = 0;
+    for (int i = n;  i != 0;  --i) {
+        s += *p++;
+    }
+    return s;
+}</pre>
+</div>
+
+<h4>Example 5.2</h4>
+<div class="pre">
+<pre class="code lang-c">/** Calculates and returns the sum of the numbers in array. */
+double sum(const double *array, int n) {
+    double s = 0;
+    while (n != 0) {
+        s += *array++;
+        --n;
+    }
+    return s;
+}</pre>
+</div>
+
+<h3 id="memset">6. Use memset when setting more than N bytes to the same value.</h3>
+<p>When setting more than small amounts of memory to the same value,
+don’t write a loop to do it as shown in example 6.1. Use the
+<code>memset</code> function instead as shown in example 6.2.
+<code>memset</code> is often written in assembly code and has been
+optimized and tested by the developers of the standard C library.
+Calling a function requires some time or overhead, so calling
+<code>memset</code> to set small amounts of memory is slower than
+setting the memory inside a loop. You can measure on your architecture
+at what number of bytes calling <code>memset</code> becomes faster than
+setting the bytes in a loop.</p>
+
+<h4>Example 6.1</h4>
+<div class="pre">
+<pre class="code lang-c">    int n = 1024;
+    uint8_t array[n];
+    for (int i = 0;  i &lt; n;  ++i) {
+        array[i] = 0;
+    }</pre>
+</div>
+
+<h4>Example 6.2</h4>
+<div class="pre">
+<pre class="code lang-c">    int n = 1024;
+    uint8_t array[n];
+    memset(array, 0, n);</pre>
+</div>
+
+<p>Unfortunately, <code>memset</code> works for bytes only. In other
+words, you can’t use <code>memset</code> to fill an array of integers
+with a number unless all the bytes of the number are the same. Example
+6.3 shows code that attempts to fill an array of integers with the
+number 26, but it doesn’t work. Instead of printing the number 26, the
+<code>printf</code> function prints the number 437918234. It prints
+437918234 because the <code>memcpy</code> function filled the array with
+the byte 26 which is hexadecimal 1a and binary 0001 1010. When using gcc
+as the compiler, an <code>int</code> occupies four bytes, so the
+<code>printf</code> function combines four bytes that were set to
+<code>0x1a1a1a1a</code> by the <code>memset</code> function and prints
+the corresponding decimal number which is 437918234.</p>
+
+<h4>Example 6.3</h4>
+<div class="pre">
+<pre class="code lang-c">    int n = 1024;
+    int array[n];
+    memset(array, 26, sizeof(array));
+    printf("%d\n", array[0]);</pre>
+</div>
+
+<p><code>memset</code> can be used to set values in arrays of
+<code>short</code>, <code>int</code>, <code>long</code>, and even
+<code>float</code> and <code>double</code> <i>if</i> all the bytes of
+the desired number are the same. This works especially well for zero
+because when the number zero is stored as a <code>short</code>,
+<code>int</code>, <code>long</code>, <code>float</code>, or
+<code>double</code>, the number zero is simply a group of bytes all with
+the value 0. You can see that this is true by compiling and running the
+code in example 6.4. When you run the code you will see the output shown
+below example 6.4.</p>
+
+<h4>Example 6.4</h4> <div class="pre"> <pre class="code lang-c">
+short s = 0;
+    int i = 0;
+    long n = 0;
+    float f = 0;
+    double d = 0;
+
+    uint8_t *p = (void *)(&amp;s);
+    printf("short: %d %d\n", p[0], p[1]);
+
+    p = (void *)(&amp;i);
+    printf("int: %d %d %d %d\n", p[0], p[1], p[2], p[3]);
+
+    p = (void *)(&amp;n);
+    printf("long: %d %d %d %d %d %d %d %d\n",
+            p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7]);
+
+    p = (void *)(&amp;f);
+    printf("float: %d %d %d %d\n", p[0], p[1], p[2], p[3]);
+
+    p = (void *)(&amp;d);
+    printf("double: %d %d %d %d %d %d %d %d\n",
+            p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7]);</pre>
+</div>
+
+<h4>Output</h4>
+<div class="pre">
+<pre class="code lang-c">    short: 0 0
+    int: 0 0 0 0
+    long: 0 0 0 0 0 0 0 0
+    float: 0 0 0 0
+    double: 0 0 0 0 0 0 0 0</pre>
+</div>
+
+<p>In summary, <code>memset</code> works great for setting all the bytes
+in an array to a specified byte value. This means <code>memset</code>
+will work great for setting all the numbers in an array of integers to
+zero as shown in example 6.5.</p>
+
+<h4>Example 6.5</h4>
+<div class="pre">
+<pre class="code lang-c">    int n = 1024;
+    int array[n];
+    memset(array, 0, sizeof(array));</pre>
+</div>
+
+<h3 id="memcpy">7. When copying more than N bytes use memcpy or memmove</h3>
+<p>When copying more than a small amount of memory instead of writing a
+loop to copy the data, call <code>memcpy</code> or <code>memmove</code>.
+Both <code>memcpy</code> and <code>memmove</code> are often written in
+assembly code and use special instructions such as cache prefetching or
+double word reads and writes to speed up memory copying. Calling a
+function call requires some time or overhead, so calling
+<code>memcpy</code> or <code>memmove</code> to copy small amounts of
+memory is slow. You can measure on your architecture at what number of
+bytes calling <code>memcpy</code> or <code>memmove</code> becomes faster
+than copying the memory in a loop.</p>
+
+<p>Example 7.1 contains code to copy data from a source array to a
+destination array by using a loop. Example 7.2 shows code to copy the
+same data by using <code>memcpy</code> instead of a loop. Example 7.2 is
+almost certainly faster than example 7.1.</p>
+
+<h4>Example 7.1</h4>
+<div class="pre">
+<pre class="code lang-c">    int n = 1024;
+    int source[n];
+    int destination[n];
+    for (int i = 0;  i &lt; n;  ++i) {
+        destination[i] = source[i];
+    }</pre>
+</div>
+
+<h4>Example 7.2</h4>
+<div class="pre">
+<pre class="code lang-c">    int n = 1024;
+    int source[n];
+    int destination[n];
+    memcpy(destination, source, sizeof(destination));</pre>
+</div>
+
+<p>The difference between <code>memcpy</code> and <code>memmove</code>
+is that <code>memcpy</code> cannot be used to copy data from a source
+block of memory to a destination block of memory if the two blocks
+overlap. However, <code>memmove</code> can be used to copy overlapping
+blocks. For example, if you need code to insert text into a large
+string, you could use <code>memmove</code> to move the existing text and
+make a spot for the new text to be inserted as demonstrated in example
+7.3.</p>
+
+<h4>Example 7.3</h4>
+<div class="pre">
+<pre class="code lang-c">    char longText[1024] = "For unto us a is born, unto us a son is"
+            " given, and the government shall be upon his shoulder.";
+    char *missingText = "child ";
+
+    int longLength = strlen(longText);
+    int missingLength = strlen(missingText);
+    char *insert = strstr(longText, "is");
+    char *move = insert + missingLength;
+    int beforeLength = insert - longText;
+    int afterLength = longLength - beforeLength + 1;  // + 1 to copy '\0'
+
+    /* Move "is born, unto us a..." to make space to insert "child " */
+    memmove(move, insert, afterLength);
+
+    /* Insert "child " into the longText. */
+    memcpy(insert, missingText, missingLength);
+
+    /* Print longText to see that "child " was correctly inserted. */
+    printf("%s\n", longText);</pre>
+</div>
+
+<h3 id="arith">8. Use integer arithmetic instead of floating point arithmetic</h3>
+
+<!--
+<div class="pre">
+<pre class="code lang-c">
+// real    0m7.89s - pgmoil C code
+// Time: 10.250628 secs
+// Time:  9.714068 secs
+const ImgU8 ImgU8::OrigFilt(int kerW, int kerH) const {
+    ImgU8 dst(cols, rows, true);
+    uint8_t *d = dst.rc-&gt;data;
+    const uint8_t *s = Data();
+    const int halfKerW = ((kerW + 1) &gt;&gt; 1) - 1,
+    halfKerH = ((kerH + 1) &gt;&gt; 1) - 1;
+    int i, j, x, y;
+    uint32_t hist[256], mode;
+
+    for (y = 0;  y &lt; rows;  ++y) {
+        for (x = 0;  x &lt; cols;  ++x) {
+            for (i = 0;  i &lt;= NUMBER(hist);  ++i) {
+                hist[i] = 0;
+            }
+
+            for (j = y - halfKerH;  j &lt;= y + halfKerH;  ++j) {
+                if (j &gt;= 0 &amp;&amp; j &lt; rows)
+                    for (i = x - halfKerW;  i &lt;= x + halfKerW;  ++i)
+                        if (i &gt;= 0 &amp;&amp; i &lt; cols)
+                            hist[(int)s[j * cols + i]]++;
+            }
+
+            for (j = i = 0;  i &lt; NUMBER(hist);  ++i) {
+                if (hist[i] &gt; j) {
+                    j = hist[i];
+                    mode = i;
+                }
+            }
+
+            *d++ = mode;
+        }
+    }
+    return dst;
+}
+
+
+// Time: 8.371114 secs
+// Time: 8.330760 secs
+const ImgU8 ImgU8::OutFilt(int kerW, int kerH) const {
+    ImgU8 dst(cols, rows, true);
+    uint8_t *d = dst.rc-&gt;data;
+    const uint8_t *s = Data();
+    const int halfKerW = ((kerW + 1) &gt;&gt; 1) - 1,
+              halfKerH = ((kerH + 1) &gt;&gt; 1) - 1;
+    int i, i1, i2, j, j1, j2, x, y;
+    unsigned int hist[256], mode;
+
+    for (y = 0;  y &lt; rows;  ++y) {
+        j1 = y - halfKerH;
+        if (j1 &lt; 0)
+            j1 = 0;
+        j2 = y + halfKerH + 1;
+        if (j2 &gt; rows)
+            j2 = rows;
+        for (x = 0;  x &lt; cols;  ++x) {
+            for (i = 0;  i &lt;= NUMBER(hist);  ++i) {
+                hist[i] = 0;
+            }
+
+            i1 = x - halfKerW;
+            if (i1 &lt; 0)
+                i1 = 0;
+            i2 = x + halfKerW + 1;
+            if (i2 &gt; cols)
+                i2 = cols;
+            for (j = j1;  j &lt; j2;  ++j)
+                for (i = i1;  i &lt; i2;  ++i)
+                    ++hist[(int)s[j * cols + i]];
+
+            for (j = i = 0;  i &lt; NUMBER(hist);  ++i) {
+                if (hist[i] &gt; j) {
+                    j = hist[i];
+                    mode = i;
+                }
+            }
+            *d++ = mode;
+        }
+    }
+    return dst;
+}</pre>
+</div>
+-->
+
+<h3 id="lut">9. Use look up tables</h3>
+<!--
+<div class="pre">
+<pre class="code lang-c">static void Scale1(uint8_t *img, int w, int h, float value) {
+    uint32_t i;
+
+    if (value &lt; 0.0)
+        for (i = w * h;  i;  --i)
+            *img++ = (uint8_t)((float)*img * value - (float)0.5);
+    else
+        for (i = w * h;  i;  --i)
+            *img++ = (uint8_t)((float)*img * value + (float)0.5);
+}
+
+
+static void Scale2(uint8_t *img, int w, int h, float value) {
+    uint8_t lut[UCHAR_MAX + 1];
+    uint32_t i;
+
+    /* Create look-up table. */
+    lut[0] = 0;
+    if (value &lt; (float)0.0) {
+        for (i = 1;  i &lt;= UCHAR_MAX;  ++i)
+            lut[i] = (uint8_t)((float)i * value - (float)0.5);
+    }
+    else {
+        for (i = 1;  i &lt;= UCHAR_MAX;  ++i)
+            lut[i] = (short)((float)i * value + (float)0.5);
+    }
+
+    /* Scale elements of array. */
+    for (i = w * h;  i;  --i) {
+        *img++ = lut[*img];
+    }
+}
+
+
+#define SHORT_PER_UCHAR (float)(32767.0 / 255.0)
+
+static void Accum1(short *accum, const uint8_t *color,
+        int w, int h, float value) {
+    int i;
+
+    value *= SHORT_PER_UCHAR;
+    if (value &lt; 0.0) {
+        for (;  h;  --h)
+            for (i = w;  i;  --i, color += 4, accum += 4) {
+                accum[0] += (short)(color[0] * value - (float)0.5);
+                accum[1] += (short)(color[1] * value - (float)0.5);
+                accum[2] += (short)(color[2] * value - (float)0.5);
+                accum[3] += (short)(color[3] * value - (float)0.5);
+            }
+    }
+    else {
+        for (;  h;  --h)
+            for (i = w;  i;  --i, color += 4, accum += 4) {
+                accum[0] += (short)(color[0] * value + (float)0.5);
+                accum[1] += (short)(color[1] * value + (float)0.5);
+                accum[2] += (short)(color[2] * value + (float)0.5);
+                accum[3] += (short)(color[3] * value + (float)0.5);
+            }
+    }
+}
+
+
+static void Accum2(short *accum, const uint8_t *color,
+        int w, int h, float value) {
+    short lut[UCHAR_MAX + 1];
+    int i;
+
+    /* Create look-up table. */
+    lut[0] = 0;
+    value *= SHORT_PER_UCHAR;
+    if (value &lt; (float)0.0) {
+        /* value is negative so perform rounding
+         * by subtracting 0.5 and then truncating. */
+        for (i = 1;  i &lt;= UCHAR_MAX;  ++i)
+            lut[i] = (short)((float)i * value - 0.5F);
+    }
+    else {
+        /* value is positive so perform rounding by
+         *  adding 0.5and then truncating. */
+        for (i = 1;  i &lt;= UCHAR_MAX;  ++i)
+            lut[i] = (short)((float)i * value + 0.5F);
+    }
+
+    /* Accumulate color buffer into accum buffer. */
+    for (;  h;  --h)
+        for (i = w;  i;  --i, color += 4, accum += 4) {
+            accum[0] += lut[color[0]];
+            accum[1] += lut[color[1]];
+            accum[2] += lut[color[2]];
+            accum[3] += lut[color[3]];
+        }
+}</pre>
+</div>
+-->
+
+<h3 id="static">10. Declare functions and global variables as static</h3>
+
+<h3 id="inline">11. Declare functions as inline</h3>
+
+<h3 id="combo">12. Use combinatorial algorithms</h3>
+<p></p>
+
+<h4>Example 12.1</h4>
+<div class="pre">
+<pre class="code lang-c">/** Modifies an image by masking each pixel. */
+void bitAnd(uint8_t *img, uint32_t len, uint8_t mask) {
+    while (len != 0) {
+        *img++ &amp;= mask;
+        len--;
+    }
+}</pre>
+</div>
+
+<h4>Example 12.2</h4>
+<div class="pre">
+<pre class="code lang-c">/** Modifies an image by masking each pixel. */
+void bitAnd(uint8_t *img, uint32_t len, uint8_t mask) {
+    uint32_t *combo;
+
+    /* Process any bytes that are not aligned on a
+     * 32-bit boundary. This will be at most 3 bytes.*/
+    uintptr_t align = ((uintptr_t)img) &amp; (sizeof(*combo) - 1);
+    while (align &amp;&amp; len) {
+        *img++ &amp;= mask;
+        align = ((uintptr_t)img) &amp; (sizeof(*combo) - 1);
+        len--;
+    }
+
+    /* Process most of the image 4 bytes at a time. */
+    uint32_t bigMask = mask;
+    bigMask = (bigMask &lt;&lt; 8) | bigMask;
+    bigMask = (bigMask &lt;&lt; 16) | bigMask;
+    combo = (uint32_t *)img;
+    for (int i = len / sizeof(*combo);  i != 0;  --i) {
+        *combo++ &amp;= bigMask;
+    }
+
+    /* Process any remaining bytes that are not
+     * aligned. This will be at most 3 bytes. */
+    len &amp;= (sizeof(*combo) - 1);
+    img = (uint8_t *)combo;
+    while (len) {
+        *img++ &amp;= mask;
+        --len;
+    }
+}</pre>
+</div>
+
+<h3 id="sizeof">13. Understand and use the sizeof operator</h3>
+<p>Using the <code>sizeof</code> operator does not really make C code
+faster but instead more portable and maintainable. Not using the
+<code>sizeof</code> operator is a mistake I see so often that I had to
+include this item here. Recall that the <code>sizeof</code> operator
+returns the number of bytes that a data type or variable requires in
+memory. The <code>sizeof</code> operator can be applied to classes,
+structures, arrays, types, pointers, and probably to other things
+I’m not aware of. Example 13.1 shows the <code>sizeof</code>
+operator applied to different variable types.</p>
+
+<h4>Example 13.1</h4>
+<div class="pre">
+<pre class="code lang-c">    uint8_t u8;
+    uint16_t u16;
+    uint32_t u32;
+    uint64_t u64;
+
+    char c;
+    short s;
+    int i;
+    long n;
+
+    float f;
+    double d;
+
+    double *ptr;
+    double array[20];
+
+    printf(" uint8_t %u   u8 %u\n", sizeof(uint8_t), sizeof(u8));
+    printf("uint16_t %u  u16 %u\n", sizeof(uint16_t), sizeof(u16));
+    printf("uint32_t %u  u32 %u\n", sizeof(uint32_t), sizeof(u32));
+    printf("uint64_t %u  u64 %u\n", sizeof(uint64_t), sizeof(u64));
+
+    printf("  char %u  c %u\n", sizeof(char), sizeof(c));
+    printf(" short %u  s %u\n", sizeof(short), sizeof(s));
+    printf("   int %u  i %u\n", sizeof(int), sizeof(i));
+    printf("  long %u  n %u\n", sizeof(long), sizeof(n));
+    printf(" float %u  f %u\n", sizeof(float), sizeof(f));
+    printf("double %u  d %u\n", sizeof(double), sizeof(d));
+
+    printf("ptr %u  *ptr %u\n", sizeof(ptr), sizeof(*ptr));
+    printf("array %u  array[0] %u  *array %u\n",
+            sizeof(array), sizeof(array[0]), sizeof(*array));
+    printf("number of elements in array: %u\n",
+            sizeof(array) / sizeof(array[0]));</pre>
+</div>
+
+<h4>Output</h4>
+<div class="pre">
+<pre class="code lang-c">     uint8_t 1   u8 1
+    uint16_t 2  u16 2
+    uint32_t 4  u32 4
+    uint64_t 8  u64 8
+      char 1  c 1
+     short 2  s 2
+       int 4  i 4
+      long 4  n 4
+     float 4  f 4
+    double 8  d 8
+    ptr 4  *ptr 8
+    array 160  array[0] 8  *array 8
+    number of elements in array: 20</pre>
+</div>
+
+<p>Most of the output from example 13.1 is not suprising. For example,
+the size of the data type <code>uint8_t</code> is 1 byte, and the size
+of the variable <code>u8</code> is also 1 byte. From this we learn that
+we can apply the <code>sizeof</code> operator to a data type or a
+variable. Notice that the size of the <code>float</code> data type and
+the variable <code>f</code> is 4 bytes, and the size of the
+<code>double</code> data type and the variable <code>d</code> is 8
+bytes. This was expected because <code>float</code> in C is an IEEE 754
+single precision number, and double is an IEEE 754 <code>double</code>
+precision number.</p>
+
+<p>The last three lines of output may be surprising to you. Notice that
+the size of a pointer on my computer is 4 bytes. However, the pointer
+points to a double so the size of the dereferenced pointer (*ptr) is the
+size of the data type that it points to which is 8 bytes because
+<code>ptr</code> points to a double. Notice that the size of
+<code>array</code> is 160 bytes and not 4 bytes as a pointer is. This is
+true because the length of the array (20) is declared in the same scope
+where I used the <code>sizeof</code> operator.</p>
+
+<p>So instead of writing</p>
+
+<h2 id="image">Image Processing Example:  A Mode Filter</h2>
+<div class="pre">
+<pre class="code lang-c">static uint32_t Mode(const uint32_t *hist, uint32_t n) {
+    const uint32_t *t = hist;
+    uint32_t i, first, last, num, max = *t++;
+
+    first = last = num = 0;
+    for (i = n - 1;  i;  --i, ++t)
+        if (*t &gt; max) {
+            max = *t;
+            first = n - i;
+            num = 0;
+        }
+        else if (*t == max) {
+            last = n - i;
+            ++num;
+        }
+
+    /* If several entries in the histogram tie for
+     * the mode, then choose the middle one. */
+    if (num &gt; 1) {
+        num &gt;&gt;= 1;
+        for (t = &amp;hist[first + 1];  1;  ++t)
+            if (*t == max)
+                if (--num == 0) {
+                    first = t - hist;
+                    break;
+                }
+    }
+
+    return first;
+}
+
+
+// real    0m7.89s - pgmoil C code
+// Time: 10.250628 secs
+// Time:  9.714068 secs
+const ImgU8 ImgU8::OrigFilt(int kerW, int kerH) const {
+    ImgU8 dst(cols, rows, true);
+    uint8_t *d = dst.rc-&gt;data;
+    const uint8_t *s = Data();
+    const int halfKerW = ((kerW + 1) &gt;&gt; 1) - 1,
+    halfKerH = ((kerH + 1) &gt;&gt; 1) - 1;
+    int i, j, x, y;
+    uint32_t hist[256], mode;
+
+    for (y = 0;  y &lt; rows;  ++y) {
+        for (x = 0;  x &lt; cols;  ++x) {
+            for (i = 0;  i &lt;= NUMBER(hist);  ++i)
+                hist[i] = 0;
+
+            for (j = y - halfKerH;  j &lt;= y + halfKerH;  ++j) {
+                if (j &gt;= 0 &amp;&amp; j &lt; rows)
+                    for (i = x - halfKerW;  i &lt;= x + halfKerW;  ++i)
+                        if (i &gt;= 0 &amp;&amp; i &lt; cols)
+                            ++hist[(int)s[j * cols + i]];
+            }
+
+            for (j = i = 0;  i &lt; NUMBER(hist);  ++i)
+                if (hist[i] &gt; j) {
+                    j = hist[i];
+                    mode = i;
+                }
+
+            *d++ = mode;
+        }
+    }
+    return dst;
+}
+
+
+// Time: 8.371114 secs
+// Time: 8.330760 secs
+const ImgU8 ImgU8::OutFilt(int kerW, int kerH) const {
+    ImgU8 dst(cols, rows, true);
+    uint8_t *d = dst.rc-&gt;data;
+    const uint8_t *s = Data();
+    const int halfKerW = ((kerW + 1) &gt;&gt; 1) - 1,
+    halfKerH = ((kerH + 1) &gt;&gt; 1) - 1;
+    int i, i1, i2, j, j1, j2, x, y;
+    uint32_t hist[256], mode;
+
+    for (y = 0;  y &lt; rows;  ++y) {
+        j1 = y - halfKerH;
+        if (j1 &lt; 0) {
+            j1 = 0;
+        }
+        j2 = y + halfKerH + 1;
+        if (j2 &gt; rows) {
+            j2 = rows;
+        }
+
+        for (x = 0;  x &lt; cols;  ++x) {
+            for (i = 0;  i &lt;= NUMBER(hist);  ++i)
+                hist[i] = 0;
+
+            i1 = x - halfKerW;
+            if (i1 &lt; 0) {
+                i1 = 0;
+            }
+            i2 = x + halfKerW + 1;
+            if (i2 &gt; cols) {
+                i2 = cols;
+            }
+            for (j = j1;  j &lt; j2;  ++j)
+                for (i = i1;  i &lt; i2;  ++i)
+                    ++hist[(int)s[j * cols + i]];
+
+            for (j = i = 0;  i &lt; NUMBER(hist);  ++i)
+                if (hist[i] &gt; j) {
+                    j = hist[i];
+                    mode = i;
+                }
+
+            *d++ = mode;
+        }
+    }
+    return dst;
+}
+
+
+// Time: 8.341486 secs
+// Time: 8.735447 secs
+const ImgU8 ImgU8::MemsetFilt(int kerW, int kerH) const {
+    ImgU8 dst(cols, rows, true);
+    uint8_t *d = dst.rc-&gt;data;
+    const uint8_t *s = Data();
+    const int halfKerW = ((kerW + 1) &gt;&gt; 1) - 1,
+    halfKerH = ((kerH + 1) &gt;&gt; 1) - 1;
+    int i, i1, i2, j, j1, j2, x, y;
+    uint32_t hist[256], mode;
+
+    for (y = 0;  y &lt; rows;  ++y) {
+        j1 = y - halfKerH;
+        if (j1 &lt; 0) {
+            j1 = 0;
+        }
+        j2 = y + halfKerH + 1;
+        if (j2 &gt; rows) {
+            j2 = rows;
+        }
+        for (x = 0;  x &lt; cols;  ++x) {
+            memset(hist, 0, sizeof(*hist) * (NUMBER(hist) + 1));
+
+            i1 = x - halfKerW;
+            if (i1 &lt; 0) {
+                i1 = 0;
+            }
+            i2 = x + halfKerW + 1;
+            if (i2 &gt; cols) {
+                i2 = cols;
+            }
+            for (j = j1;  j &lt; j2;  ++j) {
+                for (i = i1;  i &lt; i2;  ++i)
+                    ++hist[(int)s[j * cols + i]];
+            }
+
+            for (j = i = 0;  i &lt; NUMBER(hist);  ++i)
+                if (hist[i] &gt; j) {
+                    j = hist[i];
+                    mode = i;
+                }
+
+            *d++ = mode;
+        }
+    }
+    return dst;
+}
+
+
+// Time: 7.331546 secs
+// Time: 6.884807 secs
+const ImgU8 ImgU8::PointFilt(int kerW, int kerH) const {
+    ImgU8 dst(cols, rows, true);
+    uint8_t *d = dst.rc-&gt;data;
+    const uint8_t *pix, *row, *src = Data();
+    const int halfKerW = ((kerW + 1) &gt;&gt; 1) - 1,
+    halfKerH = ((kerH + 1) &gt;&gt; 1) - 1;
+    int i, i1, i2, j, j1, j2, x, y;
+    uint32_t hist[256], mode;
+
+    for (y = 0;  y &lt; rows;  ++y) {
+        j1 = y - halfKerH;      if (j1 &lt; 0)    j1 = 0;
+        j2 = y + halfKerH + 1;  if (j2 &gt; rows) j2 = rows;
+        j2 -= j1;
+        row = &amp;src[j1 * cols];
+        for (x = 0;  x &lt; cols;  ++x) {
+            memset(hist, 0, sizeof(*hist) * (NUMBER(hist) + 1));
+
+            i1 = x - halfKerW;
+            if (i1 &lt; 0) {
+                i1 = 0;
+            }
+            i2 = x + halfKerW + 1;
+            if (i2 &gt; cols) {
+                i2 = cols;
+            }
+            i2 -= i1;
+            pix = &amp;row[i1];
+            for (j = j2;  j;  --j, pix += cols - (i2 - i1)) {
+                for (i = i2;  i;  --i)
+                    ++hist[(int)*pix++];
+            }
+
+            for (j = i = 0;  i &lt; NUMBER(hist);  ++i) {
+                if (hist[i] &gt; j) {
+                    j = hist[i];
+                    mode = i;
+                }
+            }
+
+            *d++ = mode;
+        }
+    }
+    return dst;
+}
+
+
+// Time: 5.411607 secs
+// Time: 5.481288 secs
+const ImgU8 ImgU8::ModeFilt(int kerW, int kerH) const {
+    ImgU8 dst(cols, rows, true);
+    uint8_t *d = dst.rc-&gt;data;
+    const uint8_t *t, *s = Data();
+    const int halfKerW = ((kerW + 1) &gt;&gt; 1) - 1,
+    halfKerH = ((kerH + 1) &gt;&gt; 1) - 1;
+    int i, i1, i2, j, j2, x, y;
+    uint32_t hist[256];
+
+    /* Process first halfKerH rows */
+    for (y = 0;  y &lt; halfKerH;  ++y) {
+        j2 = y + halfKerH + 1;
+        for (x = 0;  x &lt; cols;  ++x) {
+            memset(hist, 0, sizeof(hist));
+            i1 = x - halfKerW;
+            if (i1 &lt; 0) {
+                i1 = 0;
+            }
+            i2 = x + halfKerW + 1;
+            if (i2 &gt; cols) {
+                i2 = cols;
+            }
+
+            for (j = 0;  j &lt; j2;  ++j) {
+                t = &amp;s[j * cols + i1];
+                for (i = i1;  i &lt; i2;  ++i, ++t)
+                    ++hist[*t];
+            }
+
+            *d++ = Mode(hist, NUMBER(hist));
+        }
+    }
+
+    /* Process middle rows */
+    const int kwm1 = kerW - 1;  /* kernel width minus 1 */
+    for (y = rows - kerH + 1;  y;  --y) {
+        memset(hist, 0, sizeof(hist));
+
+        /* Compute first halfKerW pixels in row */
+        for (j = 0;  j &lt; kerH;  ++j) {
+            t = &amp;s[j * cols];
+            for (i = halfKerW;  i;  --i, ++t)
+                ++hist[*t];
+        }
+
+        for (x = 0;  x &lt; halfKerW;  ++x) {
+            t = &amp;s[halfKerW + x];
+            for (j = kerH;  j;  --j, t += cols)
+                ++hist[*t];
+            *d++ = Mode(hist, NUMBER(hist));
+        }
+
+        /* Compute fully filtered pixels in row */
+        for (x = cols - kwm1;  x;  --x) {
+            /* Add to hist pixels in next right source column */
+            t = &amp;s[kwm1];
+            for (j = kerH;  j;  --j, t += cols)
+                ++hist[*t];
+            *d++ = Mode(hist, NUMBER(hist));
+
+            /* Remove from hist pixels in left source column */
+            t = s++;
+            for (j = kerH;  j;  --j, t += cols)
+                --hist[*t];
+        }
+
+        /* Compute last halfKerW pixels in row */
+        *d++ = Mode(hist, NUMBER(hist));
+        for (x = halfKerW - 1;  x;  --x) {
+            t = s++;
+            for (j = kerH;  j;  --j, t += cols)
+                --hist[*t];
+            *d++ = Mode(hist, NUMBER(hist));
+        }
+
+        s += halfKerW + 1;
+    }
+
+    /* Process last halfKerH rows */
+    s = Data();
+    for (y = rows - halfKerH;  y &lt; rows;  ++y) {
+        j2 = y - halfKerH;
+        for (x = 0;  x &lt; cols;  ++x) {
+            memset(hist, 0, sizeof(hist));
+            i1 = x - halfKerW;
+            if (i1 &lt; 0) {
+                i1 = 0;
+            }
+            i2 = x + halfKerW + 1;
+            if (i2 &gt; cols) {
+                i2 = cols;
+            }
+            for (j = j2;  j &lt; rows;  ++j) {
+                t = &amp;s[j * cols + i1];
+                for (i = i1;  i &lt; i2;  ++i, ++t)
+                    ++hist[*t];
+            }
+            *d++ = Mode(hist, NUMBER(hist));
+        }
+    }
+
+    return dst;
+}</pre>
+</div>
+</article>
+</body>
+</html>
+

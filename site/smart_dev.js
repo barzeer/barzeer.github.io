@@ -89,7 +89,7 @@ if (!window.hasOwnProperty('smartDev')) {
 				['python', 'Python'],
 				//['javascript', 'JavaScript'],
 				['java', 'Java'],
-				//['c_cpp', 'C and C++'],
+				['c_cpp', 'C and C++'],
 				['shell', 'Shell Scripts'],
 				['database', 'Database'],
 				//['modeling', 'Modeling'],

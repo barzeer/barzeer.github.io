@@ -2,7 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://barzeer.github.io/</loc>
-    <lastmod>2022-05-07</lastmod>
+    <lastmod>2022-05-20</lastmod>
+  </url>
+  <url>
+    <loc>https://barzeer.github.io/c_cpp/</loc>
+    <lastmod>2022-05-20</lastmod>
+  </url>
+  <url>
+    <loc>https://barzeer.github.io/c_cpp/faster_c.html</loc>
+    <lastmod>2022-05-20</lastmod>
   </url>
   <url>
     <loc>https://barzeer.github.io/database/</loc>
@@ -58,7 +66,7 @@
   </url>
   <url>
     <loc>https://barzeer.github.io/java/</loc>
-    <lastmod>2022-05-07</lastmod>
+    <lastmod>2022-05-20</lastmod>
   </url>
   <url>
     <loc>https://barzeer.github.io/java/abstract.html</loc>
