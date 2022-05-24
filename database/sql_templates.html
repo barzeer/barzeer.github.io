@@ -21,15 +21,16 @@
 
 <p>Here are six templates that may help you write SQL queries. Within
 the templates, the words written in UPPERCASE are SQL keywords and the
-words written in <i>lowercase italics</i> are the ones that you should
+words written in <var>lowercase italics</var> are the ones that you should
 replace for each specific query.</p>
 
 <h3>Simple Query</h3>
 <div class="pre">
-<pre class="code lang-sql">SELECT <i>columns</i>
-FROM <i>schema.table</i>
-WHERE <i>filter</i>
-ORDER BY <i>columns</i></pre></div>
+<pre class="code language-sql">SELECT <var>columns</var>
+FROM <var>schema.table</var>
+WHERE <var>filter</var>
+ORDER BY <var>columns</var>
+LIMIT <var>offset</var>, <var>count</var></pre></div>
 
 <h3>Arithmetic Operators</h3>
 <p>The arithmetic operators cause the database server to perform
@@ -39,10 +40,11 @@ MySQL include &minus; (negation), * (multiplication), / (division), DIV
 (subtraction).</p>
 
 <div class="pre">
-<pre class="code lang-sql">SELECT <i>column</i> <i>operator</i> <i>column</i>, &hellip;
-FROM <i>schema.table</i>
-WHERE <i>filter</i>
-ORDER BY <i>columns</i></pre></div>
+<pre class="code language-sql">SELECT <var>column</var> <var>operator</var> <var>column</var> AS <var>alias</var>, &hellip;
+FROM <var>schema.table</var>
+WHERE <var>filter</var>
+ORDER BY <var>columns</var>
+LIMIT <var>offset</var>, <var>count</var></pre></div>
 
 <h3>Scalar Functions</h3>
 <p>Scalar functions are functions that operate on the data in one row.
@@ -51,10 +53,11 @@ CONCAT(), LOWER(), UPPER(), SUBSTRING(), POW(), ROUND(), and
 SQRT()</p>
 
 <div class="pre">
-<pre class="code lang-sql">SELECT <i>func(column)</i>, &hellip;
-FROM <i>schema.table</i>
-WHERE <i>filter</i>
-ORDER BY <i>columns</i></pre></div>
+<pre class="code language-sql">SELECT <var>func(column)</var> AS <var>alias</var>, &hellip;
+FROM <var>schema.table</var>
+WHERE <var>filter</var>
+ORDER BY <var>columns</var>
+LIMIT <var>offset</var>, <var>count</var></pre></div>
 
 <h3>Aggregate Functions</h3>
 <p>Aggregate functions are functions that operate on the data in
@@ -64,36 +67,39 @@ available in MySQL include MIN(), MAX(), COUNT(), SUM(), AVG(),
 STDDEV(), and VARIANCE()</p>
 
 <div class="pre">
-<pre class="code lang-sql">SELECT <i>func(column)</i>, &hellip;
-FROM <i>schema.table</i>
-WHERE <i>filter</i>
-GROUP BY <i>columns</i>
-HAVING <i>aggregate_filter</i>
-ORDER BY <i>columns</i></pre></div>
+<pre class="code language-sql">SELECT <var>aggregate_func(column)</var> AS <var>alias</var>, &hellip;
+FROM <var>schema.table</var>
+WHERE <var>filter</var>
+GROUP BY <var>columns</var>
+HAVING <var>aggregate_filter</var>
+ORDER BY <var>columns</var>
+LIMIT <var>offset</var>, <var>count</var></pre></div>
 
 <h3>Join Tables</h3>
 <p>Use a join to select columns from multiple tables.</p>
 
 <div class="pre">
-<pre class="code lang-sql">SELECT <i>columns</i>
-FROM <i>schema.table1</i>
-    INNER JOIN <i>schema.table2</i> ON <i>table1.pk</i> = <i>table2.fk</i>
-    INNER JOIN <i>schema.table3</i> ON <i>table2.pk</i> = <i>table3.fk</i>
+<pre class="code language-sql">SELECT <var>columns</var>
+FROM <var>schema.table1</var> AS <var>t1</var>
+    INNER JOIN <var>schema.table2</var> AS <var>t2</var> ON <var>t1.pk</var> = <var>t2.fk</var>
+    INNER JOIN <var>schema.table3</var> AS <var>t3</var> ON <var>t2.pk</var> = <var>t3.fk</var>
     &vellip;
-WHERE <i>filter</i>
-ORDER BY <i>columns</i></pre></div>
+WHERE <var>filter</var>
+ORDER BY <var>columns</var>
+LIMIT <var>offset</var>, <var>count</var></pre></div>
 
 <h3>Join Tables and Aggregate Functions</h3>
 <div class="pre">
-<pre class="code lang-sql">SELECT <i>columns</i>, <i>func(column)</i>, &hellip;
-FROM <i>schema.table1</i>
-    INNER JOIN <i>schema.table2</i> ON <i>table1.pk</i> = <i>table2.fk</i>
-    INNER JOIN <i>schema.table3</i> ON <i>table2.pk</i> = <i>table3.fk</i>
+<pre class="code language-sql">SELECT <var>columns</var>, <var>aggregate_func(column)</var> AS <var>alias</var>, &hellip;
+FROM <var>schema.table1</var> AS <var>t1</var>
+    INNER JOIN <var>schema.table2</var> AS <var>t2</var> ON <var>t1.pk</var> = <var>t2.fk</var>
+    INNER JOIN <var>schema.table3</var> AS <var>t3</var> ON <var>t2.pk</var> = <var>t3.fk</var>
     &vellip;
-WHERE <i>filter</i>
-GROUP BY <i>columns</i>
-HAVING <i>aggregate_filter</i>
-ORDER BY <i>columns</i></pre></div>
+WHERE <var>filter</var>
+GROUP BY <var>columns</var>
+HAVING <var>aggregate_filter</var>
+ORDER BY <var>columns</var>
+LIMIT <var>offset</var>, <var>count</var></pre></div>
 
 <p>Of course a single query can include elements from all the templates.
 For example, a single query can</p>
@@ -107,6 +113,34 @@ For example, a single query can</p>
     <li><div>sort the results</div></li>
     <li><div>and much more</div></li>
 </ul>
+
+<h3>Execution Order</h3>
+<p>In the next template, the numbers on the left show the order in which
+the computer executes the clauses of a SQL query. Notice that the
+<code>FROM</code> clause is executed first even though a developer
+writes it second (after the <code>SELECT</code> clause). This execution
+order helps us understand why a table alias defined in the
+<code>FROM</code> clause may be used in all other clauses. The execution
+order also helps us understand why a column alias defined in the
+<code>SELECT</code> clause may not be used in the <code>FROM</code>,
+<code>WHERE</code>, <code>GROUP BY</code>, or <code>HAVING</code>
+clauses. A column alias defined in the <code>SELECT</code> clause may be
+used only in the <code>ORDER BY</code> and <code>LIMIT</code> clauses
+because the computer executes <code>ORDER BY</code> and
+<code>LIMIT</code> after <code>SELECT</code>.</p>
+
+<div class="pre">
+<pre class="code language-sql">5. SELECT <var>columns</var>, <var>aggregate_func(column)</var> AS <var>alias</var>, &hellip;
+1. FROM <var>schema.table1</var> AS <var>t1</var>
+       INNER JOIN <var>schema.table2</var> AS <var>t2</var> ON <var>t1.pk</var> = <var>t2.fk</var>
+       INNER JOIN <var>schema.table3</var> AS <var>t3</var> ON <var>t2.pk</var> = <var>t3.fk</var>
+       &vellip;
+2. WHERE <var>filter</var>
+3. GROUP BY <var>columns</var>
+4. HAVING <var>aggregate_filter</var>
+6. ORDER BY <var>columns</var>
+7. LIMIT <var>offset</var>, <var>count</var></pre></div>
+
 </article>
 </body>
 </html>
