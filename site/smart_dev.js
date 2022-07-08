@@ -2,14 +2,30 @@
 
 if (!window.hasOwnProperty('smartDev')) {
 	window.smartDev = {
-		/** Reorganizes the structure of an index.html file. */
-		surroundIndex : function() {
+		surroundHome : function() {
+		/** Reorganizes the structure of the home index.html file. */
 			let body = document.querySelector('body');
 			let article = document.querySelector('article');
 			body.removeChild(article);
 
-			//let modif = this.createModified();
-			//article.appendChild(modif);
+			let top = this.createElem('div', 'top');
+			let page = this.createElem('div', 'page');
+			body.appendChild(top);
+			body.appendChild(page);
+
+			let header = this.createHeader();
+			let nav = this.createNav(window.location.pathname);
+			let footer = this.createHomeFooter();
+			page.appendChild(header);
+			page.appendChild(nav);
+			page.appendChild(article);
+			page.appendChild(footer);
+		},
+
+		surroundIndex : function() {
+			let body = document.querySelector('body');
+			let article = document.querySelector('article');
+			body.removeChild(article);
 
 			let top = this.createElem('div', 'top');
 			let page = this.createElem('div', 'page');
@@ -120,11 +136,33 @@ if (!window.hasOwnProperty('smartDev')) {
 		},
 
 
-		createModified : function() {
-			let modified = new Date(document.lastModified);
-			let text = 'Last modified: ' + modified.toLocaleDateString();
-			let div = this.createElem('div', 'modified', null, text);
-			return div;
+		// This function sort of works. The code is correct and creates
+		// a div that contains the last date that a file was modified.
+		// Unfortunately, if the website uses a content management
+		// system like GitHub, the system copies all the files each time
+		// the author pushes a commit to the main branch of the
+		// repository. This means that the last modified date for all
+		// files becomes the last date that an author executed a push to
+		// the main branch.
+		//createModified : function() {
+		//	let modified = new Date(document.lastModified);
+		//	let text = 'Last modified: ' + modified.toLocaleDateString();
+		//	let div = this.createElem('div', 'modified', null, text);
+		//	return div;
+		//},
+
+
+		createHomeFooter : function() {
+			let img = this.createElem('img', null,
+					{src:'site/images/rappelling.jpg'});
+			let about = this.createElem('h2', null, null, 'About the Author');
+			let author = this.createAuthor();
+
+			let footer = this.createElem('footer');
+			footer.appendChild(img);
+			footer.appendChild(about);
+			footer.appendChild(author);
+			return footer;
 		},
 
 
@@ -135,11 +173,9 @@ if (!window.hasOwnProperty('smartDev')) {
 			let about = this.createElem('h2', null, null, 'About the Author');
 			let img = this.createElem('img', null,
 					{src:'../site/images/rappelling.jpg'});
-			let author = this.createElem('p');
-			author.innerHTML = 'Rex A. Barzee is a professor of Computer Information Technology at Brigham Young University–Idaho. He is an inventor of <a href="https://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO2&Sect2=HITOFF&u=%2Fnetahtml%2FPTO%2Fsearch-adv.htm&r=0&p=1&f=S&l=50&Query=IN%2F%22Barzee%3B+Rex+A.%22&d=PTXT">two United States patents</a> and the author of numerous courses <a href="https://www.amazon.com/Rex-Barzee/e/B006SYU4S0">and books</a>. He earned a bachelor’s and a master’s degree in Computer Science from Brigham Young University. Before becoming a professor, he worked for eight years as a software engineer. You can see his <a href="https://www.linkedin.com/in/rex-barzee-306a0b37/">full profile</a> at LinkedIn.';
+			let author = this.createAuthor();
 			let h2 = this.createElem('h2', null, null, 'Disclaimer');
-			let disclaim = this.createElem('p', null, null,
-					'Mr. Barzee used his best efforts in preparing this article. These efforts include the development, research, and testing of the theories and computer programs in this article to determine their correctness. Mr. Barzee makes no warranty of any kind, expressed or implied, with regard to these programs or the documentation contained in this article. Mr. Barzee shall not be liable in any event for incidental or consequential damages in connection with, or arising out of, the furnishing, performance, or use of these programs.');
+			let disclaim = this.createDisclaimer();
 
 			let footer = this.createElem('footer');
 			footer.appendChild(copy);
@@ -149,6 +185,19 @@ if (!window.hasOwnProperty('smartDev')) {
 			footer.appendChild(h2);
 			footer.appendChild(disclaim);
 			return footer;
+		},
+
+
+		createAuthor : function() {
+			let author = this.createElem('p');
+			author.innerHTML = 'Rex A. Barzee is a professor of Computer Information Technology at Brigham Young University–Idaho. He is an inventor of <a href="https://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO2&Sect2=HITOFF&u=%2Fnetahtml%2FPTO%2Fsearch-adv.htm&r=0&p=1&f=S&l=50&Query=IN%2F%22Barzee%3B+Rex+A.%22&d=PTXT">two United States patents</a> and the author of numerous courses <a href="https://www.amazon.com/Rex-Barzee/e/B006SYU4S0">and books</a>. He earned a bachelor’s and a master’s degree in computer science from Brigham Young University. Before becoming a professor, he worked for eight years as a software engineer. You can see his <a href="https://www.linkedin.com/in/rex-barzee-306a0b37/">full profile</a> at LinkedIn.';
+			return author;
+		},
+
+		createDisclaimer : function() {
+			let disclaim = this.createElem('p', null, null,
+					'Mr. Barzee used his best efforts in preparing this article. These efforts include the development, research, and testing of the theories and computer programs in this article to determine their correctness. Mr. Barzee makes no warranty of any kind, expressed or implied, with regard to these programs or the documentation contained in this article. Mr. Barzee shall not be liable in any event for incidental or consequential damages in connection with, or arising out of, the furnishing, performance, or use of these programs.');
+			return disclaim;
 		},
 
 

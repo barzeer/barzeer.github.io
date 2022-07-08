@@ -293,6 +293,14 @@ article p {
 	margin: 0 0 1em 0;
 }
 
+article div.welcome {
+	font-family: Neucha, "Brush Script MT", cursive;
+	font-size: 140%;
+	color: var(--border-color);
+	max-width: 27em;
+	margin: 1.5em auto 0 auto;
+}
+
 
 /* Lists */
 article ol {
