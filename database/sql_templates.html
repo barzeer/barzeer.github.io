@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Templates for Basic SQL Queries</title>
-    <meta name="description" content="Six templates for basic SQL queries that include filters, sorting, inner joins, scalar functions, aggregate functions, and grouping.">
+    <meta name="description" content="Six templates for basic SQL select queries that include filters, sorting, inner joins, scalar functions, aggregate functions, and grouping.">
     <meta name="keywords" content="SQL, MySQL, SELECT, query template">
     <link rel="canonical" href="https://barzeer.github.io/database/sql_templates.html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,10 +26,10 @@ replace for each specific query.</p>
 
 <h3>Simple Query</h3>
 <div class="pre">
-<pre class="code language-sql">SELECT <var>columns</var>
+<pre class="code language-sql">SELECT <var>column1</var>, <var>column2</var>, &hellip;
 FROM <var>schema.table</var>
 WHERE <var>filter</var>
-ORDER BY <var>columns</var>
+ORDER BY <var>column1</var>, <var>column2</var>, &hellip;
 LIMIT <var>offset</var>, <var>count</var></pre></div>
 
 <h3>Arithmetic Operators</h3>
@@ -40,10 +40,10 @@ MySQL include &minus; (negation), * (multiplication), / (division), DIV
 (subtraction).</p>
 
 <div class="pre">
-<pre class="code language-sql">SELECT <var>column</var> <var>operator</var> <var>column</var> AS <var>alias</var>, &hellip;
+<pre class="code language-sql">SELECT <var>column1</var> <var>operator</var> <var>column2</var> AS <var>alias</var>, &hellip;
 FROM <var>schema.table</var>
 WHERE <var>filter</var>
-ORDER BY <var>columns</var>
+ORDER BY <var>column1</var>, <var>column2</var>, &hellip;
 LIMIT <var>offset</var>, <var>count</var></pre></div>
 
 <h3>Scalar Functions</h3>
@@ -53,10 +53,10 @@ CONCAT(), LOWER(), UPPER(), SUBSTRING(), POW(), ROUND(), and
 SQRT()</p>
 
 <div class="pre">
-<pre class="code language-sql">SELECT <var>func(column)</var> AS <var>alias</var>, &hellip;
+<pre class="code language-sql">SELECT <var>FUNC(column)</var> AS <var>alias</var>, &hellip;
 FROM <var>schema.table</var>
 WHERE <var>filter</var>
-ORDER BY <var>columns</var>
+ORDER BY <var>column1</var>, <var>column2</var>, &hellip;
 LIMIT <var>offset</var>, <var>count</var></pre></div>
 
 <h3>Aggregate Functions</h3>
@@ -67,38 +67,38 @@ available in MySQL include MIN(), MAX(), COUNT(), SUM(), AVG(),
 STDDEV(), and VARIANCE()</p>
 
 <div class="pre">
-<pre class="code language-sql">SELECT <var>aggregate_func(column)</var> AS <var>alias</var>, &hellip;
+<pre class="code language-sql">SELECT <var>AGGREGATE_FUNC(column)</var> AS <var>alias</var>, &hellip;
 FROM <var>schema.table</var>
 WHERE <var>filter</var>
-GROUP BY <var>columns</var>
+GROUP BY <var>column1</var>, <var>column2</var>, &hellip;
 HAVING <var>aggregate_filter</var>
-ORDER BY <var>columns</var>
+ORDER BY <var>column1</var>, <var>column2</var>, &hellip;
 LIMIT <var>offset</var>, <var>count</var></pre></div>
 
 <h3>Join Tables</h3>
 <p>Use a join to select columns from multiple tables.</p>
 
 <div class="pre">
-<pre class="code language-sql">SELECT <var>columns</var>
+<pre class="code language-sql">SELECT <var>column1</var>, <var>column2</var>, &hellip;
 FROM <var>schema.table1</var> AS <var>t1</var>
     INNER JOIN <var>schema.table2</var> AS <var>t2</var> ON <var>t1.pk</var> = <var>t2.fk</var>
     INNER JOIN <var>schema.table3</var> AS <var>t3</var> ON <var>t2.pk</var> = <var>t3.fk</var>
     &vellip;
 WHERE <var>filter</var>
-ORDER BY <var>columns</var>
+ORDER BY <var>column1</var>, <var>column2</var>, &hellip;
 LIMIT <var>offset</var>, <var>count</var></pre></div>
 
 <h3>Join Tables and Aggregate Functions</h3>
 <div class="pre">
-<pre class="code language-sql">SELECT <var>columns</var>, <var>aggregate_func(column)</var> AS <var>alias</var>, &hellip;
+<pre class="code language-sql">SELECT <var>column1</var>, <var>aggregate_func(column2)</var> AS <var>alias</var>, &hellip;
 FROM <var>schema.table1</var> AS <var>t1</var>
     INNER JOIN <var>schema.table2</var> AS <var>t2</var> ON <var>t1.pk</var> = <var>t2.fk</var>
     INNER JOIN <var>schema.table3</var> AS <var>t3</var> ON <var>t2.pk</var> = <var>t3.fk</var>
     &vellip;
 WHERE <var>filter</var>
-GROUP BY <var>columns</var>
+GROUP BY <var>column1</var>, <var>column2</var>, &hellip;
 HAVING <var>aggregate_filter</var>
-ORDER BY <var>columns</var>
+ORDER BY <var>column1</var>, <var>column2</var>, &hellip;
 LIMIT <var>offset</var>, <var>count</var></pre></div>
 
 <p>Of course a single query can include elements from all the templates.
@@ -130,15 +130,15 @@ because the computer executes <code>ORDER BY</code> and
 <code>LIMIT</code> after <code>SELECT</code>.</p>
 
 <div class="pre">
-<pre class="code language-sql">5. SELECT <var>columns</var>, <var>aggregate_func(column)</var> AS <var>alias</var>, &hellip;
+<pre class="code language-sql">5. SELECT <var>column1</var>, <var>FUNC(column2)</var> AS <var>alias</var>, <var>AGGREGATE_FUNC(column3)</var> AS <var>alias</var>, &hellip;
 1. FROM <var>schema.table1</var> AS <var>t1</var>
        INNER JOIN <var>schema.table2</var> AS <var>t2</var> ON <var>t1.pk</var> = <var>t2.fk</var>
        INNER JOIN <var>schema.table3</var> AS <var>t3</var> ON <var>t2.pk</var> = <var>t3.fk</var>
        &vellip;
 2. WHERE <var>filter</var>
-3. GROUP BY <var>columns</var>
+3. GROUP BY <var>column1</var>, <var>column2</var>, &hellip;
 4. HAVING <var>aggregate_filter</var>
-6. ORDER BY <var>columns</var>
+6. ORDER BY <var>column1</var>, <var>column2</var>, &hellip;
 7. LIMIT <var>offset</var>, <var>count</var></pre></div>
 
 </article>
