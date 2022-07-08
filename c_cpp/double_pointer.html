@@ -1,0 +1,300 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <title>Elegant Linked List Implementation</title>
+    <meta name="description" content="Describes and implements a C abstract data structure for a linked list using two different approaches. The second approach uses double pointer iteration and requires less code to implement and is more run time efficient than single pointer iteration.">
+    <meta name="keywords" content="C, C++, data structure, linked list, double pointer, pointer to pointer">
+    <link rel="canonical" href="https://barzeer.github.io/c_cpp/double_pointer.html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<figure class="pitch" style="width:15em" data-sibling="dblp">
+    <a href="https://www.amazon.com/dp/0983384029">
+    <img alt="Front cover of “Advanced Programming Techniques”"
+    src="../site/images/advanced_front_small.jpg">
+    </a>
+<figcaption>If you want to learn more about linked lists and understand
+why double pointer iteration works and is more efficient than single
+pointer iteration, see chapter&nbsp;3 of
+<a href="https://www.amazon.com/dp/0983384029">Advanced Programming
+Techniques</a>.</figcaption>
+</figure>
+
+<article>
+<h1>Elegant and Efficient Linked List Implementation</h1>
+
+<p>A linked list is a flexible abstract data structure that is useful
+for relatively short lists where items are frequently added and removed
+from the list. Items within the list are connected using pointers or
+references. Because of today&rsquo;s modern programming libraries such
+as the C++ standard template library (STL) and the Java collections
+found in the package <code>java.util</code>, few programmers need to
+write a linked list. However, there are still some programmers that are
+required to write them, most notably students, library developers, and
+kernel developers.</p>
+
+<h2>Inefficient Single Pointer Iteration</h2>
+<p>Most programmers would consider writing a linked list, singly or
+doubly linked, circular or non-circular, as trivial. Unfortunately,
+almost all programmers write linked lists inefficiently and incorrectly
+because they have never been taught the correct way to write one.
+Computer programmers are almost always taught to visualize a linked list
+in a node centric way. They are taught to focus on the nodes and to use
+single pointer iteration. This results in C code for a non-circular
+singly linked list similar to the code in example&nbsp;1.</p>
+
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code language-c">/* Example 1 */
+
+typedef struct slnode {
+    struct slnode *next;
+    /* Programmer defined data goes here. */
+    int which;
+} LinkedNode;
+
+
+typedef struct sllist {
+    LinkedNode *head, *tail;
+} LinkedList;
+
+
+/* Creates and initializes a linked list. */
+LinkedList *createList(void) {
+    LinkedList *list = malloc(sizeof(*list));
+    list-&gt;head = list-&gt;tail = NULL;
+    return list;
+}
+
+
+/* Inserts a node at the beginning of this list. */
+void insertNode(LinkedList *list, LinkedNode *node) {
+    node-&gt;next = list-&gt;head;
+    list-&gt;head = node;
+    if (list-&gt;tail == NULL) {
+        list-&gt;tail = node;
+    }
+}
+
+
+/* Appends a node at the end of this list. */
+void appendNode(LinkedList *list, LinkedNode *node) {
+    if (listIsEmpty(list)) {
+        list-&gt;head = list-&gt;tail = node;
+    }
+    else {
+        list-&gt;tail-&gt;next = node;
+        list-&gt;tail = node;
+    }
+    node-&gt;next = NULL;
+}
+
+
+/* Removes a node from this list. */
+void removeNode(LinkedList *list, LinkedNode *node) {
+    LinkedNode *prev = list-&gt;head;
+    if (prev == node) {
+        /* The node to be removed is at the beginning
+         * of the list.  Remove the node. */
+        removeFirst(list);
+    }
+    else {
+        /* Traverse the list to find the node that
+         * comes before the one to be removed. */
+        LinkedNode *prev = list-&gt;head;
+        while (prev != NULL) {
+            if (prev-&gt;next == node) {
+                /* We found the node, so remove it. */
+                LinkedNode *next = node-&gt;next;
+                prev-&gt;next = next;
+                if (next == NULL) {
+                    /* We are removing the node at the end
+                     * of the list, so change the tail. */
+                    list-&gt;tail = prev;
+                }
+                node-&gt;next = NULL;
+                break;
+            }
+            prev = prev-&gt;next;
+        }
+    }
+}</pre>
+</div>
+
+<p>Notice the complexity of the <code>appendNode</code> and
+<code>removeNode</code> functions (especially the
+<code>removeNode</code> function which even includes a call to the
+<code>removeFirst</code> function). The code is complex because when
+writing the code, the author focused on the nodes and used single
+pointers (for example: <code>LinkNode *next;</code>) to iterate through
+the list. Because the author used single pointers, the author had to
+write <code>if</code> statements to handle two special cases: 1) when
+the list is empty and 2) when the node to be removed is at the beginning
+of the list. The complexity of this code, especially the
+<code>remove</code> function makes it difficult to code correctly and to
+test completely. In fact, I&rsquo;m not 100% sure that the preceding
+code is correct.</p>
+
+<h2>Elegant and Time Efficient Double Pointer Iteration</h2>
+<p>The correct way to write a singly linked list is to visualize the
+list in a pointer centric way, focusing on the pointers (links) between
+the nodes. Pointer centric thinking results in code that uses the
+address of pointers or in other words double pointers (for example:
+<code>LinkedNode **pnp;</code>). Such code requires less special case
+handling, is easier to test because it has fewer paths through the code,
+and executes slightly faster than single pointer iteration.
+Example&nbsp;2 contains an implementation of a singly linked list that
+uses double pointer iteration. Each line in example&nbsp;2 that differs
+from the code in example&nbsp;1 is highlighted in bold font.</p>
+
+<div class="pre" id="dblp"><pre class="linenums"></pre>
+<pre class="code language-c">/* Example 2 */
+
+typedef struct slnode {
+    struct slnode *next;
+    /* Programmer defined data goes here. */
+    int which;
+} LinkedNode;
+
+
+typedef struct sllist {
+    <em>LinkedNode *head, **tailp;</em>
+} LinkedList;
+
+
+/* Creates and initializes a linked list. */
+LinkedList *createList(void) {
+    LinkedList *list = malloc(sizeof(LinkedList));
+    list-&gt;head = NULL;
+    list-&gt;tailp = &amp;list-&gt;head;
+    return list;
+}
+
+
+/* Inserts a node at the beginning of this list. */
+void insertNode(LinkedList *list, LinkedNode *node) {
+    node-&gt;next = list-&gt;head;
+    list-&gt;head = node;
+    <em>if (list-&gt;tailp == &amp;list-&gt;head) {
+        list-&gt;tailp = &amp;node-&gt;next;
+    }</em>
+}
+
+
+/* Appends a node at the end of this list. */
+void appendNode(LinkedList *list, LinkedNode *node) {
+    <em>*list-&gt;tailp = node;
+    list-&gt;tailp = &amp;node-&gt;next;</em>
+    node-&gt;next = NULL;
+}
+
+
+/* Removes a node from this list. */
+void removeNode(LinkedList *list, LinkedNode *node) {
+    /* Traverse the list to find the next pointer of the
+     * node that comes before the one to be removed. */
+    <em>LinkedNode *curr, **pnp = &amp;list-&gt;head;
+    while ((curr = *pnp) != NULL) {
+        if (curr == node) {
+            /* We found the node, so remove it. */
+            *pnp = node-&gt;next;
+            if (list-&gt;tailp == &amp;node-&gt;next) {
+                list-&gt;tailp = pnp;</em>
+            }
+            node-&gt;next = NULL;
+            break;
+        }
+        <em>pnp = &amp;curr-&gt;next;</em>
+    }
+}</pre>
+</div>
+
+<p>Notice that the <code>appendNode</code> and <code>removeNode</code>
+functions are much less complex when using double pointer iteration
+(example&nbsp;2). You may be thinking, &ldquo;The single pointer
+iteration (example&nbsp;1) wouldn&rsquo;t be so complex if you used a
+circular list or if you wrote it in C++ instead of C.&rdquo; Try it. No
+matter what you try, if you need to implement a singly linked list and
+you need to write code to append elements to a list or remove elements
+from a list, double pointer iteration (example&nbsp;2) will always be
+less complex.</p>
+
+<p>Example&nbsp;3 contains additional C code that you can use to test
+both examples&nbsp;1 and&nbsp;2. Simply combine the code in
+example&nbsp;3 with the code from example&nbsp;1 or example&nbsp;2 in a
+single file. Save the combined file. Then compile the combined file and
+run the program. I used <code>gcc</code> with these two commands to
+compile my tests.</p>
+
+<pre class="console">
+gcc -W -Wall -Wstrict-prototypes -ansi -O -o singlePointer singlePointer.c
+gcc -W -Wall -Wstrict-prototypes -ansi -O -o doublePointer doublePointer.c
+</pre>
+
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code language-c">/* Example 3 */
+
+/* Prints the contents of a list. */
+void printList(SinglyLinkedList *list) {
+    SinglyLinkedNode *curr = list-&gt;head;
+    while (curr != NULL) {
+        printf("%d ", curr-&gt;which);
+        curr = curr-&gt;next;
+    }
+    printf("\n");
+}
+
+
+/* Creates and returns a node. */
+SinglyLinkedNode *createNode(int which) {
+    SinglyLinkedNode *node = malloc(sizeof(SinglyLinkedNode));
+    node-&gt;next = NULL;
+    node-&gt;which = which;
+    return node;
+}
+
+
+int main(void) {
+    SinglyLinkedList *list = createList();
+    SinglyLinkedNode *node1 = createNode(1);
+    SinglyLinkedNode *node2 = createNode(2);
+    SinglyLinkedNode *node3 = createNode(3);
+    SinglyLinkedNode *node4 = createNode(4);
+    printList(list);
+    insertNode(list, node1);
+    printList(list);
+    removeNode(list, node1);
+    printList(list);
+
+    appendNode(list, node3);
+    printList(list);
+
+    insertNode(list, node2);
+    insertNode(list, node1);
+    appendNode(list, node4);
+    printList(list);
+
+    free(node1);
+    free(node2);
+    free(node3);
+    free(node4);
+    free(list);
+    return 0;
+}</pre>
+</div>
+
+<h2>Further Reading</h2>
+<p>For more details about linked lists, including more source code and
+to understand why double pointer iterations works and is more efficient
+than single pointer iteration, see chapter&nbsp;3 of
+<a href="https://www.amazon.com/dp/0983384029">Advanced Programming Techniques</a>.</p>
+</article>
+</body>
+</html>

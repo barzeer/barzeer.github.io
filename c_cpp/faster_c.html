@@ -95,7 +95,7 @@ numbers.</p>
 
 <h4>Example 1.1</h4>
 <div class="pre">
-<pre class="code lang-c">/** Computes and returns the average of the values in a. */
+<pre class="code language-c">/** Computes and returns the average of the values in a. */
 double average(const double *a, int n) {
     double sum = 0;
     double avg = 0;
@@ -113,7 +113,7 @@ only once after the loop is finished.</p>
 
 <h4>Example 1.2</h4>
 <div class="pre">
-<pre class="code lang-c">/** Computes and returns the average of the values in a. */
+<pre class="code language-c">/** Computes and returns the average of the values in a. */
 double average(const double *a, int n) {
     double sum = 0;
     for (int i = 0;  i &lt; n;  ++i) {
@@ -130,7 +130,7 @@ repeated that doesn’t need to be.</p>
 
 <h4>Example 1.3</h4>
 <div class="pre">
-<pre class="code lang-cpp">/** Counts and returns the number upper case letters in a string. */
+<pre class="code language-cpp">/** Counts and returns the number upper case letters in a string. */
 int countUppers(const string &amp;s) {
     int count = 0;
     for (int i = 0;  i &lt; s.length();  ++i) {
@@ -151,7 +151,7 @@ subscript operator function call.</p>
 
 <h4>Example 1.4</h4>
 <div class="pre">
-<pre class="code lang-cpp">/** Counts and returns the number upper case letters in a string. */
+<pre class="code language-cpp">/** Counts and returns the number upper case letters in a string. */
 int countUppers(const string &amp;s) {
     int count = 0;
     int length = s.length();
@@ -171,7 +171,7 @@ int countUppers(const string &amp;s) {
 
 <h4>Example 2.1</h4>
 <div class="pre">
-<pre class="code lang-c">    for (int i = 0;  i != n;  ++i) {
+<pre class="code language-c">    for (int i = 0;  i != n;  ++i) {
     }</pre>
 </div>
 
@@ -179,7 +179,7 @@ int countUppers(const string &amp;s) {
 
 <h4>Example 2.2</h4>
 <div class="pre">
-<pre class="code lang-c">    for (int i = n;  i != 0;  --i) {
+<pre class="code language-c">    for (int i = n;  i != 0;  --i) {
     }</pre>
 </div>
 
@@ -211,7 +211,7 @@ reason.</p>
 
 <h4>Example 2.3</h4>
 <div class="pre">
-<pre class="code lang-c">for (int i = n;  i-- != 0;  ) {
+<pre class="code language-c">for (int i = n;  i-- != 0;  ) {
 }</pre>
 </div>
 -->
@@ -234,7 +234,7 @@ down to 0 as explained in tip 2.</p>
 
 <h4>Example 3.1</h4>
 <div class="pre">
-<pre class="code lang-c">    double sum = 0;
+<pre class="code language-c">    double sum = 0;
     for (int i = 0;  i &lt; length;  ++i) {
         sum += samples[i];
     }</pre>
@@ -242,7 +242,7 @@ down to 0 as explained in tip 2.</p>
 
 <h4>Example 3.2</h4>
 <div class="pre">
-<pre class="code lang-c">    double sum = 0;
+<pre class="code language-c">    double sum = 0;
     double *p = samples;
     for (int i = n;  i != 0;  --i) {
         sum += *p++;
@@ -306,7 +306,7 @@ variables that a function needs.</p>
 
 <h4>Example 5.1</h4>
 <div class="pre">
-<pre class="code lang-c">/** Calculates and returns the sum of the numbers in array. */
+<pre class="code language-c">/** Calculates and returns the sum of the numbers in array. */
 double sum(const double *array, int n) {
     const double *p = array;
     double s = 0;
@@ -319,7 +319,7 @@ double sum(const double *array, int n) {
 
 <h4>Example 5.2</h4>
 <div class="pre">
-<pre class="code lang-c">/** Calculates and returns the sum of the numbers in array. */
+<pre class="code language-c">/** Calculates and returns the sum of the numbers in array. */
 double sum(const double *array, int n) {
     double s = 0;
     while (n != 0) {
@@ -344,7 +344,7 @@ setting the bytes in a loop.</p>
 
 <h4>Example 6.1</h4>
 <div class="pre">
-<pre class="code lang-c">    int n = 1024;
+<pre class="code language-c">    int n = 1024;
     uint8_t array[n];
     for (int i = 0;  i &lt; n;  ++i) {
         array[i] = 0;
@@ -353,7 +353,7 @@ setting the bytes in a loop.</p>
 
 <h4>Example 6.2</h4>
 <div class="pre">
-<pre class="code lang-c">    int n = 1024;
+<pre class="code language-c">    int n = 1024;
     uint8_t array[n];
     memset(array, 0, n);</pre>
 </div>
@@ -373,7 +373,7 @@ the corresponding decimal number which is 437918234.</p>
 
 <h4>Example 6.3</h4>
 <div class="pre">
-<pre class="code lang-c">    int n = 1024;
+<pre class="code language-c">    int n = 1024;
     int array[n];
     memset(array, 26, sizeof(array));
     printf("%d\n", array[0]);</pre>
@@ -390,7 +390,7 @@ the value 0. You can see that this is true by compiling and running the
 code in example 6.4. When you run the code you will see the output shown
 below example 6.4.</p>
 
-<h4>Example 6.4</h4> <div class="pre"> <pre class="code lang-c">
+<h4>Example 6.4</h4> <div class="pre"> <pre class="code language-c">
 short s = 0;
     int i = 0;
     long n = 0;
@@ -417,7 +417,7 @@ short s = 0;
 
 <h4>Output</h4>
 <div class="pre">
-<pre class="code lang-c">    short: 0 0
+<pre class="code language-c">    short: 0 0
     int: 0 0 0 0
     long: 0 0 0 0 0 0 0 0
     float: 0 0 0 0
@@ -431,13 +431,13 @@ zero as shown in example 6.5.</p>
 
 <h4>Example 6.5</h4>
 <div class="pre">
-<pre class="code lang-c">    int n = 1024;
+<pre class="code language-c">    int n = 1024;
     int array[n];
     memset(array, 0, sizeof(array));</pre>
 </div>
 
 <h3 id="memcpy">7. When copying more than N bytes use memcpy or memmove</h3>
-<p>When copying more than a small amount of memory instead of writing a
+<p>When copying more than a small amount of memory, instead of writing a
 loop to copy the data, call <code>memcpy</code> or <code>memmove</code>.
 Both <code>memcpy</code> and <code>memmove</code> are often written in
 assembly code and use special instructions such as cache prefetching or
@@ -455,7 +455,7 @@ almost certainly faster than example 7.1.</p>
 
 <h4>Example 7.1</h4>
 <div class="pre">
-<pre class="code lang-c">    int n = 1024;
+<pre class="code language-c">    int n = 1024;
     int source[n];
     int destination[n];
     for (int i = 0;  i &lt; n;  ++i) {
@@ -465,7 +465,7 @@ almost certainly faster than example 7.1.</p>
 
 <h4>Example 7.2</h4>
 <div class="pre">
-<pre class="code lang-c">    int n = 1024;
+<pre class="code language-c">    int n = 1024;
     int source[n];
     int destination[n];
     memcpy(destination, source, sizeof(destination));</pre>
@@ -482,7 +482,7 @@ make a spot for the new text to be inserted as demonstrated in example
 
 <h4>Example 7.3</h4>
 <div class="pre">
-<pre class="code lang-c">    char longText[1024] = "For unto us a is born, unto us a son is"
+<pre class="code language-c">    char longText[1024] = "For unto us a is born, unto us a son is"
             " given, and the government shall be upon his shoulder.";
     char *missingText = "child ";
 
@@ -507,7 +507,7 @@ make a spot for the new text to be inserted as demonstrated in example
 
 <!--
 <div class="pre">
-<pre class="code lang-c">
+<pre class="code language-c">
 // real    0m7.89s - pgmoil C code
 // Time: 10.250628 secs
 // Time:  9.714068 secs
@@ -597,7 +597,7 @@ const ImgU8 ImgU8::OutFilt(int kerW, int kerH) const {
 <h3 id="lut">9. Use look up tables</h3>
 <!--
 <div class="pre">
-<pre class="code lang-c">static void Scale1(uint8_t *img, int w, int h, float value) {
+<pre class="code language-c">static void Scale1(uint8_t *img, int w, int h, float value) {
     uint32_t i;
 
     if (value &lt; 0.0)
@@ -701,7 +701,7 @@ static void Accum2(short *accum, const uint8_t *color,
 
 <h4>Example 12.1</h4>
 <div class="pre">
-<pre class="code lang-c">/** Modifies an image by masking each pixel. */
+<pre class="code language-c">/** Modifies an image by masking each pixel. */
 void bitAnd(uint8_t *img, uint32_t len, uint8_t mask) {
     while (len != 0) {
         *img++ &amp;= mask;
@@ -712,7 +712,7 @@ void bitAnd(uint8_t *img, uint32_t len, uint8_t mask) {
 
 <h4>Example 12.2</h4>
 <div class="pre">
-<pre class="code lang-c">/** Modifies an image by masking each pixel. */
+<pre class="code language-c">/** Modifies an image by masking each pixel. */
 void bitAnd(uint8_t *img, uint32_t len, uint8_t mask) {
     uint32_t *combo;
 
@@ -758,7 +758,7 @@ operator applied to different variable types.</p>
 
 <h4>Example 13.1</h4>
 <div class="pre">
-<pre class="code lang-c">    uint8_t u8;
+<pre class="code language-c">    uint8_t u8;
     uint16_t u16;
     uint32_t u32;
     uint64_t u64;
@@ -795,7 +795,7 @@ operator applied to different variable types.</p>
 
 <h4>Output</h4>
 <div class="pre">
-<pre class="code lang-c">     uint8_t 1   u8 1
+<pre class="code language-c">     uint8_t 1   u8 1
     uint16_t 2  u16 2
     uint32_t 4  u32 4
     uint64_t 8  u64 8
@@ -834,7 +834,7 @@ where I used the <code>sizeof</code> operator.</p>
 
 <h2 id="image">Image Processing Example:  A Mode Filter</h2>
 <div class="pre">
-<pre class="code lang-c">static uint32_t Mode(const uint32_t *hist, uint32_t n) {
+<pre class="code language-c">static uint32_t Mode(const uint32_t *hist, uint32_t n) {
     const uint32_t *t = hist;
     uint32_t i, first, last, num, max = *t++;
 

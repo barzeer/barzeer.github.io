@@ -372,10 +372,10 @@ if (!window.hasOwnProperty('smartDev')) {
 				let id = figure.getAttribute('data-sibling');
 				let sibling = document.getElementById(id);
 				let top = sibling.getBoundingClientRect().top;
-				console.log(top);
+				//console.log(top);
 				figure.style.top = top + "px";
-				console.log(figure.style.top);
-				console.log(figure.getBoundingClientRect().top);
+				//console.log(figure.style.top);
+				//console.log(figure.getBoundingClientRect().top);
 			}
 		}
 	};
