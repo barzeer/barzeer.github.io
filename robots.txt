@@ -1,5 +1,4 @@
 User-agent: *
 Disallow:
-Crawl-delay: 5
 
 Sitemap: https://barzeer.github.io/sitemap.xml

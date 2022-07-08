@@ -1,0 +1,311 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selection in Java</title>
+    <meta name="description" content="Explains how to use selection (if and switch statements) in a Java program.">
+    <meta name="keywords" content="Java, Java programming, if statement, switch statement, relational operator, conditional operator, comparison, Boolean operator, Boolean logic">
+    <link rel="canonical" href="https://barzeer.github.io/java/selection.html">
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Selection in Java</h1>
+<p>Explains how to use selection (<code>if</code> and
+<code>switch</code> statements) in a Java program.</p>
+
+<h2>Prerequisites</h2>
+<ul>
+    <li><div>Understand <a href="variables.html">Java primitive types and
+    variables</a></div></li>
+    <li><div>Understand Java arithmetic operators</div></li>
+</ul>
+
+<h2>Objectives</h2>
+<ul>
+    <li><div>Know the relational and Boolean logic operators</div></li>
+    <li><div>Understand Boolean expressions and data types</div></li>
+    <li><div>Use basic if statements</div></li>
+    <li><div>Use if &hellip; else statements</div></li>
+    <li><div>Use nested if statements</div></li>
+    <li><div>Use switch statements</div></li>
+    <li><div>Use ternary operators</div></li>
+    <li><div>Know the precendence of operators</div></li>
+</ul>
+
+<h2>Relational Operators</h2>
+<p>The relational operators are used in a program to compare two values.
+There are six relational operators in Java.</p>
+<ul class="nosym">
+    <li><div><code>&lt;</code> (less than)</div></li>
+    <li><div><code>&gt;</code> (greater than)</div></li>
+    <li><div><code>&lt;=</code> (less than or equal to)</div></li>
+    <li><div><code>&gt;=</code> (greater than or equal to)</div></li>
+    <li><div><code>==</code> (equals)</div></li>
+    <li><div><code>!=</code> (not equal)</div></li>
+</ul>
+
+<h2>Boolean Operators</h2>
+<p>The Boolean logic operators are used to combine multiple conditions
+into a condition that evaluates to a single Boolean result (true or
+false).  There are four Boolean operators available in Java.</p>
+<ul class="nosym">
+    <li><div><code>!</code> (not)</div></li>
+    <li><div><code>^</code> (exclusive or)</div></li>
+    <li><div><code>&amp;&amp;</code> (and)</div></li>
+    <li><div><code>||</code> (or)</div></li>
+</ul>
+
+<h2>Boolean Expressions</h2>
+<ul>
+    <li><div>A <code>boolean</code> variable can hold either
+    <code>true</code> or <code>false</code></div></li>
+
+    <li><div>A Boolean expression also evaluates to <code>true</code> or
+    <code>false</code></div></li>
+
+    <li><div>Examples:
+    <div class="pre"><pre class="code language-java">
+double bobHeight = 1.92;
+double sueHeight = 1.65;
+double tall = 1.8;
+boolean bobIsTall = (bobHeight &gt;= tall);  // bobIsTall will store true
+boolean sueIsTall = (sueHeight &gt;= tall);  // sueIsTall will store false</pre></div>
+    </div></li>
+
+    <li><div>Boolean expressions can be simple like the above examples, or
+    complex</div></li>
+
+    <li><div>Example:
+    <div class="pre"><pre class="code language-java">
+boolean b = ((x &lt; y &amp;&amp; z != v) || (x + 4 == a));</pre></div>
+    </div></li>
+</ul>
+
+<h2>if Statements</h2>
+<ul>
+    <li><div>An <code>if</code> statement has two parts: the keyword
+    <code>if</code> and a boolean expression</div></li>
+
+    <li><div>Syntax:
+    <div class="pre"><pre class="code language-java">
+    if (<var>boolean_expression</var>) {
+        <var>statements</var>;
+    }</pre></div>
+    </div></li>
+
+    <li><div>If the Boolean expression is true, the statements in the
+    body of the <code>if</code> statement are executed</div></li>
+
+    <li><div>If the Boolean expression is false, the statements in the
+    body of the <code>if</code> statement are skipped</div></li>
+
+    <li><div>Examples:
+    <div class="pre"><pre class="code language-java">
+    if (sueHeight &gt;= tall) {
+        System.out.print("Sue is tall!");
+    }
+
+    if (x == y) {
+        System.out.print("x and y are the same");
+    }</pre></div>
+    </div></li>
+</ul>
+
+<h2>if &hellip; else Statements</h2>
+<ul>
+    <li><div>In the above examples, if an <code>if</code> statement is
+    false, the statements in the body are skipped</div></li>
+
+    <li><div>In an <code>if &hellip; else</code> statement, if the
+    condition in <code>if</code> statement is false, then the statements
+    in the body of the <code>else</code> statement are
+    executed</div></li>
+
+    <li><div>Syntax:
+    <div class="pre"><pre class="code language-java">
+    if (<var>boolean_expression</var>) {
+        <var>statements</var>;
+    }
+    else {
+        <var>statements</var>;
+    }</pre></div>
+    </div></li>
+
+    <li><div>Example:
+    <div class="pre"><pre class="code language-java">
+    if (sueHeight &gt;= tall) {
+        System.out.print("Sue is tall!");
+    }
+    else {
+        System.out.print("Sue is short.");
+    }</pre></div>
+    </div></li>
+</ul>
+
+<h2>if &hellip; else if &hellip; else Statements</h2>
+<ul>
+    <li><div>There can be many conditions in an
+    <code>if &hellip; else if &hellip; else</code> statement.</div></li>
+
+    <li><div>Syntax:
+    <div class="pre"><pre class="code language-java">
+    if (<var>expression</var>) {
+        <var>statements</var>;
+    }
+    else if (<var>expression</var>) {
+        <var>statements</var>;
+    }
+    else {
+        <var>statements</var>;
+    }</pre></div>
+    </div></li>
+
+    <li><div>If the first <code>if</code> statement is false, the next
+    <code>else if</code> statement is checked</div></li>
+
+    <li><div>If no <code>else if</code> statement is evaluated true, the
+    statements in the <code>else</code> statement are
+    executed.</div></li>
+
+    <li><div>Example:
+    <div class="pre"><pre class="code language-java">
+    if (sueHeight &gt;= tall) {
+        System.out.print("Sue is tall!");
+    }
+    else if (sueHeight == 5.9) {
+        System.out.print("Sue is of medium stature.");
+    }
+    else {
+        System.out.print("Sue is short.");
+    }</pre></div>
+    </div></li>
+</ul>
+
+<h2>Nested if Statements</h2>
+<ul>
+    <li><div><code>if</code> statements can be nested within other
+    <code>if</code> statements</div></li>
+
+    <li><div>Example:
+    <div class="pre"><pre class="code language-java">
+    if (x &gt; y) {
+        if (z &gt; y) {
+            System.out.print("x and z are greater than y");
+        }
+    }
+    else {
+        System.out.print("y is not greater than x and z");
+    }</pre></div>
+    </div></li>
+
+    <li><div>What does the computer do when executing the above code when
+    <span class="nowrap">x = 5,</span>
+    <span class="nowrap">y = 3,</span> and
+    <span class="nowrap">z = 1?</span></div></li>
+</ul>
+
+<h2>switch Statements</h2>
+<ul>
+    <li><div><code>if</code> statements make selection based on a
+    condition being true or false, while <code>switch</code> statements
+    can have many conditions</div></li>
+
+    <li><div>Syntax:
+    <div class="pre"><pre class="code language-java">
+    switch (<var>variable</var>) {
+        case 0:
+            <var>statements</var>;
+            break;
+        case 1:
+            <var>statements</var>;
+            break;
+        default:
+            <var>statements</var>;
+            break;
+    }</pre></div>
+    </div></li>
+
+    <li><div>If the value is found in one of the cases, the expression
+    is evaluated</div></li>
+
+    <li><div>The keyword <code>break</code> ends further evaluation of
+    the other cases</div></li>
+
+    <li><div>If the value is not found in any of the cases, the
+    <code>default</code> case is evaluated</div></li>
+
+    <li><div>Example:
+    <div class="pre"><pre class="code language-java">
+    char grade = 'C';
+    double percent;
+
+    switch (grade){
+        case 'A': percent = 90.0;
+            break;
+        case 'B': percent = 80.0;
+            break;
+        case 'C': percent = 70.0;
+            break;
+        case 'D': percent = 60.0;
+            break;
+        case 'F': percent = 50.0;
+            break;
+        default: percent = 0;
+            break;
+    }</pre></div>
+    </div></li>
+</ul>
+
+<h2>Ternary Operator</h2>
+<ul>
+    <li><div>A ternary operator is a conditional statement like an
+    <code>if</code> statement with a different syntax</div></li>
+
+    <li><div>Syntax:
+    <div class="pre"><pre class="code language-java">
+    <var>boolean_expression</var> ? <var>expression_if_true</var> : <var>expression_if_false;</var></pre></div>
+    </div></li>
+
+    <li><div>If the boolean expression is true,
+    <var>expression_if_true</var> is executed</div></li>
+
+    <li><div>If the boolean expression is false,
+    <var>expression2_if_false</var> is executed</div></li>
+
+    <li><div>Example:
+<div class="pre"><pre class="code language-java">
+int z = -54;
+String isPositive = (z &gt; 0) ? "z is positive" : "z is zero or negative";</pre></div>
+    </div></li>
+</ul>
+
+<h2>Operator Precedence</h2>
+<p>The precedence of operators is as follows, with the bottom of the list
+having the lowest precedence, and the top the highest:</p>
+<ul class="nosym">
+    <li><div><code>var++  var--</code> (postfix)</div></li>
+    <li><div><code>+  -</code> (unary plus and minus), <code>++var  --var</code> (prefix)</div></li>
+    <li><div><code>(int) (double)</code> (type cast)</div></li>
+    <li><div><code>!</code> (not)</div></li>
+    <li><div><code>* / %</code> (multiplication, division, modulus)</div></li>
+    <li><div><code>+ -</code> (binary addition and subtraction)</div></li>
+    <li><div><code>&lt; &lt;= &gt; &gt;=</code> (comparison)</div></li>
+    <li><div><code>== !=</code> (equality)</div></li>
+    <li><div><code>^</code> (exclusive or)</div></li>
+    <li><div><code>&amp;&amp;</code> (and)</div></li>
+    <li><div><code>||</code> (or)</div></li>
+    <li><div><code>=  +=  -=  *=  /=  %=</code> (assignment operator)</div></li>
+</ul>
+
+<div class="modified">Last modified: 2022-07-08</div>
+</article>
+</body>
+</html>
