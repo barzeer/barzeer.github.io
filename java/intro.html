@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <title>Java Introduction</title>
+    <meta name="description" content="A Brief Introduction to the Java Programming Language">
+    <meta name="keywords" content="Java, Java programming">
+    <link rel="canonical" href="https://barzeer.github.io/java/intro.html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>A Brief Introduction to the Java Programming Language</h1>
+
+<p>Java is a general purpose programming language developed at Sun
+Microsystems starting in the early 1990's. Some programming languages
+are developed for a specific purpose, such as typesetting (TeX and
+LaTeX), printing (PDF), mathematics (Mathematica), civil engineering
+(COGO), and manufacturing (APT). Computer scientists at Sun Microsystems
+developed Java to be a general purpose programming language so that a
+software developer could use it to solve problems in many computing
+disciplines. In 2010, Oracle Corporation aquired Sun Microsytems which
+is why you can download Java from Oracle's website today.</p>
+
+<p>Java was designed to make programming easier and less error prone
+than other popular languages, especially C and C++. To make programming
+easier and less error prone, Java includes garbage collection, array
+index checking, and primitive data types with a defined size and
+eliminates unsigned data types. To enable programmers to write a program
+once and run it on any computing device, Java was designed to compile to
+an intermediate computer language known as bytecode.</p>
+
+<p>To create a running Java program, a software developer does the
+following:</p>
+<ol>
+    <li><div>Writes Java code in a text file. The name of the text file
+    must end with ".java"</div></li>
+
+    <li><div>Runs the Java compiler which compiles the Java code to
+    bytecode. The bytecode is stored in a file with the same name as the
+    Java code except the bytecode filename ends with ".class" instead of
+    ".java"</div></li>
+
+    <li><div>Runs the Java virtual machine which executes the bytecode
+    on a computer.</div></li>
+</ol>
+
+<p>Many software development environments, including Android Studio,
+combine steps 2 and 3 into a single step of clicking a run icon.</p>
+
+<p>A software developer must write all Java files to match this
+template:</p>
+
+<div class="pre">
+<pre class="code language-java">package declaration;
+
+import statements;
+
+class declaration {
+    attributes;
+
+    methods;
+}</pre>
+</div>
+
+<h3>Example</h3>
+<div class="pre">
+<pre class="code language-java">package edu.byui.cit.appname</var>;
+
+import androidx.appcompat.app.AppCompatActivity;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+}</pre>
+</div>
+</article>
+</body>
+</html>
