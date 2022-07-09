@@ -1,0 +1,268 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Strings</title>
+    <meta name="description" content="Explains how to declare, create, compare, and use Strings in a Java program.">
+    <meta name="keywords" content="Java, Java programming, String, StringBuilder">
+    <link rel="canonical" href="https://barzeer.github.io/java/strings.html">
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Java Strings</h1>
+<p>Explains how to declare, create, compare, and use Strings in a Java
+program.</p>
+
+<h2>Prerequisites</h2>
+<ul>
+    <li><div>Know and understand the eight Java
+    <a href="variables.php">primitive variable types</a>, especially
+    char and int.</div></li>
+    <li><div>Understand Java classes, objects, and
+    <a href="methods.html">methods</a></div></li>
+</ul>
+
+<h2>Objectives</h2>
+<ul>
+    <li><div>Understand key concepts about Strings of text in Java</div></li>
+    <li><div>Write Java code to declare, create, initialize, concatenate
+    and output Strings</div></li>
+    <li><div>Write Java code to determine the length of a String and
+    retrieve a single character from a String</div></li>
+    <li><div>Write Java code to process each character in a String</div></li>
+    <li><div>Write Java code to compare the contents of two Strings</div></li>
+    <li><div>Write Java code to convert a single character or an entire
+    string to upper case or lower case</div></li>
+    <li><div>Write Java code to find a substring within a string and to
+    split a string into substrings</div></li>
+</ul>
+
+<h2>Key Concepts</h2>
+<ul>
+    <li><div>Java includes a class named <code>String</code> in the
+    package <code>java.lang</code>.</div></li>
+    <li><div>An object created from the <code>String</code> class
+    contains a string of text.</div></li>
+    <li><div>Java Strings are immutable (cannot be changed after they
+    are created).</div></li>
+    <li><div>Strings have a <code>.length()</code> method that
+    returns the number of characters in a
+    <code>String</code>.</div></li>
+    <li><div>Each character in a <code>String</code> is located at a
+    specific index just like each element in an array. In fact, a
+    <code>String</code> can be thought of as an array of
+    <code>char</code>.</div></li>
+    <li><div>To retrieve a single <code>char</code> from a
+    <code>String</code> use the <code>.charAt(index)</code>
+    method.</div></li>
+</ul>
+
+<h2>Declaring a String</h2>
+<ul class="long">
+    <li><div>Before using any variable in a Java program, including a
+    String, you must declare that variable.</div></li>
+
+    <li><div>Syntax:
+    <div class="pre"><pre class="code language-java">
+    String <var>name1</var>, <var>name2</var>, ..., <var>nameN</var>;</pre></div>
+    </div></li>
+
+    <li><div>Examples:
+    <div class="pre"><pre class="code language-java">
+    String s;
+    String text, result;</pre></div>
+    </div></li>
+</ul>
+
+<h2>Creating a String</h2>
+<ul class="long">
+    <li><div>Java Strings are objects, and objects in Java must be
+    declared and created. This is different from the Java primitive
+    types which must be declared but not created. To create any object
+    in Java, include a String, you can use the new
+    <code>keyword</code>.</div></li>
+
+    <li><div>Syntax:
+    <div class="pre"><pre class="code language-java">
+    String <var>name</var> = new String("<var>characters</var>");</pre></div>
+    </div></li>
+
+    <li><div>Example:
+    <div class="pre"><pre class="code language-java">
+    String greeting = new String("Hello");</pre></div>
+    </div></li>
+
+    <li><div>Although you can create a String in Java using the
+    <code>new</code> keyword, there is a shorter way. It is almost
+    always better to use the shorter way to create a Java
+    String.</div></li>
+
+    <li><div>Syntax:
+    <div class="pre"><pre class="code language-java">
+    String <var>name</var> = "<var>characters</var>";</pre></div>
+    </div></li>
+
+    <li><div>Example:
+    <div class="pre"><pre class="code language-java">
+    String greeting = "Hello";</pre></div>
+    </div></li>
+</ul>
+
+<h2>String Concatenation</h2>
+<ul class="long">
+    <li><div>The term <dfn>string concatenation</dfn> means to combine
+    two or more strings together to form a longer string. The string
+    concatenation operator in Java is the plus symbol (+).</div></li>
+
+    <li><div>Example:
+    <div class="pre"><pre class="code language-java">
+    String firstName = getFirstName();
+    String greeting = "Hello " + firstName + "! How are you?";
+    System.out.println(greeting);</pre></div>
+    </div></li>
+</ul>
+
+<h2>Getting the Length of a String</h2>
+<ul class="long">
+    <li><div>Every Java String has a <code>.length()</code> method that
+    returns the number of characters in a string.</div></li>
+
+    <li><div>Examples:
+    <div class="pre"><pre class="code language-java">
+    String greeting = "Hello";
+    System.out.println(greeting.length());  // Prints the number 5
+
+    String word1 = "health";
+    String word2 = "strength";
+    if (word1.length() &gt; word2.length()) {
+        System.out.println(word1 + " is longer than " + word2);
+    }
+    else if (word1.length() &lt; word2.length()) {
+        System.out.println(word2 + " is longer than " + word1);
+    }
+    else {
+        System.out.println(word1 + " and " + word2 +
+                " are the same length");
+    }</pre></div>
+    </div></li>
+</ul>
+
+<h2>Retrieving a Character from a String</h2>
+<ul>
+    <li><div>To retrieve a single character from a string, use the
+    <code>.charAt(index)</code> method.</div></li>
+    <li><div>Examples:
+    <div class="pre"><pre class="code language-java">
+    String greeting = "Good morning";
+    char c = greeting.charAt(3);
+    System.out.println(c);  // Prints the character 'd'
+
+    // Process each character one at a time.
+    for (int i = 0, len = s.length();  i &lt; len;  i++) {
+        char c = s.charAt(i);
+        System.out.println(c);
+    }</pre></div>
+    </div></li>
+</ul>
+
+<h2>Comparing Strings</h2>
+<ul class="long">
+    <li><div>In Java, Strings are objects and not primitive types, and
+    in Java, all object variables are references to an object. This
+    means that for all object variables there are two meanings to
+    equality: 1) two varaibles refer to the same object, 2) the contents
+    of two objects are the same.</div></li>
+
+    <li><div>If you want the computer to check if two variables refer to
+    the same object, use the equality operator (==).
+    <div class="pre"><pre class="code language-java">
+    String s = &hellip;
+    String t = &hellip;
+    if (s == t) {
+        System.out.println("s and t refer to the same object.");
+    }
+    else {
+        System.out.println("s and t do NOT refer to the same object.")
+        // Even though s and t don't refer to the same object,
+        // the contents of the two objects may still be the same.
+    }</pre></div>
+    </div></li>
+
+    <li><div>If you want the computer to check if two contents of two
+    objects are the same, use the <code>.equals()</code> method.
+    <div class="pre"><pre class="code language-java">
+    String s = &hellip;
+    String t = &hellip;
+    if (s.equals(t)) {
+        System.out.println("The contents of s and t are the same.")
+        // Because the contents of s and t are the same, it
+        // is possible that s and t refer to the same object.
+    }
+    else {
+        System.out.println("The contents of s and t are NOT the same.")
+        // Because the contents of s and t are NOT the same, it
+        // is impossible that s and t refer to the same object.
+    }</pre></div>
+    </div></li>
+
+    <li><div>The following code example will help you check your
+    understanding of comparing objects with <code>==</code> and
+    <code>.equals()</code>
+    <div class="pre"><pre class="code language-java">
+    String s = "Welcome";
+    String t = s;
+    String u = new String("Welcome");
+
+    System.out.println(s == t);  // Prints true
+    System.out.println(s == u);  // Prints false
+    System.out.println(s.equals(t));  // Prints true
+    System.out.println(s.equals(u));  // Prints true</pre></div>
+    </div></li>
+
+    <li><div>You can use the four other comparison operators (&lt;,
+    &lt;=, &gt;, &gt;=) with strings. If String <var>a</var> is less
+    than String <var>b</var>, then the contents of String <var>a</var>
+    would come before the contents of String <var>b</var> in
+    alphabetical order.
+    <div class="pre"><pre class="code language-java">
+    String a = "renew";
+    String b = "cheer";
+
+    System.out.println(a &lt; b);   // Prints false
+    System.out.println(a &lt;= b);  // Prints false
+    System.out.println(a &gt; b);   // Prints true
+    System.out.println(a &gt;= b);  // Prints true</pre></div>
+    </div></li>
+</ul>
+
+<h2>Other String Methods</h2>
+<ul>
+    <li><div>There are many other useful String methods, including
+    <ul>
+        <li><div>.indexOf()</div></li>
+        <li><div>.lastIndexOf()</div></li>
+        <li><div>.isEmpty()</div></li>
+        <li><div>.repeat()</div></li>
+        <li><div>.replace()</div></li>
+        <li><div>.split()</div></li>
+        <li><div>.startsWith()</div></li>
+        <li><div>.endsWith</div></li>
+        <li><div>.strip()</div></li>
+        <li><div>.substring()</div></li>
+        <li><div>.toLowerCase()</div></li>
+        <li><div>.toUpperCase()</div></li>
+    </ul></div></li>
+</ul>
+
+<div class="modified">Last modified: 2022-07-08</div>
+</article>
+</body>
+</html>
