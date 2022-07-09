@@ -2,11 +2,11 @@
 <html lang="en-us">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faster C and C++ Code</title>
     <meta name="description" content="Tips for writing faster C and C++ code.">
     <meta name="keywords" content="C, C++, computer programming, software optimization, software performance">
     <link rel="canonical" href="https://barzeer.github.io/c_cpp/faster_c.html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../site/smart_dev.js"></script>
     <script src="../site/article.js"></script>
     <script src="../site/hljs/highlight.min.js"></script>
@@ -50,22 +50,22 @@ tips.</p>
 
 <h2 id="intro">Introduction</h2>
 <p>This book documents programming techniques and tips that cause the
-compiled vesion of a C or C++ function to contain less assembly
-instructions, or use faster assembly instructions, or execute fewer
+compiled version of a C or C++ function to contain fewer assembly
+instructions or execute fewer assembly instructions or use faster
 assembly instructions, causing the function to run faster. In a few
-cases, these techniques may cause code to be less intuitive (as if any
-code is) or less readable. However, in many cases these techniques will
-make code more concise and more readable; to paraphrase, “brevity
-is the essence of programming.”</p>
+cases, these techniques may cause the C code to be less intuitive (as if
+any code is) or less readable. However, in many cases these techniques
+will make code more concise and more readable; to paraphrase, “brevity
+is the essence of [programming].”</p>
 
 <p>The techniques discussed in this book apply to both C and C++ because
 C++ is a superset of C and despite C++ classes, methods, overloaded
-operators, virtual functions, templates, exceptions, run time type
+operators, virtual functions, templates, exceptions, runtime type
 checking, etc., the C++ programmer must still write the body of
 functions using loops, arrays, pointers, primitive types, and other C
 expressions. I assume the reader of this book is a C and/or C++
 programmer, and I make no attempt to explain C or C++ language
-constructs or concepts. There are already many excellent books which do
+constructs or concepts. There are already many excellent books that do
 this.</p>
 
 <p>The two most important points about writing faster code are:</p>
@@ -75,23 +75,22 @@ this.</p>
     code.</div></li>
 </ol>
 
-<p>I cannot emphasize those two points enough. What good is fast code if
+<p>I cannot emphasize these two points enough. What good is fast code if
 it gives incorrect results? Also, it does no good to optimize the code
 for a function that executes for a small amount of the overall time that
 your program executes. If you work hard and rewrite a function making it
-run twice as fast as it was previously, but it was only taking only 1%
-of the total execution time, you will have sped up the entire program by
-only 0.5% (one half of one percent).</p>
+run twice as fast as it was previously, but it was taking only 1% of the
+total execution time, you will have sped up the entire program by only
+0.5% (one half of one percent).</p>
 
 <h2>Coding Techniques</h2>
 
 <h3 id="outside">1. Move statements outside of loops</h3>
-<p>The simpliest and best way to make any code run faster is to reduce
+<p>The simplest and best way to make any code run faster is to reduce
 the amount of code or reduce the number of times the computer must
-execute that code. I often see code that has statements that don’t
-need to be repeated placed inside a loop where they are repeated.
-Consider this simple function to compute the average of an array of
-numbers.</p>
+execute that code. I often see code that has statements that don’t need
+to be repeated placed inside a loop where they are repeated. Consider
+this simple function to compute the average of an array of numbers.</p>
 
 <h4>Example 1.1</h4>
 <div class="pre">
@@ -107,9 +106,9 @@ double average(const double *a, int n) {
 }</pre>
 </div>
 
-<p>Of course the average doesn’t need to be and shouldn’t be
-calculated each time through the loop. Instead it should be calculated
-only once after the loop is finished.</p>
+<p>Of course, the average doesn’t need to be and shouldn’t be calculated
+each time through the loop. Instead, it should be calculated only once
+after the loop is finished.</p>
 
 <h4>Example 1.2</h4>
 <div class="pre">
@@ -124,13 +123,13 @@ double average(const double *a, int n) {
 }</pre>
 </div>
 
-<p>Consider this C++ example that counts the number of upper case
-letters in a string. It contains a more subtle example of code that is
-repeated that doesn’t need to be.</p>
+<p>Consider this C++ example that counts the number of uppercase letters
+in a string. It contains a more subtle example of code that is repeated
+that doesn’t need to be.</p>
 
 <h4>Example 1.3</h4>
 <div class="pre">
-<pre class="code language-cpp">/** Counts and returns the number upper case letters in a string. */
+<pre class="code language-cpp">/** Counts and returns the number uppercase letters in a string. */
 int countUppers(const string &amp;s) {
     int count = 0;
     for (int i = 0;  i &lt; s.length();  ++i) {
@@ -142,16 +141,17 @@ int countUppers(const string &amp;s) {
 }</pre>
 </div>
 
-<p>In example 1.3 the comparison <code>i &lt; s.length()</code> causes
-the computer to make an extra function call each time through the loop.
-Also, for a C++ string, the subscript operator ([ ]) is a function call.
-Example 1.3 should be rewritten to move the call to the
-<code>length</code> function outside of the loop and to eliminate the
-subscript operator function call.</p>
+<p>In example&nbsp;1.3, the comparison <code>i &lt; s.length()</code>
+causes the computer to make an extra function call each time through the
+loop. Also, for a C++ string, the subscript operator ([ ]) is a function
+call. Example&nbsp;1.3 should be rewritten to move the call to the
+<code>length</code> function outside the loop and to eliminate the
+subscript operator function call. These two optimizations are shown in
+example&nbsp;1.4.</p>
 
 <h4>Example 1.4</h4>
 <div class="pre">
-<pre class="code language-cpp">/** Counts and returns the number upper case letters in a string. */
+<pre class="code language-cpp">/** Counts and returns the number uppercase letters in a string. */
 int countUppers(const string &amp;s) {
     int count = 0;
     int length = s.length();
@@ -184,10 +184,10 @@ int countUppers(const string &amp;s) {
 </div>
 
 <p>Many CPUs have a single instruction for decrement and compare to
-zero, for example Hewlett-Packard Company’s PA-RISC instruction
+zero, for example, Hewlett-Packard Company’s PA-RISC instruction
 <code>addib,znv -1,r,r</code>, but have no such single instruction for
-increment and compare. So after being compiled, the end of loop 2.1 will
-consist of two or three assembly instructions:</p>
+increment and compare. So after being compiled, the end of loop&nbsp;2.1
+will consist of two or three assembly instructions:</p>
 
 <ul>
     <li><div>increment i</div></li>
@@ -199,7 +199,8 @@ consist of two or three assembly instructions:</p>
     <li><div>subtract from i from N</div></li>
     <li><div>compare the result to zero</div></li>
 </ul>
-<p>The end of loop 2.2 will (should) consist of a single assembly
+
+<p>The end of loop&nbsp;2.2 will likely consist of a single assembly
 instruction because the optimizer will combine <code>i != 0</code> and
 <code>--i</code> into a single instruction.</p>
 
@@ -211,8 +212,8 @@ reason.</p>
 
 <h4>Example 2.3</h4>
 <div class="pre">
-<pre class="code language-c">for (int i = n;  i-- != 0;  ) {
-}</pre>
+<pre class="code language-c">    for (int i = n;  i-- != 0;  ) {
+    }</pre>
 </div>
 -->
 
@@ -220,17 +221,11 @@ reason.</p>
 <p>On many computer architectures, the array subscript operator requires
 two instructions:</p>
 <ol>
-    <li><div>adding the index value (<code>i</code> in example 3.1) to
-    the base of the array (<code>samples</code> in example 3.1) giving a
-    pointer into the array</div></li>
+    <li><div>adding the index value (<code>i</code> in example&nbsp;3.1)
+    to the base of the array (<code>samples</code> in example&nbsp;3.1)
+    giving a pointer into the array</div></li>
     <li><div>dereferencing the resultant pointer</div></li>
 </ol>
-
-<p>However, many CPUs have a single dereference and increment
-instruction, and so <code>*p++</code> in example 3.2 can be done in a
-single instruction. Also, because example 3.2 uses a pointer dereference
-instead of an array subscript, we can rewrite the counting loop to count
-down to 0 as explained in tip 2.</p>
 
 <h4>Example 3.1</h4>
 <div class="pre">
@@ -239,6 +234,12 @@ down to 0 as explained in tip 2.</p>
         sum += samples[i];
     }</pre>
 </div>
+
+<p>However, many CPUs have a single dereference and increment
+instruction, so <code>*p++</code> in example&nbsp;3.2 can be done in a
+single instruction. Also, because example&nbsp;3.2 uses a pointer
+dereference instead of an array subscript, we can rewrite the counting
+loop to count down to 0 as explained in tip&nbsp;2.</p>
 
 <h4>Example 3.2</h4>
 <div class="pre">
@@ -250,41 +251,42 @@ down to 0 as explained in tip 2.</p>
 </div>
 
 <h3 id="fewVars">4. Use as few variables as possible in a function</h3>
-<p>Space for local variables in a function is allocated from the
-CPU’s registers or on the call stack or both. Since a variable
-stored on the stack must first be loaded into a register before its
-value can be manipulated, we want to write code that maintains as many
-variables as possible in the CPU registers. In modern computer
-architectures, some CPU registers are designated as parameter passing
-registers, some as return value registers, and some as scratch or
-temporary registers. These are all available to be used as local
-variables. The compiler and optimizer decide which registers are
-allocated to which variables. Of course, the compiler tries to allocate
-registers in a way to make the function run as fast as possible, but it
-doesn’t always find the most optimal mapping of variables to
-registers. This is one of the reasons for the existence of the C keyword
-<code>register</code>. Using <code>register</code> a programmer can hint
-to the compiler which variables should be allocated in registers.</p>
+<p>Space for local variables in a function is allocated from the CPU’s
+registers or on the call stack or both. Since a variable stored on the
+stack must first be loaded into a register before its value can be
+manipulated, we want to write code that maintains as many variables as
+possible in the CPU registers. In modern computer architectures, some
+CPU registers are designated as parameter passing registers, some as
+return value registers, and some as scratch or temporary registers.
+These are all available to be used as local variables. The compiler and
+optimizer decide which registers are allocated to which variables. Of
+course, the compiler tries to allocate registers in a way to make the
+function run as fast as possible, but it doesn’t always find the optimal
+mapping of variables to registers. This is one of the reasons for the
+existence of the C keyword <code>register</code>. Using
+<code>register</code> a programmer can hint to the compiler which
+variables should be allocated in registers.</p>
 
 <p>If a function uses more variables than are available for local
-registers, the compiler must output code to spill to the stack and
-restore from the stack registers specified as non-local and to swap to
-and from the stack the contents of local registers.</p>
+registers, the compiler must output code to spill the contents of the
+registers specified as non-local to the stack and restore those contents
+from the stack. Also, the compiler must output code to swap the contents
+of registers specified as local to and from the stack.</p>
 
-<p>Often programmers write code that uses more variables than necessary.
-In other words some variables are synonyms for others as in example 4.1.
-Also many variables are used during only a small part of a function. A
-good optimizer combines synonyms and allocates a register for a variable
-only while that variable is in use. Also, many modern CPUs perform
-register renaming which helps use registers more efficiently. However,
-not all optimizers are good ones, and even good ones don’t find
-the optimal variable to register mapping every time. Therefore, help the
-compiler out by eliminating synonyms and other unecessary variables.
-Also, don’t intialize local variables long before they are
-actually needed as ____ is in example 4.1. Instead initialize them
-immediately before they are needed. C++ programmers and C programmers
-using C99 can go a step further and not declare variables until they are
-needed as ____ is in example 4.2.</p>
+<p>Often, programmers write code that uses more variables than necessary.
+In other words, some variables are synonyms for others as in
+example&nbsp;4.1. Also, many variables are used during only a small part
+of a function. A good optimizer combines synonyms and allocates a
+register for a variable only while that variable is in use. Also, many
+modern CPUs perform register renaming which helps use registers more
+efficiently. However, not all optimizers are good ones, and even good
+ones don’t find the optimal variable to register mapping every time.
+Therefore, you should help the compiler by eliminating synonyms and
+other unnecessary variables. Also, don’t initialize local variables long
+before they are actually needed as ____ is in example&nbsp;4.1. Instead,
+initialize them immediately before they are needed. C++ programmers and
+C programmers using C99 can go a step further and not declare variables
+until they are needed as ____ is in example&nbsp;4.2.</p>
 
 <p>I’m not suggesting that you name all your variables tmp1, tmp2,
 etc. and use the variables for anything that is needed. Give
@@ -295,14 +297,14 @@ variables meaningful names and use as many as necessary but no more.</p>
 are passed by value from the calling function to the called function, so
 they are copies of the values used in the calling function. In other
 words, they are local variables and can be modified like local
-variables. Notice that both examples 5.1 and 5.2 compute and return the
-sum of the numbers in an array. Notice that example 5.1 has two more
-variables (<code>i</code> and <code>p</code>) than example 5.2 has.
-Example 5.2 uses both of its parameters as local variables and modifies
-them within the while loop. For all the reasons given in the previous
-tip, it is a good idea to use fewer variables in a function, and using
-the formal parameters as local variables often reduces the number of
-variables that a function needs.</p>
+variables. The functions in both examples&nbsp;5.1 and&nbsp;5.2 compute
+and return the sum of the numbers in an array. Notice that example&nbsp;5.1
+has two more variables (<code>i</code> and <code>p</code>) than
+example&nbsp;5.2 has. Example&nbsp;5.2 uses both of its parameters as
+local variables and modifies them within the while loop. For all the
+reasons given in tip&nbsp;4, it is a good idea to use fewer variables in
+a function, and using the formal parameters as local variables often
+reduces the number of variables that a function needs.</p>
 
 <h4>Example 5.1</h4>
 <div class="pre">
@@ -332,8 +334,8 @@ double sum(const double *array, int n) {
 
 <h3 id="memset">6. Use memset when setting more than N bytes to the same value.</h3>
 <p>When setting more than small amounts of memory to the same value,
-don’t write a loop to do it as shown in example 6.1. Use the
-<code>memset</code> function instead as shown in example 6.2.
+don’t write a loop to do it as shown in example&nbsp;6.1. Instead, use
+the <code>memset</code> function as shown in example&nbsp;6.2.
 <code>memset</code> is often written in assembly code and has been
 optimized and tested by the developers of the standard C library.
 Calling a function requires some time or overhead, so calling
@@ -358,18 +360,18 @@ setting the bytes in a loop.</p>
     memset(array, 0, n);</pre>
 </div>
 
-<p>Unfortunately, <code>memset</code> works for bytes only. In other
-words, you can’t use <code>memset</code> to fill an array of integers
-with a number unless all the bytes of the number are the same. Example
-6.3 shows code that attempts to fill an array of integers with the
-number 26, but it doesn’t work. Instead of printing the number 26, the
-<code>printf</code> function prints the number 437918234. It prints
-437918234 because the <code>memcpy</code> function filled the array with
-the byte 26 which is hexadecimal 1a and binary 0001 1010. When using gcc
-as the compiler, an <code>int</code> occupies four bytes, so the
-<code>printf</code> function combines four bytes that were set to
-<code>0x1a1a1a1a</code> by the <code>memset</code> function and prints
-the corresponding decimal number which is 437918234.</p>
+<p>Unfortunately, the <code>memset</code> function works for bytes only.
+In other words, you can’t use <code>memset</code> to fill an array of
+integers with a number unless all the bytes of the number are the same.
+Example&nbsp;6.3 shows code that attempts to fill an array of integers
+with the number&nbsp;26, but it doesn’t work. Instead, of printing the
+number 26, the <code>printf</code> function prints the number 437918234.
+It prints 437918234 because the <code>memset</code> function filled the
+array with the byte&nbsp;26 which is hexadecimal&nbsp;1a and binary 0001
+1010. When using the gcc compiler, an <code>int</code> occupies four
+bytes, so the <code>printf</code> function combines four bytes that were
+set to <code>0x1a1a1a1a</code> by the <code>memset</code> function and
+prints the corresponding decimal number which is 437918234.</p>
 
 <h4>Example 6.3</h4>
 <div class="pre">
@@ -379,16 +381,16 @@ the corresponding decimal number which is 437918234.</p>
     printf("%d\n", array[0]);</pre>
 </div>
 
-<p><code>memset</code> can be used to set values in arrays of
-<code>short</code>, <code>int</code>, <code>long</code>, and even
-<code>float</code> and <code>double</code> <i>if</i> all the bytes of
+<p>The <code>memset</code> function can be used to set values in arrays
+of <code>short</code>, <code>int</code>, <code>long</code>, and even
+<code>float</code> and <code>double</code> <em>if</em> all the bytes of
 the desired number are the same. This works especially well for zero
 because when the number zero is stored as a <code>short</code>,
 <code>int</code>, <code>long</code>, <code>float</code>, or
 <code>double</code>, the number zero is simply a group of bytes all with
-the value 0. You can see that this is true by compiling and running the
-code in example 6.4. When you run the code you will see the output shown
-below example 6.4.</p>
+the value&nbsp;0. You can see that this is true by compiling and running
+the code in example&nbsp;6.4. When you run the code you will see the
+output shown below example&nbsp;6.4.</p>
 
 <h4>Example 6.4</h4> <div class="pre"> <pre class="code language-c">
 short s = 0;
@@ -442,16 +444,16 @@ loop to copy the data, call <code>memcpy</code> or <code>memmove</code>.
 Both <code>memcpy</code> and <code>memmove</code> are often written in
 assembly code and use special instructions such as cache prefetching or
 double word reads and writes to speed up memory copying. Calling a
-function call requires some time or overhead, so calling
-<code>memcpy</code> or <code>memmove</code> to copy small amounts of
-memory is slow. You can measure on your architecture at what number of
-bytes calling <code>memcpy</code> or <code>memmove</code> becomes faster
-than copying the memory in a loop.</p>
+function requires some time, so calling <code>memcpy</code> or
+<code>memmove</code> to copy small amounts of memory is slow. You can
+measure on your architecture at what number of bytes calling
+<code>memcpy</code> or <code>memmove</code> becomes faster than copying
+the memory in a loop.</p>
 
-<p>Example 7.1 contains code to copy data from a source array to a
-destination array by using a loop. Example 7.2 shows code to copy the
-same data by using <code>memcpy</code> instead of a loop. Example 7.2 is
-almost certainly faster than example 7.1.</p>
+<p>Example&nbsp;7.1 contains code to copy data from a source array to a
+destination array by using a loop. Example&nbsp;7.2 shows code to copy
+the same data by using <code>memcpy</code> instead of a loop.
+Example&nbsp;7.2 is almost certainly faster than example&nbsp;7.1.</p>
 
 <h4>Example 7.1</h4>
 <div class="pre">
@@ -477,8 +479,8 @@ block of memory to a destination block of memory if the two blocks
 overlap. However, <code>memmove</code> can be used to copy overlapping
 blocks. For example, if you need code to insert text into a large
 string, you could use <code>memmove</code> to move the existing text and
-make a spot for the new text to be inserted as demonstrated in example
-7.3.</p>
+make a spot for the new text to be inserted as demonstrated in
+example&nbsp;7.3.</p>
 
 <h4>Example 7.3</h4>
 <div class="pre">
@@ -752,9 +754,9 @@ faster but instead more portable and maintainable. Not using the
 include this item here. Recall that the <code>sizeof</code> operator
 returns the number of bytes that a data type or variable requires in
 memory. The <code>sizeof</code> operator can be applied to classes,
-structures, arrays, types, pointers, and probably to other things
-I’m not aware of. Example 13.1 shows the <code>sizeof</code>
-operator applied to different variable types.</p>
+structures, arrays, types, pointers, and probably to other things I’m
+not aware of. Example 13.1&nbsp;shows the <code>sizeof</code> operator
+applied to different variable types.</p>
 
 <h4>Example 13.1</h4>
 <div class="pre">
@@ -810,16 +812,16 @@ operator applied to different variable types.</p>
     number of elements in array: 20</pre>
 </div>
 
-<p>Most of the output from example 13.1 is not suprising. For example,
-the size of the data type <code>uint8_t</code> is 1 byte, and the size
-of the variable <code>u8</code> is also 1 byte. From this we learn that
-we can apply the <code>sizeof</code> operator to a data type or a
-variable. Notice that the size of the <code>float</code> data type and
-the variable <code>f</code> is 4 bytes, and the size of the
+<p>Most of the output from example&nbsp;13.1 is not surprising. For
+example, the size of the data type <code>uint8_t</code> is 1 byte, and
+the size of the variable <code>u8</code> is also 1 byte. From this, we
+learn that we can apply the <code>sizeof</code> operator to a data type
+or a variable. Notice that the size of the <code>float</code> data type
+and the variable <code>f</code> is 4 bytes, and the size of the
 <code>double</code> data type and the variable <code>d</code> is 8
 bytes. This was expected because <code>float</code> in C is an IEEE 754
-single precision number, and double is an IEEE 754 <code>double</code>
-precision number.</p>
+single-precision number, and <code>double</code> is an IEEE 754
+double-precision number.</p>
 
 <p>The last three lines of output may be surprising to you. Notice that
 the size of a pointer on my computer is 4 bytes. However, the pointer
@@ -827,12 +829,11 @@ points to a double so the size of the dereferenced pointer (*ptr) is the
 size of the data type that it points to which is 8 bytes because
 <code>ptr</code> points to a double. Notice that the size of
 <code>array</code> is 160 bytes and not 4 bytes as a pointer is. This is
-true because the length of the array (20) is declared in the same scope
-where I used the <code>sizeof</code> operator.</p>
+because the length of the array (20) is declared in the same scope where
+I used the <code>sizeof</code> operator, and
+<span class="nowrap">8 * 20</span> is 160.</p>
 
-<p>So instead of writing</p>
-
-<h2 id="image">Image Processing Example:  A Mode Filter</h2>
+<h2 id="image">Image Processing Example: A Mode Filter</h2>
 <div class="pre">
 <pre class="code language-c">static uint32_t Mode(const uint32_t *hist, uint32_t n) {
     const uint32_t *t = hist;
