@@ -1,0 +1,212 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repetition in Java</title>
+    <meta name="description" content="Explains how to write while, for, and do while loops in a Java program.">
+    <meta name="keywords" content="Java, Java programming, repetition, for loop, while loop, do while loop, nested loops">
+    <link rel="canonical" href="https://barzeer.github.io/java/repetition.html">
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Selection in Java</h1>
+<p>Explains how to write while, for, and do while loops in a Java
+program.</p>
+
+<h2>Prerequisites</h2>
+<ul>
+    <li><div><div>Understand <a href="variables.html">Java primitive types and
+    variables</a></div></div></li>
+    <li><div><div>Understand Java arithmetic operators</div></div></li>
+</ul>
+
+<h2>Objectives</h2>
+<ul>
+    <li><div>Know when and why to use repetition</div></li>
+    <li><div>Understand how to implement <code>while</code> loops</div></li>
+    <li><div>Understand how to implement <code>for</code> loops</div></li>
+    <li><div>Understand how to implement <code>do while</code> loops</div></li>
+    <li><div>Understand how to implement <code>for each</code> loops</div></li>
+    <li><div>Understand how to use nested loops</div></li>
+</ul>
+
+<h2>Purpose of Repetition</h2>
+<p>Sometimes it is necessary to repeat a block of code many times. It
+may seem like a simple solution to copy a block of code and paste it as
+many times as you need, but there is an alternative to this code
+bloating idea. In most programming languages there is some type of
+mechanism for repeating a block of code. This is known as repetition or
+a loop. Some examples of when you want the computer to repeat a block of
+code are:</p>
+<ul>
+    <li><div>You want to create a string that has a repeating
+    pattern</div></li>
+    <li><div>You want to sum a list of numbers</div></li>
+    <li><div>You want to find the factorial of a number</div></li>
+    <li><div>You want to print a list of student&rsquo;s names from an
+    array</div></li>
+</ul>
+
+<h2>while Loops</h2>
+<ul>
+    <li><div>A <code>while</code> loop has three parts: the keyword
+    <code>while</code>, a boolean expression, and the code block to be
+    repeated.</div></li>
+
+    <li><div>Syntax:
+    <div class="pre"><pre class="code language-java">
+    while (<var>boolean_expression</var>) {
+        <var>statements_to_be_repeated;</var>
+    }</pre></div>
+    </div></li>
+
+    <li><div><code>while</code> loops are useful to repeat a block of
+    code until a condition is met.</div></li>
+
+    <li><div>In the following example, student names will be printed until
+    the student "Kyle" is found.
+    <div class="pre"><pre class="code language-java">
+    String[] studentNames = {"Bill", "Susan", "Fred", "Kyle", "Sarah"};
+    int i = 0;
+    while (studentNames[i].equals("Kyle") == false) {
+        System.out.println(studentNames[i]);
+        i++;
+    }</pre></div>
+    </div></li>
+</ul>
+
+<h2>for Loops</h2>
+<ul>
+    <li><div>A for loop has the same parts as a while loop, but with a
+    different order.</div></li>
+
+    <li><div>for loops are useful for counting and going through an
+    entire array.</div></li>
+
+    <li><div>A for loop has five parts: the keyword <code>for</code>, an
+    initial action, a boolean expression, an action to be done after
+    each loop, and a block of code to be repeated:</div></li>
+
+    <li><div>Syntax:
+    <div class="pre"><pre class="code language-java">
+    for (<var>initial_action</var>; <var>boolean_expression</var>; <var>action_after_each_iteration</var>) {
+        <var>statements_to_be_repeated;</var>
+    }</pre></div>
+    </div></li>
+
+    <li><div>for loops are often implemented with arrays.</div></li>
+
+    <li><div>The following example will print all of the names in the
+    <code>studentNames</code> array:
+    <div class="pre"><pre class="code language-java">
+    String[] studentNames = {"Bill", "Susan", "Fred", "Kyle", "Sarah"};
+    for (int i = 0; i &lt; studentNames.length; i++) {
+       System.out.println(studentNames[i]);
+    }</pre></div>
+    </div></li>
+
+    <li><div>The following is an ordered list of how the previous code
+    example is executed.
+    <ol>
+        <li><div>The computer creates an array named
+        <code>studentNames</code> and fills it with five
+        names.</div></li>
+        <li><div>The computer stores 0 in the variable <code>i</code>.
+        The computer does this once only.</div></li>
+        <li><div>The computer evaluates the boolean expression (it is
+        true).</div></li>
+        <li><div>Because the boolean expression was true, the computer
+        executes the code in the body of the loop.</div></li>
+        <li><div>The computer adds 1 to <code>i</code>.</div></li>
+        <li><div>Steps 3, 4, and 5 are repeated until the boolean
+        expression evaluates to false.</div></li>
+    </ol>
+    </div></li>
+</ul>
+
+<h2>do while Loops</h2>
+<ul>
+    <li><div>In a <code>do while</code> loop the block of code to be
+    repeated comes before the boolean expression. This guarantees that
+    the code in the body of the loop will be executed at least
+    once.</div></li>
+
+    <li><div>Syntax:
+    <div class="pre"><pre class="code language-java">
+    do {
+        <var>statements_to_be_repeated;</var>
+    } while (<var>boolean_expression</var>);</pre></div>
+    </div></li>
+
+    <li><div>Again, a <code>do while</code> loop is different from a
+    while loop because the statements in the code block will be executed
+    at least once.</div></li>
+
+    <li><div>Example:
+    <div class="pre"><pre class="code language-java">
+    String[] studentNames = {"Bill", "Susan", "Fred", "Kyle", "Sarah"};
+    int i = 0;
+    do {
+        System.out.println(studentNames[i]);
+        i++;
+    } while (studentNames[i].equals("Kyle") == false);</pre></div>
+    </div></li>
+</ul>
+
+<h2>for each Loops</h2>
+<ul>
+    <li><div>for each loops were designed to be used with arrays and
+    collections.</div></li>
+
+    <li><div>A for each loop is similar to a for loop, except it only
+    has three parts: the keyword <code>for</code>, a variable
+    declaration in which a new variable is declared and assigned to each
+    element in the array, and the block of code to be
+    repeated.</div></li>
+
+    <li><div>Syntax:
+    <div class="pre"><pre class="code language-java">
+    for (<var>VariableType variableName</var> : <var>arrayName</var>) {
+        <var>statements_to_be_repeated;</var>
+    }</pre></div>
+    </div></li>
+
+    <li><div>Example:
+    <div class="pre"><pre class="code language-java">
+    <code>studentNames</code> array are printed to the screen.
+    String[] studentNames = {"Bill", "Susan", "Fred", "Kyle", "Sarah"};
+    for (String name : studentNames) {
+        System.out.println(name);
+    }</pre></div>
+    </div></li>
+</ul>
+
+<h2>Nested Loops</h2>
+<ul>
+    <li><div>It is often useful to put a loop inside of a loop.</div></li>
+    <li><div>Nested loops are used to print two dimmensional arrays.</div></li>
+
+    <li><div>Here is an example of a nested loop:
+    <div class="pre"><pre class="code language-java">
+    int[][] board = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    for (int i = 0; i &lt; board.length; i++) {
+       for(int j = 0; j &lt; board[i].length; j++){
+          System.out.print(board[i][j]);
+       }
+       System.out.println();
+    }</pre></div>
+    </div></li>
+</ul>
+
+<div class="modified">Last modified: 2022-07-08</div>
+</article>
+</body>
+</html>
