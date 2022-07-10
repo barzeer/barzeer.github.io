@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Methods in Java</title>
+    <meta name="description" content="Explains how to write and call methods in Java program.">
+    <meta name="keywords" content="Java, Java programming, method, method call, calling a method, method overloading">
+    <link rel="canonical" href="https://barzeer.github.io/java/methods.html">
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+var high = 'highlight';
+var avg;
+
+$(document).ready(function() {
+    var f = function(id) { return document.getElementById(id); };
+    avg = $('#average');
+});
+</script>
+</head>
+
+<body>
+<article>
+<h1>Methods in Java</h1>
+<p>Explains how to write and call methods in Java program.</p>
+
+<h2>Prerequisites</h2>
+<ul>
+    <li><div>Understand <a href="variables.html">Java primitive
+    types</a></div></li>
+
+    <li><div>Understand execution flow and the control statements
+    <ul>
+        <li><div>Sequence</div></li>
+        <li><div><a href="selection.html">Selection</a> (if statement)</div></li>
+        <li><div><a href="selection.html">Repetition</a> (while, for, do
+        while statements)</div></li>
+    </ul></div></li>
+</ul>
+
+<h2>Objectives</h2>
+<ul>
+    <li><div>Write and call (use) methods</div></li>
+    <li><div>Pass arguments to a method</div></li>
+    <li><div>Return a value from a method</div></li>
+    <li><div>Understand how calling a method alters execution flow</div></li>
+</ul>
+
+<h2>Writing a Method</h2>
+<ul class="long">
+    <li><div>The main reason for writing code inside methods (and
+    functions), is to make the code resuable.</div></li>
+    <li><div>Writing code inside methods also helps to organize a
+    program.</div></li>
+    <li><div>A method consists of a header and a
+    body.</div></li>
+    <li><div>The <dfn>header</dfn> is the first line of the method and
+    includes modifiers, a return type, a name, and a parameter
+    list.</div></li>
+    <li><div>The <dfn>body</dfn> begins and ends with curly braces and
+    usually includes a <dfn>return statement</dfn> immediately before
+    the closing curly brace.</div></li>
+
+    <li><div>Syntax:
+    <div class="pre"><pre class="code language-java">
+<var>modifiers returnType methodName</var>(<var>parameter1</var>, <var>parameter2</var>, &hellip;, <var>parameterN</var>)
+{
+        <var>method body;</var>
+        return <var>value</var>;
+}</pre></div>
+    </div></li>
+
+    <li><div>Example:
+    <div class="pre"><pre class="code language-java">
+<span title="modifiers">public static</span> <span title="return type">double</span> <span title="method name">average</span><span title="parameter list">(double a, double b, double c)</span>
+<span title="method body">{
+    double sum;
+    sum = a + b + c;
+    <span title="return statement">return sum / 3.0;</span>
+}</span></pre></div>
+    </div></li>
+</ul>
+
+<h2>Calling a Method</h2>
+<ul class="long">
+    <li><div>The computer will not execute the code in a method until the
+    method is called.</div></li>
+    <li><div>To call a method, simply type the method name followed by
+    an <dfn>argument list</dfn> to match the method’s parameter
+    list.</div></li>
+
+    <li><div>Syntax:
+    <div class="pre"><pre class="code language-java">
+    <var>varName</var> = <var>methodName</var>(<var>argument1</var>, <var>argument2</var>, &hellip;, <var>argumentN</var>);</pre></div>
+    </div></li>
+
+    <li><div>Examples:
+    <div class="pre"><pre class="code language-java">
+<span title="variable declaration">double c</span><span title="variable assignment"> = </span>5.4;
+<span title="variable declaration">double d</span><span title="variable assignment"> = </span>2.3;
+<span title="variable declaration">double avg</span><span title="variable assignment"> = </span><span title="method call">average</span><span title="argument list">(3.1, c, d);</span>
+<span title="variable declaration">double avg2</span><span title="variable assignment"> = </span><span title="method call">average</span><span title="argument list">(6, 2, 3);</span></pre></div>
+    </div></li>
+</ul>
+
+<h2>Complete Example</h2>
+<div class="pre"><pre class="code language-java">
+public class <span title="class name">MethodTest</span>
+{
+    <span title="modifiers">public static</span> <span title="return type">void</span> <span title="method name">main</span><span title="parameter list">(String args[])</span>
+    <span title="method body">{
+        <span title="variable declaration">double num1</span> = 4.1;
+        <span title="variable declaration">double num2</span> = 4.2;
+        <span title="variable declaration">double num3</span> = 5.7;
+        <span title="variable declaration">double avg</span> = <span title="method call" onmouseover="avg.addClass(high)" onmouseout="avg.removeClass(high)">average</span><span title="argument list">(num1, num2, num3);</span>
+        System.out.<span title="method call">println</span><span title="argument list">("average is " + avg);</span>
+    }</span>
+
+<span id="average">    <span title="modifiers">public static</span> <span title="return type">double</span> <span title="method name">average</span><span title="parameter list">(double a, double b, double c)</span>
+    <span title="method body">{
+        double sum;
+        sum = a + b + c;
+        <span title="return statement">return sum / 3.0;</span>
+    }</span></span>
+}
+</pre></div>
+
+<h2>Method Overloading</h2>
+<ul class="long">
+    <li><div>When two or more methods in the same class have the same
+    name but different parameter lists, we say the methods are
+    <dfn>overloaded</dfn>.</div></li>
+
+    <li><div>Method overloading is a convenience that means a programmer
+    isn’t required to remember different function names.</div></li>
+
+    <li><div>For example in the C programming language there are six
+    functions to compute the absolute value of a number. Because C
+    doesn’t have method overloading each function has a slightly
+    different name.
+
+<div class="pre"><pre class="code language-java">
+int abs(int x);
+long labs(long x);
+long long llabs(long long x);
+float fabsf(float x);
+double fabs(double x);
+long double fabsl(long double x);</pre></div>
+
+    The C programmer must remember which function name to use based on
+    the type of variable for which he needs the absolute value.</div></li>
+
+    <li><div>In the Java <code>Math</code> class, there are four
+    functions to compute the absolute value of a number, but all four of
+    the functions have the same name.
+
+<div class="pre"><pre class="code language-java">
+static int Math.abs(int x)
+static long Math.abs(long x)
+static float Math.abs(float x)
+static double Math.abs(double x)</pre></div>
+
+    The Java programmer has to remember only one function name to
+    compute the absolute value: <code>Math.abs</code></div></li>
+</ul>
+
+<div class="modified">Last modified: 2022-07-09</div>
+</article>
+</body>
+</html>
