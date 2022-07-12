@@ -174,7 +174,6 @@ div.page > article {
 div.page > footer {
 	background-color: var(--footer-bg-color);
 	padding: 2em 2em 1em 2em;
-	font-size: 90%;
 }
 
 footer > h2 {
@@ -407,6 +406,16 @@ article table.features > tbody > tr > td {
 	text-align: center;
 }
 article table.features > tbody > tr > td:first-child {
+	text-align: right;
+}
+
+article table.classdia td {
+	text-align: center;
+}
+article table.classdia td.class {
+	border: 1px solid var(--fg-color);
+}
+article table.classdia td.right {
 	text-align: right;
 }
 
@@ -807,7 +816,7 @@ figure.pitch img {
 	border: 1px solid var(--border-color);
 }
 figure.pitch figcaption {
-	font-size: 90%;
+	font-size: 95%;
 	border: 1px solid var(--bg-color);
 	padding: 0.25em 0.5em 0.75em 0.5em;
 }
@@ -832,7 +841,7 @@ article figure img {
 }
 
 article figure > figcaption {
-	font-size: 90%;
+	font-size: 95%;
 	text-align: left;
 	margin: 0 0 1em 0;
 }

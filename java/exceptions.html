@@ -1,0 +1,387 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Arrays</title>
+    <meta name="description" content="Explains how to declare, throw, and catch exceptions in a Java program.">
+    <meta name="keywords" content="Java, Java programming, exception, throw, throws, try, catch, finally">
+    <link rel="canonical" href="https://barzeer.github.io/java/exceptions.html">
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Exceptions in Java</h1>
+<p>Explains how to declare, throw, and catch exceptions in a Java
+program.</p>
+
+<h2>Prerequisites</h2>
+<ul class="long">
+    <li><div>Understand <a href="variables.html">Java primitive
+    types</a></div></li>
+
+    <li><div>Understand execution flow and the following Java
+    control structures:
+    <ul>
+        <li><div>Sequence</div></li>
+        <li><div><a href="selection.html">Selection</a> (if and switch
+        statements)</div></li>
+        <li><div><a href="selection.html">Repetition</a> (while, for,
+        and do while statements)</div></li>
+    </ul></div></li>
+
+    <li><div>Understand Java classes, objects, and
+    inheritance.</div></li>
+</ul>
+
+
+<h2>Objectives</h2>
+<ul>
+    <li><div>Distinguish between Java Errors and Exceptions</div></li>
+    <li><div>Declare that a method might throw an exception</div></li>
+    <li><div>Throw exceptions</div></li>
+    <li><div>Correctly handle exceptions using <code>try</code>,
+    <code>catch</code>, and <code>finally</code></div></li>
+</ul>
+
+<h2>Errors and Exceptions</h2>
+<ul class="long">
+    <li><div>Java has two categories of “bad things” that may happen
+    while a program is running: errors and exceptions.</div></li>
+
+    <li><div>An <dfn>error</dfn> is a “bad thing” that your Java program
+    cannot do anything to correct, for example:
+    <code>LinkageError</code>, <code>VirtualMachineError</code>,
+    <code>ThreadDeath</code>.</div></li>
+
+    <li><div>An exception is a “unexpected thing” or “bad thing” that
+    your Java program may be able to correct, for example:
+    <code>FileNotFoundException</code>,
+    <code>NumberFormatException</code>,
+    <code>SecurityException</code>.</div></li>
+
+    <li><div>Within a Java program an error or exception is really just
+    an object.</div></li>
+
+    <li><div>All errors have the class <code>Error</code> as their
+    parent (or grandparent, etc) class.</div></li>
+
+    <li><div>All exceptions have the class <code>Exception</code> as
+    their parent (or grandparent, etc) class.</div></li>
+
+    <li><div>The parent class of both <code>Error</code> and
+    <code>Exception</code> is <code>Throwable</code>.</div></li>
+</ul>
+
+<h2>Partial List of Errors and Exceptions in java.lang and java.io</h2>
+<table class="classdia">
+<tbody>
+ <tr><td class="class">Object</td> <td colspan="6"></td></tr>
+ <tr><td>&Delta;</td> <td colspan="6"></td></tr>
+ <tr><td class="right">&#x2514;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">Throwable</td> <td colspan="4"></td></tr>
+ <tr><td colspan="2"></td> <td>&Delta;</td> <td colspan="4"></td></tr>
+ <tr><td colspan="2"></td> <td class="right">&#x251c;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">Error</td> <td colspan="2"></td></tr>
+ <tr><td colspan="2"></td> <td>&#x2502;</td> <td></td> <td>&Delta;</td> <td colspan="2"></td></tr>
+ <tr><td colspan="2"></td> <td>&#x2502;</td> <td></td> <td class="right">&#x251c;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">AssertionError</td></tr>
+ <tr><td colspan="2"></td> <td>&#x2502;</td> <td></td> <td class="right">&#x251c;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">LinkageError</td></tr>
+ <tr><td colspan="2"></td> <td>&#x2502;</td> <td></td> <td class="right">&#x251c;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">VirtualMachineError</td></tr>
+ <tr><td colspan="2"></td> <td>&#x2502;</td> <td></td> <td class="right">&#x251c;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">ThreadDeath</td></tr>
+ <tr><td colspan="2"></td> <td>&#x2502;</td> <td></td> <td class="right">&#x2514;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">java.io.IOError</td></tr>
+ <tr><td colspan="2"></td> <td>&#x2502;</td> <td colspan="4"></td></tr>
+ <tr><td colspan="2"></td> <td class="right">&#x2514;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">Exception</td> <td colspan="2"></td></tr>
+ <tr><td colspan="4"></td> <td>&Delta;</td> <td colspan="2"></td></tr>
+ <tr><td colspan="4"></td> <td class="right">&#x251c;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">ClassNotFoundException</td></tr>
+ <tr><td colspan="4"></td> <td class="right">&#x251c;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">NoSuchFieldException</td></tr>
+ <tr><td colspan="4"></td> <td class="right">&#x251c;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">NoSuchMethodException</td></tr>
+ <tr><td colspan="4"></td> <td class="right">&#x251c;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">RuntimeException<sup>1</sup></td></tr>
+ <tr><td colspan="4"></td> <td class="right">&#x2514;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">java.io.IOException<sup>2</sup></td></tr>
+</tbody>
+</table>
+
+<table class="classdia">
+<tbody>
+ <tr><td>1&nbsp;</td> <td class="class">RuntimeException</td> <td colspan="4"></td></tr>
+ <tr><td></td> <td>&Delta;</td> <td colspan="4"></td></tr>
+ <tr><td></td> <td class="right">&#x251c;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">ArithmeticException</td> <td colspan="2"></td></tr>
+ <tr><td></td> <td class="right">&#x251c;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">ClassCastException</td> <td colspan="2"></td></tr>
+ <tr><td></td> <td class="right">&#x251c;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">IllegalArgumentException</td> <td colspan="2"></td></tr>
+ <tr><td></td> <td>&#x2502;</td> <td></td> <td>&Delta;</td> <td colspan="2"></td></tr>
+ <tr><td></td> <td>&#x2502;</td> <td></td> <td class="right">&#x251c;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">IllegalThreadStateException</td></tr>
+ <tr><td></td> <td>&#x2502;</td> <td></td> <td class="right">&#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">NumberFormatException</td></tr>
+ <tr><td></td> <td>&#x2502;</td> <td colspan="4"></td></tr>
+ <tr><td></td> <td class="right">&#x251c;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">IndexOutOfBoundsException</td> <td colspan="2"></td></tr>
+ <tr><td></td> <td>&#x2502;</td> <td></td> <td>&Delta;</td> <td colspan="2"></td></tr>
+ <tr><td></td> <td>&#x2502;</td> <td></td> <td class="right">&#x251c;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">ArrayIndexOutOfBoundsException</td></tr>
+ <tr><td></td> <td>&#x2502;</td> <td></td> <td class="right">&#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">StringIndexOutOfBoundsException</td></tr>
+ <tr><td></td> <td>&#x2502;</td> <td colspan="4"></td></tr>
+ <tr><td></td> <td class="right">&#x251c;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">NegativeArraySizeException</td> <td colspan="2"></td></tr>
+ <tr><td></td> <td class="right">&#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">NullPointerException</td> <td colspan="2"></td></tr>
+ <tr><td colspan="6">&nbsp;</td></tr>
+ <tr><td>2&nbsp;</td> <td class="class">java.io.IOException</td> <td colspan="4"></td></tr>
+ <tr><td></td> <td>&Delta;</td> <td colspan="4"></td></tr>
+ <tr><td></td> <td class="right">&#x251c;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">java.io.EOFException</td> <td colspan="2"></td></tr>
+ <tr><td></td> <td class="right">&#x251c;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">java.io.FileNotFoundException</td> <td colspan="2"></td></tr>
+ <tr><td></td> <td class="right">&#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;</td> <td>&#x2500;</td> <td class="class">java.io.InterruptedIOException</td> <td colspan="2"></td></tr>
+</tbody>
+</table>
+
+<h2>Declaring that a Method Might Throw an Exception</h2>
+<ul class="long">
+    <li><div>Exceptions that extend <code>RuntimeException</code> don’t
+    have to be declared.</div></li>
+
+    <li><div>All other exceptions that may be thrown have to be declared
+    using the keyword <code>throws</code> in the header of the method
+    where they might by thrown.</div></li>
+
+    <li><div>Syntax:
+<div class="pre"><pre class="code language-java">
+<var>modifiers returnType methodName</var>(<var>param1</var>, <var>param2</var>, &hellip;, <var>paramN</var>)
+    throws <var>ExceptionClassName</var>
+{
+    <var>method body;</var>
+}</pre></div>
+    </div></li>
+
+    <li><div>Example:
+<div class="pre"><pre class="code language-java">
+public static void checkFile(String filename)
+    throws FileNotFoundException
+{
+    &hellip;
+}</pre></div>
+    </div></li>
+</ul>
+
+<h2>Throwing an Exception</h2>
+<ul class="long">
+    <li><div>To throw an exception do the following:
+    <ol>
+        <li><div>Write an if statement to detect the "bad thing".</div></li>
+        <li><div>Use the keyword throw.</div></li>
+        <li><div>Create an object of the correct Exception type.</div></li>
+    </ol>
+    </div></li>
+
+    <li><div>Syntax:
+    <div class="pre"><pre class="code language-java">
+    if (<var>check_for_bad_thing</var>) {
+        throw new <var>ExceptionClassName</var>();
+    }</pre></div>
+    </div></li>
+
+    <li><div>Examples:
+<div class="pre"><pre class="code language-java">
+public static void checkFile(String filename)
+    throws FileNotFoundException
+{
+    File file = new File(filename);
+    if (!file.exists()) {
+        throw new FileNotFoundException(filename);
+    }
+    &hellip;
+}</pre></div>
+<div class="pre"><pre class="code language-java">
+public static void sort(float[] a, int fromIndex, int toIndex)
+    /* This method header has no throws clause because it may throw
+     * ArrayIndexOutOfBoundsException and IllegalArgumentException,
+     * which both inherit from RuntimeException. Exceptions that
+     * inherit from RuntimeException don't have to be declared in
+     * the method header like other exceptions have to be. */
+{
+    if (fromIndex &lt; 0) {
+        throw new ArrayIndexOutOfBoundsException(fromIndex);
+    }
+    if (toIndex &lt; 0) {
+        throw new ArrayIndexOutOfBoundsException(toIndex);
+    }
+    if (fromIndex &gt; toIndex) {
+        throw new IllegalArgumentException(
+                "fromIndex (" + fromIndex +
+                ") must be less than or equal to toIndex (" +
+                toIndex + ")");
+    }
+    &hellip;
+}</pre></div>
+    </div></li>
+</ul>
+
+<h2>Handling an Exception</h2>
+<ul class="long">
+    <li><div>Use the Java keywords <code>try</code>, <code>catch</code>,
+    and <code>finally</code> to handle exceptions.</div></li>
+
+    <li><div>Syntax, questions, and answers:
+    <div class="pre"><pre class="code language-java">
+    try {
+        /* Which statements belong inside a try block?
+         * Code that is executed in normal circumstances
+         * a) Statements that might cause an exception to be thrown
+         * b) Statements that depend on any statements in group a)
+         */
+    }
+    catch (<var>ExceptionClassName</var> <var>objectName</var>) {
+        /* What is the purpose of a catch block?
+         * To handle an exception or inform a user about
+         * the exception. */
+
+        /* Which statements belong inside a catch block?
+         * Code that is executed when an exception occurs. */
+
+        /* Is the catch block optional?
+         * Yes, if there is a finally block. */
+    }
+    catch (<var>ExceptionClassName</var> <var>objectName</var>) {
+        /* How many catch blocks are allowed with one try block?
+         * Many */
+
+        /* If a try block has more than one catch block, how do
+         * we know which exception to list first? The most
+         * specific exception (bottom of the inheritance
+         * hierarchy) is listed first. The most general exception
+         * (top of the inheritance hierarchy) is listed last. */
+    }
+    finally {
+        /* What is the purpose of a finally block?
+         * To release any resources that were acquired while
+         * executing the try block, for example close files
+         * that were opened in the try block. */
+
+        /* Which statements belong inside a finally block?
+         * Code that releases resources that were acquired in
+         * the try block. */
+
+        /* When will the code in a finally block be executed?
+         * The JVM guarantees that if any code in a try block is
+         * executed, then the code in its corresponding finally
+         * block will be executed regardless of whether an
+         * exception is thrown or not and caught or not.  In other
+         * words, if any code in a try block is executed, the code
+         * in the corresponding finally block will be executed. */
+
+        /* Is the finally block optional?
+         * Yes, if there is at least one catch block. */
+    }</pre></div>
+    </div></li>
+</ul>
+
+<h2>Complete Exception Handling Example</h2>
+<div class="pre"><pre class="code language-java">
+import java.io.*;
+
+public class TestExceptions {
+    public static void main(String[] args) {
+        try {
+            double s = addNumbers("numbers.dat");
+            System.out.println(s);
+        }
+        catch (FileNotFoundException ex) {
+            System.err.println(ex.getMessage());
+        }
+        catch (IOException ex) {
+            System.err.println(ex.getMessage());
+        }
+        catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+
+
+    /* Reads and sums all the double numbers in a file. */
+    public static double addNumbers(String filename)
+        throws FileNotFoundException, IOException
+    {
+        File file = new File(filename);
+        FileInputStream fin = new FileInputStream(file);
+        DataInputStream din = new DataInputStream(fin);
+        double sum = 0;
+        try {
+            /* This is an infinite loop because .readDouble()
+             * throws an EOFException when it has reached the
+             * end of a file which will terminate the loop. */
+            while (true) {
+                double d = din.readDouble();
+                sum += d;
+            }
+        }
+        catch (EOFException e) {
+            /* We have reached the end of the file, which we
+             * expected to happen, so we do nothing here.
+             * When the EOFException is thrown the read loop
+             * above will end. */
+        }
+        finally {
+            din.close();
+        }
+        return sum;
+    }
+}</pre></div>
+
+<h2>Common Mistake</h2>
+<ul>
+    <li><div>Writing many small <code>try</code> blocks that should
+    really be written as a single large <code>try</code> block because
+    the statements inside the many small <code>try</code> blocks are
+    dependent on each other.
+
+    <h3>Incorrect</h3>
+<div class="pre"><pre class="code language-java">
+public static void addTwoNumbers() {
+    int a = 0, b = 0;
+    try {
+        String input = JOptionPane.showInputDialog(
+                "Please enter an integer");
+        a = Integer.parseInt(input);
+    }
+    catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(null, ex.getMessage(),
+            "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    try {
+        String input = JOptionPane.showInputDialog(
+                "Please enter another integer");
+        b = Integer.parseInt(input);
+    }
+    catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(null, ex.getMessage(),
+            "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    int c = a + b;
+    JOptionPane.showMessageDialog(null, "The sum is " + c);
+}</pre></div>
+
+  <h3>Correct</h3>
+<div class="pre"><pre class="code language-java">
+public static void addTwoNumbers() {
+    try {
+        String input = JOptionPane.showInputDialog(
+                "Please enter an integer");
+        int a = Integer.parseInt(input);
+
+        input = JOptionPane.showInputDialog(
+                "Please enter another integer");
+        int b = Integer.parseInt(input);
+
+        int c = a + b;
+        JOptionPane.showMessageDialog(null, "The sum is " + c);
+    }
+    catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(null, ex.getMessage(),
+                "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}</pre></div>
+    </div></li>
+</ul>
+
+<div class="modified">Last modified: 2022-07-11</div>
+</article>
+</body>
+</html>
