@@ -1,0 +1,306 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Threads</title>
+    <meta name="description" content="Explains how to create and use multiple threads of execution in a Java program.">
+    <meta name="keywords" content="Java, Java programming, thread, thread of execution, thread life cycle, Runnable">
+    <link rel="canonical" href="https://barzeer.github.io/java/threads.html">
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Java Threads of Execution</h1>
+
+<h2>What is a Thread</h2>
+<p>A thread of execution (or just thread) is the smallest unit of
+processing that the operating system (OS) can schedule to be executed on
+a central processing unit (CPU). Typically a running program is composed
+of one OS process and a single process can be composed of many threads.
+You can think of a thread in a computer program as a list of
+instructions that are executed one after another.</p>
+
+<p>A simple Java program that has no graphical user interface (GUI) is
+usually a single process with two threads: the main thread which begins
+executing the code in the <code>main(String[] args)</code> method and a
+garbage collection thread which periodically runs and frees memory from
+objects no longer used by the program. A simple Java program that
+includes a swing GUI is usually a single process with three threads: the
+main thread, the garbage collection thread, and an event dispatching
+thread which executes all the code that responds to GUI events such as
+mouse moves, button clicks, and key presses.</p>
+
+<h2>Purpose</h2>
+<p>Using multiple threads we can divide the work that a program must do
+into parts that can execute simultaneously on different CPUs or
+different cores of a CPU. For some programs this reduces the time the
+program takes to complete its calculations.</p>
+
+<h2>Thread Life Cycle</h2>
+<p>A thread in a Java program has a life cycle as shown in the following
+UML state diagram.</p>
+
+<figure class="full">
+<img src="threadLifeCycle.gif"
+alt="A UML state diagram showing the life cycle of a Java thread"
+title="A UML state diagram showing the life cycle of a Java thread">
+</figure>
+
+<dl>
+    <dt>new state</dt>
+    <dd>A thread begins to exist and changes to the new state when it is
+    created using the <code>new</code> keyword.</dd>
+    <dt>runnable state</dt>
+    <dd>A new thread is separated from its spawning thread when the
+    <code>.start()</code> method is called on it. Then the thread is
+    runnable, alternating between ready and running.</dd>
+    <dt>waiting state</dt>
+    <dd>A running thread changes to the waiting state when it calls
+    <code>.lock()</code> on a file or other resource and that resource
+    is already locked. When the resource becomes free and the thread
+    obtains the lock, the thread changes to the runnable state
+    again.</dd>
+    <dt>timed waiting state</dt>
+    <dd>A running thread changes to the timed waiting state when it
+    calls <code>Thread.sleep(millis)</code>. It will stay in that
+    state until a number of milliseconds elapses or until it is
+    interrupted. Then it changes back to the runnable state.</dd>
+    <dt>terminated state</dt>
+    <dd>A thread changes to the terminated state when its
+    <code>.run()</code> method ends.</dd>
+</dl>
+
+<h2>Two Ways to Create a Thread</h2>
+<figure class="right">
+<img src="threadClass.gif"
+alt="A UML class diagram showing an inheritance hieararchy for two
+different ways to create a thread."
+title="A UML class diagram showing an inheritance hieararchy for two
+different ways to create a thread.">
+</figure>
+
+<p>There are two ways to create a thread in Java.</p>
+<ol>
+    <li><div>Write a class that extends <code>java.lang.Thread</code>
+    and create an object from it. This is demonstrated by the
+    <code>MyThread</code> class on the left hand side of the class
+    diagram and the following code example.
+<div class="pre"><pre class="code language-java">
+    MyThread mt = new MyThread();
+    mt.start();</pre></div>
+    </div></li>
+
+    <li><div>Write a class that implements
+    <code>java.lang.Runnable</code>, create an object from it, then
+    create a <code>java.lang.Thread</code> object, and pass the new
+    custom runnable object to the new Thread object. This is
+    demonstrated by the <code>MyRunnable</code> class on the right hand
+    side of the class diagram and the following code example.
+<div class="pre"><pre class="code language-java">
+    MyRunnable mr = new MyRunnable();
+    Thread t = new Thread(mr);
+    t.start();</pre></div>
+    </div></li>
+</ol>
+
+<p>Regardless of which method you use to create a thread, you must call
+the <code>start</code> method on the thread after you create it, and you
+must write the code you want executed as part of the thread in a method
+named <code>run()</code>. When this <code>run()</code> method ends, the
+thread terminates.</p>
+
+<h2>Example</h2>
+<p>The following Java program shows two ways to compute <var>n</var>!
+(factorial) for large <var>n</var>. The first way is shown in function
+<code>factorial()</code> at
+<span class="cross" data-ref="ex3">lines 65&ndash;80</span> and doesn’t use
+threads or in other words is single threaded. The second way is shown in
+function <code>factorialThreaded()</code> and class
+<code>FactThread</code> starting at lines
+<span class="cross" data-ref="ex3">83&ndash;127</span> and
+<span class="cross" data-ref="ex3">130&ndash;155</span>. Notice that
+class <code>FactThread</code>, which begins at
+<span class="cross" data-ref="ex3">line&nbsp;130</span>, extends
+<code>java.lang.Thread</code>. On my computer which has an Intel&trade;
+CPU with 4 cores, the multi-thread solution is about four times faster
+than the single threaded solution for large <var>n</var> because the
+calculations are spread across four threads each of which executes on a
+separate core.</p>
+
+<figure class="center">
+<img src="factorial.gif"
+alt="A UML class diagram for a program that computes n! with both a
+single threaded solution and a multi-threaded solution"
+title="A UML class diagram for a program that computes n! with both a
+single threaded solution and a multi-threaded solution">
+</figure>
+
+<div class="pre" id="ex3"><pre class="linenums"></pre>
+<pre class="code language-java">import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.math.BigInteger;
+
+
+public class Factorial {
+    public static void main(String[] args) {
+        int nTests = 5;
+        int n = 9000;
+        int nThreads = 4;
+
+        // Compute n! and output the result to factorial.txt.
+        System.out.println(n + "! not threaded");
+        for (int i = 0;  i &lt; nTests;  ++i) {
+            long start = System.currentTimeMillis();
+            BigInteger f = factorial(n);
+            long end = System.currentTimeMillis();
+            print("factorial.txt", n, f, start, end);
+        }
+        System.out.println();
+
+        // Compute n! using multiple threads and output
+        // the result to theaded.txt.
+        System.out.println(n + "! threaded");
+        for (int i = 0;  i &lt; nTests;  ++i) {
+            long start = System.currentTimeMillis();
+            BigInteger f = factorialThreaded(n, nThreads);
+            long end = System.currentTimeMillis();
+            print("threaded.txt", n, f, start, end);
+        }
+    }
+
+
+    /** Prints factorial results to the console and a file. */
+    private static void print(String filename, int n,
+            BigInteger fact, long start, long end) {
+        try {
+            String s = fact.toString();
+            int length = s.length();
+            double seconds = (end - start) / 1000.0;
+
+            // Print time and size of result to console.
+            System.out.println(seconds + " seconds");
+            System.out.println(length + " decimal digits in result");
+            System.out.println(n + "! = (see file " + filename + ")");
+
+            // Print time, size, and result to a file.
+            PrintStream out = new PrintStream(new File(filename));
+            out.println(seconds + " seconds");
+            out.println(length + " decimal digits in result");
+            out.println(n + "! =");
+            for (int chars, i = 0;  i &lt; length;  i += chars) {
+                chars = length - i &lt; 80 ? 80 : length - i;
+                out.println(s.substring(i, i + chars));
+            }
+            out.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /** Computes and returns n! */
+    private static BigInteger factorial(int n) {
+        if (n &lt;= 1) {
+            return BigInteger.ONE;
+        }
+        else {
+            /* It is slightly faster to multiply from small numbers
+             * to large numbers because smaller numbers stored in a
+             * BigInteger require less memory. */
+            BigInteger result = BigInteger.valueOf(2);
+            for (int i = 3;  i &lt;= n;  ++i) {
+                result = result.multiply(BigInteger.valueOf(i));
+            }
+            return result;
+        }
+    }
+
+
+    /** Computes and returns n! */
+    private static BigInteger factorialThreaded(int n, int nThreads) {
+        if (n &lt;= 1) {
+            return BigInteger.ONE;
+        }
+        else {
+            FactThread.INCREMENT = nThreads;
+
+            // Create and start nThreads - 1 each working
+            // on a different part of the factorial problem.
+            FactThread[] threads = new FactThread[nThreads - 1];
+            int i;
+            for (i = 0;  i &lt; threads.length;  ++i) {
+                threads[i] = new FactThread(2 + i, n);
+                threads[i].start();
+            }
+
+            // Use the current thread to compute one part
+            // of the factorial problem.
+            FactThread last = new FactThread(2 + i, n);
+            last.run();
+
+            // All the threads will finish at about the same
+            // time, but we must wait until they are all done.
+            boolean done;
+            do {
+                done = true;
+                for (i = 0;  i &lt; threads.length;  ++i) {
+                    done &amp;= threads[i].done;
+                }
+                if (!done) {
+                    try { Thread.sleep(5); }
+                    catch (InterruptedException ex) { }
+                }
+            } while (!done);
+
+            // Combine the results from all threads.
+            BigInteger product = last.product;
+            for (FactThread thread in threads) {
+                product = product.multiply(thread.product);
+            }
+
+            return product;
+        }
+    }
+
+
+    private static final class FactThread extends Thread {
+        static int INCREMENT;
+
+        private final int start, end;  // inclusive
+        BigInteger product;
+        boolean done;
+
+        public FactThread(int start, int end) {
+            this.start = start;
+            this.end = end;
+        }
+
+        public void run() {
+            /* It is slightly faster to multiply from small numbers
+             * to large numbers because smaller numbers stored in a
+             * BigInteger require less memory. */
+
+            BigInteger result = BigInteger.valueOf(start);
+            for (int i = start + INCREMENT; i &lt;= end; i += INCREMENT) {
+                result = result.multiply(BigInteger.valueOf(i));
+            }
+
+            this.product = result;
+            this.done = true;
+        }
+    }
+}</pre></div>
+
+<div class="modified">Last modified: 2022-07-11</div>
+</article>
+</body>
+</html>

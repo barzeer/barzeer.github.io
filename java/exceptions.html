@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Java Arrays</title>
+    <title>Exceptions in Java</title>
     <meta name="description" content="Explains how to declare, throw, and catch exceptions in a Java program.">
     <meta name="keywords" content="Java, Java programming, exception, throw, throws, try, catch, finally">
     <link rel="canonical" href="https://barzeer.github.io/java/exceptions.html">
@@ -242,10 +242,11 @@ public static void sort(float[] a, int fromIndex, int toIndex)
          * Many */
 
         /* If a try block has more than one catch block, how do
-         * we know which exception to list first? The most
-         * specific exception (bottom of the inheritance
-         * hierarchy) is listed first. The most general exception
-         * (top of the inheritance hierarchy) is listed last. */
+         * we know which exception to list first?
+         * The most specific exception (bottom of the inheritance
+         * hierarchy) must be listed first. The most general
+         * exception (top of the inheritance hierarchy) must be
+         * listed last. */
     }
     finally {
         /* What is the purpose of a finally block?
@@ -261,7 +262,7 @@ public static void sort(float[] a, int fromIndex, int toIndex)
          * The JVM guarantees that if any code in a try block is
          * executed, then the code in its corresponding finally
          * block will be executed regardless of whether an
-         * exception is thrown or not and caught or not.  In other
+         * exception is thrown or not and caught or not. In other
          * words, if any code in a try block is executed, the code
          * in the corresponding finally block will be executed. */
 
