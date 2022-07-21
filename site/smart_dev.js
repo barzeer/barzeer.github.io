@@ -2,8 +2,8 @@
 
 if (!window.hasOwnProperty('smartDev')) {
 	window.smartDev = {
-		surroundHome : function() {
 		/** Reorganizes the structure of the home index.html file. */
+		surroundHome : function() {
 			let body = document.querySelector('body');
 			let article = document.querySelector('article');
 			body.removeChild(article);
@@ -59,9 +59,6 @@ if (!window.hasOwnProperty('smartDev')) {
 			let body = document.querySelector('body');
 			let article = document.querySelector('article');
 			body.removeChild(article);
-
-			//let modif = this.createModified();
-			//article.appendChild(modif);
 
 			let top = this.createElem('div', 'top');
 			let page = this.createElem('div', 'page');

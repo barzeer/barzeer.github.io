@@ -70,7 +70,7 @@
   </url>
   <url>
     <loc>https://barzeer.github.io/java/</loc>
-    <lastmod>2022-07-11</lastmod>
+    <lastmod>2022-07-21</lastmod>
   </url>
   <url>
     <loc>https://barzeer.github.io/java/abstract.html</loc>
@@ -82,7 +82,7 @@
   </url>
   <url>
     <loc>https://barzeer.github.io/java/exceptions.html</loc>
-    <lastmod>2022-07-11</lastmod>
+    <lastmod>2022-07-21</lastmod>
   </url>
   <url>
     <loc>https://barzeer.github.io/java/intro.html</loc>
@@ -91,6 +91,10 @@
   <url>
     <loc>https://barzeer.github.io/java/methods.html</loc>
     <lastmod>2022-07-11</lastmod>
+  </url>
+  <url>
+    <loc>https://barzeer.github.io/java/override.html</loc>
+    <lastmod>2022-07-21</lastmod>
   </url>
   <url>
     <loc>https://barzeer.github.io/java/repetition.html</loc>

@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Method Overloading and Overriding</title>
+    <meta name="description" content="Explains method overloading and overriding in the Java programming language. Includes an interactive example.">
+    <meta name="keywords" content="Java, Java programming, method, method overloading, method overriding">
+    <link rel="canonical" href="https://barzeer.github.io/java/override.html">
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+
+<script>
+"use strict";
+
+window.smartDev.override = {
+    addClass : function(elemName) {
+        const func = function(elem) { elem.classList.add('highlight'); };
+        const elem = this[elemName];
+        Array.isArray(elem) ? elem.forEach(func) : func(elem);
+    },
+
+    removeClass : function(elemName) {
+        const func = function(elem) { elem.classList.remove('highlight'); };
+        const elem = this[elemName];
+        Array.isArray(elem) ? elem.forEach(func) : func(elem);
+    },
+
+    init : function() {
+        this.Pmii  = document.getElementById('Pmii');
+        this.Pmiii = document.getElementById('Pmiii');
+        this.Pmdd  = document.getElementById('Pmdd');
+        this.Cmii  = document.getElementById('Cmii');
+        this.CmdS  = document.getElementById('CmdS');
+        this.pMethods = [this.Pmii, this.Pmiii, this.Pmdd];
+        this.cMethods = [this.Cmii, this.Pmiii, this.Pmdd, this.CmdS];
+    }
+};
+</script>
+</head>
+
+<body onload="smartDev.override.init()">
+<article>
+<h1>Java Method Overloading and Overriding</h1>
+<p>Explains method overloading and overriding in the Java programming
+language. Includes an interactive example showing which method
+implementation is called for various method invocations.</p>
+
+<h2>Prerequisites</h2>
+<ul>
+</ul>
+
+<h2>Definitions</h2>
+<dl>
+    <dt>method overloading</dt>
+    <dd>two or more methods with the same name but different parameter
+    lists in the same class or in a child class</dd>
+
+    <dt>method overriding</dt>
+    <dd>two methods with the same name and same parameter lists, one in
+    the parent class and one in a child class</dd>
+</dl>
+
+<h2>Demonstration</h2>
+<p>Move your mouse over the name of one of the classes, and your browser
+will highlight all the methods that can be called using an object of
+that class.</p>
+
+<table class="classdia"><tbody>
+    <tr>
+        <td><table class="class"><tbody>
+            <tr><td class="name" onmouseover="smartDev.override.addClass('pMethods')" onmouseout="smartDev.override.removeClass('pMethods')">Parent</td></tr>
+            <tr><td class="members">&minus;a : int</td></tr>
+            <tr><td class="members"><div id="Pmii">+m(x : int, y: int) : double</div>
+                                    <div id="Pmiii">+m(x : int, y: int, z: int) : double</div>
+                                    <div id="Pmdd">+m(x : double, y: double) : double</div></td></tr>
+        </tbody></table></td>
+        <td><table class="comment"><tbody>
+            <tr><td>&nbsp;</td></tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr><td><div>{overloading}</div>
+                    <div>{overloading}</div>
+                    <div>{overloading}</div></td></tr>
+        </tbody></table></td>
+    </tr>
+
+    <tr>
+        <td class="relat">&Delta;</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td class="relat">&#x2502;</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td><table class="class"><tbody>
+            <tr><td class="name" onmouseover="smartDev.override.addClass('cMethods')" onmouseout="smartDev.override.removeClass('cMethods')">Child</td></tr>
+            <tr><td class="members">&minus;c : int</td></tr>
+            <tr><td class="members"><div id="Cmii">+m(x : int, y: int) : double</div>
+                                    <div id="CmdS">+m(x : double, s: String) : double</div></td></tr>
+        </tbody></table></td>
+        <td><table class="comment"><tbody>
+            <tr><td>&nbsp;</td></tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr><td><div>{overriding}</div>
+                    <div>{overloading}</div></td></tr>
+        </tbody></table></td>
+    </tr>
+</tbody></table>
+
+<p>Move your mouse over one of the calls to the method <code>m</code>
+and your browser will highlight the method that it calls in the class
+diagram above.</p>
+<pre>
+    Parent p = new Parent();
+    <span onmouseover="smartDev.override.addClass('Pmii')" onmouseout="smartDev.override.removeClass('Pmii')">p.m(7, 8);</span>
+    <span onmouseover="smartDev.override.addClass('Pmiii')" onmouseout="smartDev.override.removeClass('Pmiii')">p.m(7, 8, -5);</span>
+    <span onmouseover="smartDev.override.addClass('Pmdd')" onmouseout="smartDev.override.removeClass('Pmdd')">p.m(72.1, 19.6);</span>
+
+    p = new Child();
+    Child c = new Child();
+    <span onmouseover="smartDev.override.addClass('Cmii')" onmouseout="smartDev.override.removeClass('Cmii')">p.m(7, 8);</span>
+    <span onmouseover="smartDev.override.addClass('Cmii')" onmouseout="smartDev.override.removeClass('Cmii')">c.m(7, 8);</span>
+    <span onmouseover="smartDev.override.addClass('Pmiii')" onmouseout="smartDev.override.removeClass('Pmiii')">p.m(7, 8, -5);</span>
+    <span onmouseover="smartDev.override.addClass('Pmiii')" onmouseout="smartDev.override.removeClass('Pmiii')">c.m(7, 8, -5);</span>
+    <span onmouseover="smartDev.override.addClass('Pmdd')" onmouseout="smartDev.override.removeClass('Pmdd')">p.m(72.1, 19.6);</span>
+    <span onmouseover="smartDev.override.addClass('Pmdd')" onmouseout="smartDev.override.removeClass('Pmdd')">c.m(72.1, 19.6);</span>
+    <span class="error">p.m(72.1, "Wow");</span>  // Compile error! No such method in the Parent class.
+    <span onmouseover="smartDev.override.addClass('CmdS')" onmouseout="smartDev.override.removeClass('CmdS')">c.m(72.1, "Wow");</span>
+</pre>
+
+<div class="modified">Last modified: 2022-07-21</div>
+</article>
+</body>
+</html>

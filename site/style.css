@@ -409,16 +409,6 @@ article table.features > tbody > tr > td:first-child {
 	text-align: right;
 }
 
-article table.classdia td {
-	text-align: center;
-}
-article table.classdia td.class {
-	border: 1px solid var(--fg-color);
-}
-article table.classdia td.right {
-	text-align: right;
-}
-
 article table.excel > thead > tr > th[scope="col"] {
 	border-right: 1px solid var(--border-color);
 	border-bottom: 1px solid var(--border-color);
@@ -448,7 +438,62 @@ article table.excel tr > td.formula {
 	min-width: 4em;
 }
 
+table.classdia {
+	margin: 0 auto 1em auto;
+}
+table.classdia td {
+	white-space: nowrap;
+	text-align: center;
+}
+table.classdia td.left {
+	text-align: left;
+}
+table.classdia td.relat {
+	font-family: "Source Code Pro", "Lucida Console", Consolas, monospace;
+}
+table.classdia td.loose {
+	padding: 0.1em 0;
+}
+table.classdia table.class {
+	margin: 0;
+	border: 1px solid var(--fg-color);
+}
+table.classdia table.class td.name {
+	padding: 0 0.5em;
+}
+table.classdia table.class td.members {
+	border-top: 1px solid var(--fg-color);
+	text-align: left;
+}
+table.classdia table.comment {
+	margin: 0;
+	border: 1px solid var(--bg-color);
+}
+table.classdia table.comment td {
+	border-top: 1px solid var(--bg-color);
+	text-align: left;
+}
+span.error {
+	text-decoration: line-through;
+}
+
 /*
+table.clazz { margin: auto;  }
+table.clazz td {
+	white-space: nowrap;
+}
+table.clazz td.name {
+	border: 1px solid var(--fg-color);
+	text-align: center;
+}
+table.clazz td.member {
+	border-left: 1px solid var(--fg-color);
+	border-right: 1px solid var(--fg-color);
+}
+table.clazz td.last {
+	border-bottom: 1px solid var(--fg-color);
+}
+
 div.package { display: table;
 	border: 1px solid darkSlateGray; border-spacing: 0.5em; }
 div.package div.class { display: table-cell;
@@ -462,18 +507,6 @@ table.class td.name { text-align: center; }
 table.class td.rule { border-bottom: 1px solid darkSlateGray; }
 table.class span.abstract { font-style: italic; }
 table.class span.static { text-decoration: underline; }
-
-table.clazz { margin: auto;  }
-table.clazz td { white-space: nowrap }
-table.clazz td.name { border: 1px solid darkSlateGray; text-align: center }
-table.clazz td.member {
-	border-left: 1px solid darkSlateGray;
-	border-right: 1px solid darkSlateGray;
-}
-table.clazz td.last { border-bottom: 1px solid }
-
-table.classdia td { text-align: center }
-table.classdia td.class { border: 1px solid darkSlateGray; text-align: center }
 
 table.sparse {
 	border-collapse: separate;
