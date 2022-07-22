@@ -1,0 +1,222 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visibility in Java</title>
+    <meta name="description" content="Explains variable and method visibility in the Java programming language.">
+    <meta name="keywords" content="Java, Java programming, visibility, private, protected, default visibility, public">
+    <link rel="canonical" href="https://barzeer.github.io/java/visibility.html">
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Visibility in Java</h1>
+<p>Describes variable and method visibility in the Java programming
+language. Includes an interactive example of Java inheritance in two
+different packages.</p>
+
+<h2>Prerequisites</h2>
+<ul>
+    <li><div>Understand <a href="variables.html">Java primitive types
+    and variables</a></div></li>
+    <li><div>Understand <a href="methods.html">Java methods</a></div></li>
+    <li><div>Understand Java class and objects</div></li>
+</ul>
+
+<h2>Objectives</h2>
+<ul>
+    <li><div>Know when to use <code>private</code>, (default),
+    <code>protected</code>, and <code>public</code> attributes and
+    methods</div></li>
+    <li><div>Declare attributes and methods as <code>private</code>,
+    (default), <code>protected</code>, and
+    <code>public</code></div></li>
+</ul>
+
+<h2>Purpose of Visibility</h2>
+<ul>
+    <li><div>Visibility modifiers do not change the scope (ownership or
+    lifetime) of a variable or method.</div></li>
+    <li><div>They simply limit where a variable or method is visible
+    (usable, changeable, or callable).</div></li>
+    <li><div>Java has four visibility modifiers (least visible to most
+    visible): private, (default), protected, public</div></li>
+</ul>
+
+<table class="features"><thead>
+    <tr class="center">
+        <td></td>
+        <td>(least visible)</td>
+        <td></td>
+        <td></td>
+        <td>(most visible)</td>
+    </tr>
+    <tr>
+        <td></td>
+        <th scope="col">private</th>
+        <th scope="col" style="padding-right:0.5em">(default)</th>
+        <th scope="col">protected</th>
+        <th scope="col">public</th>
+    </tr>
+</thead><tbody>
+    <tr class="center">
+        <td>Can be accessed from the same class</td>
+        <td>&#x2713;</td>
+        <td>&#x2713;</td>
+        <td>&#x2713;</td>
+        <td>&#x2713;</td>
+    </tr>
+    <tr class="center">
+        <td>Can be accessed from the same package</td>
+        <td></td>
+        <td>&#x2713;</td>
+        <td>&#x2713;</td>
+        <td>&#x2713;</td>
+    </tr>
+    <tr class="center">
+        <td>Can be accessed from any child class</td>
+        <td></td>
+        <td></td>
+        <td>&#x2713;</td>
+        <td>&#x2713;</td>
+    </tr>
+    <tr class="center">
+        <td>Can be accessed from anywhere</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>&#x2713;</td>
+    </tr>
+</tbody></table>
+
+<h2>Demonstration</h2>
+<ol>
+    <li><div>Move your mouse pointer over a variable declaration and
+    your browser will highlight in <span class="highlight">yellow</span>
+    the classes where that variable is visible.</div></li>
+    <li><div>Move your mouse pointer over a method header and your
+    browser will highlight in <span class="highlight2">orange</span> the
+    variables that method can use.</div></li>
+</ol>
+
+<table class="classdia"><tbody>
+    <tr><td><table class="package"><tbody>
+        <tr><td class="left" colspan="2">package p1;</td></tr>
+
+        <tr>
+<td><table class="class"><tbody><tr><td class="left"><pre><span id="C1">public class C1 {</span>
+    <span id="C1_a" data-high="C1" title="private class attribute">private   static int a;</span>
+              <span id="C1_b" data-high="C1 C2 C3" title="(default) class attribute">static int b;</span>
+    <span id="C1_c" data-high="C1 C2 C3 C4" title="protected class attribute">protected static int c;</span>
+    <span id="C1_d" data-high="C1 C2 C3 C4 C5" title="public class attribute">public    static int d;</span>
+
+    <span id="C1_w" data-high="C1" title="private instance attribute">private   int w;</span>
+              <span id="C1_x" data-high="C1 C2 C3" title="(default) instance attribute">int x;</span>
+    <span id="C1_y" data-high="C1 C2 C3 C4" title="protected instance attribute">protected int y;</span>
+    <span id="C1_z" data-high="C1 C2 C3 C4 C5" title="public instance attribute">public    int z;</span>
+
+    <span id="C1_m1" data-high="C1" data-high2="C1_a C1_b C1_c C1_d" title="private class method">private   static void m1() {...}</span>
+              <span id="C1_m2" data-high="C1 C2 C3" data-high2="C1_a C1_b C1_c C1_d" title="(default) class method">static void m2() {...}</span>
+    <span id="C1_m3" data-high="C1 C2 C3 C4" data-high2="C1_a C1_b C1_c C1_d" title="protected class method">protected static void m3() {...}</span>
+    <span id="C1_m4" data-high="C1 C2 C3 C4 C5" data-high2="C1_a C1_b C1_c C1_d" title="public class method">public    static void m4() {...}</span>
+
+    <span id="C1_m5" data-high="C1 C2 C3" data-high2="C1_a C1_b C1_c C1_d C1_w C1_x C1_y C1_z" title="private instance method">private   void m5() {...}</span>
+              <span id="C1_m6" data-high="C1 C2 C3" data-high2="C1_a C1_b C1_c C1_d C1_w C1_x C1_y C1_z" title="(default) instance method">void m6() {...}</span>
+    <span id="C1_m7" data-high="C1 C2 C3 C4" data-high2="C1_a C1_b C1_c C1_d C1_w C1_x C1_y C1_z" title="protected instance method">protected void m7() {...}</span>
+    <span id="C1_m8" data-high="C1 C2 C3 C4 C5" data-high2="C1_a C1_b C1_c C1_d C1_w C1_x C1_y C1_z" title="public instance method">public    void m8() {...}</span>
+}</pre></td></tr></tbody></table></td>
+
+<td><table class="class"><tbody><tr><td class="left"><pre><span id="C2">public class C2 {</span>
+    <span id="C2_obj" data-high="C2" title="private instance attribute">private C1 obj = new C1();</span>
+
+    <span data-high="C1 C2 C3 C4 C5" data-high2="C1_b C1_c C1_d C1_x C1_y C1_z C1_m2 C1_m3 C1_m4 C1_m6 C1_m7 C1_m8" title="public instance method">public void m() {</span>
+        // cannot access C1.a
+        // can access C1.b, C1.c, C1.d
+
+        // cannot access obj.w
+        // can access obj.x, obj.y, obj.z
+
+        // cannot call C1.m1()
+        // can call C1.m2(), C1.m3(), C1.m4()
+
+        // cannot call obj.m5()
+        // can call obj.m6(), obj.m7(), obj.m8()
+    }
+}</pre></td></tr></tbody></table></td>
+        </tr>
+
+        <tr>
+<td><table class="class"><tbody><tr><td class="left"><pre><span id="C3">public class C3 <em>extends C1</em> {</span>
+    <span data-high="C1 C2 C3 C4 C5" data-high2="C1_b C1_c C1_d C1_x C1_y C1_z C1_m2 C1_m3 C1_m4 C1_m6 C1_m7 C1_m8" title="public instance method">public void m() {</span>
+        // cannot access a
+        // can access b, c, d
+
+        // cannot access w
+        // can access x, y, z
+
+        // cannot call m1()
+        // can call m2(), m3(), m4()
+
+        // cannot call m5()
+        // can call m6(), m7(), m8()
+    }
+}</pre></td></tr></tbody></table></td>
+
+            <td></td>
+        </tr>
+    </tbody></table></td></tr>
+
+    <tr><td>&nbsp;</td></tr>
+
+    <tr><td><table class="package"><tbody>
+        <tr><td class="left" colspan="2">package p2;</td></tr>
+
+        <tr>
+<td><table class="class"><tbody><tr><td class="left"><pre><span id="C4">public class C4 <em>extends C1</em> {</span>
+    <span data-high="C1 C2 C3 C4 C5" data-high2="C1_c C1_d C1_y C1_z C1_m3 C1_m4 C1_m7 C1_m8" title="public instance method">public void m() {</span>
+        // cannot access a, b
+        // can access c, d
+
+        // cannot access w, x
+        // can access y, z
+
+        // cannot call m1(), m2()
+        // can call m3(), m4()
+
+        // cannot call m5(), m6()
+        // can call m7(), m8()
+    }
+}</pre></td></tr></tbody></table></td>
+
+<td><table class="class"><tbody><tr><td class="left"><pre><span id="C5">public class C5 {</span>
+    <span id="C5_obj" data-high="C5" title="private instance attribute">private C1 obj = new C1();</span>
+
+    <span data-high="C1 C2 C3 C4 C5" data-high2="C1_d C1_z C1_m4 C1_m8" title="public instance method">public void m() {</span>
+        // cannot access C1.a, C1.b, C1.c
+        // can access C1.d
+
+        // cannot access obj.w, obj.x, obj.y
+        // can access obj.z
+
+        // cannot call C1.m1(), C1.m2(), C1.m3()
+        // can call C1.m4()
+
+        // cannot call obj.m5(), obj.m6(), obj.m7()
+        // can call obj.m8()
+    }
+}</pre></td></tr></tbody></table></td>
+        </tr>
+    </tbody></table></td></tr>
+</tbody></table>
+
+<div class="modified">Last modified: 2022-07-22</div>
+</article>
+</body>
+</html>

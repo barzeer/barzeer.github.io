@@ -34,7 +34,7 @@ Techniques</a>.</figcaption>
 <p>A linked list is a flexible abstract data structure that is useful
 for relatively short lists where items are frequently added and removed
 from the list. Items within the list are connected using pointers or
-references. Because of today&rsquo;s modern programming libraries such
+references. Because of today’s modern programming libraries such
 as the C++ standard template library (STL) and the Java collections
 found in the package <code>java.util</code>, few programmers need to
 write a linked list. However, there are still some programmers that are
@@ -139,8 +139,8 @@ write <code>if</code> statements to handle two special cases: 1) when
 the list is empty and 2) when the node to be removed is at the beginning
 of the list. The complexity of this code, especially the
 <code>remove</code> function makes it difficult to code correctly and to
-test completely. In fact, I&rsquo;m not 100% sure that the preceding
-code is correct.</p>
+test completely. In fact, I’m not 100% sure that the preceding code is
+correct.</p>
 
 <h2>Elegant and Time Efficient Double Pointer Iteration</h2>
 <p>The correct way to write a singly linked list is to visualize the
@@ -218,13 +218,12 @@ void removeNode(LinkedList *list, LinkedNode *node) {
 
 <p>Notice that the <code>appendNode</code> and <code>removeNode</code>
 functions are much less complex when using double pointer iteration
-(example&nbsp;2). You may be thinking, &ldquo;The single pointer
-iteration (example&nbsp;1) wouldn&rsquo;t be so complex if you used a
-circular list or if you wrote it in C++ instead of C.&rdquo; Try it. No
-matter what you try, if you need to implement a singly linked list and
-you need to write code to append elements to a list or remove elements
-from a list, double pointer iteration (example&nbsp;2) will always be
-less complex.</p>
+(example&nbsp;2). You may be thinking, “The single pointer iteration
+(example&nbsp;1) wouldn’t be so complex if you used a circular list or
+if you wrote it in C++ instead of C.” Try it. No matter what you try, if
+you need to implement a singly linked list and you need to write code to
+append elements to a list or remove elements from a list, double pointer
+iteration (example&nbsp;2) will always be less complex.</p>
 
 <p>Example&nbsp;3 contains additional C code that you can use to test
 both examples&nbsp;1 and&nbsp;2. Simply combine the code in
@@ -296,7 +295,7 @@ to understand why double pointer iterations works and is more efficient
 than single pointer iteration, see chapter&nbsp;3 of
 <a href="https://www.amazon.com/dp/0983384029">Advanced Programming Techniques</a>.</p>
 
-<div class="modified">Last modified: 2022-07-07</div>
+<div class="modified">Last modified: 2022-07-22</div>
 </article>
 </body>
 </html>

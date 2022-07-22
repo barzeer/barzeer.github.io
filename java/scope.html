@@ -1,0 +1,326 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variable and Method Scope in Java</title>
+    <meta name="description" content="Explains variable and method scope in the Java programming language. Includes an interactive example.">
+    <meta name="keywords" content="Java, Java programming, variable scope, method scope, class, instance, local">
+    <link rel="canonical" href="https://barzeer.github.io/java/scope.html">
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Variable and Method Scope in Java</h1>
+<p>Explains variable and method scope in the Java programming language.
+Includes an interactive example of Java class, instance, and local
+variables and class and instance methods.</p>
+
+<h2>Prerequisites</h2>
+<ul>
+    <li><div>Understand <a href="variables.html">Java primitive types
+    and variables</a></div></li>
+    <li><div>Understand <a href="methods.html">Java methods</a></div></li>
+</ul>
+
+<h2>Objectives</h2>
+<ul>
+    <li><div>Find and declare local, instance, and class variables</div></li>
+    <li><div>Find and declare instance and class methods</div></li>
+    <li><div>Call instance and class methods</div></li>
+    <li><div>Know when to use local, instance, and class variables</div></li>
+    <li><div>Know when to use instance and class methods</div></li>
+    <li><div>Declare private, (default), protected, and public
+    attributes and methods</div></li>
+    <li><div>Know when to use private, (default), protected, and public
+    attributes and methods</div></li>
+</ul>
+
+<h2>Purpose of Scope</h2>
+<ul>
+    <li><div>Used correctly, variable scope enables a program to reuse
+    and conserve memory.</div></li>
+    <li><div>Correct variable scope makes code more understandable and
+    less error prone.</div></li>
+    <li><div>Correct method scope allows a method to be called more
+    simply.</div></li>
+</ul>
+
+<h2>Variable Scope</h2>
+<ul>
+    <li><div>The scope of a variable determines what owns (contains) the
+    variable and how long the variable will exist (hold a
+    value).</div></li>
+    <li><div>Three categories of variable scope in Java: local,
+    instance, and class.</div></li>
+    <li><div>The declaration of a variable determines its scope.</div></li>
+    <li><div>A variable declaration is the variable’s type and
+    name together.</div></li>
+
+    <li><div>Examples:
+<div class="pre"><pre class="code language-java">
+int i;
+float gpa;
+Pupil p1;
+String name;
+double[] array;</pre></div>
+    </div></li>
+</ul>
+
+<table class="cc"><thead>
+    <tr>
+        <td></td>
+        <th scope="col">Local</th>
+        <th scope="col">Instance (non static)</th>
+        <th scope="col">Class (static)</th>
+    </tr>
+</thead><tbody>
+    <tr>
+        <th scope="row" class="left">Where to Declare</th>
+        <td>Inside a method</td>
+        <td>Inside a class, outside all methods, but without
+        <code>static</code></td>
+        <td>Inside a class, outside all methods, with <code>static</code></td>
+    </tr>
+    <tr>
+        <th scope="row" class="left">Owner</th>
+        <td>Method where it is declared</td>
+        <td>Each object (instance of the class) owns a copy</td>
+        <td>Class where it is declared</td>
+    </tr>
+    <tr>
+        <th scope="row" class="left">Lifetime</th>
+        <td>Only as long as the method is executing</td>
+        <td>As long as its containing object exists</td>
+        <td>As long as its containing class is loaded</td>
+    </tr>
+    <tr>
+        <th scope="row" class="left">Where Usable</th>
+        <td>Only inside the method where it is declared</td>
+        <td>In all <b>instance</b> methods of the class</td>
+        <td>In <b>all</b> methods of the class</td>
+    </tr>
+</tbody></table>
+
+<h2>Example</h2>
+<table class="classdia"><tbody><tr>
+    <td><table class="class"><tbody>
+        <tr><td class="name">Pupil</td></tr>
+        <tr><td class="attrs">
+            <div>&minus;<span class="static">schoolName : String</span></div>
+            <div>&minus;name : String</div>
+            <div>&minus;gpa : float</div>
+        </td></tr>
+        <tr><td class="methods">+toString() : String</td></tr>
+    </tbody></table></td>
+    <td><table class="comment"><tbody>
+        <tr><td>&nbsp;</td></tr>
+        <tr><td>
+            <div>{class variable}</div>
+            <div>{instance variable}</div>
+            <div>{instance variable}</div>
+        </td></tr>
+        <tr><td>&nbsp;</td></tr>
+    </tbody></table></td>
+</tr></tbody></table>
+
+<div class="pre"><pre class="code language-java">
+public class Pupil {
+    private static String schoolName;  // class variable
+    private String name;  // instance variable
+    private float gpa;    // instance variable
+
+    public String toString() {
+        String s = "Name: " + this.name;  // local variable
+        return s;
+    }
+}</pre></div>
+
+<h2>Method Scope</h2>
+<ul>
+    <li><div>Two categories of method scope in Java: instance and
+    class.</div></li>
+    <li><div>The header of a method determines its scope.
+    <ul>
+        <li><div>Without <code>static</code>, scope is instance.</div></li>
+        <li><div>With <code>static</code>, scope is class.</div></li>
+    </ul>
+    </div></li>
+</ul>
+
+<table class="cc"><thead>
+    <tr>
+        <td></td>
+        <th scope="col">Instance (non static)</th>
+        <th scope="col">Class (static)</th>
+    </tr>
+</thead><tbody>
+    <tr>
+        <th scope="row" class="left">How to Declare</th>
+        <td>Without <code>static</code>:<br>
+        <code>public <var>returnType</var> <var>methodName</var>(&hellip;)<br>{</code></td>
+        <td>With <code>static</code>:<br>
+        <code>public static <var>returnType</var> <var>methodName</var>(&hellip;)<br>{</code></td>
+    </tr>
+    <tr>
+        <th scope="row" class="left">How to Call</th>
+        <td>Using object name:<br>
+        <code><var>objectName</var>.<var>methodName</var>(&hellip;);</code></td>
+        <td>Using class name:<br>
+        <code><var>ClassName</var>.<var>methodName</var>(&hellip;);</code></td>
+    </tr>
+    <tr>
+        <th scope="row" class="left">Variables That Can Be Used Inside</th>
+        <td>local, instance, and class</td>
+        <td>local and class but <b>not instance</b></td>
+    </tr>
+    <tr>
+        <th scope="row" class="left"><code>this</code> Keyword</th>
+        <td><code>this</code> keyword can be used inside an instance
+        method</td>
+        <td><code>this</code> keyword <b>cannot</b> be used inside a
+        class method</td>
+    </tr>
+</tbody></table>
+
+<h2>Example</h2>
+<table class="classdia"><tbody><tr>
+    <td><table class="class"><tbody>
+        <tr><td class="name">Pupil</td></tr>
+        <tr><td class="attrs">
+            <div>&minus;<span class="static">schoolName : String</span></div>
+            <div>&minus;name : String</div>
+            <div>&minus;gpa : float</div>
+        </td></tr>
+        <tr><td class="methods">
+            <div>+<span class="static">getSchoolName() : String</span></div>
+            <div>+toString() : String</div>
+        </td></tr>
+    </tbody></table></td>
+    <td><table class="comment"><tbody>
+        <tr><td>&nbsp;</td></tr>
+        <tr><td>
+            <div>{class variable}</div>
+            <div>{instance variable}</div>
+            <div>{instance variable}</div>
+        </td></tr>
+        <tr><td>
+            <div>{class method}</div>
+            <div>{instance method}</div>
+        </td></tr>
+        <tr><td></td></tr>
+    </tbody></table></td>
+</tr></tbody></table>
+
+<div class="pre"><pre class="code language-java">
+public class Pupil {
+    private static String schoolName = "Western University";
+    private String name;
+    private float gpa;
+
+    public static String getSchoolName() {  // class method
+        return schoolName;
+    }
+
+    public String toString() {  // instance method
+        String s = "Name: " + this.name;
+        return s;
+    }
+}</pre></div>
+
+<h2>Variable and Method Scope</h2>
+<table class="cc"><thead>
+    <tr>
+        <th scope="col" rowspan="2" style="min-width:7.5em">Variable Scope</th>
+        <th scope="col" colspan="2">Method Scope</th>
+    </tr>
+    <tr>
+        <th scope="col">Instance (non static)</th>
+        <th scope="col">Class (static)</th>
+    </tr>
+</thead><tbody>
+    <tr>
+        <th scope="row" class="left">Local</th>
+        <td colspan="2">A single local variable can be used in one
+        method only.</td>
+    </tr>
+    <tr>
+        <th scope="row" class="left">Instance<br>(non static)</th>
+        <td>A single instance variable can be used in all
+        <strong>instance</strong> methods.</td>
+        <td>Instance variables, including the keyword <code>this</code>,
+        <strong>cannot</strong> be used in class methods.</td>
+    </tr>
+    <tr>
+        <th scope="row" class="left">Class (static)</th>
+        <td colspan="2">A single class variable can be used in
+        <strong>all</strong> methods.</td>
+    </tr>
+</tbody></table>
+
+<h2>Demonstration</h2>
+<p>Move your mouse pointer over a variable declaration, and the browser
+will highlight that variable’s scope.</p>
+
+<table class="classdia"><tbody><tr>
+    <td><table class="class"><tbody>
+        <tr><td class="name">Pupil</td></tr>
+        <tr><td class="attrs">
+            <div data-high="Pupil_getSchoolName Pupil_ctor Pupil_toString">&minus;<span class="static">schoolName : String</span></div>
+            <div data-high="Pupil_ctor Pupil_toString">&minus;name : String</div>
+            <div data-high="Pupil_ctor Pupil_toString">&minus;gpa : float</div>
+        </td></tr>
+        <tr><td class="methods">
+            <div>+<span class="static">getSchoolName() : String</span></div>
+            <div>+Pupil(name : String)</div>
+            <div>+toString() : String</div>
+        </td></tr>
+    </tbody></table></td>
+    <td><table class="comment"><tbody>
+        <tr><td>&nbsp;</td></tr>
+        <tr><td>
+            <div>{class variable}</div>
+            <div>{instance variable}</div>
+            <div>{instance variable}</div>
+        </td></tr>
+        <tr><td>
+            <div>{class method}</div>
+            <div>{constructor (instance method)}</div>
+            <div>{instance method}</div>
+        </td></tr>
+        <tr><td></td></tr>
+    </tbody></table></td>
+</tr></tbody></table>
+
+<pre>
+public class <span title="class name">Pupil</span> {
+    <span title="class variable declaration" data-high="Pupil_getSchoolName Pupil_ctor Pupil_toString">private static String schoolName</span> = "Western University";  // class variable
+    <span title="instance variable declaration" data-high="Pupil_ctor Pupil_toString">private String name;</span>  // instance variable
+    <span title="instance variable declaration" data-high="Pupil_ctor Pupil_toString">private float gpa;</span>  // instance variable
+
+<span id="Pupil_getSchoolName">    <span title="class method">public static String getSchoolName() {</span>  // class method
+        return schoolName;
+    }</span>
+
+<span id="Pupil_ctor">    <span title="constructor (instance method)">public Pupil(</span><span title="parameter (local variable declaration)" data-high="Pupil_ctor">String name</span>) {  // constructor (instance method)
+        this.name = name;
+        this.gpa = 0;
+    }</span>
+
+<span id="Pupil_toString">    <span title="instance method">public String toString() {</span>  // instance method
+        <span title="local variable declaration" data-high="Pupil_toString">String s</span> = "Name: " + this.name + "  GPA: " + this.gpa;
+        return s;
+    }</span>
+}
+</pre>
+
+<div class="modified">Last modified: 2022-07-22</div>
+</article>
+</body>
+</html>

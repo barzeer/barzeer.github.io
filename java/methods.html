@@ -13,17 +13,6 @@
     <link rel="icon" type="image/png" href="../site/icons/icon.png">
     <link rel="stylesheet" type="text/css" href="../site/style.css">
     <link rel="stylesheet" href="../site/hljs/vscode.css">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
-<script>
-var high = 'highlight';
-var avg;
-
-$(document).ready(function() {
-    var f = function(id) { return document.getElementById(id); };
-    avg = $('#average');
-});
-</script>
 </head>
 
 <body>
@@ -74,8 +63,8 @@ $(document).ready(function() {
     <div class="pre"><pre class="code language-java">
 <var>modifiers returnType methodName</var>(<var>parameter1</var>, <var>parameter2</var>, &hellip;, <var>parameterN</var>)
 {
-        <var>method body;</var>
-        return <var>value</var>;
+    <var>method body;</var>
+    return <var>value</var>;
 }</pre></div>
     </div></li>
 
@@ -121,7 +110,7 @@ public class <span title="class name">MethodTest</span>
         <span title="variable declaration">double num1</span> = 4.1;
         <span title="variable declaration">double num2</span> = 4.2;
         <span title="variable declaration">double num3</span> = 5.7;
-        <span title="variable declaration">double avg</span> = <span title="method call" onmouseover="avg.addClass(high)" onmouseout="avg.removeClass(high)">average</span><span title="argument list">(num1, num2, num3);</span>
+        <span title="variable declaration">double avg</span> = <span title="method call">average</span><span title="argument list">(num1, num2, num3);</span>
         System.out.<span title="method call">println</span><span title="argument list">("average is " + avg);</span>
     }</span>
 
@@ -173,7 +162,7 @@ static double Math.abs(double x)</pre></div>
     compute the absolute value: <code>Math.abs</code></div></li>
 </ul>
 
-<div class="modified">Last modified: 2022-07-09</div>
+<div class="modified">Last modified: 2022-07-22</div>
 </article>
 </body>
 </html>

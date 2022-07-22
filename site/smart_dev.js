@@ -398,6 +398,62 @@ if (!window.hasOwnProperty('smartDev')) {
 		},
 
 
+		addHighlights : function() {
+			const on = function(event) {
+				let target = event.currentTarget;
+				let idents = target.getAttribute('data-high').split(' ');
+				for (let i = 0;  i < idents.length;  ++i) {
+					let id = idents[i];
+					let elem = document.getElementById(id);
+					elem.classList.add('highlight');
+				}
+			};
+
+			const off = function(event) {
+				let target = event.currentTarget;
+				let idents = target.getAttribute('data-high').split(' ');
+				for (let i = 0;  i < idents.length;  ++i) {
+					let id = idents[i];
+					let elem = document.getElementById(id);
+					elem.classList.remove('highlight');
+				}
+			};
+
+			const on2 = function(event) {
+				let target = event.currentTarget;
+				let idents = target.getAttribute('data-high2').split(' ');
+				for (let i = 0;  i < idents.length;  ++i) {
+					let id = idents[i];
+					let elem = document.getElementById(id);
+					elem.classList.add('highlight2');
+				}
+			};
+
+			const off2 = function(event) {
+				let target = event.currentTarget;
+				let idents = target.getAttribute('data-high2').split(' ');
+				for (let i = 0;  i < idents.length;  ++i) {
+					let id = idents[i];
+					let elem = document.getElementById(id);
+					elem.classList.remove('highlight2');
+				}
+			};
+
+			let elements = document.querySelectorAll('[data-high]');
+			for (let i = 0;  i < elements.length;  ++i) {
+				let elem = elements[i];
+				elem.addEventListener('mouseover', on);
+				elem.addEventListener('mouseout', off);
+			}
+			elements = document.querySelectorAll('[data-high2]');
+			for (let i = 0;  i < elements.length;  ++i) {
+				let elem = elements[i];
+				elem.addEventListener('mouseover', on2);
+				elem.addEventListener('mouseout', off2);
+			}
+		},
+
+
 		/** Add the "shaded" class to every third row in data tables. */
 		shadeDataRows : function() {
 			let tables = document.querySelectorAll('table.data');

@@ -454,15 +454,21 @@ table.classdia td.relat {
 table.classdia td.loose {
 	padding: 0.1em 0;
 }
+table.classdia table.package,
 table.classdia table.class {
 	margin: 0;
 	border: 1px solid var(--fg-color);
 }
+table.classdia table.package td {
+	padding: 0.3em 0.5em;
+}
 table.classdia table.class td.name {
 	padding: 0 0.5em;
 }
-table.classdia table.class td.members {
+table.classdia table.class td.attrs,
+table.classdia table.class td.methods {
 	border-top: 1px solid var(--fg-color);
+	padding: 0 0.2em;
 	text-align: left;
 }
 table.classdia table.comment {
@@ -472,6 +478,9 @@ table.classdia table.comment {
 table.classdia table.comment td {
 	border-top: 1px solid var(--bg-color);
 	text-align: left;
+}
+table.classdia span.static {
+	text-decoration: underline;
 }
 span.error {
 	text-decoration: line-through;
@@ -527,6 +536,11 @@ table.sparse th.left {
 table.sparse td { padding: 0.5em 0 0.25em 0 }
 */
 
+article table.cc tbody td {
+	border: 1px solid var(--border-color);
+	padding: 0.1em 0.25em;
+}
+
 article table.data caption.name {
 	caption-side: top;
 	padding-left: 1em;
@@ -553,6 +567,7 @@ article table.data td {
 }
 article table.data td.key { text-align: center; }
 article table.data td.zip { text-align: center; }
+
 article table.data td.null,
 span.null {
 	background-color: dimGray;
