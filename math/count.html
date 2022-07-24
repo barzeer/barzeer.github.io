@@ -229,15 +229,17 @@ var count = {
 
 	checkAnswer2 : function(base, rowIndex, input) {
 		let icon;
-		let value = $(input).val();
-		if (value == '') {
+		let str = $(input).val();
+		if (str == '') {
 			icon = $('img#unchecked').get(0);
 		}
 		else {
-			value = parseInt(value, base);
+			let num = parseInt(str, base);
+			let restr = num.toString(base);
 			let row = $('table#count tbody tr').eq(rowIndex)
 			let correct = parseInt(row.find('td:first input').val());
-			icon = value == correct ? $('img#correct') : $('img#incorrect');
+			icon = (str == restr && num == correct) ?
+				$('img#correct') : $('img#incorrect');
 			icon = icon.get(0);
 		}
 		$(input).attr('title', icon.title);
