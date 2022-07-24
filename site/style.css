@@ -851,24 +851,6 @@ article pre.python span.hiError  { background-color: red; }
 
 
 /* Figures */
-figure.pitch {
-	page-break-inside: avoid !important;
-	position: absolute;
-	right: 1.5em;
-	z-index: 3;
-	box-shadow: 0 0 40px rgba(0, 0, 0, .15);
-	background-color: var(--bg-color);
-}
-figure.pitch img {
-	max-width: 100%;
-	border: 1px solid var(--border-color);
-}
-figure.pitch figcaption {
-	font-size: 95%;
-	border: 1px solid var(--bg-color);
-	padding: 0.25em 0.5em 0.75em 0.5em;
-}
-
 article figure {
 	page-break-inside: avoid !important;
 	margin-bottom: 1em;
@@ -883,9 +865,18 @@ article figure.right {
 	float: right;
 	margin: 0 0 1em 1em;
 }
+figure.pitch {
+	float: right;
+	margin: 0 0 1em 1em;
+	box-shadow: 0 0 40px rgba(0, 0, 0, .15);
+	background-color: var(--bg-color);
+}
 
 article figure img {
 	max-width: 100%;
+}
+figure.pitch img {
+	border: 1px solid var(--border-color);
 }
 
 article figure > figcaption {
@@ -896,6 +887,13 @@ article figure > figcaption {
 article figure > figcaption > b {
 	font-weight: bold;
 }
+/*
+figure.pitch figcaption {
+	font-size: 95%;
+	border: 1px solid var(--bg-color);
+	padding: 0.25em 0.5em 0.75em 0.5em;
+}
+*/
 
 article figure.erd_data {
 	white-space: nowrap;
@@ -914,5 +912,9 @@ article figure.erd_data > div {
 article div.modified {
 	text-align: right;
 	margin: 2.5em 0 0 0;
+}
+figure.pitch ~ div.modified {
+	clear: both;
+	text-align: left;
 }
 

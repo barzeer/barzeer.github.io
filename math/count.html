@@ -1,16 +1,16 @@
 <!DOCTYPE HTML>
 <html lang="en-us">
 <head>
-    <meta charset="utf-8">
-    <title>Count in Different Bases</title>
-    <meta name="description" content="An interactive form that allows students to count in many different bases, including binary, octal, and hexadecimal.">
-    <meta name="keywords" content="positional number system, binary, octal, decimal, hexadecimal">
-    <link rel="canonical" href="https://barzeer.github.io/math/count.html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../site/smart_dev.js"></script>
-    <script src="../site/article.js"></script>
-    <script src="../site/hljs/highlight.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<meta charset="utf-8">
+	<title>Count in Different Bases</title>
+	<meta name="description" content="An interactive form that allows students to count in many different bases, including binary, octal, and hexadecimal.">
+	<meta name="keywords" content="positional number system, binary, octal, decimal, hexadecimal">
+	<link rel="canonical" href="https://barzeer.github.io/math/count.html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="../site/smart_dev.js"></script>
+	<script src="../site/article.js"></script>
+	<script src="../site/hljs/highlight.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
 "use strict";
@@ -251,49 +251,39 @@ var count = {
 
 
 $(document).ready(function() {
-    $('input#txtMin').on('change', count.changeLimits);
-    $('input#txtMax').on('change', count.changeLimits);
-    $('input.base').on('change', count.changeBase);
+	$('input#txtMin').on('change', count.changeLimits);
+	$('input#txtMax').on('change', count.changeLimits);
+	$('input.base').on('change', count.changeBase);
 
-    // Add a jquery keypress handler to the five inputs at the top of the
-    // document so the keypress events can all be handled by the same
-    // function, even on non-conforming browsers such as IE.
-    $('input#txtMin').add($('input#txtMax')).add($('input.base'))
-        .on('keypress', count.validateDecimal)
-        .on('keyup', count.fireChanged);
+	// Add a jquery keypress handler to the five inputs at the top of the
+	// document so the keypress events can all be handled by the same
+	// function, even on non-conforming browsers such as IE.
+	$('input#txtMin').add($('input#txtMax')).add($('input.base'))
+		.on('keypress', count.validateDecimal)
+		.on('keyup', count.fireChanged);
 
-    count.resetAll();
+	count.resetAll();
 });
 </script>
 
-    <link rel="icon" type="image/png" href="../site/icons/icon.png">
-    <link rel="stylesheet" type="text/css" href="../site/style.css">
-    <link rel="stylesheet" href="../site/hljs/vscode.css">
+	<link rel="icon" type="image/png" href="../site/icons/icon.png">
+	<link rel="stylesheet" type="text/css" href="../site/style.css">
+	<link rel="stylesheet" href="../site/hljs/vscode.css">
+
 <style>
-article table#count th { vertical-align: middle; }
-article table#count th.base { padding-left: 2em; text-align: center; }
-article table#count td { padding-top: 0.2em; vertical-align: top; }
-article table#count td.check { padding-left: 2em; }
-article table#count td.check input { vertical-align: top; }
-article table#count td.check img {
-    margin: 0; border: none; padding: 0;
-	box-shadow: none; vertical-align: top;
-}
+	article table#count th { vertical-align: middle; }
+	article table#count th.base { padding-left: 2em; text-align: center; }
+	article table#count td { padding-top: 0.2em; vertical-align: top; }
+	article table#count td.check { padding-left: 2em; }
+	article table#count td.check input { vertical-align: top; }
+	article table#count td.check img {
+		margin: 0; border: none; padding: 0;
+		box-shadow: none; vertical-align: top;
+	}
 </style>
 </head>
 
 <body>
-<figure class="pitch" style="width:15em" data-sibling="count">
-    <a href="https://www.amazon.com/dp/0983384096">
-    <img alt="Front cover of “Really Understand Binary”"
-    src="../site/images/binary_front_small.jpg">
-    </a>
-<figcaption>If you want to learn more about base&nbsp;2 and how
-computers use it to perform calculations, check out the book
-<a href="https://www.amazon.com/dp/0983384096">Really Understand
-Binary</a>.</figcaption>
-</figure>
-
 <article>
 <h1>Count in Different Bases</h1>
 
@@ -357,7 +347,19 @@ src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAK3RFW
 <img id="incorrect" class="unseen" alt="incorrect" title="incorrect"
 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAK3RFWHRDcmVhdGlvbiBUaW1lAEZyIDE1IE5vdiAyMDAyIDEwOjA4OjI5ICswMTAw9aJixgAAAAd0SU1FB9MEGBAbNzX+0HQAAAAJcEhZcwAACvAAAArwAUKsNJgAAAAEZ0FNQQAAsY8L/GEFAAAClUlEQVR42qWTTUgUYRjHf7O7s67uaNauHxVGiiZs1CEv0akoqEDFhIJORkFEH3YJukTn6BRIZIcIQ4igLLS6eJCCOkRiHlLWj9Rd19VyV/ej2Zmd2Zne1Vgo6+QLw/C+zzy/5/88839hk0v6+yBWh9cwuGR7pRZnua/BzFmoy/EJXWdA0ugOxFH/C7AbOZ70+3uKW9qr5No6WAjBjwikVsjMhAiPRaLFqtGxa5HBDQB7DyfSgb39yoUrMqEgxugnZJcIqCp2Kom0FAWXi6nZn1lXym6uja1DHGvJNSgr1ZVPlItX5ez7twTHl4nKO8HIiqCFlVQx7g9B02HqK3BHHfSOgLcACEtcV5rbK5gNYoWncbd34L7Tg/YthBWaw376BXn/QezIdL4cfoXKkMK1AkAq9bTK1aLi2DAevw/vy24cnhLMW48wH37E5auGe51Ik+OQA49jTVhrPte1Rinb0kh0TgwrAbKM7+trEnOTcOgkDrcL+10fUm8XOB2iKwtNQGyJxoICMye2MTEkNY09PUH6yBmsrRWimrE+4R27oaqKXNpCNyGhi5C1HloDqPGEyEpiRxeYP3+XxM1ubHcRJON5xUgNB+DFFNLRY6SFC1ICoJpMFgDJhD6gzy8iaRrZQJOgS8jDgyin63B86MfMf+RRhJIawquQFj8nYzBQ8MHnEkrc1UXhfT5929KNBygzo3ifd4OoZLhF67fvYw29IvhskFAavqvEinLUnhViCkaaLKclq9AX8OEyRes5J4h5YYonI2RHUsKU4jyuYSoGbafgzQYrj5TSsirzeHsZPo8A6Ln1fhOaeAvZqxrL5TnOtf1O/udlEv4sXfbQKabXLDmpz087YzJlWAzY0HVZsDZ7g/9YvwCCDhudXwcSxAAAAABJRU5ErkJggg==">
 
-<div class="modified">Last modified: 2022-05-07</div>
+<h2>Futher Reading</h2>
+<figure class="pitch">
+<a href="https://www.amazon.com/dp/0983384096">
+    <img alt="Front cover of “Really Understand Binary”"
+    src="../site/images/binary_front_small.jpg">
+</a>
+</figure>
+<p>If you want to learn more about base&nbsp;2 and how computers use it
+to perform calculations, check out the book
+<a href="https://www.amazon.com/dp/0983384096">Really Understand
+Binary</a>.</p>
+
+<div class="modified">Last modified: 2022-07-25</div>
 </article>
 </body>
 </html>
