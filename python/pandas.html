@@ -58,192 +58,213 @@ a table with rows and columns. Each row and each column in a
 composed of <code>Elements</code>. An <dfn><code>Element</code></dfn> is
 a single piece of data.</p>
 
-<p>The <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html"><code>pandas.read_csv</code></a>
-function will read a CSV file and return a <code>DataFrame</code>. The
-<code>read_csv</code> function has a huge number of parameters most of
-which are optional. The <var>filepath</var> and <var>parse_dates</var>
-parameters are the most useful for the assignments you will complete in
-this course.</p>
+<ol>
+    <li><div>The <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html"><code>pandas.read_csv</code></a>
+    function will read a CSV file and return a <code>DataFrame</code>.
+    The <code>read_csv</code> function has a huge number of parameters
+    most of which are optional. The <var>filepath</var> and
+    <var>parse_dates</var> parameters are the most useful for the
+    assignments you will complete in this course.
 
 <div class="pre"><pre class="code lang-python">import pandas as pd
 <b>df = pd.read_csv("filename.csv")</b></pre></div>
+    </div></li>
 
-<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dtypes.html"><code>DataFrame.dtypes</code></a>
-is an attribute of a DataFrame and contains a Series with the data type
-of each column in the DataFrame. You may want to print <var>dtypes</var>
-attribute after calling <code>read_csv()</code> so that you can verify
-that the DataFrame was read correctly. For example in the following
-code, <var>df</var> is a DataFrame that contains all the data that
-<code>read_csv</code> read from <code>filename.csv</code>.</p>
+    <li><div><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dtypes.html"><code>DataFrame.dtypes</code></a>
+    is an attribute of a DataFrame and contains a Series with the data
+    type of each column in the DataFrame. You may want to print
+    <var>dtypes</var> attribute after calling <code>read_csv()</code> so
+    that you can verify that the DataFrame was read correctly. For
+    example in the following code, <var>df</var> is a DataFrame that
+    contains all the data that <code>read_csv</code> read from
+    <code>filename.csv</code>.
 
 <div class="pre"><pre class="code lang-python">import pandas as pd
 df = pd.read_csv("filename.csv")
 <b>print(df.dtypes)</b></pre></div>
+    </div></li>
 
-<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.describe.html"><code>DataFrame.describe()</code></a>
-is a function that returns several statistics that summarize the data in
-a DataFrame. You may want to print the results of
-<code>describe()</code> after calling <code>read_csv()</code> to help
-you understand the data that is in the DataFrame. For example:</p>
+    <li><div><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.describe.html"><code>DataFrame.describe()</code></a>
+    is a function that returns several statistics that summarize the
+    data in a DataFrame. You may want to print the results of
+    <code>describe()</code> after calling <code>read_csv()</code> to
+    help you understand the data that is in the DataFrame. For
+    example:
 
 <div class="pre"><pre class="code lang-python">import pandas as pd
 df = pd.read_csv("filename.csv")
 <b>print(df.describe())</b></pre></div>
+    </div></li>
 
-<p>It is possible to <dfn>print an entire DataFrame</dfn>. However, by
-default pandas will print only some of the data in large data
-frames.</p>
+    <li><div>It is possible to <dfn>print an entire DataFrame</dfn>.
+    However, by default pandas will print only some of the data in large
+    data frames.
 
 <div class="pre"><pre class="code lang-python">import pandas as pd
 df = pd.read_csv("filename.csv")
 <b>print(df)</b></pre></div>
+    </div></li>
 
-<p>To <a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/intro_tutorials/03_subset_data.html#how-do-i-select-specific-columns-from-a-dataframe">extract one column</a>
-from a DataFrame write the column’s name in square brackets []. For
-example:</p>
+    <li><div>To <a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/intro_tutorials/03_subset_data.html#how-do-i-select-specific-columns-from-a-dataframe">extract one column</a>
+    from a DataFrame write the column’s name in square brackets []. For
+    example:
 
 <div class="pre"><pre class="code lang-python">import pandas as pd
 df = pd.read_csv("filename.csv")
 <b>column = df["column_name"]</b></pre></div>
 
-<p>It is also possible extract multiple columns by writing a list of
-column names between the square brackets like this:</p>
+    <p>It is also possible extract multiple columns by writing a list of
+    column names between the square brackets like this:</p>
 
 <div class="pre"><pre class="code lang-python">import pandas as pd
 original_df = pd.read_csv("filename.csv")
 <b>column_names = ["col_name1", "col_name2", "col_name3"]
 smaller_df = original_df[column_names]</b></pre></div>
+    </div></li>
 
-<p>To <a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/intro_tutorials/03_subset_data.html#how-do-i-filter-specific-rows-from-a-dataframe">filter rows</a>
-out of a DataFrame, use a comparison to create a filter object. Then use
-the filter object in square brackets to filter the DataFrame. For
-example in the following code, <var>df</var> is a DataFrame that
-contains all the rows from the CSV file <code>filename.csv</code>,
-<var>filter</var> is a filter object, and <var>filtered_df</var> is a
-DataFrame that contains only some of the rows from the CSV file because
-all the rows that don’t satisfy the comparison
-<code><b>original_df["column_name"] &gt; threshold</b></code>
-have been filtered out.</p>
+    <li><div>To <a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/intro_tutorials/03_subset_data.html#how-do-i-filter-specific-rows-from-a-dataframe">filter rows</a>
+    out of a DataFrame, use a comparison to create a filter object. Then
+    use the filter object in square brackets to filter the DataFrame.
+    For example in the following code, <var>df</var> is a DataFrame that
+    contains all the rows from the CSV file <code>filename.csv</code>,
+    <var>filter</var> is a filter object, and <var>filtered_df</var> is
+    a DataFrame that contains only some of the rows from the CSV file
+    because all the rows that don’t satisfy the comparison
+    <code><b>original_df["column_name"] &gt; threshold</b></code> have
+    been filtered out.
 
 <div class="pre"><pre class="code lang-python">import pandas as pd
 original_df = pd.read_csv("filename.csv")
 <b>filter = (original_df["column_name"] &gt; threshold)
 filtered_df = original_df[filter]</b></pre></div>
 
-<p>It is possible to filter rows by two comparisons. However, because of
-operator precedence in Python, we must add parentheses around each
-comparison. In the next example, <var>andfilt</var> and
-<var>orfilt</var> are filter objects, <var>filtered_and_df</var> is a
-data frame that contains rows that satisfy both of the comparisons, and
-<var>filtered_or_df</var> is a data frame that contains rows that
-satisfy either or both comparisons.</p>
+    <p>It is possible to filter rows by two comparisons. However,
+    because of operator precedence in Python, we must add parentheses
+    around each comparison. In the next example, <var>andfilt</var> and
+    <var>orfilt</var> are filter objects, <var>filtered_and_df</var> is
+    a data frame that contains rows that satisfy both of the
+    comparisons, and <var>filtered_or_df</var> is a data frame that
+    contains rows that satisfy either or both comparisons.</p>
 
 <div class="pre"><pre class="code lang-python">import pandas as pd
 original_df = pd.read_csv("filename.csv")
-<b>andfilt = (original_df["col_name1"] &gt; threshold) &amp; (original_df["col_name2"] == value)
-orfilt  = (original_df["col_name1"] &gt; threshold) | (original_df["col_name2"] == value)</b>
+<b>andfilt = (original_df["col_name1"] &gt; threshold) \
+        &amp; (original_df["col_name2"] == value)
+orfilt  = (original_df["col_name1"] &gt; threshold) \
+        | (original_df["col_name2"] == value)</b>
 filtered_and_df = original_df[andfilt]
 filtered_or_df = original_df[orfilt]</pre></div>
 
-<p>Unfortunately, it is easy to confuse the code that selects a column
-or columns (shown in the previous item) and the code that filters rows
-(shown in this item) because both of them use a data frame and square
-brackets such as:&nbsp; <code>original_df[ ]</code>. However, look
-closely at the example code in the previous item and this item to see
-the difference. The code to select a column or columns contains only a
-string or list of strings between the square brackets. The code to
-filter rows contains a filter object between the square
-brackets.</p>
+    <p>Unfortunately, it is easy to confuse the code that selects a
+    column or columns (shown in the previous item) and the code that
+    filters rows (shown in this item) because both of them use a data
+    frame and square brackets such as:&nbsp; <code>original_df[
+    ]</code>. However, look closely at the example code in the previous
+    item and this item to see the difference. The code to select a
+    column or columns contains only a string or list of strings between
+    the square brackets. The code to filter rows contains a filter
+    object between the square brackets.</p>
+    </div></li>
 
-<p>To filter out duplicate rows, call the
+    <li><div>To filter out duplicate rows, call the
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop_duplicates.html">DataFrame.drop_duplicates()</a>
-function. For example in the following code, <var>no_dups_df</var> is a
-DataFrame that contains the same data as <var>original_df</var> but with
-all duplicate rows removed.</p>
+    function. For example in the following code, <var>no_dups_df</var>
+    is a DataFrame that contains the same data as <var>original_df</var>
+    but with all duplicate rows removed.
 
 <div class="pre"><pre class="code lang-python">import pandas as pd
 original_df = pd.read_csv("filename.csv")
 <b>no_dups_df = original_df.drop_duplicates()</b></pre></div>
+    </div></li>
 
-<p>The <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.unique.html">Series.unique()</a>
-function returns a list of unique values from a Series. This is very
-helpful to get a list of unique values from a column. In the following
-code, <var>unique_vals</var> is a list of the unique values that appear
-in a column named <var>column_name</var>.</p>
+    <li><div>The <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.unique.html">Series.unique()</a>
+    function returns a list of unique values from a Series. This is very
+    helpful to get a list of unique values from a column. In the
+    following code, <var>unique_vals</var> is a list of the unique
+    values that appear in a column named <var>column_name</var>.
 
 <div class="pre"><pre class="code lang-python">import pandas as pd
 original_df = pd.read_csv("filename.csv")
 column = original_df["column_name"]
 <b>unique_vals = column.unique()</b></pre></div>
+    </div></li>
 
-<p>The <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.value_counts.html">Series.value_counts()</a>
+    <li><div>The <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.value_counts.html">Series.value_counts()</a>
 function counts and returns the number of times that each unique value
-occurs in a Series.</p>
+occurs in a Series.
 
 <div class="pre"><pre class="code lang-python">import pandas as pd
 original_df = pd.read_csv("filename.csv")
 column = original_df["column_name"]
 <b>counts = column.value_counts()</b></pre></div>
+    </div></li>
 
-<p>To <a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/intro_tutorials/05_add_columns.html">create a new column</a>
-derived from existing columns, use square brackets [] with the new
-column name on the left side of the assignment operator (=). For
-example:</p>
+    <li><div>To <a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/intro_tutorials/05_add_columns.html">create a new column</a>
+    derived from existing columns, use square brackets [] with the new
+    column name on the left side of the assignment operator (=). For
+    example:
 
 <div class="pre"><pre class="code lang-python">import pandas as pd
 original_df = pd.read_csv("filename.csv")
-<b>original_df["new_column_name"] = 3 * original_df["existing_column_name"] + 1</b></pre></div>
+<b>original_df["new_column_name"] = \
+        3 * original_df["existing_column_name"] + 1</b></pre></div>
+    </div></li>
 
-<p>To <dfn>extract parts of datetime values</dfn>, use the
-<code>.dt</code> attribute and the <code>.to_period</code> method
-(<a href="https://www.interviewqs.com/ddi_code_snippets/extract_month_year_pandas">tutorial</a>,
-<a href="https://stackoverflow.com/questions/23840797/convert-a-column-of-timestamps-into-periods-in-pandas">stack overflow question</a>,
-<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.dt.to_period.html">official documentation</a>).
-For example:</p>
+    <li><div>To <dfn>extract parts of datetime values</dfn>, use the
+    <code>.dt</code> attribute and the <code>.to_period</code> method
+    (<a href="https://www.interviewqs.com/ddi_code_snippets/extract_month_year_pandas">tutorial</a>,
+    <a href="https://stackoverflow.com/questions/23840797/convert-a-column-of-timestamps-into-periods-in-pandas">stack overflow question</a>,
+    <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.dt.to_period.html">official documentation</a>).
+    For example:
 
 <div class="pre"><pre class="code lang-python">import pandas as pd
 original_df = pd.read_csv("filename.csv")
 <b>column = original_df["datetime_column"].dt.to_period("M")</b></pre></div>
+    </div></li>
 
-<p>The <code>pandas</code> module includes several functions that
-aggregate data, including the following:</p>
+    <li><div>The <code>pandas</code> module includes several functions
+    that aggregate data, including the following:
+    <ol>
+        <li><div>The <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.sum.html">Series.sum()</a>
+        function computes the sum of all the values in a
+        Series.</div></li>
+        <li><div>The <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.sum.html">Series.mean()</a>
+        function computes the average value of all the values in a
+        Series.</div></li>
+        <li><div>The <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.min.html">Series.min()</a>
+        function finds the minimum value within a Series.</div></li>
+        <li><div>The <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.min.html">Series.max()</a>
+        function finds the maximum value within a Series.</div></li>
+    </ol>
+    </div></li>
 
-<ol>
-    <li>The <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.sum.html">Series.sum()</a>
-    function computes the sum of all the values in a Series.</li>
-    <li>The <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.sum.html">Series.mean()</a>
-    function computes the average value of all the values in a
-    Series.</li>
-    <li>The <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.min.html">Series.min()</a>
-    function finds the minimum value within a Series.</li>
-    <li>The <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.min.html">Series.max()</a>
-    function finds the maximum value within a Series.</li>
-</ol>
-
-<p>Grouping and aggregating data is an intermediate data analysis
-operation that can summarize many rows into just a few rows. To
-<a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/intro_tutorials/06_calculate_statistics.html#aggregating-statistics-grouped-by-category">group and aggregate data</a>,
-use the <code>.groupby</code> and <code>.aggregate</code> methods as
-shown in this template:</p>
+    <li><div>Grouping and aggregating data is an intermediate data
+    analysis operation that can summarize many rows into just a few
+    rows. To
+    <a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/intro_tutorials/06_calculate_statistics.html#aggregating-statistics-grouped-by-category">group and aggregate data</a>,
+    use the <code>.groupby</code> and <code>.aggregate</code> methods as
+    shown in this template:
 
 <div class="pre"><pre class="code lang-python">import pandas as pd
 original_df = pd.read_csv("filename.csv")
 group = original_df.groupby("existing_column_to_group_by")
 grouped_df = group.aggregate(
     new_column_name=("existing_column_to_summarize", "function"))</pre></div>
+    </div></li>
+</ol>
 
 <h2>Further Reading</h2>
 <p>The following articles give more information about using
 <code>pandas</code>.</p>
 
 <ul>
-    <li><a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/overview.html">Overview of Pandas</a></li>
-    <li><a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/intro_tutorials/01_table_oriented.html">What kind of data</a> does pandas handle?</li>
-    <li><a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/intro_tutorials/02_read_write.html">Read and write</a> tabular data</li>
-    <li><a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/intro_tutorials/03_subset_data.html">Select columns</a> from a DataFrame</li>
+    <li><div><a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/overview.html">Overview of Pandas</a></div></li>
+    <li><div><a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/intro_tutorials/01_table_oriented.html">What kind of data</a> does pandas handle?</div></li>
+    <li><div><a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/intro_tutorials/02_read_write.html">Read and write</a> tabular data</div></li>
+    <li><div><a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/intro_tutorials/03_subset_data.html">Select columns</a> from a DataFrame</div></li>
 </ul>
 
-<div class="modified">Last modified: 2022-05-07</div>
+<div class="modified">Last modified: 2022-07-25</div>
 </article>
 </body>
 </html>
