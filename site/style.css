@@ -865,12 +865,6 @@ article figure.right {
 	float: right;
 	margin: 0 0 1em 1em;
 }
-figure.pitch {
-	float: right;
-	margin: 0 0 1em 1em;
-	box-shadow: 0 0 40px rgba(0, 0, 0, .15);
-	background-color: var(--bg-color);
-}
 
 article figure img {
 	max-width: 100%;
@@ -887,13 +881,6 @@ article figure > figcaption {
 article figure > figcaption > b {
 	font-weight: bold;
 }
-/*
-figure.pitch figcaption {
-	font-size: 95%;
-	border: 1px solid var(--bg-color);
-	padding: 0.25em 0.5em 0.75em 0.5em;
-}
-*/
 
 article figure.erd_data {
 	white-space: nowrap;
@@ -908,6 +895,29 @@ article figure.erd_data > div {
 	display: inline-block;
 }
 
+figure.pitch {
+	float: right;
+	margin: 0 0 1em 1em;
+	box-shadow: 0 0 40px rgba(0, 0, 0, .15);
+	background-color: var(--bg-color);
+}
+@media (max-width: 768px) {
+	figure.pitch {
+		width: 10em;
+	}
+}
+@media (min-width: 768px) {
+	figure.pitch {
+		width: 20em;
+	}
+}
+/*
+figure.pitch figcaption {
+	font-size: 95%;
+	border: 1px solid var(--bg-color);
+	padding: 0.25em 0.5em 0.75em 0.5em;
+}
+*/
 
 article div.modified {
 	clear: both;
