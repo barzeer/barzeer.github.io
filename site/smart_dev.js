@@ -464,21 +464,6 @@ if (!window.hasOwnProperty('smartDev')) {
 					rows[r].classList.add('shaded');
 				}
 			}
-		},
-
-
-		movePitches : function() {
-			let figures = document.querySelectorAll('figure.pitch[data-sibling]');
-			for (let i = 0;  i < figures.length;  ++i) {
-				let figure = figures[i];
-				let id = figure.getAttribute('data-sibling');
-				let sibling = document.getElementById(id);
-				let top = sibling.getBoundingClientRect().top;
-				//console.log(top);
-				figure.style.top = top + "px";
-				//console.log(figure.style.top);
-				//console.log(figure.getBoundingClientRect().top);
-			}
 		}
 	};
 }

@@ -10,8 +10,8 @@ if (window.hasOwnProperty('smartDev')) {
 		smartDev.shadeDataRows();
 	});
 
-
+	/*
 	window.addEventListener('load', function() {
-		smartDev.movePitches();
 	});
+	*/
 }
