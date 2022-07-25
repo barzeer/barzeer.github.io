@@ -229,13 +229,13 @@ var count = {
 
 	checkAnswer2 : function(base, rowIndex, input) {
 		let icon;
-		let str = $(input).val();
+		let str = $(input).val().toLowerCase();
 		if (str == '') {
 			icon = $('img#unchecked').get(0);
 		}
 		else {
 			let num = parseInt(str, base);
-			let restr = num.toString(base);
+			let restr = num.toString(base).toLowerCase();
 			let row = $('table#count tbody tr').eq(rowIndex)
 			let correct = parseInt(row.find('td:first input').val());
 			icon = (str == restr && num == correct) ?
