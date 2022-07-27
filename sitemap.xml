@@ -70,7 +70,7 @@
   </url>
   <url>
     <loc>https://barzeer.github.io/java/</loc>
-    <lastmod>2022-07-22</lastmod>
+    <lastmod>2022-07-27</lastmod>
   </url>
   <url>
     <loc>https://barzeer.github.io/java/abstract.html</loc>
@@ -89,6 +89,10 @@
     <lastmod>2022-07-08</lastmod>
   </url>
   <url>
+    <loc>https://barzeer.github.io/java/junit.html</loc>
+    <lastmod>2022-07-27</lastmod>
+  </url>
+  <url>
     <loc>https://barzeer.github.io/java/methods.html</loc>
     <lastmod>2022-07-22</lastmod>
   </url>
@@ -101,6 +105,10 @@
     <lastmod>2022-07-22</lastmod>
   </url>
   <url>
+    <loc>https://barzeer.github.io/java/scope.html</loc>
+    <lastmod>2022-07-27</lastmod>
+  </url>
+  <url>
     <loc>https://barzeer.github.io/java/selection.html</loc>
     <lastmod>2022-07-22</lastmod>
   </url>
@@ -109,12 +117,12 @@
     <lastmod>2022-07-22</lastmod>
   </url>
   <url>
-    <loc>https://barzeer.github.io/java/threads.html</loc>
-    <lastmod>2022-07-11</lastmod>
-  </url>
-  <url>
     <loc>https://barzeer.github.io/java/thread_sys_out.html</loc>
     <lastmod>2022-07-08</lastmod>
+  </url>
+  <url>
+    <loc>https://barzeer.github.io/java/threads.html</loc>
+    <lastmod>2022-07-11</lastmod>
   </url>
   <url>
     <loc>https://barzeer.github.io/java/variables.html</loc>
