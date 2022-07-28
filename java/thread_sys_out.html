@@ -46,18 +46,78 @@ normal <code>System.out</code>.</p>
     <code>java.io.PrintStream</code> for each thread.</dd>
 </dl>
 
+<table class="classdia"><tbody>
+    <tr>
+        <td><table class="class"><tbody>
+            <tr><td class="name"><b>Main</b></td></tr>
+            <tr><td class="attrs">&nbsp;</td></tr>
+            <tr><td class="methods">+ <span class="static">main(args : String[]) : void</span></td></tr>
+        </tbody></table></td>
+        <td rowspan="5" style="width:2em">&nbsp;</td>
+        <td rowspan="2"><table class="class"><tbody>
+            <tr><td class="name">java.io.PrintStream</td></tr>
+            <tr><td class="attrs">&nbsp;</td></tr>
+            <tr><td class="methods">
+                <div>+ PrintStream(file : File)</div>
+                <div>+ checkError() : boolean</div>
+                <div>+ write(buf : byte[], offset : int, len : int) : void</div>
+                <div>+ write(b : int) : void</div>
+                <div>+ flush() : void</div>
+                <div>+ close() : void</div>
+            </td></tr>
+        </tbody></table></td>
+    </tr>
+    <tr>
+        <td style="vertical-align:bottom"><table class="class"><tbody>
+            <tr><td class="name">«interface»<br>java.lang.Runnable</td></tr>
+            <tr><td class="methods">+ run() : void</td></tr>
+        </tbody></table></td>
+    </tr>
+    <tr>
+        <td>&Delta;</td>
+        <td>&Delta;</td>
+    </tr>
+    <tr>
+        <td>&#x254e;</td>
+        <td>&#x2502;</td>
+    </tr>
+    <tr>
+        <td><table class="class"><tbody>
+            <tr><td class="name"><b>StreamText</b></td></tr>
+            <tr><td class="attrs">&nbsp;</td></tr>
+            <tr><td class="methods">+ run() : void</td></tr>
+        </tbody></table></td>
+        <td><table class="class"><tbody>
+            <tr><td class="name"><b>ThreadPrintStream</b></td></tr>
+            <tr><td class="attrs">&minus; out : ThreadLocal&lt;PrintStream&gt;</td></tr>
+            <tr><td class="methods">
+                <div>+ <span class="static">replaceSystemOut() : void</span></div>
+                <div>&minus; ThreadPrintStream(file : File)</div>
+                <div>+ createThreadOut() : void</div>
+                <div>&minus; setThreadOut(out : PrintStream) : void</div>
+                <div>&minus; getThreadOut() : PrintStream</div>
+                <div>+ checkError() : boolean</div>
+                <div>+ write(buf : byte[], offset : int, len : int) : void</div>
+                <div>+ write(b : int) : void</div>
+                <div>+ flush() : void</div>
+                <div>+ close() : void</div>
+            </td></tr>
+        </tbody></table></td>
+    </tr>
+</tbody></table>
+
 <h2>Main</h2>
-<div class="pre">
-<pre class="code language-java">public class Main {
+<div class="pre"><pre class="code language-java">
+public class Main {
     public static void main(String[] args) {
         // Call replaceSystemOut which replaces the
         // normal System.out with a ThreadPrintStream.
         ThreadPrintStream.replaceSystemOut();
 
-        // Create and start 10 different threads. Each thread
-        // will create its own PrintStream and install it into
-        // the ThreadPrintStream and then write three messages
-        // to System.out.
+        // Create and start 10 different threads. Each
+        // thread will create its own PrintStream and
+        // install it into the ThreadPrintStream and
+        // then write three messages to System.out.
         for (int i = 0;  i &lt; 10;  i++) {
             Thread thread = new Thread(new StreamText());
             thread.start();
@@ -69,34 +129,20 @@ normal <code>System.out</code>.</p>
 }</pre></div>
 
 <h2>StreamText</h2>
-<div class="pre">
-<pre class="code language-java">import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
-
+<div class="pre"><pre class="code language-java">
 /** A small test class that sets System.out for the currently executing
  * thread to a text file and writes three messages to System.out. */
 public class StreamText implements Runnable {
     @Override
     public void run() {
         try {
-            // Create a text file where System.out.println()
-            // will send its data for this thread.
-            String name = Thread.currentThread().getName();
-            FileOutputStream fos = new FileOutputStream(name + ".txt");
-
-            // Create a PrintStream that will write to the new file.
-            PrintStream stream =
-                    new PrintStream(new BufferedOutputStream(fos));
-
-            // Install the PrintStream to be used
-            // as System.out for this thread.
-            ((ThreadPrintStream)System.out).setThreadOut(stream);
+            ((ThreadPrintStream)System.out).createThreadOut();
 
             // Output three messages to System.out.
+            String name = Thread.currentThread().getName();
             System.out.println(name + ": first message");
             System.out.println("This is the second message from " + name);
-            System.out.println(name + ": 3rd message");
+            System.out.println(name + ": third message");
 
             // Close System.out for this thread which will
             // flush and close this thread's text file.
@@ -109,14 +155,17 @@ public class StreamText implements Runnable {
 }</pre></div>
 
 <h2>ThreadPrintStream</h2>
-<div class="pre">
-<pre class="code language-java">import java.io.ByteArrayOutputStream;
+<div class="pre"><pre class="code language-java">
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
 
-/** A ThreadPrintStream replaces the normal System.out and ensures
- * that output to System.out goes to a different PrintStream for
- * each thread. It does this by using ThreadLocal to maintain a
- * PrintStream for each thread. */
+/** A ThreadPrintStream replaces the normal System.out and
+ * ensures that output to System.out goes to a different
+ * PrintStream for each thread. It does this by using
+ * ThreadLocal to maintain a PrintStream for each thread. */
 public class ThreadPrintStream extends PrintStream {
 
     /** Changes System.out to a ThreadPrintStream which will
@@ -130,43 +179,76 @@ public class ThreadPrintStream extends PrintStream {
         ThreadPrintStream threadOut = new ThreadPrintStream();
         System.setOut(threadOut);
 
-        // Use the original System.out as the current thread's System.out
+        // Use the original System.out as
+        // the current thread's System.out
         threadOut.setThreadOut(console);
     }
 
-    /** Thread specific storage to hold a PrintStream for each thread */
+
+    /** Thread specific storage to hold
+     * a PrintStream for each thread. */
     private ThreadLocal&lt;PrintStream&gt; out;
 
+
+    /** Default and only constructor */
     private ThreadPrintStream() {
+        // We must call at least one constructor in the parent
+        // class. The one that takes an OutputStream as a parameter
+        // seems the least resource intensive, so we call that one.
         super(new ByteArrayOutputStream(0));
+
         out = new ThreadLocal&lt;PrintStream&gt;();
     }
 
-    /** Sets the PrintStream for the currently executing thread. */
-    public void setThreadOut(PrintStream out) {
+
+    /** Create and open a text file where System.out.println()
+     * will send its data for the current thread. */
+    public void createThreadOut() throws FileNotFoundException {
+        // Create a text file where System.out.println()
+        // will send its data for this thread.
+        String name = Thread.currentThread().getName();
+        FileOutputStream fos = new FileOutputStream(name + ".txt");
+
+        // Create a PrintStream that will write to the new file.
+        PrintStream stream =
+                new PrintStream(new BufferedOutputStream(fos));
+
+        setThreadOut(stream);
+    }
+
+    /** Sets the PrintStream for the
+     * currently executing thread. */
+    private void setThreadOut(PrintStream out) {
         this.out.set(out);
     }
 
-    /** Returns the PrintStream for the currently executing thread. */
-    public PrintStream getThreadOut() {
+    /** Returns the PrintStream for the
+     * currently executing thread. */
+    private PrintStream getThreadOut() {
         return this.out.get();
     }
 
-    @Override public boolean checkError() {
+    @Override
+    public boolean checkError() {
         return getThreadOut().checkError();
     }
 
-    @Override public void write(byte[] buf, int off, int len) {
+    @Override
+    public void write(byte[] buf, int off, int len) {
         getThreadOut().write(buf, off, len);
     }
 
-    @Override public void write(int b) { getThreadOut().write(b); }
+    @Override
+    public void write(int b) { getThreadOut().write(b); }
 
-    @Override public void flush() { getThreadOut().flush(); }
-    @Override public void close() { getThreadOut().close(); }
+    @Override
+    public void flush() { getThreadOut().flush(); }
+
+    @Override
+    public void close() { getThreadOut().close(); }
 }</pre></div>
 
-<div class="modified">Last modified: 2022-05-09</div>
+<div class="modified">Last modified: 2022-07-27</div>
 </article>
 </body>
 </html>

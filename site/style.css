@@ -249,6 +249,7 @@ a:hover { color: var(--link-hover-fg-color); }
 a:active { color: var(--link-active-fg-color); }
 a:visited { color: var(--link-visited-fg-color); }
 
+article b { font-weight: bold; }
 article em { font-style: italic; }
 article strong {
 	font-weight: bold;
@@ -456,8 +457,11 @@ table.classdia td.loose {
 }
 table.classdia table.package,
 table.classdia table.class {
-	margin: 0;
+	margin: 0 auto;
 	border: 1px solid var(--fg-color);
+}
+table.classdia table.class.left {
+	margin: 0;
 }
 table.classdia table.package td {
 	padding: 0.3em 0.5em;
@@ -877,9 +881,6 @@ article figure > figcaption {
 	font-size: 95%;
 	text-align: left;
 	margin: 0 0 1em 0;
-}
-article figure > figcaption > b {
-	font-weight: bold;
 }
 
 article figure.erd_data {
