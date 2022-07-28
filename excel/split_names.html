@@ -1,0 +1,174 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <title>Split Names</title>
+    <meta name="description" content="Explains how to write two Excel formulas to split full names into family names and given names">
+    <meta name="keywords" content="Microsoft Excel, full name, surname, family name, given name, LEFT function, RIGHT function, FIND function, LEN function">
+    <link rel="canonical" href="https://barzeer.github.io/excel/split_names.html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Split Full Names in a Spreadsheet</h1>
+<p>Sometimes a computer system will create a spreadsheet with a person’s
+full name stored in a single cell. For example, the following table
+shows many full names in column A.</p>
+
+<table class="excel"><thead>
+    <tr><th></th> <th scope="col">A</th> <th scope="col">B</th></tr>
+</thead><tbody>
+    <tr><th scope="row">1</th> <th scope="col">Full Name</th> <td></td></tr>
+    <tr><th scope="row">2</th> <td>Gonzalez, Enrique</td> <td></td></tr>
+    <tr><th scope="row">3</th> <td>Smith, Eugenia</td> <td></td></tr>
+    <tr><th scope="row">4</th> <td>McWilliams, Albert</td> <td></td></tr>
+    <tr><th scope="row">5</th> <td>Dalton, Wilhemina</td> <td></td></tr>
+</tbody></table>
+
+<p>If we want the full names separated into two columns, we can use the
+Excel <code>LEFT</code> and <code>RIGHT</code> functions to split the
+names. To obtain the family name (also known as the surname), we use the
+<code>LEFT</code> and <code>FIND</code> functions as shown in the
+formula in cell B2. The <code>FIND</code> function finds where the comma
+occurs in the full name, and the <code>LEFT</code> function copies all
+the characters from the beginning of the name up to but excluding the
+comma.</p>
+
+<table class="excel"><thead>
+    <tr><th></th> <th scope="col">A</th> <th scope="col">B</th>
+        <th scope="col">C</th> <th scope="col">D</th>
+        <td class="space"></td></tr>
+</thead><tbody>
+    <tr><th scope="row">1</th> <th scope="col">Full Name</th>
+        <th scope="col">Family</th> <th scope="col">Given</th>
+        <td></td> <td class="space"></td></tr>
+    <tr><th scope="row">2</th> <td>Gonzalez, Enrique</td>
+        <td class="formula" colspan="4"><code>=LEFT(A2, FIND(", ", A2) - 1)</code></td></tr>
+    <tr><th scope="row">3</th> <td>Smith, Eugenia</td>
+        <td></td> <td></td> <td></td> <td class="space"></td></tr>
+    <tr><th scope="row">4</th> <td>McWilliams, Albert</td>
+        <td></td> <td></td> <td></td> <td class="space"></td></tr>
+    <tr><th scope="row">5</th> <td>Dalton, Wilhemina</td>
+        <td></td> <td></td> <td></td> <td class="space"></td></tr>
+</tbody></table>
+
+<p>To obtain the given name, we use the <code>RIGHT</code> and
+<code>LEN</code> functions. We use the <code>LEN</code> function to
+count how many characters are in the full name after the comma. We use
+the <code>RIGHT</code> function to extract that number of characters as
+shown in the formula in cell C2 below.</p>
+
+<table class="excel"><thead>
+    <tr><th></th> <th scope="col">A</th> <th scope="col">B</th>
+        <th scope="col">C</th> <th scope="col">D</th>
+        <td class="space"></td></tr>
+</thead><tbody>
+    <tr><th scope="row">1</th> <th scope="col">Full Name</th>
+        <th scope="col">Family</th> <th scope="col">Given</th>
+        <td></td> <td class="space"></td></tr>
+    <tr><th scope="row">2</th> <td>Gonzalez, Enrique</td>
+        <td>Gonzalez</td>
+        <td class="formula" colspan="3"><code>=RIGHT(A2, LEN(A2) - LEN(B2) - 2)</code></td></tr>
+    <tr><th scope="row">3</th> <td>Smith, Eugenia</td>
+        <td></td> <td></td> <td></td> <td class="space"></td></tr>
+    <tr><th scope="row">4</th> <td>McWilliams, Albert</td>
+        <td></td> <td></td> <td></td> <td class="space"></td></tr>
+    <tr><th scope="row">5</th> <td>Dalton, Wilhemina</td>
+        <td></td> <td></td> <td></td> <td class="space"></td></tr>
+</tbody></table>
+
+<table class="excel"><thead>
+    <tr><th></th> <th scope="col">A</th> <th scope="col">B</th>
+        <th scope="col">C</th> <th scope="col">D</th></tr>
+</thead><tbody>
+    <tr><th scope="row">1</th> <th scope="col">Full Name</th>
+        <th scope="col">Family</th> <th scope="col">Given</th>
+        <td></td></tr>
+    <tr><th scope="row">2</th> <td>Gonzalez, Enrique</td>
+        <td>Gonzalez</td> <td>Enrique</td> <td></td></tr>
+    <tr><th scope="row">3</th> <td>Smith, Eugenia</td>
+        <td></td> <td></td> <td></td></tr>
+    <tr><th scope="row">4</th> <td>McWilliams, Albert</td>
+        <td></td> <td></td> <td></td></tr>
+    <tr><th scope="row">5</th> <td>Dalton, Wilhemina</td>
+        <td></td> <td></td> <td></td></tr>
+</tbody></table>
+
+<p>After writing the two formulas, we can copy and paste them in all
+rows. Notice how using the <code>FIND</code> and <code>LEN</code>
+functions enables the <code>LEFT</code> and <code>RIGHT</code> functions
+to extract the correct number of characters in every row.</p>
+
+<table class="excel"><thead>
+    <tr><th></th> <th scope="col">A</th> <th scope="col">B</th>
+        <th scope="col">C</th> <th scope="col">D</th></tr>
+</thead><tbody>
+    <tr><th scope="row">1</th> <th scope="col">Full Name</th>
+        <th scope="col">Family</th> <th scope="col">Given</th> <td></td></tr>
+    <tr><th scope="row">2</th> <td>Gonzalez, Enrique</td>
+        <td>Gonzalez</td> <td>Enrique</td> <td></td></tr>
+    <tr><th scope="row">3</th> <td>Smith, Eugenia</td>
+        <td>Smith</td> <td>Eugenia</td> <td></td></tr>
+    <tr><th scope="row">4</th> <td>McWilliams, Albert</td>
+        <td>McWilliams</td> <td>Albert</td> <td></td></tr>
+    <tr><th scope="row">5</th> <td>Dalton, Wilhemina</td>
+        <td>Dalton</td> <td>Wilhemina</td> <td></td></tr>
+</tbody></table>
+
+<p>If we leave the formulas in columns B and C, we will also have to
+leave the data in column A. In other words, the spreadsheet will contain
+each person’s full name and a copy of his family name and a copy of his
+given name.</p>
+
+<table class="excel"><thead>
+    <tr><th></th> <th scope="col">A</th> <th scope="col">B</th>
+        <th scope="col">C</th> <th scope="col">D</th></tr>
+</thead><tbody>
+    <tr><th scope="row">1</th> <th scope="col">Full Name</th>
+        <th scope="col">Family</th> <th scope="col">Given</th> <td></td></tr>
+    <tr><th scope="row">2</th> <td>Gonzalez, Enrique</td>
+        <td class="copy_top_left">Gonzalez</td>
+        <td class="copy_top_right">Enrique</td> <td></td></tr>
+    <tr><th scope="row">3</th> <td>Smith, Eugenia</td>
+        <td class="copy_left">Smith</td>
+        <td class="copy_right">Eugenia</td> <td></td></tr>
+    <tr><th scope="row">4</th> <td>McWilliams, Albert</td>
+        <td class="copy_left">McWilliams</td>
+        <td class="copy_right">Albert</td> <td></td></tr>
+    <tr><th scope="row">5</th> <td>Dalton, Wilhemina</td>
+        <td class="copy_bot_left">Dalton</td>
+        <td class="copy_bot_right">Wilhemina</td> <td></td></tr>
+</tbody></table>
+
+<p>We can eliminate the repeated names if we copy the names in columns B
+and C and then use paste special to paste only the values. Because the
+formulas in columns B and C will be replaced with the text values, we
+can delete column A.</p>
+
+<table class="excel"><thead>
+    <tr><th></th> <th scope="col">A</th>
+        <th scope="col">B</th> <th scope="col">C</th></tr>
+</thead><tbody>
+    <tr><th scope="row">1</th>
+        <th scope="col">Family</th> <th scope="col">Given</th> <td></td></tr>
+    <tr><th scope="row">2</th>
+        <td>Gonzalez</td> <td>Enrique</td> <td></td></tr>
+    <tr><th scope="row">3</th>
+        <td>Smith</td> <td>Eugenia</td> <td></td></tr>
+    <tr><th scope="row">4</th>
+        <td>McWilliams</td> <td>Albert</td> <td></td></tr>
+    <tr><th scope="row">5</th>
+        <td>Dalton</td> <td>Wilhemina</td> <td></td></tr>
+</tbody></table>
+
+<div class="modified">Last modified: 2022-07-27</div>
+</article>
+</body>
+</html>

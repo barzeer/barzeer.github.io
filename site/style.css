@@ -428,6 +428,7 @@ article table.excel > tbody > tr > th[scope="row"] {
 }
 article table.excel > tbody > tr > th[scope="col"] {
 	background-color: #fabf8f;
+	text-align: center;
 }
 article table.excel > tbody > tr > td {
 	border: 1px solid var(--border-color);
@@ -437,6 +438,28 @@ article table.excel tr > td.space,
 article table.excel tr > td.formula {
 	border: none;
 	min-width: 4em;
+}
+article table.excel tr > td.copy_top_left {
+	border-top: 3px dashed green;
+	border-left: 3px dashed green;
+}
+article table.excel tr > td.copy_top_right {
+	border-top: 3px dashed green;
+	border-right: 3px dashed green;
+}
+article table.excel tr > td.copy_left {
+	border-left: 3px dashed green;
+}
+article table.excel tr > td.copy_right {
+	border-right: 3px dashed green;
+}
+article table.excel tr > td.copy_bot_left {
+	border-left: 3px dashed green;
+	border-bottom: 3px dashed green;
+}
+article table.excel tr > td.copy_bot_right {
+	border-right: 3px dashed green;
+	border-bottom: 3px dashed green;
 }
 
 table.classdia {
