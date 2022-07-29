@@ -3249,7 +3249,7 @@ END//
 DELIMITER ;
 
 
--- Returns a person's family name, often called the last name.
+-- Returns a person's family name, often called the surname or last name.
 -- The list of names came from the U.S. Social Security Administration.
 DROP FUNCTION IF EXISTS familyName;
 DELIMITER //

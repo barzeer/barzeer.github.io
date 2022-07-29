@@ -133,7 +133,7 @@ some of the functions to use two queries like this:</p>
 
 <div class="pre">
 <pre class="code lang-sql">-- Pseudo randomly choose a row number.
-DECLARE size, `row` INT;
+DECLARE size, rowNum INT;
 SET size = (SELECT COUNT(*) FROM familyName);
 SET rowNum = 1 + FLOOR(RAND() * size);
 
@@ -240,7 +240,7 @@ DELIMITER ;
 CALL addCustomers(1000) ;
 </pre></div>
 
-<div class="modified">Last modified: 2022-05-06</div>
+<div class="modified">Last modified: 2022-07-28</div>
 </article>
 </body>
 </html>
