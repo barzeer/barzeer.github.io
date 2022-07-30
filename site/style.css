@@ -630,6 +630,7 @@ article table.division td.sum {
 article div.formula {
 	white-space: nowrap;
 	font-family: "Palatino Linotype", Palatino, Garamond, serif;
+	font-size: 120%;
 	page-break-inside: avoid !important;
 }
 
