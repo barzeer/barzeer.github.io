@@ -2,11 +2,11 @@
 <html lang="en-us">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thread Specific System.out</title>
     <meta name="description" content="Demonstrates how to make System.out, in a multi-threaded program, write to a different text file for each thread.">
     <meta name="keywords" content="Java, Java programming language, System.out, Thread">
     <link rel="canonical" href="https://barzeer.github.io/java/thread_sys_out.html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../site/smart_dev.js"></script>
     <script src="../site/article.js"></script>
     <script src="../site/hljs/highlight.min.js"></script>
@@ -248,7 +248,7 @@ public class ThreadPrintStream extends PrintStream {
     public void close() { getThreadOut().close(); }
 }</pre></div>
 
-<div class="modified">Last modified: 2022-07-27</div>
+<div class="modified">Last modified: 2022-08-01</div>
 </article>
 </body>
 </html>

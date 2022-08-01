@@ -2,11 +2,11 @@
 <html lang="en-us">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Split Names</title>
     <meta name="description" content="Explains how to write two Excel formulas to split full names into family names and given names">
     <meta name="keywords" content="Microsoft Excel, full name, surname, family name, given name, LEFT function, RIGHT function, FIND function, LEN function">
     <link rel="canonical" href="https://barzeer.github.io/excel/split_names.html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../site/smart_dev.js"></script>
     <script src="../site/article.js"></script>
     <script src="../site/hljs/highlight.min.js"></script>
@@ -50,7 +50,7 @@ comma.</p>
         <th scope="col">Family</th> <th scope="col">Given</th>
         <td></td> <td class="space"></td></tr>
     <tr><th scope="row">2</th> <td>Gonzalez, Enrique</td>
-        <td class="formula" colspan="4"><code>=LEFT(A2, FIND(", ", A2) - 1)</code></td></tr>
+        <td class="edit" colspan="4"><code>=LEFT(A2, FIND(", ", A2) - 1)</code></td></tr>
     <tr><th scope="row">3</th> <td>Smith, Eugenia</td>
         <td></td> <td></td> <td></td> <td class="space"></td></tr>
     <tr><th scope="row">4</th> <td>McWilliams, Albert</td>
@@ -75,7 +75,7 @@ shown in the formula in cell C2 below.</p>
         <td></td> <td class="space"></td></tr>
     <tr><th scope="row">2</th> <td>Gonzalez, Enrique</td>
         <td>Gonzalez</td>
-        <td class="formula" colspan="3"><code>=RIGHT(A2, LEN(A2) - LEN(B2) - 2)</code></td></tr>
+        <td class="edit" colspan="3"><code>=RIGHT(A2, LEN(A2) - LEN(B2) - 2)</code></td></tr>
     <tr><th scope="row">3</th> <td>Smith, Eugenia</td>
         <td></td> <td></td> <td></td> <td class="space"></td></tr>
     <tr><th scope="row">4</th> <td>McWilliams, Albert</td>
@@ -168,7 +168,7 @@ can delete column A.</p>
         <td>Dalton</td> <td>Wilhemina</td> <td></td></tr>
 </tbody></table>
 
-<div class="modified">Last modified: 2022-07-27</div>
+<div class="modified">Last modified: 2022-08-01</div>
 </article>
 </body>
 </html>

@@ -2,11 +2,11 @@
 <html lang="en-us">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Po-Shen Loh’s Quadratic Method</title>
     <meta name="description" content="Implements in Python the traditional quadratic formula and Po-Shen Loh’s method for finding the roots of a quadratic equation.">
     <meta name="keywords" content="quadratic equation, Po-Shen Loh, quadratic formula">
     <link rel="canonical" href="https://barzeer.github.io/math/loh_quadratic.html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../site/smart_dev.js"></script>
     <script src="../site/article.js"></script>
     <script src="../site/hljs/highlight.min.js"></script>
@@ -20,13 +20,13 @@
 <h1>Po-Shen Loh’s Quadratic Method</h1>
 
 <p>A quadratic equation is one that can be written as</p>
-<div class="block formula"><var>y</var> = <var>a</var><var>x</var><sup>2</sup> + <var>b</var><var>x</var> + <var>c</var></div>
+<div class="center formula"><var>y</var> = <var>a</var><var>x</var><sup>2</sup> + <var>b</var><var>x</var> + <var>c</var></div>
 
 <p>Young math students are taught in an algebra course that they can
 compute the roots of a quadratic equation by using the quadratic
 formula, which is</p>
 
-<div class="block formula"><var>x</var> = <div class="fract"><div class="numer">&minus;<var>b</var> &plusmn; <div class="radic onePlus"><div>&radic;</div><div><var>b</var><sup>2</sup> &minus; 4<var>a</var><var>c</var></div></div></div><div class="denom">2<var>a</var></div></div></div>
+<div class="center formula"><var>x</var> = <div class="fract"><div class="numer">&minus;<var>b</var> &plusmn; <div class="radic onePlus"><div>&radic;</div><div><var>b</var><sup>2</sup> &minus; 4<var>a</var><var>c</var></div></div></div><div class="denom">2<var>a</var></div></div></div>
 
 <p>In 2019,
 <a href="https://en.wikipedia.org/wiki/Po-Shen_Loh">Po-Shen Loh</a>,
@@ -35,9 +35,9 @@ new method for <a href="https://arxiv.org/pdf/1910.06709.pdf">computing
 the roots of a quadratic equation</a>. Loh’s method can be expressed
 with these two formulas:</p>
 
-<div class="block formula"><var>V</var> = <div class="fract"><div class="numer"><var>b</var></div><div class="denom">2<var>a</var></div></div></div>
+<div class="center formula"><var>V</var> = <div class="fract"><div class="numer"><var>b</var></div><div class="denom">2<var>a</var></div></div></div>
 
-<div class="block formula"><var>x</var> = &minus;<var>V</var> &plusmn; <div class="radic two"><div>&radic;</div><div><var>V</var><sup>2</sup> &minus; <div class="fract"><div class="numer"><var>&thinsp;c&thinsp;</var></div><div class="denom"><var>a</var></div></div></div></div></div>
+<div class="center formula"><var>x</var> = &minus;<var>V</var> &plusmn; <div class="radic two"><div>&radic;</div><div><var>V</var><sup>2</sup> &minus; <div class="fract"><div class="numer"><var>&thinsp;c&thinsp;</var></div><div class="denom"><var>a</var></div></div></div></div></div>
 
 <p>After reading his paper, I decided to implement both the traditional
 quadratic formula and Loh’s new method in Python and compare them. Of
@@ -68,12 +68,12 @@ def main():
 
 
 def quadratic(a, b, c):
-    """Compute and return the roots of a quadratic equation
-    using the traditional quadratic formula.
+    """Compute and return the roots of a quadratic
+    equation using the traditional quadratic formula.
 
     Parameters
-        a, b, c: The coefficients of a quadratic equation
-        in the form:
+        a, b, c: The coefficients of a
+        quadratic equation in the form:
         y = ax**2 + bx + c
     Return: the roots of a quadratic equation in a tuple
     """
@@ -101,12 +101,13 @@ def quadratic(a, b, c):
 
 
 def poshenloh(a, b, c):
-    """Compute and return the roots of a quadratic equation
-    using the method developed by Po-Shen Loh in 2019.
+    """Compute and return the roots of a quadratic
+    equation using the method developed by Po-Shen
+    Loh in 2019.
 
     Parameters
-        a, b, c: The coefficients of a quadratic equation
-        in the form:
+        a, b, c: The coefficients of a
+        quadratic equation in the form:
         y = ax**2 + bx + c
     Return: the roots of a quadratic equation in a tuple
     """
@@ -148,7 +149,7 @@ def verify_root(a, b, c, x):
 if __name__ == "__main__":
     main()</pre></div>
 
-<div class="modified">Last modified: 2022-07-29</div>
+<div class="modified">Last modified: 2022-08-01</div>
 </article>
 </body>
 </html>

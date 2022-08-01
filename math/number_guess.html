@@ -2,11 +2,11 @@
 <html lang="en-us">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Number Guessing Game</title>
-    <meta name="description" content="Implements a system of two equations with two unknowns as part of a simple number guessing game.">
+    <meta name="description" content="Explains and implements a system of two equations with two unknowns as part of a simple number guessing game.">
     <meta name="keywords" content="number guessing game, two equations with two unknowns">
     <link rel="canonical" href="https://barzeer.github.io/math/number_guess.html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../site/smart_dev.js"></script>
     <script src="../site/article.js"></script>
     <script src="../site/hljs/highlight.min.js"></script>
@@ -144,10 +144,13 @@ print("Think of a integer between 0 and 99.")
 print("I will ask you two questions about your")
 print("integer, and then guess your integer.")
 
+# Get the sum of the two digits from the user.
 print()
 print("Question #1")
-s = int(input("What is the sum of the two digits of your integer? "))
+s = int(input("What is the sum of the"
+        " two digits of your integer? "))
 
+# Get the difference of the two digits from the user.
 print()
 print("Question #2")
 d = int(input("What is the difference between the\n"
@@ -158,10 +161,12 @@ x = (s + d) / 2
 y = (s - d) / 2
 n = int(x * 10 + y)
 
+# Use an f-string to print the user's
+# number for the user to see.
 print()
 print(f"Your integer is {n}.")</pre></div>
 
-<div class="modified">Last modified: 2022-05-06</div>
+<div class="modified">Last modified: 2022-08-01</div>
 </article>
 </body>
 </html>

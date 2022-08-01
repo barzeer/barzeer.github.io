@@ -2,11 +2,11 @@
 <html lang="en-us">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Variables in Java</title>
     <meta name="description" content="Notes and examples that teach how to declare and use variables in the Java programming language.">
     <meta name="keywords" content="Java, Java programming, variable, data type, primitive variable type, type promotion, type cast">
     <link rel="canonical" href="https://barzeer.github.io/java/variables.html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../site/smart_dev.js"></script>
     <script src="../site/article.js"></script>
     <script src="../site/hljs/highlight.min.js"></script>
@@ -115,7 +115,7 @@ String s = "Amount due:";</pre></div>
 </ul>
 
 <h2>Primitive Types</h2>
-<table class="sparse"><thead>
+<table><thead>
     <tr><th scope="col">Type</th>
         <th scope="col">Purpose</th>
         <th scope="col">Size (bytes)</th>
@@ -130,32 +130,52 @@ String s = "Amount due:";</pre></div>
         <td class="center">2</td>
         <td><code>char c = 'A';</code></td></tr>
     <tr><td>byte</td>
-        <td>Store a number from this range
-        <div class="formula">[-2<sup>7</sup>, 2<sup>7</sup>) = [-128, 128) = [-128, 127]</div>
+        <td>Store a number within this range:
+        <span class="formula">[&minus;2<sup>7</sup>,&nbsp;&nbsp;2<sup>7</sup>) = [&minus;128,&nbsp;&nbsp;128) = [&minus;128,&nbsp;&nbsp;127]</span>
         </td>
         <td class="center">1</td>
         <td><code>byte b = 12;</code></td></tr>
     <tr><td>short</td>
-        <td><div class="formula">[-2<sup>15</sup>, 2<sup>15</sup>) = [-32768, 32768) = [-32768, 32767]</div></td>
+        <td>Store a number within this range:
+        <span class="formula">[&minus;2<sup>15</sup>,&nbsp;&nbsp;2<sup>15</sup>) = [&minus;32,768,&nbsp;&nbsp;32,768) = [&minus;32,768,&nbsp;&nbsp;32,767]</span>
+        </td>
         <td class="center">2</td>
         <td><code>short s = -25000;</code></td></tr>
     <tr><td>int</td>
-        <td><div class="formula">[-2<sup>31</sup>, 2<sup>31</sup>) = [-2147483648, 2147483648)</div></td>
+        <td>Store a number within this range:
+        <span class="formula">[&minus;2<sup>31</sup>,&nbsp;&nbsp;2<sup>31</sup>) = [&minus;2,147,483,648,&nbsp;&nbsp;2,147,483,647]</span>
+        </td>
         <td class="center">4</td>
         <td><code>int i = 4013;</code></td></tr>
     <tr><td>long</td>
-        <td><div class="formula">[-2<sup>63</sup>, 2<sup>63</sup>) = [-9223372036854775808, 9223372036854775808)</div></td>
+        <td>Store a number within this range:
+        <span class="formula">[&minus;2<sup>63</sup>,&nbsp;&nbsp;2<sup>63</sup>) = [&minus;9,223,372,036,854,775,808, &nbsp;9,223,372,036,854,775,807]</span>
+        </td>
         <td class="center">8</td>
         <td><code>long n = 3;</code></td></tr>
     <tr><td>float</td>
-        <td>Store a floating point number (a number with digits after
-        the decimal separator) with approx. 7 decimal digits of
-        precision</td>
+        <td><div>A floating-point number is a number with digits after
+        the decimal separator.</div>
+        <div>Store a floating-point number with approximately
+        7&nbsp;decimal digits of precision within the following range:
+        <span class="formula">[&minus;3.4028235&times;10<sup>38</sup>, &nbsp;3.4028235&times;10<sup>38</sup>]</span></div>
+        <div><code>float</code> can store exact integers within the
+        following range without approximation:
+        <span class="formula">[&minus;16,777,216,&nbsp; 16,777,216]</span></div>
+        <div>Integers that are more negative or more positive than the
+        previous range are approximated in a <code>float</code>.</div></td>
         <td class="center">4</td>
         <td><code>float f = 4.15f;</code></td></tr>
     <tr><td>double</td>
-        <td>More precise than float, approx. 15 decimal digits of
-        precision</td>
+        <td><div>More precise than <code>float</code>. Store a
+        floating-point number with approximately 15&nbsp;decimal digits
+        of precision within the following range:
+        <span class="formula">[&minus;1.7976931348623157&times;10<sup>308</sup>, &nbsp;1.7976931348623157&times;10<sup>308</sup>]</span></div>
+        <div><code>double</code> can store exact integers within the
+        following range without approximation:
+        <span class="formula">[&minus;9,007,199,254,740,992, &nbsp;9,007,199,254,740,992]</span></div>
+        <div>Integers that are more negative or more positive than the
+        previous range are approximated in a <code>double</code>.</div></td>
         <td class="center">8</td>
         <td><code>double d = 76.178032;</code></td></tr>
 </tbody></table>
@@ -211,7 +231,7 @@ int i = (int)d;  // Type cast from double to int.
     </div></li>
 </ul>
 
-<div class="modified">Last modified: 2022-07-22</div>
+<div class="modified">Last modified: 2022-08-01</div>
 </article>
 </body>
 </html>
