@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MySQL auto_increment</title>
+    <meta name="description" content="Tips for working with MySQL auto_incrment">
+    <meta name="keywords" content="MySQL, auto increment, AUTO_INCREMENT">
+    <link rel="canonical" href="https://barzeer.github.io/database/auto_incr.html">
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>MySQL auto_increment</h1>
+<p>MySQL contains a feature for primary key columns called auto
+increment. A table column that has the <code>AUTO_INCREMENT</code>
+attribute causes a MySQL database to automatically store unique,
+strictly increasing integers in that column. Consider the following
+table definition:
+
+<div class="pre"><pre class="code language-sql">
+DROP TABLE IF EXISTS customer;
+
+CREATE TABLE IF NOT EXISTS customer (
+    customer_id INT NOT NULL AUTO_INCREMENT,
+    given_name VARCHAR(45) NOT NULL,
+    family_name VARCHAR(45) NOT NULL,
+    PRIMARY KEY (customer_id)
+) ENGINE = InnoDB;
+</pre></div>
+
+<p>Because of the <code>AUTO_INCREMENT</code> attribute on the
+<code>customer_id</code> column, when we write an <code>INSERT</code>
+statement, we don't have to give a value for the
+<code>customer_id</code> column.</p>
+
+
+<div class="pre"><pre class="code language-sql">
+INSERT INTO customer
+(given_name, family_name)
+VALUES
+('Adrian', 'Baker'),
+('Gianna', 'Santos'),
+('Kevin', 'Wong');
+
+SELECT * FROM customer;
+</pre></div>
+
+<table class="data"><thead>
+    <tr><th>customer_id</th> <th>given_name</th> <th>family_name</th></tr>
+</thead><tbody>
+    <tr><td>1</td> <td>Adrian</td> <td>Baker</td></tr>
+    <tr><td>2</td> <td>Gianna</td> <td>Santos</td></tr>
+    <tr><td>3</td> <td>Kevin</td> <td>Wong</td></tr>
+</tbody></table>
+
+<p><code>AUTO_INCREMENT</code> is a nice feature that can save a
+developer some work. However, it is a mixed blessing. Consider trying to
+write an INSERT statement for a child table of <code>customer</code>,
+such as an <code>order</code> table.</p>
+
+<div class="pre"><pre class="code language-sql">
+DROP TABLE IF EXISTS `order`;
+
+CREATE TABLE IF NOT EXISTS `order` (
+    order_id INT NOT NULL AUTO_INCREMENT,
+    customer_id INT NOT NULL,
+    order_date DATE NOT NULL,
+    ship_date DATE NOT NULL,
+    PRIMARY KEY (order_id),
+    CONSTRAINT fk_customer_id
+        FOREIGN KEY (customer_id)
+        REFERENCES customer (customer_id)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE
+) ENGINE = InnoDB;
+</pre></div>
+
+<p>When we write the <code>INSERT</code> statement, how do we know what
+foreign key value to use? In other words, the <code>INSERT</code>
+statement for the <code>customer</code> table does not include primary
+key values, so if we want to make an order for Gianna Santos, we have to
+count or guess which primary key to use in the INSERT statement for the
+<code>order</code> table.</p>
+
+<div class="pre"><pre class="code language-sql">
+INSERT INTO `order`
+(customer_id, order_date, ship_date)
+VALUES
+(2, '2022-07-15', '2022-07-18');
+</pre></div>
+
+<p>One possibility is to explicitly write the primary key values in the
+<code>INSERT</code> statement. Even though the primary key column has
+the AUTO_INCREMENT attribute, a developer can still explicitly write the
+primary keys. Then the developer will not have to count or guess the
+value to use for the foreign key column.</p>
+
+<div class="pre"><pre class="code language-sql">
+INSERT INTO customer
+(given_name, family_name)
+VALUES
+(1, 'Adrian', 'Baker'),
+(2, 'Gianna', 'Santos'),
+(3, 'Kevin', 'Wong');
+
+SELECT * FROM customer;
+</pre></div>
+
+<table class="data"><thead>
+    <tr><th>customer_id</th> <th>given_name</th> <th>family_name</th></tr>
+</thead><tbody>
+    <tr><td>1</td> <td>Adrian</td> <td>Baker</td></tr>
+    <tr><td>2</td> <td>Gianna</td> <td>Santos</td></tr>
+    <tr><td>3</td> <td>Kevin</td> <td>Wong</td></tr>
+</tbody></table>
+
+<p>Instead of counting or guessing a foreign key value, another
+possibility is to use a <code>SELECT</code> query to find the correct
+foreign key value.</p>
+
+<div class="pre"><pre class="code language-sql">
+INSERT INTO `order`
+(customer_id, order_date, ship_date)
+VALUES
+((SELECT customer_id FROM customer
+    WHERE given_name = 'Gianna' AND family_name = 'Santos'),
+    '2022-07-15', '2022-07-18');
+
+SELECT order_id, customer_id, given_name, family_name,
+    order_date, ship_date
+FROM `order` AS o INNER JOIN customer AS c
+    ON c.customer_id = o.customer_id;
+</pre></div>
+
+<table class="data"><thead>
+    <tr><th>order_id</th> <th>customer_id</th>
+        <th>given_name</th> <th>family_name</th>
+        <th>order_date</th> <th>ship_date</th></tr>
+</thead><tbody>
+    <tr><td>1</td> <td>2</td> <td>Gianna</td> <td>Santos</td>
+        <td>2022-07-15</td> <td>2022-07-18</td></tr>
+</tbody></table>
+
+<p>One of the strange features of <code>AUTO_INCREMENT</code> is that
+even if we delete all the rows from a table, the next sequential value
+for an auto incremented column does not reset.</p>
+
+<div class="pre"><pre class="code language-sql">
+DELETE FROM `order`;
+DELETE FROM customer;
+
+INSERT INTO customer
+(given_name, family_name)
+VALUES
+('Adrian', 'Baker'),
+('Gianna', 'Santos'),
+('Kevin', 'Wong');
+
+SELECT * FROM customer;
+</pre></div>
+
+<table class="data"><thead>
+    <tr><th>customer_id</th> <th>given_name</th> <th>family_name</th></tr>
+</thead><tbody>
+    <tr><td>4</td> <td>Adrian</td> <td>Baker</td></tr>
+    <tr><td>5</td> <td>Gianna</td> <td>Santos</td></tr>
+    <tr><td>6</td> <td>Kevin</td> <td>Wong</td></tr>
+</tbody></table>
+
+<p>We can use an <code>ALTER</code> command to reset the
+<code>AUTO_INCREMENT</code> value.</p>
+
+<div class="pre"><pre class="code language-sql">
+DELETE FROM `order`;
+DELETE FROM customer;
+
+ALTER TABLE `order` AUTO_INCREMENT = 1;
+ALTER TABLE customer AUTO_INCREMENT = 1;
+
+INSERT INTO customer
+(given_name, family_name)
+VALUES
+('Adrian', 'Baker'),
+('Gianna', 'Santos'),
+('Kevin', 'Wong');
+
+SELECT * FROM customer;
+</pre></div>
+
+<table class="data"><thead>
+    <tr><th>customer_id</th> <th>given_name</th> <th>family_name</th></tr>
+</thead><tbody>
+    <tr><td>1</td> <td>Adrian</td> <td>Baker</td></tr>
+    <tr><td>2</td> <td>Gianna</td> <td>Santos</td></tr>
+    <tr><td>3</td> <td>Kevin</td> <td>Wong</td></tr>
+</tbody></table>
+
+<p>We may be interested to see if there are any gaps between primary key
+values. We can use a self join to find gaps if any exist.</p>
+
+<div class="pre"><pre class="code language-sql">
+DELETE FROM customer
+WHERE customer_id = 2;
+
+SELECT a.customer_id,
+    MIN(b.customer_id) - a.customer_id AS gap
+FROM customer AS a INNER JOIN customer AS b
+    ON a.customer_id &lt; b.customer_id
+GROUP BY a.customer_id
+HAVING gap &gt; 1
+ORDER BY a.customer_id;
+</pre></div>
+
+<table class="data"><thead>
+    <tr><th>customer_id</th> <th>gap</th></tr>
+</thead><tbody>
+    <tr><td>1</td> <td>2</td></tr>
+</tbody></table>
+
+<div class="modified">Last modified: 2022-08-01</div>
+</article>
+</body>
+</html>
