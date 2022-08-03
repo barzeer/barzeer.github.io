@@ -113,8 +113,8 @@ df = pd.read_csv("filename.csv")
 df = pd.read_csv("filename.csv")
 <b>column = df["column_name"]</b></pre></div>
 
-    <p>It is also possible extract multiple columns by writing a list of
-    column names between the square brackets like this:</p>
+    It is also possible extract multiple columns by writing a list of
+    column names between the square brackets like this:
 
 <div class="pre"><pre class="code lang-python">import pandas as pd
 original_df = pd.read_csv("filename.csv")
@@ -138,13 +138,13 @@ original_df = pd.read_csv("filename.csv")
 <b>filter = (original_df["column_name"] &gt; threshold)
 filtered_df = original_df[filter]</b></pre></div>
 
-    <p>It is possible to filter rows by two comparisons. However,
-    because of operator precedence in Python, we must add parentheses
-    around each comparison. In the next example, <var>andfilt</var> and
+    It is possible to filter rows by two comparisons. However, because
+    of operator precedence in Python, we must add parentheses around
+    each comparison. In the next example, <var>andfilt</var> and
     <var>orfilt</var> are filter objects, <var>filtered_and_df</var> is
     a data frame that contains rows that satisfy both of the
     comparisons, and <var>filtered_or_df</var> is a data frame that
-    contains rows that satisfy either or both comparisons.</p>
+    contains rows that satisfy either or both comparisons.
 
 <div class="pre"><pre class="code lang-python">import pandas as pd
 original_df = pd.read_csv("filename.csv")

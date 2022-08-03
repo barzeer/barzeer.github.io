@@ -61,9 +61,8 @@ variables and class and instance methods.</p>
     instance, and class.</div></li>
     <li><div>The declaration of a variable determines its scope.</div></li>
     <li><div>A variable declaration is the variable’s type and
-    name together.</div></li>
+    name together. For example:
 
-    <li><div>Examples:
 <div class="pre"><pre class="code language-java">
 int i;
 float gpa;
@@ -137,7 +136,8 @@ public class Pupil {
     private float gpa;    // instance variable
 
     public String toString() {
-        String s = "Name: " + this.name;  // local variable
+        // s is a local variable
+        String s = "Name: " + this.name;
         return s;
     }
 }</pre></div>
@@ -265,14 +265,14 @@ public class Pupil {
 </tbody></table>
 
 <h2>Demonstration</h2>
-<ul>
+<ol class="long">
     <li><div>Move your mouse pointer over a variable declaration, and
     the browser will highlight that variable’s scope in
     <span class="highlight">yellow</span>.</div></li>
     <li><div>Move your mouse pointer over a method header and your
     browser will highlight in <span class="highlight2">orange</span> the
     variables that method can use.</div></li>
-</ul>
+</ol>
 
 <table class="classdia left"><tbody><tr>
     <td><table class="class"><tbody>
@@ -284,7 +284,7 @@ public class Pupil {
         </td></tr>
         <tr><td class="methods">
             <div id="dia_getSchoolName" data-high2="dia_schoolName">+<span class="static">getSchoolName() : String</span></div>
-            <div id="dia_ctor" data-high2="dia_schoolName dia_name dia_gpa">+Pupil(<span title="parameter (local variable declaration)" data-high="dia_ctor">name : String</span>)</div>
+            <div id="dia_ctor" data-high2="dia_schoolName dia_name dia_gpa dia_param">+Pupil(<span id="dia_param" title="parameter (local variable declaration)" data-high="dia_ctor">name : String</span>)</div>
             <div id="dia_toString" data-high2="dia_schoolName dia_name dia_gpa">+toString() : String</div>
         </td></tr>
     </tbody></table></td>
@@ -314,20 +314,20 @@ public class <span title="class name">Pupil</span> {
         return schoolName;
     }</span>
 
-<span id="java_ctor">    <span title="constructor (instance method)" data-high2="java_schoolName java_name java_gpa">public Pupil(</span><span title="parameter (local variable declaration)" data-high="java_ctor">String name</span>) {  // constructor (instance method)
+<span id="java_ctor">    <span title="constructor (instance method)" data-high2="java_schoolName java_name java_gpa java_param">public Pupil(</span><span id="java_param" title="parameter (local variable declaration)" data-high="java_ctor">String name</span>) {  // constructor (instance method)
         this.name = name;
         this.gpa = 0;
     }</span>
 
-<span id="java_toString">    <span title="instance method" data-high2="java_schoolName java_name java_gpa">public String toString() {</span>  // instance method
-        <span title="local variable declaration" data-high="java_toString">String s</span> = "School Name: " + schoolName +
+<span id="java_toString">    <span title="instance method" data-high2="java_schoolName java_name java_gpa java_local">public String toString() {</span>  // instance method
+        <span id="java_local" title="local variable declaration" data-high="java_toString">String s</span> = "School Name: " + schoolName +
             "  Name: " + this.name + "  GPA: " + this.gpa;
         return s;
     }</span>
 }
 </pre>
 
-<div class="modified">Last modified: 2022-08-02</div>
+<div class="modified">Last modified: 2022-08-03</div>
 </article>
 </body>
 </html>

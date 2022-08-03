@@ -403,6 +403,9 @@ article table.features > tbody > tr > td:first-child {
 }
 
 /*  variable promotions */
+article table.var_promos {
+	margin: 1em auto 1em 0;
+}
 article table.var_promos > tbody > tr > td {
 	padding: 0;
 	text-align: center;
@@ -558,12 +561,9 @@ article span.null {
 /* Mathematical Formulas */
 article table.division {
 	font-family: "Palatino Linotype", Palatino, Garamond, serif;
-}
-article table.division tr > td:nth-child(2) {
-	padding: 0 0.2em;
+	font-size: 120%;
 }
 article table.division tr > td:nth-child(3) {
-	padding: 0 0.2em;
 	text-align: right;
 }
 article table.division td.dividend {
@@ -591,7 +591,7 @@ article span.formula {
 /* div is always a "block formula" */
 article div.formula {
 	white-space: nowrap;
-	margin: 1em 0;
+	margin: 0 0 1em 0;
 	vertical-align: middle;
 }
 
@@ -789,8 +789,10 @@ article div.pre {
 	background-color: var(--code-bg-color);
 	padding: 0.25em 0.5em;
 }
-article div.pre.solution {
-	margin: 1em 0;
+
+article li div.pre,
+article li pre {
+	margin: 1em auto 1em 0;
 }
 
 article div.pre > button.copy {
@@ -800,11 +802,9 @@ article div.pre > button.copy {
 	visibility: hidden;
 	background-color: var(--light-bg-color);
 }
-
 article div.pre:hover > button.copy {
 	visibility: visible;
 }
-
 article div.pre > button.copy > img {
 	width: 2em;
 }

@@ -46,9 +46,12 @@ different packages.</p>
     lifetime) of a variable or method.</div></li>
     <li><div>They simply limit where a variable or method is visible
     (usable, changeable, or callable).</div></li>
-    <li><div>Java has four visibility modifiers (least visible to most
-    visible): private, (default), protected, public</div></li>
 </ul>
+
+<h2>Visibility in Java</h2>
+<p>Java has four visibility modifiers (least visible to most visible):
+<code>private</code>, (default), <code>protected</code>,
+<code>public</code></p>
 
 <table class="features"><thead>
     <tr>
@@ -97,7 +100,7 @@ different packages.</p>
 </tbody></table>
 
 <h2>Demonstration</h2>
-<ol>
+<ol class="long">
     <li><div>Move your mouse pointer over a variable declaration and
     your browser will highlight in <span class="highlight">yellow</span>
     the classes where that variable is visible.</div></li>
@@ -136,10 +139,11 @@ different packages.</p>
 <td class="gap_tblr"><table class="class"><tbody><tr><td class="left"><pre><span id="C2">public class C2 {</span>
     <span id="C2_obj" data-high="C2" title="private instance attribute">private C1 obj = new C1();</span>
 
-    <span data-high="C1 C2 C3 C4 C5" data-high2="C1_b C1_c C1_d C1_x C1_y C1_z C1_m2 C1_m3 C1_m4 C1_m6 C1_m7 C1_m8" title="public instance method">public void m() {</span>
+    <span data-high="C1 C2 C3 C4 C5" data-high2="C1_b C1_c C1_d C1_x C1_y C1_z C1_m2 C1_m3 C1_m4 C1_m6 C1_m7 C1_m8 C2_obj" title="public instance method">public void m() {</span>
         // cannot access C1.a
         // can access C1.b, C1.c, C1.d
 
+        // can access obj
         // cannot access obj.w
         // can access obj.x, obj.y, obj.z
 
@@ -198,10 +202,11 @@ different packages.</p>
 <td class="gap_tblr"><table class="class"><tbody><tr><td class="left"><pre><span id="C5">public class C5 {</span>
     <span id="C5_obj" data-high="C5" title="private instance attribute">private C1 obj = new C1();</span>
 
-    <span data-high="C1 C2 C3 C4 C5" data-high2="C1_d C1_z C1_m4 C1_m8" title="public instance method">public void m() {</span>
+    <span data-high="C1 C2 C3 C4 C5" data-high2="C1_d C1_z C1_m4 C1_m8 C5_obj" title="public instance method">public void m() {</span>
         // cannot access C1.a, C1.b, C1.c
         // can access C1.d
 
+        // can access obj
         // cannot access obj.w, obj.x, obj.y
         // can access obj.z
 
@@ -216,7 +221,7 @@ different packages.</p>
     </tbody></table></td></tr>
 </tbody></table>
 
-<div class="modified">Last modified: 2022-08-02</div>
+<div class="modified">Last modified: 2022-08-03</div>
 </article>
 </body>
 </html>
