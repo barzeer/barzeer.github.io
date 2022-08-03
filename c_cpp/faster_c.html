@@ -212,7 +212,7 @@ reason.</p>
 
 <h4>Example 2.3</h4>
 <div class="pre">
-<pre class="code language-c">    for (int i = n;  i-- != 0;  ) {
+<pre class="code language-c">    for (int i = n;  i&#45;&#45; != 0;  ) {
     }</pre>
 </div>
 -->
@@ -603,10 +603,10 @@ const ImgU8 ImgU8::OutFilt(int kerW, int kerH) const {
     uint32_t i;
 
     if (value &lt; 0.0)
-        for (i = w * h;  i;  --i)
+        for (i = w * h;  i;  &#45;&#45;i)
             *img++ = (uint8_t)((float)*img * value - (float)0.5);
     else
-        for (i = w * h;  i;  --i)
+        for (i = w * h;  i;  &#45;&#45;i)
             *img++ = (uint8_t)((float)*img * value + (float)0.5);
 }
 
@@ -627,7 +627,7 @@ static void Scale2(uint8_t *img, int w, int h, float value) {
     }
 
     /* Scale elements of array. */
-    for (i = w * h;  i;  --i) {
+    for (i = w * h;  i;  &#45;&#45;i) {
         *img++ = lut[*img];
     }
 }
@@ -641,8 +641,8 @@ static void Accum1(short *accum, const uint8_t *color,
 
     value *= SHORT_PER_UCHAR;
     if (value &lt; 0.0) {
-        for (;  h;  --h)
-            for (i = w;  i;  --i, color += 4, accum += 4) {
+        for (;  h;  &#45;&#45;h)
+            for (i = w;  i;  &#45;&#45;i, color += 4, accum += 4) {
                 accum[0] += (short)(color[0] * value - (float)0.5);
                 accum[1] += (short)(color[1] * value - (float)0.5);
                 accum[2] += (short)(color[2] * value - (float)0.5);
@@ -650,8 +650,8 @@ static void Accum1(short *accum, const uint8_t *color,
             }
     }
     else {
-        for (;  h;  --h)
-            for (i = w;  i;  --i, color += 4, accum += 4) {
+        for (;  h;  &#45;&#45;h)
+            for (i = w;  i;  &#45;&#45;i, color += 4, accum += 4) {
                 accum[0] += (short)(color[0] * value + (float)0.5);
                 accum[1] += (short)(color[1] * value + (float)0.5);
                 accum[2] += (short)(color[2] * value + (float)0.5);
@@ -683,8 +683,8 @@ static void Accum2(short *accum, const uint8_t *color,
     }
 
     /* Accumulate color buffer into accum buffer. */
-    for (;  h;  --h)
-        for (i = w;  i;  --i, color += 4, accum += 4) {
+    for (;  h;  &#45;&#45;h)
+        for (i = w;  i;  &#45;&#45;i, color += 4, accum += 4) {
             accum[0] += lut[color[0]];
             accum[1] += lut[color[1]];
             accum[2] += lut[color[2]];
@@ -1158,8 +1158,7 @@ const ImgU8 ImgU8::ModeFilt(int kerW, int kerH) const {
 }</pre>
 </div>
 
-<div class="modified">Last modified: 2022-07-08</div>
+<div class="modified">Last modified: 2022-08-02</div>
 </article>
 </body>
 </html>
-

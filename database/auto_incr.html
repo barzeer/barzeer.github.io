@@ -52,7 +52,7 @@ VALUES
 SELECT * FROM customer;
 </pre></div>
 
-<table class="data"><thead>
+<table class="data left"><thead>
     <tr><th>customer_id</th> <th>given_name</th> <th>family_name</th></tr>
 </thead><tbody>
     <tr><td>1</td> <td>Adrian</td> <td>Baker</td></tr>
@@ -113,7 +113,7 @@ VALUES
 SELECT * FROM customer;
 </pre></div>
 
-<table class="data"><thead>
+<table class="data left"><thead>
     <tr><th>customer_id</th> <th>given_name</th> <th>family_name</th></tr>
 </thead><tbody>
     <tr><td>1</td> <td>Adrian</td> <td>Baker</td></tr>
@@ -139,7 +139,7 @@ FROM `order` AS o INNER JOIN customer AS c
     ON c.customer_id = o.customer_id;
 </pre></div>
 
-<table class="data"><thead>
+<table class="data left"><thead>
     <tr><th>order_id</th> <th>customer_id</th>
         <th>given_name</th> <th>family_name</th>
         <th>order_date</th> <th>ship_date</th></tr>
@@ -166,7 +166,7 @@ VALUES
 SELECT * FROM customer;
 </pre></div>
 
-<table class="data"><thead>
+<table class="data left"><thead>
     <tr><th>customer_id</th> <th>given_name</th> <th>family_name</th></tr>
 </thead><tbody>
     <tr><td>4</td> <td>Adrian</td> <td>Baker</td></tr>
@@ -194,7 +194,7 @@ VALUES
 SELECT * FROM customer;
 </pre></div>
 
-<table class="data"><thead>
+<table class="data left"><thead>
     <tr><th>customer_id</th> <th>given_name</th> <th>family_name</th></tr>
 </thead><tbody>
     <tr><td>1</td> <td>Adrian</td> <td>Baker</td></tr>
@@ -218,13 +218,13 @@ HAVING gap &gt; 1
 ORDER BY a.customer_id;
 </pre></div>
 
-<table class="data"><thead>
+<table class="data left"><thead>
     <tr><th>customer_id</th> <th>gap</th></tr>
 </thead><tbody>
     <tr><td>1</td> <td>2</td></tr>
 </tbody></table>
 
-<div class="modified">Last modified: 2022-08-01</div>
+<div class="modified">Last modified: 2022-08-02</div>
 </article>
 </body>
 </html>

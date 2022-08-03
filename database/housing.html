@@ -72,7 +72,7 @@ data, and a query that lists all men’s housing complexes.</p>
         <img style="width:14em" src="housing/housing1.svg"
         alt="The design for a housing database with two tables.">
 
-        <div><table class="data">
+        <div><table class="data left">
         <caption class="name">housing_complex</caption>
         <thead>
             <tr><th>cmplx_id</th> <th>name</th> <th>office_address</th>
@@ -88,7 +88,7 @@ data, and a query that lists all men’s housing complexes.</p>
                 <td>305 Centre St</td> <td class="number">102</td></tr>
         </tbody></table>
 
-        <table class="data" style="margin-top:2em">
+        <table class="data left" style="margin-top:2em">
         <caption class="name">tenant_type</caption>
         <thead>
             <tr><th>type_id</th> <th>type</th></tr>
@@ -106,7 +106,7 @@ FROM housing_complex AS c
     INNER JOIN tenant_type AS t ON t.type_id = c.type_id
 WHERE t.type = 'men' OR t.type = 'both';</pre></div>
 
-    <table class="data resultset"><thead>
+    <table class="data left"><thead>
         <tr><th>cmplx_id</th> <th>name</th> <th>office_address</th>
             <th>type_id</th></tr>
     </thead><tbody>
@@ -145,7 +145,7 @@ SELECT *
 FROM housing_complex
 WHERE men = True;</pre></div>
 
-    <table class="data resultset"><thead>
+    <table class="data left"><thead>
         <tr><th>cmplx_id</th> <th>name</th> <th>office_address</th>
             <th>men</th> <th>women</th></tr>
     </thead><tbody>
@@ -184,7 +184,7 @@ SELECT *
 FROM housing_complex
 WHERE type = 'men' OR type = 'both';</pre></div>
 
-    <table class="data resultset"><thead>
+    <table class="data left"><thead>
         <tr><th>cmplx_id</th> <th>name</th> <th>office_address</th>
             <th>type</th></tr>
     </thead><tbody>
@@ -201,7 +201,7 @@ WHERE type = 'men' OR type = 'both';</pre></div>
         <img style="width:14em" src="housing/housing4.svg"
         alt="The design for a housing database with three tables.">
 
-        <div><table class="data">
+        <div><table class="data left">
         <caption class="name">housing_complex</caption>
         <thead>
             <tr><th>cmplx_id</th> <th>name</th> <th>office_address</th></tr>
@@ -216,7 +216,7 @@ WHERE type = 'men' OR type = 'both';</pre></div>
                 <td>305 Centre St</td></tr>
         </tbody></table>
 
-        <table class="data" style="margin-top:2em">
+        <table class="data left" style="margin-top:2em">
         <caption class="name">complex_is_type</caption>
         <thead>
             <tr><th>cmplx_id</th> <th>type_id</th></tr>
@@ -228,7 +228,7 @@ WHERE type = 'men' OR type = 'both';</pre></div>
             <tr class="number"><td>4</td> <td>102</td></tr>
         </tbody></table>
 
-        <table class="data" style="margin-top:2em">
+        <table class="data left" style="margin-top:2em">
         <caption class="name">tenant_type</caption>
         <thead>
             <tr><th>type_id</th> <th>type</th></tr>
@@ -246,7 +246,7 @@ FROM housing_complex AS c
     INNER JOIN tenant_type AS t ON t.type_id = ct.type_id
 WHERE t.name = 'men';</pre></div>
 
-    <table class="data resultset"><thead>
+    <table class="data left"><thead>
         <tr><th>cmplx_id</th> <th>name</th> <th>office_address</th></tr>
     </thead><tbody>
         <tr><td class="number">1</td> <td>Bonaventure</td>
@@ -268,7 +268,7 @@ housing complex to serve all the types of tenants. Of course, if you
 can’t imagine needing this extensibility in the future then choose one
 of the first three solutions.</p>
 
-<div class="modified">Last modified: 2022-08-01</div>
+<div class="modified">Last modified: 2022-08-02</div>
 </article>
 </body>
 </html>

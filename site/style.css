@@ -1,10 +1,4 @@
 @import url("reset.css");
-/*
-@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Kalam&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
-*/
 @import url('https://fonts.googleapis.com/css2?family=Neucha&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
@@ -154,7 +148,7 @@ div.page > header {
 		margin-bottom: 0.5em;
 	}
 	nav > ul {
-		margin-left: 1.5em;
+		margin-left: 1.25em;
 		list-style-type: disc;
 	}
 	nav > ul > li {
@@ -355,61 +349,52 @@ article.directory h1 {
 article.directory ul > li {
 	margin: 0 0 0.5em 0;
 }
-article.directory dl > dd {
-	margin: 0 0 1em 2em;
-}
 
 article dl {
-	margin: 0 0 1em 1em;
+	margin-left: 1em;
 }
 article dl > dd {
-	margin-left: 2em;
-}
-
-article dl.function > dt {
-	border-left: 0.12em solid var(--bullet-fg-color);
-	padding-left: 0.5em;
-}
-
-article dl.function > dd {
-	margin-left: 0;
-	border-left: 0.12em solid var(--bullet-fg-color);
-	padding-left: 2.5em;
-	margin-bottom: 1em;
+	padding-left: 2em;
 }
 
 article dl.long > dd {
 	margin-bottom: 1em;
 }
 
+article dl.function > dt {
+	border-left: medium solid var(--bullet-fg-color);
+	padding-left: 0.5em;
+}
+article dl.function > dd {
+	border-left: medium solid var(--bullet-fg-color);
+	padding-left: 2.5em;
+}
+
 
 /* Tables */
 article table {
-	margin-bottom: 1em;
+	margin: 0 auto 1em auto;
+}
+article table.left {
+	margin: 0 auto 1em 1.25em;
 }
 article table > thead > tr > th {
-	padding: 0 0.3em;
+	padding: 0 0.3em 0 0.3em;;
 	vertical-align: bottom;
 	text-align: center;
 	font-weight: bold;
 }
 article table > tbody > tr > th {
+	text-align: center;
 	font-weight: bold;
 }
 article table > tbody > tr > th,
 article table > tbody > tr > td {
-	padding: 0.3em 0.3em;
+	padding: 0.3em 0.3em 0.3em 0.3em;
 	vertical-align: top;
-	text-align: left;
 }
 
-article table > tbody.top > tr > td { vertical-align: top; }
-article table > tbody.middle > tr > td { vertical-align: middle; }
-article table > tbody.center > tr > td { text-align: center; }
-article table tr.center > td { text-align: center; }
-
 article table.features > tbody > tr > td {
-	padding: 0.5em 0.5em 0 0;
 	vertical-align: middle;
 	text-align: center;
 }
@@ -417,29 +402,38 @@ article table.features > tbody > tr > td:first-child {
 	text-align: right;
 }
 
+/*  variable promotions */
+article table.var_promos > tbody > tr > td {
+	padding: 0;
+	text-align: center;
+}
+
+article table.excel > thead > tr > th,
+article table.excel > tbody > tr > th,
+article table.excel > tbody > tr > td {
+	border: 1px solid var(--border-color);
+	padding: 0 0.3em 0 0.3em;
+}
+article table.excel > thead > tr > th:first-child {
+	border-top: none;
+	border-left: none;
+	background-color: #e0e0e0;
+}
 article table.excel > thead > tr > th[scope="col"] {
-	border-right: 1px solid var(--border-color);
-	border-bottom: 1px solid var(--border-color);
-	border-left: 1px solid var(--border-color);
+	border-top: none;
 	min-width: 4em;
 	background-color: #e0e0e0;
 	font-weight: normal;
 }
 article table.excel > tbody > tr > th[scope="row"] {
-	border-top: 1px solid var(--border-color);
-	border-right: 1px solid var(--border-color);
-	border-bottom: 1px solid var(--border-color);
+	border-left: none;
 	background-color: #e0e0e0;
-	padding: 0 0.3em;
 	font-weight: normal;
 }
 article table.excel > tbody > tr > th[scope="col"] {
 	background-color: #fabf8f;
 	text-align: center;
-}
-article table.excel > tbody > tr > td {
-	border: 1px solid var(--border-color);
-	padding: 0 0.2em;
+	font-weight: bold;
 }
 article table.excel tr > td.space,
 article table.excel tr > td.edit {
@@ -469,11 +463,9 @@ article table.excel tr > td.copy_bot_right {
 	border-bottom: 3px dashed green;
 }
 
-article table.classdia {
-	margin: 0 auto 1em auto;
-}
 article table.classdia td {
 	white-space: nowrap;
+	padding: 0;
 	text-align: center;
 }
 article table.classdia td.left {
@@ -482,10 +474,15 @@ article table.classdia td.left {
 article table.classdia td.relat {
 	font-family: "Source Code Pro", "Lucida Console", Consolas, monospace;
 }
-article table.classdia td.loose {
+article table.classdia td.gap_tb {
 	padding: 0.1em 0;
 }
-article table.classdia table.package,
+article table.classdia table.package {
+	border: 1px solid var(--fg-color);
+}
+article table.classdia table.package td.gap_tblr {
+	padding: 0.8em 0.8em;
+}
 article table.classdia table.class {
 	margin: 0 auto;
 	border: 1px solid var(--fg-color);
@@ -516,14 +513,6 @@ article table.classdia table.comment td {
 article table.classdia .static {
 	text-decoration: underline;
 }
-
-/*
-div.package { display: table;
-	border: 1px solid darkSlateGray; border-spacing: 0.5em; }
-div.package div.class { display: table-cell;
-	padding: 0 0.1em 0 0.1em;
-	border: 1px solid darkSlateGray; vertical-align: top; }
-*/
 
 article table.cc tbody td {
 	border: 1px solid var(--border-color);
@@ -563,10 +552,6 @@ article span.null {
 	color: white;
 	font-size: smaller;
 	text-transform: uppercase;
-}
-
-article table.resultset {
-	margin: 1em auto 1em 1.25em;
 }
 
 
@@ -885,7 +870,6 @@ article figure.erd_data {
 article figure.erd_data > img {
 	display: inline;
 	vertical-align: top;
-	margin-right: 1em;
 }
 article figure.erd_data > div {
 	display: inline-block;
@@ -923,4 +907,3 @@ article div.modified {
 figure.pitch ~ div.modified {
 	text-align: left;
 }
-

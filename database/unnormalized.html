@@ -40,7 +40,7 @@ of a track name and a comma that separates track names?</p>
     design for artists, albums, and tracks that violates first normal
     form">
 
-    <div><table class="data">
+    <div><table class="data left">
     <caption class="name">album</caption><thead>
         <tr><th scope="col">albumTitle</th>
             <th scope="col">yearReleased</th>
@@ -77,7 +77,7 @@ have to search in all the track columns which is inefficient.</p>
     design for artists, albums, and tracks that violates first normal
     form">
 
-    <div><table class="data">
+    <div><table class="data left">
     <caption class="name">album</caption><thead>
         <tr><th scope="col">albumTitle</th>
             <th scope="col">yearReleased</th>
@@ -126,7 +126,7 @@ track table and should be separated.</p>
     design for artists, albums, and tracks that doesn’t violate first
     normal form but does violate second normal form">
 
-    <div><table class="data">
+    <div><table class="data left">
     <caption class="name">album</caption><thead>
     <tr><th scope="col">albumTitle</th>
         <th scope="col">yearReleased</th>
@@ -183,7 +183,7 @@ key (trackKey column) but is determined by the artist column.</p>
     have been removed but does violate third normal form because
     artistCountry doesn’t depend on trackKey">
 
-    <div><table class="data">
+    <div><table class="data left">
     <caption class="name">album</caption><thead>
         <tr><th scope="col">albumKey</th>
             <th scope="col">albumTitle</th>
@@ -196,7 +196,7 @@ key (trackKey column) but is determined by the artist column.</p>
             <td class="center">2008</td> <td>Big Machine Records</td></tr>
     </tbody></table>
 
-    <table class="data">
+    <table class="data left">
     <caption class="name">track</caption><thead>
         <tr><th scope="col">trackKey</th>
             <th scope="col">trackTitle</th>
@@ -246,7 +246,7 @@ we say the design is normalized to third normal form.</p>
     alt="An entity relationship diagram for artists, albums, and tracks
     that is normalized to third normal form">
 
-    <div><table class="data">
+    <div><table class="data left">
     <caption class="name">album</caption><thead>
         <tr><th scope="col">albumKey</th>
             <th scope="col">albumTitle</th>
@@ -259,7 +259,7 @@ we say the design is normalized to third normal form.</p>
             <td class="center">2008</td> <td>Big Machine Records</td></tr>
     </tbody></table>
 
-    <table class="data">
+    <table class="data left">
     <caption class="name">track</caption><thead>
         <tr><th scope="col">trackKey</th>
             <th scope="col">trackTitle</th>
@@ -290,7 +290,7 @@ we say the design is normalized to third normal form.</p>
             <td>FRLS</td> <td>TSWF</td></tr>
     </tbody></table>
 
-    <table class="data">
+    <table class="data left">
     <caption class="name">artist</caption><thead>
         <tr><th scope="col">artistKey</th>
             <th scope="col">artistName</th>
@@ -323,7 +323,7 @@ cells contain multiple values.</p>
     design for subscribers, magazines, and subscriptions that violates
     first normal form">
 
-    <div><table class="data">
+    <div><table class="data left">
     <caption class="name">subscriber</caption><thead>
         <tr><th scope="col" colspan="6">Subscriber</th>
             <th scope="col" colspan="2">Magazine</th>
@@ -400,7 +400,7 @@ Name,&hellip;).</p>
         design for subscribers, magazines, and subscriptions that violates
         first normal form">
 
-    <div><table class="data">
+    <div><table class="data left">
     <caption class="name">subscriber</caption><thead>
         <tr><th scope="col" colspan="6">Subscriber</th>
             <th scope="col" colspan="4">Magazine 1</th>
@@ -514,7 +514,7 @@ Name, &hellip;).</p>
     design for subscribers, magazines, and subscriptions that violates
     first normal form">
 
-    <div><table class="data">
+    <div><table class="data left">
     <caption class="name">magazine</caption><thead>
         <tr><th scope="col" colspan="2">Magazine</th>
             <th scope="col" colspan="8">Subscriber 1</th>
@@ -640,7 +640,7 @@ sub-themes that should be separated.</p>
     design for magazines, subscriptions, and subscribers that doesn’t
     violate first normal form but does violate second normal">
 
-    <div><table class="data">
+    <div><table class="data left">
     <caption class="name">subscription</caption><thead>
         <tr><th scope="col" colspan="2">Magazine</th>
             <th scope="col" colspan="2">Subscription</th>
@@ -724,7 +724,7 @@ we say the design is normalized to third normal form.</p>
     alt="An entity relationship diagram for magazines, subscriptions,
     and subscribers normalized to third normal form">
 
-    <div><table class="data">
+    <div><table class="data left">
     <caption class="name">magazine</caption><thead>
         <tr><th scope="col">magazineKey</th>
             <th scope="col">magazineName</th>
@@ -746,7 +746,7 @@ we say the design is normalized to third normal form.</p>
             <td>Corn Shucking for Fun and Profit</td> <td class="money">$15.05</td></tr>
     </tbody></table>
 
-    <table class="data">
+    <table class="data left">
     <caption class="name">subscription</caption><thead>
         <tr><th scope="col">subscriptionKey</th>
             <th scope="col">magazineKey</th>
@@ -792,7 +792,7 @@ we say the design is normalized to third normal form.</p>
             <td class="date">2011-05-01</td> <td class="number">18</td></tr>
     </tbody></table>
 
-    <table class="data">
+    <table class="data left">
     <caption class="name">subscriber</caption><thead>
         <tr><th scope="col">subscriberKey</th>
             <th scope="col">firstName</th>
@@ -823,7 +823,7 @@ we say the design is normalized to third normal form.</p>
     </tbody></table></div>
 </figure>
 
-<div class="modified">Last modified: 2022-08-01</div>
+<div class="modified">Last modified: 2022-08-02</div>
 </article>
 </body>
 </html>

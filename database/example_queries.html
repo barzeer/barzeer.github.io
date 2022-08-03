@@ -32,7 +32,7 @@ magazine database</a>.</p>
     alt="An entity relationship diagram for magazines, subscriptions,
     and subscribers normalized to third normal form">
 
-    <div><table class="data">
+    <div><table class="data left">
     <caption class="name">magazine</caption><thead>
         <tr><th scope="col">magazineKey</th>
             <th scope="col">magazineName</th>
@@ -56,7 +56,7 @@ magazine database</a>.</p>
             <td>MySQL Magic</td> <td class="money">$10.95</td></tr>
     </tbody></table>
 
-    <table class="data">
+    <table class="data left">
     <caption class="name">subscription</caption><thead>
         <tr><th scope="col">subscriptionKey</th>
             <th scope="col">magazineKey</th>
@@ -99,7 +99,7 @@ magazine database</a>.</p>
             <td class="date">2011-05-01</td> <td class="number">18</td></tr>
     </tbody></table>
 
-    <table class="data">
+    <table class="data left">
     <caption class="name">subscriber</caption><thead>
         <tr><th scope="col">subscriberKey</th>
             <th scope="col">firstName</th>
@@ -143,7 +143,7 @@ FROM subscriber
 ORDER BY subscriberLastName, subscriberFirstName
 </pre></div>
 
-<table class="data resultset"><thead>
+<table class="data left"><thead>
 <tr>
     <th scope="col">firstName</th>
     <th scope="col">lastName</th>
@@ -181,7 +181,7 @@ FROM magazine AS m
 ORDER BY magazineName, subscriberLastName, subscriberFirstName
 </pre></div>
 
-<table class="data resultset"><thead>
+<table class="data left"><thead>
     <tr><th scope="col">magazineName</th>
         <th scope="col">firstName</th>
         <th scope="col">lastName</th>
@@ -236,7 +236,7 @@ WHERE m.magazineName = 'Fishing in the Mojave'
 ORDER BY subscriberLastName, subscriberFirstName
 </pre></div>
 
-<table class="data resultset"><thead>
+<table class="data left"><thead>
     <tr><th scope="col">firstName</th> <th scope="col">lastName</th></tr>
 </thead><tbody>
     <tr><td>Jose</td> <td>Jimenez</td></tr>
@@ -256,7 +256,7 @@ GROUP BY p.magazineKey
 ORDER BY magazineName
 </pre></div>
 
-<table class="data resultset"><thead>
+<table class="data left"><thead>
     <tr><th scope="col">magazineName</th>
         <th scope="col">subscribers</th></tr>
 </thead><tbody>
@@ -286,7 +286,7 @@ GROUP BY p.magazineKey
 ORDER BY magazineName
 </pre></div>
 
-<table class="data resultset"><thead>
+<table class="data left"><thead>
     <tr><th scope="col">magazineName</th>
         <th scope="col">subscribers</th>
         <th scope="col">totalRevenue</th></tr>
@@ -321,7 +321,7 @@ WHERE '2011-10-01' BETWEEN p.subscriptionStartDate AND
 ORDER BY magazineName, subscriberLastName, subscriberFirstName
 </pre></div>
 
-<table class="data resultset"><thead>
+<table class="data left"><thead>
     <tr><th scope="col">magazineName</th>
         <th scope="col">firstName</th>
         <th scope="col">lastName</th></tr>
@@ -334,7 +334,7 @@ ORDER BY magazineName, subscriberLastName, subscriberFirstName
     <tr><td>Pine Cone Computing</td> <td>Samantha</td> <td>Sanders</td></tr>
 </tbody></table>
 
-<div class="modified">Last modified: 2022-08-01</div>
+<div class="modified">Last modified: 2022-08-02</div>
 </article>
 </body>
 </html>

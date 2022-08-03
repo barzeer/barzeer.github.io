@@ -109,7 +109,7 @@ double[] array;</pre></div>
 </tbody></table>
 
 <h2>Example</h2>
-<table class="classdia"><tbody><tr>
+<table class="classdia left"><tbody><tr>
     <td><table class="class"><tbody>
         <tr><td class="name">Pupil</td></tr>
         <tr><td class="attrs">
@@ -190,7 +190,7 @@ public class Pupil {
 </tbody></table>
 
 <h2>Example</h2>
-<table class="classdia"><tbody><tr>
+<table class="classdia left"><tbody><tr>
     <td><table class="class"><tbody>
         <tr><td class="name">Pupil</td></tr>
         <tr><td class="attrs">
@@ -265,21 +265,27 @@ public class Pupil {
 </tbody></table>
 
 <h2>Demonstration</h2>
-<p>Move your mouse pointer over a variable declaration, and the browser
-will highlight that variable’s scope.</p>
+<ul>
+    <li><div>Move your mouse pointer over a variable declaration, and
+    the browser will highlight that variable’s scope in
+    <span class="highlight">yellow</span>.</div></li>
+    <li><div>Move your mouse pointer over a method header and your
+    browser will highlight in <span class="highlight2">orange</span> the
+    variables that method can use.</div></li>
+</ul>
 
-<table class="classdia"><tbody><tr>
+<table class="classdia left"><tbody><tr>
     <td><table class="class"><tbody>
         <tr><td class="name">Pupil</td></tr>
         <tr><td class="attrs">
-            <div data-high="Pupil_getSchoolName Pupil_ctor Pupil_toString">&minus;<span class="static">schoolName : String</span></div>
-            <div data-high="Pupil_ctor Pupil_toString">&minus;name : String</div>
-            <div data-high="Pupil_ctor Pupil_toString">&minus;gpa : float</div>
+            <div id="dia_schoolName" data-high="dia_getSchoolName dia_ctor dia_toString">&minus;<span class="static">schoolName : String</span></div>
+            <div id="dia_name" data-high="dia_ctor dia_toString">&minus;name : String</div>
+            <div id="dia_gpa" data-high="dia_ctor dia_toString">&minus;gpa : float</div>
         </td></tr>
         <tr><td class="methods">
-            <div>+<span class="static">getSchoolName() : String</span></div>
-            <div>+Pupil(name : String)</div>
-            <div>+toString() : String</div>
+            <div id="dia_getSchoolName" data-high2="dia_schoolName">+<span class="static">getSchoolName() : String</span></div>
+            <div id="dia_ctor" data-high2="dia_schoolName dia_name dia_gpa">+Pupil(<span title="parameter (local variable declaration)" data-high="dia_ctor">name : String</span>)</div>
+            <div id="dia_toString" data-high2="dia_schoolName dia_name dia_gpa">+toString() : String</div>
         </td></tr>
     </tbody></table></td>
     <td><table class="comment"><tbody>
@@ -298,29 +304,30 @@ will highlight that variable’s scope.</p>
     </tbody></table></td>
 </tr></tbody></table>
 
-<pre>
+<pre style="margin: 0 auto 1em 1.5em">
 public class <span title="class name">Pupil</span> {
-    <span title="class variable declaration" data-high="Pupil_getSchoolName Pupil_ctor Pupil_toString">private static String schoolName</span> = "Western University";  // class variable
-    <span title="instance variable declaration" data-high="Pupil_ctor Pupil_toString">private String name;</span>  // instance variable
-    <span title="instance variable declaration" data-high="Pupil_ctor Pupil_toString">private float gpa;</span>  // instance variable
+    <span id="java_schoolName" title="class variable declaration" data-high="java_getSchoolName java_ctor java_toString">private static String schoolName</span> = "Western University";  // class variable
+    <span id="java_name" title="instance variable declaration" data-high="java_ctor java_toString">private String name;</span>  // instance variable
+    <span id="java_gpa" title="instance variable declaration" data-high="java_ctor java_toString">private float gpa;</span>  // instance variable
 
-<span id="Pupil_getSchoolName">    <span title="class method">public static String getSchoolName() {</span>  // class method
+<span id="java_getSchoolName">    <span title="class method" data-high2="java_schoolName">public static String getSchoolName() {</span>  // class method
         return schoolName;
     }</span>
 
-<span id="Pupil_ctor">    <span title="constructor (instance method)">public Pupil(</span><span title="parameter (local variable declaration)" data-high="Pupil_ctor">String name</span>) {  // constructor (instance method)
+<span id="java_ctor">    <span title="constructor (instance method)" data-high2="java_schoolName java_name java_gpa">public Pupil(</span><span title="parameter (local variable declaration)" data-high="java_ctor">String name</span>) {  // constructor (instance method)
         this.name = name;
         this.gpa = 0;
     }</span>
 
-<span id="Pupil_toString">    <span title="instance method">public String toString() {</span>  // instance method
-        <span title="local variable declaration" data-high="Pupil_toString">String s</span> = "Name: " + this.name + "  GPA: " + this.gpa;
+<span id="java_toString">    <span title="instance method" data-high2="java_schoolName java_name java_gpa">public String toString() {</span>  // instance method
+        <span title="local variable declaration" data-high="java_toString">String s</span> = "School Name: " + schoolName +
+            "  Name: " + this.name + "  GPA: " + this.gpa;
         return s;
     }</span>
 }
 </pre>
 
-<div class="modified">Last modified: 2022-07-27</div>
+<div class="modified">Last modified: 2022-08-02</div>
 </article>
 </body>
 </html>
