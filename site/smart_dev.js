@@ -100,7 +100,7 @@ if (!window.hasOwnProperty('smartDev')) {
 
 			let items = [
 				['python', 'Python'],
-				//['javascript', 'JavaScript'],
+				['js', 'JavaScript'],
 				['java', 'Java'],
 				['c_cpp', 'C and C++'],
 				['shell', 'Shell Scripts'],

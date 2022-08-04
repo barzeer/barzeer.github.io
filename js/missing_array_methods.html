@@ -1,0 +1,329 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Five Methods Missing from JavaScript Array</title>
+    <meta name="description" content="Describes and implements five useful methods missing from the JavaScript Array class">
+    <meta name="keywords" content="JavaScript, Array, binary search, add, retain, remove, distinct, unique">
+    <link rel="canonical" href="https://barzeer.github.io/java/missing_array_methods.html">
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Five Methods Missing from JavaScript Array</h1>
+
+<p>JavaScript is a computer programming language that most often runs
+inside a web browser as part of a web page. It is a simple yet powerful
+language that includes several built-in classes and methods. One of
+these built-in classes is the <code>Array</code> class which has
+powerful methods such as <code>concat</code>, <code>sort</code>,
+<code>slice</code>, and <code>splice</code>. However, there are several
+useful methods, including <code>binarySearch</code>,
+<code>addAll</code>, <code>retainAll</code>, <code>removeAll</code>, and
+<code>retainUnique</code>, that were not included in the
+<code>Array</code> class. This article shows you how to add these five
+useful methods to the JavaScript <code>Array</code> class. If you put
+these methods in a JavaScript file named <code>array.js</code>, you will
+be able to include and use them in a web page whenever you want.</p>
+
+<h2>Descriptions of the Methods</h2>
+<dl class="long">
+    <dt>binarySearch</dt>
+    <dd><p>The existing <code>Array.indexOf</code> method searches an
+    array for an occurrence of some value called a key. The existing
+    <code>indexOf</code> method is an implementation of an algorithm
+    called linear search. This means that <code>indexOf</code> searches
+    an array from the beginning to the end of the array, stopping when
+    it finds the key or reaches the end of the array. If the key is
+    stored in the array, the <code>indexOf</code> method returns the
+    index of the first occurrence of the key. Otherwise, it returns
+    &minus;1. The linear search algorithm (and <code>indexOf</code>)
+    works well for arrays that are small (perhaps less than 100
+    elements).</p>
+
+    <p>If the elements in an array are sorted, then the computer can use
+    a faster algorithm called binary search to find an element within
+    that array. The <code>binarySearch</code> method works by comparing
+    the key to the middle most element in the array. If the key is less
+    than the middle most element, then the search is repeated in the
+    first half of the array. If the key is greater than the middle most
+    element, then the search is repeated in the last half of the array.
+    Of course, if the key is equal to the middle most element, then the
+    computer has found the key and the search is done. This process of
+    comparing the key to the middle most element of the current interval
+    is repeated until the computer finds the key or the interval has
+    shrunk to only one element. If that one element is not the same as
+    the key, then the key is not present in the array.</p></dd>
+
+    <dt>addAll</dt>
+    <dd>The <code>addAll</code> method is similar to the built-in concat
+    method, but the <code>addAll</code> method adds elements to an
+    existing array instead of returning a new array as the concat method
+    does. The <code>addAll</code> method can be used to compute the
+    union of arrays.</dd>
+
+    <dt>retainAll</dt>
+    <dd>The <code>retainAll</code> method retains in an array all the
+    elements that are also contained in a second array. This is similar
+    to computing the intersection of the two arrays.</dd>
+
+    <dt>removeAll</dt>
+    <dd>The <code>removeAll</code> method removes from an array all the
+    elements that are also contained in another array. This is similar
+    to computing the complement of the first array relative to the
+    second.</dd>
+
+    <dt>distinct</dt>
+    <dd>If an array is sorted, the <code>distinct</code> method removes
+    all duplicates of all elements, leaving one unique entry for each
+    element. In other words, after the <code>distinct</code> method is
+    finished all elements in the array will be unique. This is the same
+    thing that the -u option of the unix sort command does.</dd>
+</dl>
+
+<h2>The Five Missing Methods</h2>
+<p>Here are the five missing JavaScript <code>Array</code> methods. Copy
+these methods into a text file named "<code>array.js</code>". Notice
+that all the methods except <code>addAll</code> have an optional
+parameter which is a comparison method. If your program is storing
+complex objects in arrays, you can write your own comparison method to
+compare the objects any way you like.</p>
+
+<div class="pre" id="ex1"><pre class="code language-javascript">
+"use strict";
+
+/** If this array contains key, returns the index of any
+ * occurrence of key; otherwise returns -insertion - 1,
+ * where insertion is the location within the array at
+ * which the key should be inserted. binarySearch assumes
+ * this array is already sorted. */
+Array.prototype.binarySearch = function(key, compare) {
+    if (typeof(compare) == 'undefined') {
+        compare = ascend;
+    }
+    let left = 0;
+    let right = this.length - 1;
+    while (left &lt;= right) {
+        let mid = left + ((right - left) &gt;&gt;&gt; 1);
+        let cmp = compare(key, this[mid]);
+        if (cmp &gt; 0)
+            left = mid + 1;
+        else if (cmp &lt; 0)
+            right = mid - 1;
+        else
+            return mid;
+    }
+    return -(left + 1);
+}
+
+
+/** Adds all the elements in the
+ * specified arrays to this array. */
+Array.prototype.addAll = function() {
+    for (let a = 0;  a &lt; arguments.length;  a++) {
+        let arr = arguments[a];
+        for (let i = 0;  i &lt; arr.length;  i++) {
+            this.push(arr[i]);
+        }
+    }
+}
+
+
+/** Retains in this array all the elements
+ * that are also found in the specified array. */
+Array.prototype.retainAll = function(arr, compare) {
+    if (typeof(compare) == 'undefined') {
+        compare = ascend;
+    }
+    let i = 0;
+    while (i &lt; this.length) {
+        if (arr.indexOf(this[i], compare) == -1) {
+            let end = i + 1;
+            while (end &lt; this.length &amp;&amp;
+                    arr.indexOf(this[end], compare) == -1) {
+                end++;
+            }
+            this.splice(i, end - i);
+        }
+        else {
+            i++;
+        }
+    }
+}
+
+
+/** Removes from this array all the elements
+ * that are also found in the specified array. */
+Array.prototype.removeAll = function(arr, compare) {
+    if (typeof(compare) == 'undefined') {
+        compare = ascend;
+    }
+    let i = 0;
+    while (i &lt; this.length) {
+        if (arr.indexOf(this[i], compare) != -1) {
+            let end = i + 1;
+            while (end &lt; this.length &amp;&amp;
+                    arr.indexOf(this[end], compare) != -1) {
+                end++;
+            }
+            this.splice(i, end - i);
+        }
+        else {
+            i++;
+        }
+    }
+}
+
+
+/** Makes all elements in this array unique. In other
+ * words, removes all duplicate elements from this
+ * array. Assumes this array is already sorted. */
+Array.prototype.distinct = function(compare) {
+    if (typeof(compare) == 'undefined') {
+        compare = ascend;
+    }
+    let dst = 0;  // Destination for elements
+    let src = 0;  // Source of elements
+    let limit = this.length - 1;
+    while (src &lt; limit) {
+        while (compare(this[src], this[src + 1]) == 0) {
+            if (++src == limit) {
+                break;
+            }
+        }
+        this[dst++] = this[src++];
+    }
+    if (src == limit) {
+        this[dst++] = this[src];
+    }
+    this.length = dst;
+}
+
+
+/** Compares two objects using
+ * built-in JavaScript operators. */
+function ascend(a, b) {
+    if (a &lt; b)
+        return -1;
+    else if (a &gt; b)
+        return 1;
+    return 0;
+}</pre></div>
+
+<h2>Using the Five Missing Methods</h2>
+<p>To use the five methods, include in the head of an HTML document, the
+<code>array.js</code> file that you saved as shown on
+<span class="cross" data-ref="ex2">line&nbsp;6</span> of the next
+code example. Then you can write JavaScript code to use the five methods
+just like you would use other built-in JavaScript <code>Array</code>
+methods. The <code>testArray</code> function at
+<span class="cross" data-ref="ex2">lines&nbsp;11&ndash;87</span> in the
+next code example shows how to use the five missing methods.</p>
+
+<div class="pre" id="ex2"><pre class="linenums"></pre>
+<pre class="code language-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;Using the Five Missing Methods&lt;/title&gt;
+    &lt;script src="array.js"&gt;&lt;/script&gt;
+
+    &lt;script&gt;
+"use strict";
+
+function testArray() {
+    document.open();
+
+    // Create an array named plants.
+    let plants = ['apple', 'pear', 'plum', 'peach'];
+    document.writeln('plants:  ' + plants + '&lt;br&gt;');
+    document.writeln('&lt;br&gt;');
+
+    // Use the indexOf() method.
+    document.writeln('indexOf()&lt;br&gt;');
+    let possible = 'plum';
+    if (plants.indexOf(possible) &gt;= 0)
+        document.writeln('plants contains ' + possible + '&lt;br&gt;');
+    else
+        document.writeln('plants does not contain ' + possible + '&lt;br&gt;');
+    possible = 'cherry';
+    if (plants.indexOf(possible) &gt;= 0)
+        document.writeln('plants contains ' + possible + '&lt;br&gt;');
+    else
+        document.writeln('plants does not contain ' + possible + '&lt;br&gt;');
+    document.writeln('&lt;br&gt;');
+
+    // Use the addAll() method.
+    let listX = ['cherry', 'banana', 'apricot', 'mango'];
+    plants.addAll(listX);
+    document.writeln('addAll()&lt;br&gt;');
+    document.writeln('listX:  ' + listX + '&lt;br&gt;');
+    document.writeln('plants:  ' + plants + '&lt;br&gt;');
+    document.writeln('&lt;br&gt;');
+
+    // Use the binarySearch() method.
+    document.writeln('binarySearch()&lt;br&gt;');
+    possible = 'peach';
+    plants.sort();
+    if (plants.binarySearch(possible) &gt;= 0)
+        document.writeln('plants contains ' + possible + '&lt;br&gt;');
+    else
+        document.writeln('plants does not contain ' + possible + '&lt;br&gt;');
+    possible = 'coconut';
+    if (plants.binarySearch(possible) &gt;= 0)
+        document.writeln('plants contains ' + possible + '&lt;br&gt;');
+    else
+        document.writeln('plants does not contain ' + possible + '&lt;br&gt;');
+    document.writeln('&lt;br&gt;');
+
+    // Use the addAll() method.
+    let listY = ['elm', 'pine', 'rose', 'lilac'];
+    let listZ = ['lilac', 'pine', 'fir'];
+    plants.addAll(listY, listZ);
+    document.writeln('addAll()&lt;br&gt;');
+    document.writeln('listY:  ' + listY + '&lt;br&gt;');
+    document.writeln('listZ:  ' + listZ + '&lt;br&gt;');
+    document.writeln('plants:  ' + plants + '&lt;br&gt;');
+    document.writeln('&lt;br&gt;');
+
+    // Use the retainAll() method.
+    listY.retainAll(listZ);
+    document.writeln('retainAll()&lt;br&gt;');
+    document.writeln('listY:  ' + listY + '&lt;br&gt;');
+    document.writeln('&lt;br&gt;');
+
+    // Use the removeAll() method.
+    listY = ['elm', 'pine', 'rose', 'lilac'];
+    listY.removeAll(listZ);
+    document.writeln('removeAll()&lt;br&gt;');
+    document.writeln('listY:  ' + listY + '&lt;br&gt;');
+    document.writeln('&lt;br&gt;');
+
+    // Use the distinct() method.
+    plants.addAll(listX, listY, listZ);
+    plants.sort();
+    plants.distinct();
+    document.writeln('distinct()&lt;br&gt;');
+    document.writeln('plants:  ' + plants + '&lt;br&gt;');
+
+    document.close();
+}
+    &lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body onload="testArray()"&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<div class="modified">Last modified: 2022-08-04</div>
+</article>
+</body>
+</html>

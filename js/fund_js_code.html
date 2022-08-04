@@ -1,0 +1,1743 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Source Code from Programming Fundamentals in JavaScript</title>
+    <meta name="description" content="Source code for all complete programming examples from the book Programming Fundamentals in JavaScript">
+    <meta name="keywords" content="JavaScript, Programming Fundamentals in JavaScript, source code">
+    <link rel="canonical" href="https://barzeer.github.io/java/fund_js_code.html">
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <script src="../site/hljs/highlight.min.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+    <link rel="stylesheet" href="../site/hljs/vscode.css">
+</head>
+
+<body>
+<article>
+<h1>Source Code from Programming Fundamentals in JavaScript</h1>
+<p>This article contains the source code for all complete programming
+examples from the book
+<a href="https://www.amazon.com/dp/0996246339">Programming
+Fundamentals in JavaScript</a>.</p>
+
+<h2>Chapter 3 HTML Basics</h2>
+<h3>Required Elements</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 1 &mdash; Horse Rentals</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;!-- The following meta tag tells the browser
+that this document uses the 8-bit Unicode
+Transformation Format encoding. --&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="author" content="Rex Barzee"&gt;
+&lt;title&gt;Horse Rentals&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;h1&gt;Horse Rentals&lt;/h1&gt;
+&lt;p&gt;We rent horsies, big horsies, medium sized
+horsies, and little horsies (big dogs really). Of
+course, this costs a great deal of money, and in
+order for us to allow you to take the horsies
+anywhere, you must sign a lot of paper work, about
+the same amount as if you were buying a house or
+being admitted to a hospital (which might happen
+if you fall off one of our horsies).&lt;/p&gt;
+
+&lt;p&gt;We rent horsy saddles and other leather and
+metal stuff. Just ask for what you want, and we
+probably have it. These are used mostly to control
+the horsies, which they don't like. If you don't
+take great care when putting these on the horsies,
+you might be admitted to the hospital as mentioned
+in the above paragraph.&lt;/p&gt;
+
+&lt;p&gt;We also rent horsy trailers. These trailers
+require a truck the size of Texas that drinks diesel
+in order to actually pull them. Of course, if you
+don't have a truck that fits this description, we'll
+rent you one. See the first paragraph again for our
+rental terms (big money).&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 2 &mdash; An HTML Form</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;!-- The following meta tag tells the browser
+that this document uses the 8-bit Unicode
+Transformation Format encoding. --&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Send a Text Message&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;h1&gt;Send a Text Message&lt;/h1&gt;
+&lt;p&gt;
+From (your 10-digit wireless phone number):
+&lt;input type="text" id="txtFrom" size="10"&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+To (10-digit wireless phone number):
+&lt;input type="text" id="txtTo" size="10"&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+Message:&lt;br&gt;
+&lt;textarea id="txaMessage" rows="8" cols="40"&gt;
+&lt;/textarea&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;button type="button" onclick="sendText()"&gt;Send&lt;/button&gt;
+&lt;button type="button" onclick="clearForm()"&gt;Clear&lt;/button&gt;
+&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h2>Chapter 4 JavaScript Basics</h2>
+<h3>Example 1 &mdash; First JavaScript Program</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;My First JavaScript Program&lt;/title&gt;
+
+    &lt;script&gt;
+        "use strict";
+
+        /* Defining Table
+         * Input: No user input
+         * Processing: None
+         * Output: The message "Water is delicious!"
+         */
+        function showMessage() {
+            // The next line of code causes the computer
+            // to open a popup window that contains the
+            // words "Water is delicious!"
+            alert("Water is delicious!");
+        }
+    &lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;button type="button" onclick="showMessage()"&gt;Message&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 2 &mdash; Greeting</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;A Program to Say Hello&lt;/title&gt;
+&lt;script&gt;
+/* Defining Table
+ * Input: A person's name
+ * Processing: Create a greeting for that person
+ * Output: The greeting
+ */
+function greetUser() {
+    // This line prompts the user to type in his name.
+    let name = prompt("Please enter your name");
+
+    // Create a personalized greeting for the user.
+    let greeting = "Hello " + name +
+            ".  I hope you are well today.";
+
+    // The next line causes the computer to display
+    // a greeting to the user in a popup window.
+    alert(greeting);
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;button type="button" onclick="greetUser()"&gt;Hello&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 3 &mdash; Personalized Scripture</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Personalized Scripture&lt;/title&gt;
+&lt;script&gt;
+/* Defining Table
+ * Input: A person's name
+ * Processing: Create a verse of scripture for that person
+ * Output: The scripture
+ */
+function applyScripture() {
+    // Get the user's name from the text field that has the id
+    // of "nameInputBox" and store it in a variable named name.
+    let name = document.getElementById('nameInputBox').value;
+
+    // Use string concatenation to create a verse
+    // of scripture personalized for the user.
+    let scripture = "I, " + name + ", having been born of" +
+        " goodly parents, therefore I was taught somewhat" +
+        " in all the learning of my father.";
+
+    // Display the scripture in the
+    // div that has the id "outputDiv".
+    document.getElementById('outputDiv').innerHTML = scripture;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+Please enter your name: &lt;input type="text" id="nameInputBox"&gt;
+&lt;button type="button" onclick="applyScripture()"&gt;Verse&lt;/button&gt;
+&lt;div id="outputDiv"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h2>Chapter 5 Variables and Arithmetic</h2>
+<h3>Example 8 &mdash; Celsius to Fahrenheit</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Convert Celsius to Fahrenheit&lt;/title&gt;
+
+&lt;script&gt;
+/* Input: a temperature in Celsius
+ * Processing: convert the temperature from Celsius to Fahrenheit
+ * Output: the temperature converted to Fahrenheit
+ */
+function celsToFahr() {
+    // Read a Celsius temperature from the user.
+    let text = document.getElementById('celsiusInputBox').value;
+
+    // Convert what the user typed from text into a number.
+    let c = parseFloat(text);
+
+    // Convert the Celsius temperature into Fahrenheit.
+    let f = c * 9 / 5 + 32;
+
+    // Display the Fahrenheit temperature to the user.
+    document.getElementById('fahrenDiv').innerHTML = f;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+Enter a temperature in Celsius: &lt;input type="text" id="celsiusInputBox"&gt;
+&lt;button type="button" onclick="celsToFahr()"&gt;Convert&lt;/button&gt;
+&lt;div id="fahrenDiv"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 9 &mdash; Fahrenheit to Celsius</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Convert Fahrenheit to Celsius&lt;/title&gt;
+
+&lt;script&gt;
+/* Input: a temperature in Fahrenheit
+ * Processing: convert the temperature from Fahrenheit to Celsius
+ * Output: the temperature converted to Celsius
+ */
+function fahrToCels() {
+    // Read a Fahrenheit temperature from the user.
+    let text = document.getElementById('fahrenInputBox').value;
+
+    // Convert what the user typed from text into a number.
+    let f = parseFloat(text);
+
+    // Convert the Fahrenheit temperature into Celsius.
+    let c = 5 / 9 * (f - 32);
+
+    // Display the Celsius temperature to the user.
+    document.getElementById('celsiusDiv').innerHTML = c;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+Enter a temperature in Fahrenheit: &lt;input type="text" id="fahrenInputBox"&gt;
+&lt;button type="button" onclick="fahrToCels()"&gt;Convert&lt;/button&gt;
+&lt;div id="celsiusDiv"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 22 &mdash; Volume of a Cylinder</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Volume&lt;/title&gt;
+
+&lt;script&gt;
+/* Input: radius and height of a cylinder
+ * Processing: Calculate the volume of the cylinder.
+ * Output: the volume
+ */
+function volume() {
+    // Get the radius and height from the user.
+    let r = parseFloat(
+            document.getElementById('radiusInput').value);
+    let h = parseFloat(
+            document.getElementById('heightInput').value);
+
+    // Compute the volume of the cylinder.
+    let v = Math.PI * r * r * h;
+
+    // Display the volume to the user.
+    document.getElementById('outputDiv').innerHTML = v;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+Radius &lt;input type="text" id="radiusInput" size="5"&gt;&lt;br&gt;
+Height &lt;input type="text" id="heightInput" size="5"&gt;&lt;br&gt;
+&lt;button type="button" onclick="volume()"&gt;Volume&lt;/button&gt;
+&lt;div id="outputDiv"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 23 &mdash; Distance between Two Points</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Distance&lt;/title&gt;
+
+&lt;script&gt;
+/* Input: x and y for two points: x1, y1, x2, y2
+ * Processing:
+ *   1. Calculate the distance between the two points.
+ *   2. Round the distance to two digits after the decimal.
+ * Output: the rounded distance
+ */
+function distance() {
+    // Get the coordinates for two points from the user.
+    let x1 = parseFloat(
+            document.getElementById('x1inputBox').value);
+    let y1 = parseFloat(
+            document.getElementById('y1inputBox').value);
+    let x2 = parseFloat(
+            document.getElementById('x2inputBox').value);
+    let y2 = parseFloat(
+            document.getElementById('y2inputBox').value);
+
+    // Compute the distance between the two points.
+    let dx = x2 - x1;
+    let dy = y2 - y1;
+    let dist = Math.sqrt(dx * dx + dy * dy);
+
+    // Round the distance to two digits after the decimal.
+    let digits = 2;
+    let multiplier = Math.pow(10, digits);
+    dist = Math.round(dist * multiplier) / multiplier;
+
+    // Display the distance to the user.
+    document.getElementById('outputDiv').innerHTML = dist;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+Please enter the x and y coordinates for two points:&lt;br&gt;
+(x1, y1) &lt;input type="text" id="x1inputBox" size="3"&gt;
+         &lt;input type="text" id="y1inputBox" size="3"&gt;&lt;br&gt;
+(x2, y2) &lt;input type="text" id="x2inputBox" size="3"&gt;
+         &lt;input type="text" id="y2inputBox" size="3"&gt;&lt;br&gt;
+&lt;button type="button" onclick="distance()"&gt;Distance&lt;/button&gt;
+&lt;div id="outputDiv"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h2>Chapter 6 Selection</h2>
+<h3>Example 1 &mdash; Is an Integer Even?</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Is Even?&lt;/title&gt;
+
+&lt;script&gt;
+/* Input: An integer
+ * Processing: Determine if the integer is even or odd
+ * Output: A message that says the integer is even or odd
+ */
+function isEven() {
+    // Get the user input from a text
+    // field and convert it to an integer.
+    let text = document.getElementById('inputBox').value;
+    let number = parseInt(text);
+
+    // Choose a message.
+    let message;
+    if ((number % 2) == 0) {
+        message = number + " is an even integer";
+    }
+    else {
+        message = number + " is an odd integer";
+    }
+
+    // Display the message to the user.
+    document.getElementById('output').innerHTML = message;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+Please enter an integer: &lt;input type="text" id="inputBox"&gt;
+&lt;button type="button" onclick="isEven()"&gt;Is Even?&lt;/button&gt;
+&lt;div id="output"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 4 &mdash; Quadratic Formula</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Quadratic Formula&lt;/title&gt;
+
+&lt;script&gt;
+/* Input: Three coefificients from a quadratic equation.
+ * Processing: If they exist, compute
+ *     the root or roots of the equation
+ * Output:
+ *     The root or roots of the equation or
+ *    "undefined" if they don't exist.
+ */
+function quadratic() {
+    // Get three coefficients a, b, and c
+    // for a quadratic equation from the user.
+    let a = parseFloat(document.getElementById('aInputBox').value);
+    let b = parseFloat(document.getElementById('bInputBox').value);
+    let c = parseFloat(document.getElementById('cInputBox').value);
+
+    // Compute the root or roots of the
+    // quadratic equation if they exist.
+    let discr = b * b - 4 * a * c;
+    let root1, root2;
+    if (discr &gt;= 0) {
+        let sq = Math.sqrt(discr);
+        root1 = (-b + sq) / (2 * a);
+        root2 = (-b - sq) / (2 * a);
+    }
+
+    // Display the roots to the user.
+    document.getElementById('output').innerHTML =
+            root1 + ' ' + root2;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+y = &lt;input type="text" id="aInputBox" size="3"&gt; x&lt;sup&gt;2&lt;/sup&gt; +
+    &lt;input type="text" id="bInputBox" size="3"&gt; x +
+    &lt;input type="text" id="cInputBox" size="3"&gt;
+&lt;button type="button" onclick="quadratic()"&gt;Compute Roots&lt;/button&gt;
+&lt;div id="output"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 8 &mdash; Ticket Price</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Ticket Price&lt;/title&gt;
+&lt;script&gt;
+/* Input: A person's age and the number
+ *     of games that person has attended
+ * Processing: Determine the price to charge
+ *     that person for a ticket to a game
+ * Output: The ticket price
+ */
+function ticketPrice() {
+    // Get a person's age and number of games attended from the user.
+    let age = parseInt(document.getElementById('ageBox').value);
+    let gamesAttended =
+            parseInt(document.getElementById('gamesBox').value);
+
+    // Based on the person's age and number of number
+    // of games attended, determine a ticket price.
+    let price;
+    if (age &lt; 18) {
+        if (gamesAttended &lt; 6)
+            price = 8.0;
+        else if (gamesAttended &lt; 11)
+            price = 6.0;
+        else
+            price = 5.0;
+    }
+    else if (age &lt; 55) {
+        if (gamesAttended &lt; 11)
+            price = 10.0;
+        else
+            price = 8.0;
+    }
+    else {
+        if (gamesAttended &lt; 11)
+            price = 8.0;
+        else
+            price = 6.0;
+    }
+
+    // Display the ticket price for the user to see.
+    document.getElementById('priceDiv').innerHTML = price;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+Age: &lt;input type="text" id="ageBox" size="3"&gt;&lt;br&gt;
+Number of games attended: &lt;input type="text" id="gamesBox" size="3"&gt;&lt;br&gt;
+&lt;button type="button" onclick="ticketPrice()"&gt;Ticket Price&lt;/button&gt;
+&lt;div id="priceDiv"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h2>Chapter 7 Logic</h2>
+<h3>Example 2 &mdash; Groups for Girls</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Which Class&lt;/title&gt;
+&lt;script&gt;
+/* Input: A girl's age
+ * Processing: If statements to choose a class
+ * Output: Name of the class
+ */
+function chooseClass() {
+    let age = parseInt(document.getElementById('age').value);
+
+    let group;
+    if (age &lt;= 11) {
+        group = 'Primary';
+    }
+    else if (age == 12 || age == 13) {
+        group = 'Beehive';
+    }
+    else if (age == 14 || age == 15) {
+        group = 'Mia Maid';
+    }
+    else if (age == 16 || age == 17) {
+        group = 'Laurel';
+    }
+    else {
+        group = 'Relief Society';
+    }
+
+    document.getElementById('output').innerHTML = group;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+Please enter your age: &lt;input type="text" id="age" size="3"&gt;&lt;br&gt;
+&lt;button type="button" onclick="chooseClass()"&gt;Class&lt;/button&gt;
+&lt;div id="output"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 3 &mdash; Groups for Boys</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Which Group&lt;/title&gt;
+&lt;script&gt;
+/* Input: A boy's age
+ * Processing: If statements to choose a group
+ * Output: Name of the group
+ */
+function chooseGroup() {
+    let age = parseInt(document.getElementById('age').value);
+
+    let group;
+    if (age &lt; 7) {
+        group = 'When you are 7 years old,' +
+                ' you can become a Tiger Scout.'
+    }
+    else if (age == 7) {
+        group = 'Tiger';
+    }
+    else if (age == 8) {
+        group = 'Wolf';
+    }
+    else if (age == 9) {
+        group = 'Bear';
+    }
+    else if (age == 10) {
+        group = 'Webelos';
+    }
+    else if (11 &lt;= age &amp;&amp; age &lt;= 13) {
+        group = 'Boy Scout';
+    }
+    else if (14 &lt;= age &amp;&amp; age &lt;= 20) {
+        group = 'Venture';
+    }
+    else {
+        group = 'You are too old to join scouting as a' +
+                ' participant. Perhaps you would like' +
+                ' to volunteer as a leader.';
+    }
+
+    document.getElementById('output').innerHTML = group;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+Please enter your age: &lt;input type="text" id="age" size="3"&gt;&lt;br&gt;
+&lt;button type="button" onclick="chooseGroup()"&gt;Group&lt;/button&gt;
+&lt;div id="output"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 4 &mdash; Drive on the Autopia</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Are you tall enough to drive on the Autopia?&lt;/title&gt;
+
+&lt;script&gt;
+/* Input: the height of a driver and an optional passenger
+ * Processing: Determine if a driver and
+ *     optional passenger may ride the Autopia
+ * Output: "Enjoy the ride!" or
+ *    "Sorry, to drive a car on the Autopia, you must be at least
+ *    54 inches tall or at least 32 inches tall and accompanied
+ *    by a passenger who is at least 54 inches tall."
+ */
+function checkHeight() {
+    let driver = parseInt(
+            document.getElementById('driverBox').value);
+    let passenger = parseInt(
+            document.getElementById('passengerBox').value);
+
+    let message;
+    if (driver &gt;= 54 || (driver &gt;= 32 &amp;&amp; passenger &gt;= 54)) {
+        message = 'Enjoy the ride!';
+    }
+    else {
+        message = 'Sorry, to drive a car on the Autopia,' +
+            ' you must be at least 54 inches tall or at' +
+            ' least 32 inches tall and accompanied by a' +
+            ' passenger who is at least 54 inches tall.';
+    }
+
+    document.getElementById('outputDiv').innerHTML = message;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;h1&gt;Are you tall enough to drive on the Autopia?&lt;/h1&gt;
+Driver's height in inches:
+    &lt;input type="text" id="driverBox" size="3"&gt;&lt;br&gt;
+Passenger's height in inches:
+    &lt;input type="text" id="passengerBox" size="3" value="0"&gt;&lt;br&gt;
+&lt;button type="button" onclick="checkHeight()"&gt;Check Height&lt;/button&gt;
+&lt;div id="outputDiv"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h2>Chapter 8 Repetition</h2>
+<h3>Example 10 &mdash; Future Value of an Investment</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Compound Interest&lt;/title&gt;
+
+&lt;script&gt;
+/* Input:
+ *    An amount to invest: balance
+ *    The annual rate of growth: annualRate
+ *    The number of months to invest: numMonths
+ * Processing: Use a loop to compute the balance of
+ *     an account after a bank has paid interest for
+ *     numMonths number of months.
+ * Output: The balance after numMonths have passed.
+ */
+function futureValue() {
+    let balance = parseFloat(
+            document.getElementById('balance').value);
+    let annualRate = parseFloat(
+            document.getElementById('annualRate').value);
+    let numMonths = parseInt(
+            document.getElementById('months').value);
+    let monthlyRate = annualRate / 12;
+
+    // For each month, compute the interest
+    // and add it to the balance.
+    for (let month = 1;  month &lt;= numMonths;  month++) {
+        // Compute the interest for a month.
+        let interest = balance * monthlyRate;
+
+        // Round the interest to pennies.
+        interest = Math.round(interest * 100) / 100;
+
+        // Add the interest to the balance.
+        balance += interest;
+    }
+
+    // Display the resulting balance for the user to see.
+    document.getElementById('output').innerHTML =
+        'Your balance after ' + numMonths +
+        ' months will be $' + balance;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+Balance: &lt;input type="text" id="balance" size="7"&gt;&lt;br&gt;
+Annual growth rate: &lt;input type="text" id="annualRate" size="5"&gt;&lt;br&gt;
+Number of months: &lt;input type="text" id="months" size="3"&gt;&lt;br&gt;
+&lt;button type="button" onclick="futureValue()"&gt;Future Value&lt;/button&gt;
+&lt;div id="output"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 12 &mdash; Is an Integer Prime? (long version)</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Prime Number&lt;/title&gt;
+
+&lt;script&gt;
+/* Input: an integer
+ * Processing: determine if the given integer is prime or not.
+ * Output: __ is prime OR __ is not prime
+ */
+function isPrime() {
+    let candidate = parseInt(
+            document.getElementById('integerBox').value);
+
+    // Count the number of factors that evenly divide candidate.
+    let factorCount = 0;
+    for (let divisor = 1;  divisor &lt;= candidate;  divisor++) {
+        let remainder = candidate % divisor;
+        if (remainder == 0) {
+            factorCount++;
+        }
+    }
+
+    // Determine the output and show it to the user.
+    let output;
+    if (factorCount == 2) {
+        output = candidate + ' is prime';
+    }
+    else {
+        output = candidate + ' is not prime';
+    }
+    document.getElementById('outputDiv').innerHTML = output;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+Please enter an integer: &lt;input type="text" id="integerBox"&gt;&lt;br&gt;
+&lt;button type="button" onclick="isPrime()"&gt;Is Prime&lt;/button&gt;
+&lt;div id="outputDiv"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 13 &mdash; Is an Integer Prime? (short version)</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Prime Number&lt;/title&gt;
+
+&lt;script&gt;
+/* Input: an integer
+ * Processing: determine if the given integer is prime or not.
+ * Output: __ is prime OR __ is not prime
+ */
+function isPrime() {
+    let candidate = parseInt(
+            document.getElementById('integerBox').value);
+    let limit = Math.sqrt(candidate);
+    let prime = true;
+
+    // Find the first integer that evenly divides candidate.
+    for (let divisor = 2;  divisor &lt;= limit;  divisor++) {
+        let remainder = candidate % divisor;
+        if (remainder == 0) {
+            prime = false;
+            break;
+        }
+    }
+
+    // Determine the output and show it to the user.
+    let output;
+    if (prime) {
+        output = candidate + ' is prime';
+    }
+    else {
+        output = candidate + ' is not prime';
+    }
+    document.getElementById('outputDiv').innerHTML = output;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+Please enter an integer: &lt;input type="text" id="integerBox"&gt;&lt;br&gt;
+&lt;button type="button" onclick="isPrime()"&gt;Is Prime&lt;/button&gt;
+&lt;div id="outputDiv"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h2>Chapter 9 Functions</h2>
+<h3>Example 9 &mdash; Is an Integer Even? (long version)</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Is Even&lt;/title&gt;
+
+&lt;script&gt;
+/* Input: An integer
+ * Processing: Determine if the integer is even or not
+ * Output: A message stating if the integer is even or not
+ */
+function doInputOutput() {
+    let number = parseInt(
+            document.getElementById('numberInputBox').value);
+    let result = isEven(number);
+    document.getElementById('outputDiv').innerHTML =
+        number + ' is even: ' + result;
+}
+
+
+// Returns true if value is an even
+// integer; otherwise returns false.
+function isEven(value) {
+    if ((value % 2) == 0) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+Please enter an integer: &lt;input type="text" id="numberInputBox"&gt;
+&lt;button type="button" onclick="doInputOutput()"&gt;Is Even?&lt;/button&gt;
+&lt;div id="outputDiv"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 10 &mdash; Is an Integer Even? (short version)</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Is Even&lt;/title&gt;
+
+&lt;script&gt;
+/* Input: An integer
+ * Processing: Determine if the integer is even or not
+ * Output: A message stating if the integer is even or not
+ */
+function doInputOutput() {
+    let number = parseInt(
+            document.getElementById('numberInputBox').value);
+    let result = isEven(number);
+    document.getElementById('outputDiv').innerHTML =
+        number + ' is even: ' + result;
+}
+
+
+// Returns true if value is an even
+// integer; otherwise returns false.
+function isEven(value) {
+    return (value % 2) == 0;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+Please enter an integer: &lt;input type="text" id="numberInputBox"&gt;
+&lt;button type="button" onclick="doInputOutput()"&gt;Is Even?&lt;/button&gt;
+&lt;div id="outputDiv"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 11 &mdash; Area of a Triangle</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Triangle Area&lt;/title&gt;
+
+&lt;script&gt;
+/* Input: No user input
+ * Processing: Compute the area of a triangle
+ *     with side lengths 4, 2, and 5
+ * Output: The area of the triangle
+ */
+function testTriangle() {
+    let r = triangleArea(4, 2, 5);
+    document.getElementById('outputDiv').innerHTML = r;
+}
+
+
+// Computes and returns the area of a
+// triangle with side lengths a, b, and c.
+function triangleArea(a, b, c) {
+    let s = (a + b + c) / 2;
+    let area = Math.sqrt(s * (s-a) * (s-b) * (s-c));
+    return area;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;button type="button" onclick="testTriangle()"&gt;Test&lt;/button&gt;
+&lt;div id="outputDiv"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 12 &mdash; Surface Area of a Pyramid</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Surface Area of a Pyramid&lt;/title&gt;
+
+&lt;script&gt;
+/* Input: No user input
+ * Processing: Compute the surface area of the
+ *     triangular faces of a regular pyramid
+ *     that has base 8 and height 7.
+ * Output: The surface area of the pyramid
+ */
+function testPyramid() {
+    let pa = pyramidSurfaceArea(8, 7);
+    document.getElementById('outputDiv').innerHTML = pa;
+}
+
+
+// Computes and returns the surface area of the
+// four triangular faces of a regular pyramid
+// with the specified base length and height.
+function pyramidSurfaceArea(base, height) {
+    let edge = Math.sqrt(base*base/2 + height*height);
+    let triArea = triangleArea(base, edge, edge);
+    let pyramidArea = 4 * triArea;
+    return pyramidArea;
+}
+
+
+// Computes and returns the area of a
+// triangle with side lengths a, b, and c.
+function triangleArea(a, b, c) {
+    let s = (a + b + c) / 2;
+    let area = Math.sqrt(s * (s-a) * (s-b) * (s-c));
+    return area;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;button type="button" onclick="testPyramid()"&gt;Test&lt;/button&gt;
+&lt;div id="outputDiv"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 13 &mdash; How Long to Invest</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;How Long to Invest&lt;/title&gt;
+
+&lt;script&gt;
+/* Input: No user input
+ * Processing: Determine the number of months required
+ *     to grow an initial investment from $100 to at
+ *     least $103 if it grows at an annual rate of 6%.
+ * Output: The number of months.
+ */
+function testInvest() {
+    let m = determineMonths(100, 0.06, 103);
+    document.getElementById('outputDiv').innerHTML = m;
+}
+
+
+// Computes and returns the number of months
+// needed for principal invested at a constant
+// annual rate to grow to a target amount.
+function determineMonths(principal, annualRate, target) {
+    let monthlyRate = annualRate / 12;
+    let balance = principal;
+    let month = 0;
+
+    // Repeat while the balance of the
+    // investment is less than the target.
+    while (balance &lt; target) {
+        let interest = Math.round(balance * monthlyRate * 100) / 100;
+        balance += interest;
+        month++;
+    }
+
+    // Return the number of months
+    // necessary to reach the target.
+    return month;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;button type="button" onclick="testInvest()"&gt;Test&lt;/button&gt;
+&lt;div id="outputDiv"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 14 &mdash; Greatest Common Divisor</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Greatest Common Divisor&lt;/title&gt;
+
+&lt;script&gt;
+/* Input: No user input
+ * Processing: Determine the greatest common divisor of -24 and 472
+ * Output: The greatest common divisor
+ */
+function testGCD() {
+    let x = -24;
+    let y = 472;
+    let divisor = gcd(x, y);
+    document.getElementById('outputDiv').innerHTML = divisor;
+}
+
+
+// Finds and returns the greatest common
+// divisor of two integers a and b.
+function gcd(a, b) {
+    // Ensure a and b are not negative.
+    a = Math.abs(a);
+    b = Math.abs(b);
+
+    // Ensure a is greater than or equal to b.
+    if (a &lt; b) {
+        let swap = a;
+        a = b;
+        b = swap;
+    }
+
+    // Repeat until the computer finds the greatest common divisor.
+    do {
+        let r = a % b;
+        a = b;
+        b = r;
+    } while (b != 0);
+
+    // Return the greatest common divisor.
+    return a;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;button type="button" onclick="testGCD()"&gt;Test&lt;/button&gt;
+&lt;div id="outputDiv"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h2>Chapter 10 Arrays</h2>
+<h3>Example 14 &mdash; Parallel Arrays</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Student ID to Name&lt;/title&gt;
+&lt;script&gt;
+// The values in these parallel arrays can be hard coded into a
+// program, or even better, they can be read from a file or database.
+let studentIDs = [ '07-153-4276', '34-513-3186', '26-430-0198' ];
+let studentNames = [ 'Felix', 'Jonathan', 'Grace' ];
+
+/* Input: a student's ID
+ * Processing: find the student's name
+ * Output: the student's name
+ */
+function findName() {
+    // Get the student's ID.
+    let studID = document.getElementById('studID').value;
+
+    // Use linear search to find the student's ID.
+    let index = linearSearch(studentIDs, studID);
+
+    let name;
+    if (index == -1) {
+        // The student ID that the user entered
+        // is not stored in the studentIDs array.
+        name = 'No such student ID';
+    }
+    else {
+        // Get the student's name.
+        name = studentNames[index];
+    }
+
+    // Display the student's name for the user to see.
+    document.getElementById('output').innerHTML = name;
+}
+
+
+// If key is in list, returns the first index where
+// key is located within list; otherwise returns -1.
+function linearSearch(list, key) {
+    let index = -1;
+    for (let i = 0;  i &lt; list.length;  i++) {
+        if (list[i] == key) {
+            index = i;
+            break;
+        }
+    }
+    return index;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+Student ID: &lt;input type="text" id="studID"&gt;
+&lt;button type="button" onclick="findName()"&gt;Name&lt;/button&gt;
+&lt;div id="output"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 17 &mdash; Find a Range</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Compute Total&lt;/title&gt;
+&lt;script&gt;
+/* Input: The subtotal for a customer's purchases
+ * Processing: Compute a discounted amount and sales tax
+ *     and add them together to get the total amount that
+ *     the customer owes.
+ * Output: The total that the customer owes.
+ */
+function computeTotal() {
+    // Get the subtotal from the user.
+    let subtotal = parseFloat(
+            document.getElementById('subtotal').value);
+
+    // Compute the customer's total.
+    let discounted = getDiscountedAmount(subtotal);
+    let tax = getSalesTax(discounted);
+    let total = discounted + tax;
+
+    // Display the total for the customer to see.
+    document.getElementById('total').innerHTML = total;
+}
+
+
+// The values in these parallel arrays can be
+// hard coded into your program, or even better,
+// they can be read from a file or database.
+let limits = [ 300, 600, 1000 ];
+let rates = [ 0, 0.02, 0.025, 0.03 ];
+
+// Computes and returns a discounted purchase amount.
+function getDiscountedAmount(purchase) {
+    // Find the purchase range.
+    for (let i = 0;  i &lt; limits.length;  i++) {
+        if (purchase &lt; limits[i]) {
+            break;
+        }
+    }
+
+    // Get the discount rate that
+    // corresponds to the purchase range.
+    let rate = rates[i];
+
+    // Compute the discount amount and round it to pennies.
+    let discount = purchase * rate;
+    discount = roundToPlaces(discount, 2);
+
+    // Compute and return the discounted price.
+    return purchase - discount;
+}
+
+
+// Computes and returns the sales tax for a purchase amount.
+function getSalesTax(purchase) {
+    let taxRate = 0.06;
+    let tax = purchase * taxRate;
+    tax = roundToPlaces(tax, 2);
+    return tax;
+}
+
+
+// Rounds x to digits places after the decimal point.
+function roundToPlaces(x, digits) {
+    let multiplier = Math.pow(10, digits);
+    let rounded = Math.round(x * multiplier) / multiplier;
+    return rounded;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;h2&gt;Compute Total&lt;/h2&gt;
+Subtotal &lt;input type="text" id="subtotal" size="5"&gt;&lt;br&gt;
+&lt;button type="button" onclick="computeTotal()"&gt;Total&lt;/button&gt;
+&lt;div id="total"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 20 &mdash; Sort a List of Strings</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="author" content="Rex Barzee"&gt;
+&lt;title&gt;Sort Text&lt;/title&gt;
+
+&lt;script&gt;
+/* Input: A list of text items, each item on a separate line.
+ * Processing:
+ *     Split the text items into an array.
+ *     Sort the array.
+ *     Join the array into a string.
+ * Output: The sorted list of text items
+ */
+function process() {
+    // Get the text entered by the user.
+    let text = document.getElementById('input').value;
+
+    // Split the text at each new
+    // line into an array of strings.
+    let list = text.split('\n');
+
+    // Sort the array of strings.
+    list.sort();
+
+    // Join the sorted array into a string
+    // of text separated by newline characters.
+    let output = list.join('\n');
+
+    // Display the string for the user to see.
+    document.getElementById('output').value = output;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;textarea id="input" rows="16" cols="20"&gt;&lt;/textarea&gt;
+&lt;button type="button" onclick="process()"&gt;Sort&lt;/button&gt;
+&lt;textarea id="output" rows="16" cols="20"&gt;&lt;/textarea&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 21 &mdash; Sort a List of Numbers</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Compound Interest&lt;/title&gt;
+
+&lt;script&gt;
+/* Input: No user input
+ * Processing: Test the built-in JavaScript sort function
+ * Output: The contents of an array before it is
+ *     sorted, and the contents after it is sorted.
+ */
+function testSort() {
+    let numbers = [ 7, 10, 8, 16, 3, 35 ];
+    document.getElementById('output').innerHTML = numbers + '&lt;br&gt;';
+    numbers.sort(compareNumbers);
+    document.getElementById('output').innerHTML += numbers;
+}
+
+// Compares two numbers by subtracting the second
+// from the first which will return a negative
+// number if the first number should be placed
+// before the second, a zero if the two numbers
+// are equal, and a positive number if the first
+// number should be placed after the second.
+function compareNumbers(x, y) {
+    return x - y;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;button type="button" onclick="testSort()"&gt;Sort an Array&lt;/button&gt;
+&lt;div id="output"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h2>Chapter 11 Objects</h2>
+<h3>Example 8 &mdash; Dictionaries</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Student ID to Name&lt;/title&gt;
+&lt;script&gt;
+// The values in this dictionary can be hard coded
+// into a program or even better, they can be read
+// from a file or database.
+let students = {
+    '07-153-4276' : 'Felix',
+    '34-513-3186' : 'Jonathan',
+    '26-430-0198' : 'Grace'
+};
+
+
+/* Input: a student's ID
+ * Processing: find the student's name
+ * Output: the student's name
+ */
+function findName() {
+    // Get the student's ID.
+    let studID = document.getElementById('studID').value;
+
+    // Find the student's name in
+    // the dictionary of students.
+    let name = students[studID];
+    if (!name) {
+        // The student ID that the user entered
+        // is not stored in the students dictionary.
+        name = 'No such student ID';
+    }
+
+    // Display the student's name for the user to see.
+    document.getElementById('output').innerHTML = name;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+Student ID: &lt;input type="text" id="studID"&gt;
+&lt;button type="button" onclick="findName()"&gt;Name&lt;/button&gt;
+&lt;div id="output"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 9 &mdash; Local Storage</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Local Storage Demo&lt;/title&gt;
+&lt;script&gt;
+/* Saves the user's name to local storage. */
+function saveName() {
+    let name = document.getElementById('name').value;
+    localStorage.name = name;
+}
+
+
+/* Loads the user's name from local storage. */
+function loadName() {
+    let name = localStorage.name;
+    document.getElementById('name').value = name;
+}
+
+
+/* Builds and shows a message to a user. */
+function showMessage() {
+    // Get the user's name from the text field.
+    let name = document.getElementById('name').value;
+
+    // Build a message for the user.
+    let message;
+    if (name == "") {
+        message = 'Please enter your name.';
+    }
+    else {
+        message = 'Hello ' + name +
+                '. I hope you have nice day.';
+    }
+
+    // Display the message for the user to see.
+    document.getElementById('output').innerHTML = message;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+Name: &lt;input type="text" id="name"&gt;
+&lt;button type="button" onclick="loadName()"&gt;Load&lt;/button&gt;
+&lt;button type="button" onclick="saveName()"&gt;Save&lt;/button&gt;&lt;br&gt;
+&lt;button type="button" onclick="showMessage()"&gt;Message&lt;/button&gt;
+&lt;div id="output"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h3>Example 10 &mdash; Document Object Model</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Changing Text Fields&lt;/title&gt;
+&lt;script&gt;
+/* Adds a text field at the end of the body. */
+function addTextField() {
+    // Create a unique identifier for the new text field.
+    let texts = document.getElementsByTagName('input');
+    let id = 'text' + texts.length;
+
+    // Create a text field and set its id.
+    let text = document.createElement('input');
+    text.type = 'text';
+    text.id = id;
+
+    // Create a div and add the text field to the div.
+    let div = document.createElement('div');
+    div.appendChild(text);
+
+    // Add the div to the document body.
+    document.body.appendChild(div);
+}
+
+
+/* Changes the color of one text field. */
+function changeColor() {
+    let colors = [
+        'black', 'gray', 'brown', 'blue',
+        'purple', 'red', 'green', 'chartreuse',
+        'yellow', 'orange', 'fuchsia', 'white'
+    ];
+
+    // Get an array of all text fields.
+    let texts = document.getElementsByTagName('input');
+    if (texts.length &gt; 0) {
+
+        // Choose a background and a foreground color.
+        let index = choose(colors);
+        let opposite = colors.length - index - 1;
+        let background = colors[index];
+        let foreground = colors[opposite];
+
+        // Choose a text field.
+        let text = texts[choose(texts)];
+
+        // Change the element's colors.
+        text.style.color = foreground;
+        text.style.backgroundColor = background;
+        text.value = foreground + ' on ' + background;
+    }
+}
+
+
+/* Changes the size of all text fields. */
+function changeSize() {
+    // Get an array of all text fields.
+    let texts = document.getElementsByTagName('input');
+    if (texts.length &gt; 0) {
+
+        // Get the size of the first element.
+        let size = texts[0].size;
+
+        // Increment the size.
+        if (++size &gt; 30) {
+            size = 5;
+        }
+
+        // Change the size of all text fields.
+        for (let i = 0;  i &lt; texts.length;  i++) {
+            let text = texts[i];
+            text.size = size;
+        }
+    }
+}
+
+
+/* Removes a pseudo randomly chosen text field. */
+function removeTextField() {
+    // Get an array of all text fields.
+    let texts = document.getElementsByTagName('input');
+    if (texts.length &gt; 0) {
+
+        // Choose a text field.
+        let index = choose(texts);
+        let text = texts[index];
+
+        // Get the text field's parent.
+        let div = text.parentElement;
+
+        // Remove the parent and the text field.
+        document.body.removeChild(div);
+
+        // Renumber the id's of the remaining text fields.
+        for (let i = index;  i &lt; texts.length;  i++) {
+            let id = 'text' + i;
+            texts[i].id = id;
+        }
+    }
+}
+
+
+/* Returns a pseudo random integer
+ * in the range [0, list.length). */
+function choose(list) {
+    let index = Math.floor(Math.random() * list.length);
+    return index;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;button type="button" onclick="addTextField()"&gt;Add&lt;/button&gt;
+&lt;button type="button" onclick="changeColor()"&gt;Color&lt;/button&gt;
+&lt;button type="button" onclick="changeSize()"&gt;Size&lt;/button&gt;
+&lt;button type="button" onclick="removeTextField()"&gt;Remove&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h2>Chapter 12 Strings</h2>
+<h3>Example 14 &mdash; Transpose Chords</h3>
+<div class="pre"><pre class="linenums"></pre>
+<pre class="code lang-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="author" content="Rex Barzee"&gt;
+&lt;title&gt;Transpose&lt;/title&gt;
+
+&lt;script&gt;
+/* Input: Chord names and an integer
+ * Processing:
+ *     A loop that repeats once for each chord
+ *         Transpose the chord
+ *         Append the transposed chord onto an output string.
+ * Output: The transposed chords
+ */
+function transposeAll() {
+	// Get the chord names entered by the user as a string.
+	let input = document.getElementById('chords').value;
+
+	// Split the string into an array of chord names.
+	let chords = input.split(', ');
+
+	// Get the number of half steps to transpose the chords.
+	let halfSteps = parseInt(
+            document.getElementById('halfSteps').value);
+
+	let sep = '';
+	let output = '';
+	for (let i = 0;  i &lt; chords.length;  ++i) {
+		// Retrieve one chord from the array of chords.
+		let chord = chords[i];
+
+		// Transpose one chord.
+		let transposed = transposeChord(chord, halfSteps);
+
+		// Append the transposed chord to the output.
+		output += sep + transposed;
+		sep = ', ';
+	}
+
+	// Display the transposed chords for the user to see.
+	document.getElementById('output').innerHTML = output;
+}
+
+
+/* Parameters:
+ *     chord - a string that is a chord name.
+ *         Ex: D, Eb, Cm, A7, Fmaj7
+ *     halfSteps - an integer that is the number
+ *         of half steps to transpose the chord
+ * Processing:
+ *     Separate the chord name into a note name and a suffix.
+ *     Find the index of the original note name.
+ *     Transpose the note name by adding the half steps to the index.
+ *     Normalize the index so that it is between 0 and 11, inclusive.
+ *     Use the index to find the transposed note name.
+ *     Combine the transposed note name and suffix into a chord name.
+ * Return: The transposed chord name
+ */
+function transposeChord(chord, halfSteps) {
+	// An array that contains all 12 note names in keyboard order.
+	let notes = [
+		'A', 'Bb', 'B', 'C', 'C#', 'D',
+		'Eb', 'E', 'F', 'F#', 'G', 'Ab'
+	];
+
+	// Separate the note name and suffix from the chord name.
+	let note = getNote(chord);
+	let suffix = getSuffix(chord);
+
+	// Find where the note name is stored
+	// in the array of all 12 note names.
+	let index = notes.indexOf(note);
+
+	// Transpose the original note by adding the half steps.
+	index += halfSteps;
+
+	// If the half steps value is negative and the
+	// transposed index is less than 0, then repeatedly
+	// add 12 to the index until it is non-negative.
+	while (index &lt; 0) {
+		index += notes.length;
+	}
+
+	// If the half steps value is positive and the
+	// transposed index is 12 or greater, then repeatedly
+	// subtract 12 from the index until it is less than 12.
+	while (index &gt;= notes.length) {
+		index -= notes.length;
+	}
+
+	// Build the transposed chord name by concatenating
+	// the transposed note name to the chord suffix.
+	let transposed = notes[index] + suffix;
+
+	return transposed;
+}
+
+
+/* Parameter: chord - a string that is a chord name.
+ *     Ex: D, Eb, Cm, A7, Fmaj7
+ * Processing: Extract a substring from the chord name.
+ * Return: the note name from the chord.
+ *     Ex: D, Eb, C, A, F
+ */
+function getNote(chord) {
+	let len = 1;
+	if (chord.length &gt; 1 &amp;&amp; (chord[1] == 'b' || chord[1] == '#')) {
+		len = 2;
+	}
+	let note = chord.substr(0, len);
+	return note;
+}
+
+
+/* Parameter: chord - a string that is a chord name.
+ *     Ex: D, Eb, Cm, A7, Fmaj7
+ * Processing:
+ *     Get the note name from the chord name.
+ *     Extract a substring from the chord name.
+ * Return: the suffix from the chord. Ex: m, 7, maj7
+ */
+function getSuffix(chord) {
+	let note = getNote(chord);
+	let suffix = chord.substr(note.length);
+	return suffix;
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+Chords &lt;input type="text" id="chords" size="30"&gt;&lt;br&gt;
+Half steps &lt;input type="text" id="halfSteps" size="2"&gt;&lt;br&gt;
+&lt;button type="button" onclick="transposeAll()"&gt;Transpose&lt;/button&gt;
+&lt;div id="output"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+<h2>Further Reading</h2>
+<figure class="pitch">
+<a href="https://www.amazon.com/dp/0996246339">
+    <img alt="Front cover of Programming Fundamentals in JavaScript"
+    src="../site/images/fund_js_front_small.jpg">
+</a>
+</figure>
+<p>All the example programs in this article came from the book
+<a href="https://www.amazon.com/dp/0996246339">Programming Fundamentals
+in JavaScript</a>.</p>
+
+<div class="modified">Last modified: 2022-08-04</div>
+</article>
+</body>
+</html>
