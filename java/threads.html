@@ -78,15 +78,68 @@ title="A UML state diagram showing the life cycle of a Java thread">
 </dl>
 
 <h2>Two Ways to Create a Thread</h2>
-<figure class="right">
-<img src="threadClass.gif"
-alt="A UML class diagram showing an inheritance hieararchy for two
-different ways to create a thread."
-title="A UML class diagram showing an inheritance hieararchy for two
-different ways to create a thread.">
-</figure>
-
 <p>There are two ways to create a thread in Java.</p>
+
+<table class="classdia right"
+title="A UML class diagram showing an inheritance hieararchy for two
+different ways to create a thread."><tbody>
+    <tr><td colspan="2">
+        <table class="interface center"><tbody>
+            <tr><td class="name">«interface»<br>java.lang.Runnable</td></tr>
+            <tr><td class="methods">+ run() : void</td></tr>
+        </tbody></table>
+    </td></tr>
+
+    <tr>
+        <td class="relat left" colspan="2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#x25b3;</td>
+    </tr>
+
+    <tr>
+        <td class="relat left" colspan="2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#x250c;-----&#x2534;---------&#x2510;</td>
+    </tr>
+
+    <tr>
+        <td class="relat left">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#x254e;</td>
+        <td class="relat center">&#x254e;</td>
+    </tr>
+
+    <tr>
+        <td><table class="class"><tbody>
+            <tr><td class="name">java.lang.Thread</td></tr>
+            <tr><td class="attrs">&nbsp;</td></tr>
+            <tr><td class="methods">
+                <div>+ start() : void</div>
+                <div>+ run() : void</div>
+                <div>+ <span class="static">sleep(millis : long) : void</span></div>
+            </td></tr>
+        </tbody></table></td>
+        <td class="relat middle center">&#x254e;<br>&#x254e;<br>&#x254e;<br>&#x254e;<br>&#x254e;</td>
+    </tr>
+
+    <tr>
+        <td class="relat center">&#x25b3;</td>
+        <td class="relat center">&#x254e;</td>
+    </tr>
+
+    <tr>
+        <td class="relat center">|</td>
+        <td class="relat center">&#x254e;</td>
+    </tr>
+
+    <tr>
+        <td><table class="class center"><tbody>
+            <tr><td class="name">MyThread</td></tr>
+            <tr><td class="attrs">&nbsp;</td></tr>
+            <tr><td class="methods">+ run() : void</td></tr>
+        </tbody></table></td>
+        <td><table class="class center"><tbody>
+            <tr><td class="name">MyRunnable</td></tr>
+            <tr><td class="attrs">&nbsp;</td></tr>
+            <tr><td class="methods">+ run() : void</td></tr>
+        </tbody></table></td>
+    </tr>
+</tbody></table>
+
 <ol>
     <li><div>Write a class that extends <code>java.lang.Thread</code>
     and create an object from it. This is demonstrated by the
@@ -134,13 +187,61 @@ than the single threaded solution for large <var>n</var> because the
 calculations are spread across four threads each of which executes on a
 separate core.</p>
 
-<figure class="center">
-<img src="factorial.gif"
-alt="A UML class diagram for a program that computes n! with both a
-single threaded solution and a multi-threaded solution"
-title="A UML class diagram for a program that computes n! with both a
-single threaded solution and a multi-threaded solution">
-</figure>
+<table class="classdia center"
+title="A UML class diagram for a program that computes n factorial (n!)
+with both a single threaded solution and a multi-threaded solution"><tbody>
+    <tr><td colspan="3"><table class="class"><tbody>
+        <tr><td class="name">Factorial</td></tr>
+        <tr><td class="attrs">&nbsp;</td></tr>
+        <tr><td class="methods">
+            <div>+ <span class="static">main(args : String[]) : void</span></div>
+            <div>&minus; <span class="static">print(filename : String, n : int, fact : BigInteger, start : long, end : long) : void</span></div>
+            <div>&minus; <span class="static">factorial(n : int) : BigInteger</span></div>
+            <div>&minus; <span class="static">factorialThreaded(n : int, nThreads : int) : BigInteger</span></div>
+        </td></tr>
+    </tbody></table></td></tr>
+
+    <tr>
+        <td></td>
+        <td></td>
+        <td class="relat center">&#x2bc1;</td>
+    </tr>
+
+    <tr>
+        <td></td>
+        <td></td>
+        <td class="relat center">|</td>
+    </tr>
+
+    <tr>
+        <td class="middle"><table class="class right"><tbody>
+            <tr><td class="name">java.lang.Thread</td></tr>
+            <tr><td class="attrs">&nbsp;</td></tr>
+            <tr><td class="methods">
+                <div>+ start() : void</div>
+                <div>+ run() : void</div>
+                <div>+ <span class="static">sleep(millis : long) : void</span></div>
+            </td></tr>
+        </tbody></table></td>
+
+        <td class="relat middle" style="width:3em">&#x25c1;&#x2500;&#x2500;&#x2500;&#x2500;</td>
+
+        <td><table class="class left"><tbody>
+            <tr><td class="name">Factorial.FactThread</td></tr>
+            <tr><td class="attrs">
+                <div># <span class="static">INCREMENT : int</span></div>
+                <div>&minus; start : int</div>
+                <div>&minus; end : int</div>
+                <div># product : BigInteger</div>
+                <div># done : boolean</div>
+            </td></tr>
+            <tr><td class="methods">
+                <div>+ FactThread(start : int, end : int)</div>
+                <div>+ run() : void</div>
+            </td></tr>
+        </tbody></table></td>
+    </tr>
+</tbody></table>
 
 <div class="pre" id="ex3"><pre class="linenums"></pre>
 <pre class="code language-java">import java.io.File;
@@ -300,7 +401,7 @@ public class Factorial {
     }
 }</pre></div>
 
-<div class="modified">Last modified: 2022-08-02</div>
+<div class="modified">Last modified: 2022-08-03</div>
 </article>
 </body>
 </html>

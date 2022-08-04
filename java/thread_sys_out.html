@@ -49,12 +49,12 @@ normal <code>System.out</code>.</p>
 <table class="classdia"><tbody>
     <tr>
         <td><table class="class"><tbody>
-            <tr><td class="name"><b>Main</b></td></tr>
+            <tr><td class="name"><span class="final">Main</span></td></tr>
             <tr><td class="attrs">&nbsp;</td></tr>
             <tr><td class="methods">+ <span class="static">main(args : String[]) : void</span></td></tr>
         </tbody></table></td>
-        <td rowspan="5" style="width:1.5em"></td>
-        <td rowspan="2"><table class="class"><tbody>
+        <td class="gap" rowspan="6"></td>
+        <td rowspan="3"><table class="class"><tbody>
             <tr><td class="name">java.io.PrintStream</td></tr>
             <tr><td class="attrs">&nbsp;</td></tr>
             <tr><td class="methods">
@@ -68,27 +68,30 @@ normal <code>System.out</code>.</p>
         </tbody></table></td>
     </tr>
     <tr>
-        <td style="vertical-align:bottom"><table class="class"><tbody>
+        <td class="gap"></td>
+    </tr>
+    <tr>
+        <td class="bottom"><table class="class center"><tbody>
             <tr><td class="name">«interface»<br>java.lang.Runnable</td></tr>
             <tr><td class="methods">+ run() : void</td></tr>
         </tbody></table></td>
     </tr>
     <tr>
-        <td>&Delta;</td>
-        <td>&Delta;</td>
+        <td class="relat center">&#x25b3;</td>
+        <td class="relat center">&#x25b3;</td>
     </tr>
     <tr>
-        <td>&#x254e;</td>
-        <td>&#x2502;</td>
+        <td class="relat center">&#x254e;</td>
+        <td class="relat center">|</td>
     </tr>
     <tr>
-        <td><table class="class"><tbody>
-            <tr><td class="name"><b>StreamText</b></td></tr>
+        <td><table class="class center"><tbody>
+            <tr><td class="name"><span class="final">StreamText</span></td></tr>
             <tr><td class="attrs">&nbsp;</td></tr>
             <tr><td class="methods">+ run() : void</td></tr>
         </tbody></table></td>
         <td><table class="class"><tbody>
-            <tr><td class="name"><b>ThreadPrintStream</b></td></tr>
+            <tr><td class="name"><span class="final">ThreadPrintStream</span></td></tr>
             <tr><td class="attrs">&minus; out : ThreadLocal&lt;PrintStream&gt;</td></tr>
             <tr><td class="methods">
                 <div>+ <span class="static">replaceSystemOut() : void</span></div>
@@ -248,7 +251,7 @@ public class ThreadPrintStream extends PrintStream {
     public void close() { getThreadOut().close(); }
 }</pre></div>
 
-<div class="modified">Last modified: 2022-08-02</div>
+<div class="modified">Last modified: 2022-08-03</div>
 </article>
 </body>
 </html>

@@ -373,10 +373,14 @@ article dl.function > dd {
 
 /* Tables */
 article table {
+	margin: 0 auto 1em 1.25em;
+}
+article table.center {
 	margin: 0 auto 1em auto;
 }
-article table.left {
-	margin: 0 auto 1em 1.25em;
+article table.right {
+	float: right;
+	margin: 0 0 1em 1.25em;
 }
 article table > thead > tr > th {
 	padding: 0 0.3em 0 0.3em;;
@@ -469,41 +473,74 @@ article table.excel tr > td.copy_bot_right {
 article table.classdia td {
 	white-space: nowrap;
 	padding: 0;
+	vertical-align: top;
+	text-align: left;
+}
+article table.classdia td.center {
 	text-align: center;
 }
-article table.classdia td.left {
-	text-align: left;
+article table.classdia td.right {
+	text-align: right;
+}
+article table.classdia td.middle {
+	vertical-align: middle;
+}
+article table.classdia td.bottom {
+	vertical-align: bottom;
 }
 article table.classdia td.relat {
 	font-family: "Source Code Pro", "Lucida Console", Consolas, monospace;
 }
-article table.classdia td.gap_tb {
-	padding: 0.1em 0;
+article table.classdia td.gap_t {
+	padding-top: 0.1em;
 }
+article table.classdia td.gap_b {
+	padding-bottom: 0.1em;
+}
+article table.classdia td.gap {
+	min-width: 1.5em;
+	min-height: 1em;
+	width: 1.5em;
+	height: 1em;
+}
+
 article table.classdia table.package {
 	border: 1px solid var(--fg-color);
 }
-article table.classdia table.package td.gap_tblr {
+article table.classdia table.package td {
 	padding: 0.8em 0.8em;
 }
-article table.classdia table.class {
-	margin: 0 auto;
-	border: 1px solid var(--fg-color);
-}
-article table.classdia table.class.left {
-	margin: 0;
-}
-article table.classdia table.package td {
+article table.classdia table.package td.name {
 	padding: 0.3em 0.5em;
 }
+
+article table.classdia table.interface,
+article table.classdia table.class {
+	margin: 0;
+	border: 1px solid var(--fg-color);
+}
+article table.classdia table.interface.center,
+article table.classdia table.class.center {
+	margin: 0 auto;
+}
+article table.classdia table.interface.right,
+article table.classdia table.class.right {
+	margin: 0 0 0 auto;
+}
+article table.classdia table.interface td.name,
 article table.classdia table.class td.name {
 	padding: 0 0.5em;
+	text-align: center;
 }
 article table.classdia table.class td.attrs,
-article table.classdia table.class td.methods {
+article table.classdia table.class td.methods,
+article table.classdia table.interface td.attrs,
+article table.classdia table.interface td.methods {
 	border-top: 1px solid var(--fg-color);
 	padding: 0 0.2em;
-	text-align: left;
+}
+article table.classdia table.interface td.methods {
+	font-style: italic;
 }
 article table.classdia table.comment {
 	margin: 0;
@@ -511,7 +548,13 @@ article table.classdia table.comment {
 }
 article table.classdia table.comment td {
 	border-top: 1px solid var(--bg-color);
-	text-align: left;
+}
+
+article table.classdia .abstract {
+	font-style: italic;
+}
+article table.classdia .final {
+	font-weight: bold;
 }
 article table.classdia .static {
 	text-decoration: underline;
@@ -555,6 +598,16 @@ article span.null {
 	color: white;
 	font-size: smaller;
 	text-transform: uppercase;
+}
+
+
+/* These elements are normally indented slightly to help distinguish
+ * them from text. However, if they are inside a list element (li),
+ * don't indent them. */
+article li table.classdia,
+article li div.pre,
+article li pre.console {
+	margin: 1em auto 1em 0;
 }
 
 
@@ -790,11 +843,6 @@ article div.pre {
 	padding: 0.25em 0.5em;
 }
 
-article li div.pre,
-article li pre {
-	margin: 1em auto 1em 0;
-}
-
 article div.pre > button.copy {
 	position: absolute;
 	top: 0.5em;
@@ -891,13 +939,6 @@ figure.pitch {
 		width: 20em;
 	}
 }
-/*
-figure.pitch figcaption {
-	font-size: 95%;
-	border: 1px solid var(--bg-color);
-	padding: 0.25em 0.5em 0.75em 0.5em;
-}
-*/
 
 article div.modified {
 	clear: both;

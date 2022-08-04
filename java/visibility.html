@@ -55,14 +55,14 @@ different packages.</p>
 
 <table class="features"><thead>
     <tr>
-        <td></td>
+        <td>&nbsp;</td>
         <td class="nowrap">(least visible)</td>
-        <td></td>
-        <td></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
         <td class="nowrap">(most visible)</td>
     </tr>
     <tr>
-        <td></td>
+        <td>&nbsp;</td>
         <th scope="col">private</th>
         <th scope="col" style="padding-right:0.5em">(default)</th>
         <th scope="col">protected</th>
@@ -78,23 +78,23 @@ different packages.</p>
     </tr>
     <tr>
         <td>Can be accessed from the same package</td>
-        <td></td>
+        <td>&nbsp;</td>
         <td>&#x2713;</td>
         <td>&#x2713;</td>
         <td>&#x2713;</td>
     </tr>
     <tr>
         <td>Can be accessed from any child class</td>
-        <td></td>
-        <td></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
         <td>&#x2713;</td>
         <td>&#x2713;</td>
     </tr>
     <tr>
         <td>Can be accessed from anywhere</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
         <td>&#x2713;</td>
     </tr>
 </tbody></table>
@@ -111,10 +111,10 @@ different packages.</p>
 
 <table class="classdia"><tbody>
     <tr><td><table class="package"><tbody>
-        <tr><td class="left" colspan="2">package p1;</td></tr>
+        <tr><td class="name" colspan="2">package p1;</td></tr>
 
         <tr>
-<td class="gap_tblr"><table class="class"><tbody><tr><td class="left"><pre><span id="C1">public class C1 {</span>
+<td class="gap_tblr"><table class="class"><tbody><tr><td><pre><span id="C1">public class C1 {</span>
     <span id="C1_a" data-high="C1" title="private class attribute">private   static int a;</span>
               <span id="C1_b" data-high="C1 C2 C3" title="(default) class attribute">static int b;</span>
     <span id="C1_c" data-high="C1 C2 C3 C4" title="protected class attribute">protected static int c;</span>
@@ -136,7 +136,7 @@ different packages.</p>
     <span id="C1_m8" data-high="C1 C2 C3 C4 C5" data-high2="C1_a C1_b C1_c C1_d C1_w C1_x C1_y C1_z" title="public instance method">public    void m8() {...}</span>
 }</pre></td></tr></tbody></table></td>
 
-<td class="gap_tblr"><table class="class"><tbody><tr><td class="left"><pre><span id="C2">public class C2 {</span>
+<td class="gap_tblr"><table class="class"><tbody><tr><td><pre><span id="C2">public class C2 {</span>
     <span id="C2_obj" data-high="C2" title="private instance attribute">private C1 obj = new C1();</span>
 
     <span data-high="C1 C2 C3 C4 C5" data-high2="C1_b C1_c C1_d C1_x C1_y C1_z C1_m2 C1_m3 C1_m4 C1_m6 C1_m7 C1_m8 C2_obj" title="public instance method">public void m() {</span>
@@ -157,7 +157,7 @@ different packages.</p>
         </tr>
 
         <tr>
-<td class="gap_tblr"><table class="class"><tbody><tr><td class="left"><pre><span id="C3">public class C3 <em>extends C1</em> {</span>
+<td class="gap_tblr"><table class="class"><tbody><tr><td><pre><span id="C3">public class C3 <em>extends C1</em> {</span>
     <span data-high="C1 C2 C3 C4 C5" data-high2="C1_b C1_c C1_d C1_x C1_y C1_z C1_m2 C1_m3 C1_m4 C1_m6 C1_m7 C1_m8" title="public instance method">public void m() {</span>
         // cannot access a
         // can access b, c, d
@@ -177,13 +177,13 @@ different packages.</p>
         </tr>
     </tbody></table></td></tr>
 
-    <tr><td>&nbsp;</td></tr>
+    <tr><td class="gap">&nbsp;</td></tr>
 
     <tr><td><table class="package"><tbody>
-        <tr><td class="left" colspan="2">package p2;</td></tr>
+        <tr><td class="name" colspan="2">package p2;</td></tr>
 
         <tr>
-<td class="gap_tblr"><table class="class"><tbody><tr><td class="left"><pre><span id="C4">public class C4 <em>extends C1</em> {</span>
+<td class="gap_tblr"><table class="class"><tbody><tr><td><pre><span id="C4">public class C4 <em>extends C1</em> {</span>
     <span data-high="C1 C2 C3 C4 C5" data-high2="C1_c C1_d C1_y C1_z C1_m3 C1_m4 C1_m7 C1_m8" title="public instance method">public void m() {</span>
         // cannot access a, b
         // can access c, d
@@ -199,7 +199,7 @@ different packages.</p>
     }
 }</pre></td></tr></tbody></table></td>
 
-<td class="gap_tblr"><table class="class"><tbody><tr><td class="left"><pre><span id="C5">public class C5 {</span>
+<td class="gap_tblr"><table class="class"><tbody><tr><td><pre><span id="C5">public class C5 {</span>
     <span id="C5_obj" data-high="C5" title="private instance attribute">private C1 obj = new C1();</span>
 
     <span data-high="C1 C2 C3 C4 C5" data-high2="C1_d C1_z C1_m4 C1_m8 C5_obj" title="public instance method">public void m() {</span>

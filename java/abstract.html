@@ -117,12 +117,148 @@ concrete class in the Java programming language.</p>
 </ul>
 
 <h2>Example</h2>
-<div>
-<figure>
-<img style="vertical-align:top" src="chess_uml.png"
-alt="UML class diagram showing part of a design for a chess game"
-title="UML class diagram showing part of a design for a chess game">
-</figure>
+
+<table class="classdia"
+title="UML class diagram showing part of a design for a chess game"><tbody>
+    <tr>
+        <td colspan="3"><table class="interface center"><tbody>
+            <tr><td class="name">«interface»<br>Drawable</td></tr>
+            <tr><td class="attrs">+ <span class="static">SPARKLE_COEFF : double</span></td></tr>
+            <tr><td class="methods">+ draw(g : Graphics2D) : void</td></tr>
+        </tbody></table></td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td></td>
+        <td class="relat center">&#x25b3;</td>
+        <td></td>
+        <td rowspan="11">
+            <table><thead>
+                <tr><th>UML Class Diagram Key</th></tr>
+            </thead><tbody>
+                <tr><td>Visibility</td></tr>
+                <tr><td>&nbsp; &nbsp; &minus; private</td></tr>
+                <tr><td>&nbsp; &nbsp; ~ (default)</td></tr>
+                <tr><td>&nbsp; &nbsp; # protected</td></tr>
+                <tr><td>&nbsp; &nbsp; + public</td></tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr><td>Relationships</td></tr>
+                <tr><td>&nbsp; &nbsp; &#x25c1;&#x2500;&#x2500;&#x2500; inheritance (extends)</td></tr>
+                <tr><td>&nbsp; &nbsp; &#x25c1;------- realizes (implements)</td></tr>
+                <tr><td>&nbsp; &nbsp; &#x25c7;&#x2500;&#x2500;&#x2500; aggregation</td></tr>
+                <tr><td>&nbsp; &nbsp; &#x25c6;&#x2500;&#x2500;&#x2500; composition</td></tr>
+                <tr><td>&nbsp; &nbsp; &#x1438;------- dependency</td></tr>
+                <tr><td>&nbsp; &nbsp; &#x2500;&#x2500;&#x2500;&#x2500; association</td></tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr><td>Others</td></tr>
+                <tr><td>&nbsp; &nbsp; package.Class</td></tr>
+                <tr><td>&nbsp; &nbsp; <span class="abstract">italics</span> &ndash; abstract</td></tr>
+                <tr><td>&nbsp; &nbsp; <span class="static">underline</span> &ndash; static</td></tr>
+                <tr><td>&nbsp; &nbsp; <span class="final">bold</span> &ndash; final class</td></tr>
+                <tr><td>&nbsp; &nbsp; ALL CAPS &ndash; final variable</td></tr>
+            </tbody></table>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="relat right">&#x250c;-----------</td>
+        <td class="relat center">-&#x2534;-</td>
+        <td class="relat left">------------&#x2510;</td>
+    </tr>
+
+    <tr>
+        <td class="relat center">╎</td>
+        <td></td>
+        <td class="relat center">╎</td>
+    </tr>
+
+    <tr>
+        <td><table class="class"><tbody>
+            <tr><td class="name"><span class="final">ChessBoard</span></td></tr>
+            <tr><td class="attrs">&nbsp;</td></tr>
+            <tr><td class="methods">+ draw(g : Graphics2D) : void</td></tr>
+        </tbody></table></td>
+        <td class="gap"></td>
+        <td><table class="class"><tbody>
+            <tr><td class="name">ChessPiece</td></tr>
+            <tr><td class="attrs"># color : String</td></tr>
+            <tr><td class="methods">+ <span class="abstract">move(location : int) : boolean</span></td></tr>
+        </tbody></table></td>
+    </tr>
+
+    <tr>
+        <td></td>
+        <td></td>
+        <td class="relat center">&#x25b3;</td>
+    </tr>
+
+    <tr>
+        <td></td>
+        <td></td>
+        <td class="relat center">|</td>
+    </tr>
+
+    <tr>
+        <td colspan="2"><table class="class right"><tbody>
+            <tr><td class="name"><span class="final">King</span></td></tr>
+            <tr><td class="attrs">&minus; moved : boolean</td></tr>
+            <tr><td class="methods">
+                <div>+ draw(g : Graphics2D): void</div>
+                <div>+ move(location : int): boolean</div>
+            </td></tr>
+        </tbody></table></td>
+        <td class="relat">
+            <div class="center">|</div>
+            <div class="left">&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2524;</div>
+            <div class="center">|</div>
+            <div class="center">|</div>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2"></td>
+        <td class="relat center">|</td>
+    </tr>
+
+    <tr>
+        <td colspan="2"><table class="class right"><tbody>
+            <tr><td class="name"><span class="final">Queen</span></td></tr>
+            <tr><td class="attrs">&nbsp;</td></tr>
+            <tr><td class="methods">
+                <div>+ draw(g : Graphics2D): void</div>
+                <div>+ move(location : int): boolean</div>
+            </td></tr>
+        </tbody></table></td>
+        <td class="relat">
+            <div class="center">|</div>
+            <div class="left">&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2524;</div>
+            <div class="center">|</div>
+            <div class="center">|</div>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2"></td>
+        <td class="relat center">|</td>
+    </tr>
+
+    <tr>
+        <td colspan="2"><table class="class right"><tbody>
+            <tr><td class="name"><span class="final">Pawn</span></td></tr>
+            <tr><td class="attrs">&minus; firstMove : boolean</td></tr>
+            <tr><td class="methods">
+                <div>+ draw(g : Graphics2D): void</div>
+                <div>+ move(location : int): boolean</div>
+            </td></tr>
+        </tbody></table></td>
+        <td class="relat">
+            <div class="center">|</div>
+            <div class="left">&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;</div>
+        </td>
+    </tr>
+
+</tbody></table>
 
 <div class="pre">
 <pre class="code language-java">import java.awt.Graphics2D;
@@ -209,9 +345,8 @@ class Pawn extends ChessPiece {
         &vellip;
     }
 }</pre></div>
-</div>
 
-<div class="modified">Last modified: 2022-08-01</div>
+<div class="modified">Last modified: 2022-08-03</div>
 </article>
 </body>
 </html>
