@@ -33,7 +33,7 @@ useful methods to the JavaScript <code>Array</code> class. If you put
 these methods in a JavaScript file named <code>array.js</code>, you will
 be able to include and use them in a web page whenever you want.</p>
 
-<h2>Descriptions of the Methods</h2>
+<h2>Descriptions of the Five Methods</h2>
 <dl class="long">
     <dt>binarySearch</dt>
     <dd><p>The existing <code>Array.indexOf</code> method searches an
@@ -88,7 +88,7 @@ be able to include and use them in a web page whenever you want.</p>
     thing that the -u option of the unix sort command does.</dd>
 </dl>
 
-<h2>The Five Missing Methods</h2>
+<h2>Source Code for the Five Methods</h2>
 <p>Here are the five missing JavaScript <code>Array</code> methods. Copy
 these methods into a text file named "<code>array.js</code>". Notice
 that all the methods except <code>addAll</code> have an optional
@@ -96,7 +96,8 @@ parameter which is a comparison method. If your program is storing
 complex objects in arrays, you can write your own comparison method to
 compare the objects any way you like.</p>
 
-<div class="pre" id="ex1"><pre class="code language-javascript">
+<div class="pre" id="ex1"><pre class="linenums"></pre>
+<pre class="code language-javascript">
 "use strict";
 
 /** If this array contains key, returns the index of any
@@ -106,7 +107,7 @@ compare the objects any way you like.</p>
  * this array is already sorted. */
 Array.prototype.binarySearch = function(key, compare) {
     if (typeof(compare) == 'undefined') {
-        compare = ascend;
+        compare = ascending;
     }
     let left = 0;
     let right = this.length - 1;
@@ -140,7 +141,7 @@ Array.prototype.addAll = function() {
  * that are also found in the specified array. */
 Array.prototype.retainAll = function(arr, compare) {
     if (typeof(compare) == 'undefined') {
-        compare = ascend;
+        compare = ascending;
     }
     let i = 0;
     while (i &lt; this.length) {
@@ -163,7 +164,7 @@ Array.prototype.retainAll = function(arr, compare) {
  * that are also found in the specified array. */
 Array.prototype.removeAll = function(arr, compare) {
     if (typeof(compare) == 'undefined') {
-        compare = ascend;
+        compare = ascending;
     }
     let i = 0;
     while (i &lt; this.length) {
@@ -187,7 +188,7 @@ Array.prototype.removeAll = function(arr, compare) {
  * array. Assumes this array is already sorted. */
 Array.prototype.distinct = function(compare) {
     if (typeof(compare) == 'undefined') {
-        compare = ascend;
+        compare = ascending;
     }
     let dst = 0;  // Destination for elements
     let src = 0;  // Source of elements
@@ -209,7 +210,7 @@ Array.prototype.distinct = function(compare) {
 
 /** Compares two objects using
  * built-in JavaScript operators. */
-function ascend(a, b) {
+function ascending(a, b) {
     if (a &lt; b)
         return -1;
     else if (a &gt; b)
@@ -217,10 +218,10 @@ function ascend(a, b) {
     return 0;
 }</pre></div>
 
-<h2>Using the Five Missing Methods</h2>
+<h2>Using the Five Methods</h2>
 <p>To use the five methods, include in the head of an HTML document, the
 <code>array.js</code> file that you saved as shown on
-<span class="cross" data-ref="ex2">line&nbsp;6</span> of the next
+<span class="cross" data-ref="ex2">line&nbsp;9</span> of the next
 code example. Then you can write JavaScript code to use the five methods
 just like you would use other built-in JavaScript <code>Array</code>
 methods. The <code>testArray</code> function at
@@ -233,7 +234,10 @@ next code example shows how to use the five missing methods.</p>
 &lt;html lang="en-us"&gt;
 &lt;head&gt;
     &lt;meta charset="utf-8"&gt;
-    &lt;title&gt;Using the Five Missing Methods&lt;/title&gt;
+    &lt;title&gt;Using the Five Methods&lt;/title&gt;
+
+    &lt;!-- Import the JavaScript code from array.js so that the
+     browser will add the five methods to the Array class. --&gt;
     &lt;script src="array.js"&gt;&lt;/script&gt;
 
     &lt;script&gt;
@@ -251,14 +255,17 @@ function testArray() {
     document.writeln('indexOf()&lt;br&gt;');
     let possible = 'plum';
     if (plants.indexOf(possible) &gt;= 0)
-        document.writeln('plants contains ' + possible + '&lt;br&gt;');
+        document.write('plants contains ' + possible);
     else
-        document.writeln('plants does not contain ' + possible + '&lt;br&gt;');
+        document.write('plants does not contain ' + possible);
+    document.writeln('&lt;br&gt;');
+
     possible = 'cherry';
     if (plants.indexOf(possible) &gt;= 0)
-        document.writeln('plants contains ' + possible + '&lt;br&gt;');
+        document.write('plants contains ' + possible);
     else
-        document.writeln('plants does not contain ' + possible + '&lt;br&gt;');
+        document.write('plants does not contain ' + possible);
+    document.writeln('&lt;br&gt;');
     document.writeln('&lt;br&gt;');
 
     // Use the addAll() method.
@@ -274,14 +281,17 @@ function testArray() {
     possible = 'peach';
     plants.sort();
     if (plants.binarySearch(possible) &gt;= 0)
-        document.writeln('plants contains ' + possible + '&lt;br&gt;');
+        document.write('plants contains ' + possible);
     else
-        document.writeln('plants does not contain ' + possible + '&lt;br&gt;');
+        document.write('plants does not contain ' + possible);
+    document.writeln('&lt;br&gt;');
+
     possible = 'coconut';
     if (plants.binarySearch(possible) &gt;= 0)
-        document.writeln('plants contains ' + possible + '&lt;br&gt;');
+        document.write('plants contains ' + possible);
     else
-        document.writeln('plants does not contain ' + possible + '&lt;br&gt;');
+        document.write('plants does not contain ' + possible);
+    document.writeln('&lt;br&gt;');
     document.writeln('&lt;br&gt;');
 
     // Use the addAll() method.
@@ -323,7 +333,38 @@ function testArray() {
 &lt;/body&gt;
 &lt;/html&gt;</pre></div>
 
-<div class="modified">Last modified: 2022-08-04</div>
+<h2>Futher Reading</h2>
+<p>Some readers have pointed out that within the
+<code>binarySearch</code> method, the line of code that computes the
+midpoint is unnecessarily complex and inefficient. Here is the line of
+code:</p>
+
+<div class="pre"><pre class="code language-javascript">    let mid = left + ((right - left) &gt;&gt;&gt; 1);</pre></div>
+
+<p>Some readers have stated that a simpler and more efficient line of
+code would be this:</p>
+
+<div class="pre"><pre class="code language-javascript">    let mid = (left + right) / 2;</pre></div>
+
+<p>However, if we use the simpler formula for computing the midpoint for
+large arrays, <span class="formula">left + right</span> may overflow an
+integer which would cause the <code>binarySearch</code> method to fail.
+If you wish to read more about this possible overflow,
+<a href="https://medium.com/swlh/overflow-bug-in-binary-search-c4d4a824807a">Overflow Bug in Binary Search</a>
+by Sourabh Gupta is a short clear article that explains it. In addition,
+the binary search algorithm and computing the midpoint is explained in
+both of the following books:</p>
+<ul>
+    <li><div><a href="https://www.amazon.com/dp/0996246339">Programming
+    Fundamentals in JavaScript</a> in Chapter 10 in the "Binary Search"
+    section</div></li>
+
+    <li><div><a href="https://www.amazon.com/dp/0983384029">Advanced
+    Programming Techniques</a> in Chapter 1 in the "Binary Search"
+    section</div></li>
+</ul>
+
+<div class="modified">Last modified: 2022-08-05</div>
 </article>
 </body>
 </html>

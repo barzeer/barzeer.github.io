@@ -275,17 +275,6 @@ article .menu {
 	white-space: nowrap;
 }
 
-/*
-article span.key {
-    vertical-align: baseline;
-    line-height: 1.6em;
-    background-color: #f0f0f0;
-    border: 1px solid #0a0a0a; border-radius: 4px; border-style: outset;
-    margin: 0 0 0 0;
-    padding: 0.1em 0.2em 0.1em 0.2em;
-}
-*/
-
 article div.welcome {
 	font-family: Neucha, "Brush Script MT", cursive;
 	font-size: 140%;
