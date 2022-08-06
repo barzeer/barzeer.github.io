@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>Quadratic Formula</title>
+
+<script>
+/* Input: Three coefificients from a quadratic equation.
+ * Processing: If they exist, compute
+ *     the root or roots of the equation
+ * Output:
+ *     The root or roots of the equation or
+ *    "undefined" if they don't exist.
+ */
+function quadratic() {
+    // Get three coefficients a, b, and c
+    // for a quadratic equation from the user.
+    let a = parseFloat(document.getElementById('inputA').value);
+    let b = parseFloat(document.getElementById('inputB').value);
+    let c = parseFloat(document.getElementById('inputC').value);
+
+    // Compute the root or roots of the
+    // quadratic equation if they exist.
+    let discr = b * b - 4 * a * c;
+    let root1, root2;
+    if (discr >= 0) {
+        let sq = Math.sqrt(discr);
+        root1 = (-b + sq) / (2 * a);
+        root2 = (-b - sq) / (2 * a);
+    }
+
+    // Display the roots to the user.
+    document.getElementById('output').innerHTML =
+            root1 + ' ' + root2;
+}
+</script>
+</head>
+
+<body>
+y = <input type="text" id="inputA" size="3"> x<sup>2</sup> +
+    <input type="text" id="inputB" size="3"> x +
+    <input type="text" id="inputC" size="3">
+<button type="button" onclick="quadratic()">Compute Roots</button>
+<div id="output"></div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>Is Even?</title>
+
+<script>
+/* Input: An integer
+ * Processing: Determine if the integer is even or odd
+ * Output: A message that says the integer is even or odd
+ */
+function isEven() {
+    // Get the user input from a text
+    // field and convert it to an integer.
+    let text = document.getElementById('integerInput').value;
+    let number = parseInt(text);
+
+    // Choose a message.
+    let message;
+    if ((number % 2) == 0) {
+        message = number + " is an even integer";
+    }
+    else {
+        message = number + " is an odd integer";
+    }
+
+    // Display the message to the user.
+    document.getElementById('output').innerHTML = message;
+}
+</script>
+</head>
+
+<body>
+Please enter an integer: <input type="text" id="integerInput">
+<button type="button" onclick="isEven()">Is Even?</button>
+<div id="output"></div>
+</body>
+</html>

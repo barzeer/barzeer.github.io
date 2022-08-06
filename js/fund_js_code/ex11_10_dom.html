@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>Changing Text Fields</title>
+<script>
+/* Adds a text field at the end of the body. */
+function addTextField() {
+    // Create a unique identifier for the new text field.
+    let texts = document.getElementsByTagName('input');
+    let id = 'text' + texts.length;
+
+    // Create a text field and set its id.
+    let text = document.createElement('input');
+    text.type = 'text';
+    text.id = id;
+
+    // Create a div and add the text field to the div.
+    let div = document.createElement('div');
+    div.appendChild(text);
+
+    // Add the div to the document body.
+    document.body.appendChild(div);
+}
+
+
+/* Changes the color of one text field. */
+function changeColor() {
+    let colors = [
+        'black', 'gray', 'brown', 'blue',
+        'purple', 'red', 'green', 'chartreuse',
+        'yellow', 'orange', 'fuchsia', 'white'
+    ];
+
+    // Get an array of all text fields.
+    let texts = document.getElementsByTagName('input');
+    if (texts.length > 0) {
+
+        // Choose a background and a foreground color.
+        let index = choose(colors);
+        let opposite = colors.length - index - 1;
+        let background = colors[index];
+        let foreground = colors[opposite];
+
+        // Choose a text field.
+        let text = texts[choose(texts)];
+
+        // Change the element's colors.
+        text.style.color = foreground;
+        text.style.backgroundColor = background;
+        text.value = foreground + ' on ' + background;
+    }
+}
+
+
+/* Changes the size of all text fields. */
+function changeSize() {
+    // Get an array of all text fields.
+    let texts = document.getElementsByTagName('input');
+    if (texts.length > 0) {
+
+        // Get the size of the first element.
+        let size = texts[0].size;
+
+        // Increment the size.
+        if (++size > 30) {
+            size = 5;
+        }
+
+        // Change the size of all text fields.
+        for (let i = 0;  i < texts.length;  i++) {
+            let text = texts[i];
+            text.size = size;
+        }
+    }
+}
+
+
+/* Removes a pseudo randomly chosen text field. */
+function removeTextField() {
+    // Get an array of all text fields.
+    let texts = document.getElementsByTagName('input');
+    if (texts.length > 0) {
+
+        // Choose a text field.
+        let index = choose(texts);
+        let text = texts[index];
+
+        // Get the text field's parent.
+        let div = text.parentElement;
+
+        // Remove the parent and the text field.
+        document.body.removeChild(div);
+
+        // Renumber the id's of the remaining text fields.
+        for (let i = index;  i < texts.length;  i++) {
+            let id = 'text' + i;
+            texts[i].id = id;
+        }
+    }
+}
+
+
+/* Returns a pseudo random integer
+ * in the range [0, list.length). */
+function choose(list) {
+    let index = Math.floor(Math.random() * list.length);
+    return index;
+}
+</script>
+</head>
+
+<body>
+<button type="button" onclick="addTextField()">Add</button>
+<button type="button" onclick="changeColor()">Color</button>
+<button type="button" onclick="changeSize()">Size</button>
+<button type="button" onclick="removeTextField()">Remove</button>
+</body>
+</html>

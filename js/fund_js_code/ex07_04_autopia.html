@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>Are you tall enough to drive on the Autopia?</title>
+
+<script>
+/* Input: the height of a driver and an optional passenger
+ * Processing: Determine if a driver and
+ *     optional passenger may ride the Autopia
+ * Output: "Enjoy the ride!" or
+ *    "Sorry, to drive a car on the Autopia, you must be at least
+ *    54 inches tall or at least 32 inches tall and accompanied
+ *    by a passenger who is at least 54 inches tall."
+ */
+function checkHeight() {
+    let driver = parseInt(
+            document.getElementById('driverInput').value);
+    let passenger = parseInt(
+            document.getElementById('passengerInput').value);
+
+    let message;
+    if (driver >= 54 || (driver >= 32 && passenger >= 54)) {
+        message = 'Enjoy the ride!';
+    }
+    else {
+        message = 'Sorry, to drive a car on the Autopia,' +
+            ' you must be at least 54 inches tall or at' +
+            ' least 32 inches tall and accompanied by a' +
+            ' passenger who is at least 54 inches tall.';
+    }
+
+    document.getElementById('output').innerHTML = message;
+}
+</script>
+</head>
+
+<body>
+<h1>Are you tall enough to drive on the Autopia?</h1>
+Driver's height in inches:
+    <input type="text" id="driverInput" size="3"><br>
+Passenger's height in inches:
+    <input type="text" id="passengerInput" size="3" value="0"><br>
+<button type="button" onclick="checkHeight()">Check Height</button>
+<div id="output"></div>
+</body>
+</html>

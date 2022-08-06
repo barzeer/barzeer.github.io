@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>Student ID to Name</title>
+<script>
+// The values in this dictionary can be hard coded
+// into a program or even better, they can be read
+// from a file or database.
+let students = {
+    '07-153-4276' : 'Felix',
+    '34-513-3186' : 'Jonathan',
+    '26-430-0198' : 'Grace'
+};
+
+
+/* Input: a student's ID
+ * Processing: find the student's name
+ * Output: the student's name
+ */
+function findName() {
+    // Get the student's ID.
+    let studID = document.getElementById('studID').value;
+
+    // Find the student's name in
+    // the dictionary of students.
+    let name = students[studID];
+    if (!name) {
+        // The student ID that the user entered
+        // is not stored in the students dictionary.
+        name = 'No such student ID';
+    }
+
+    // Display the student's name for the user to see.
+    document.getElementById('output').innerHTML = name;
+}
+</script>
+</head>
+
+<body>
+Student ID: <input type="text" id="studID">
+<button type="button" onclick="findName()">Name</button>
+<div id="output"></div>
+</body>
+</html>

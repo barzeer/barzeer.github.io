@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>Local Storage Demo</title>
+<script>
+/* Saves the user's name to local storage. */
+function saveName() {
+    let name = document.getElementById('name').value;
+    localStorage.name = name;
+}
+
+
+/* Loads the user's name from local storage. */
+function loadName() {
+    let name = localStorage.name;
+    document.getElementById('name').value = name;
+}
+
+
+/* Builds and shows a message to a user. */
+function showMessage() {
+    // Get the user's name from the text field.
+    let name = document.getElementById('name').value;
+
+    // Build a message for the user.
+    let message;
+    if (name == "") {
+        message = 'Please enter your name.';
+    }
+    else {
+        message = 'Hello ' + name +
+                '. I hope you have nice day.';
+    }
+
+    // Display the message for the user to see.
+    document.getElementById('output').innerHTML = message;
+}
+</script>
+</head>
+
+<body>
+Name: <input type="text" id="name">
+<button type="button" onclick="loadName()">Load</button>
+<button type="button" onclick="saveName()">Save</button><br>
+<button type="button" onclick="showMessage()">Message</button>
+<div id="output"></div>
+</body>
+</html>

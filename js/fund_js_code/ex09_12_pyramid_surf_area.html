@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>Surface Area of a Pyramid</title>
+
+<script>
+/* Input: No user input
+ * Processing: Compute the surface area of the
+ *     triangular faces of a regular pyramid
+ *     that has base 8 and height 7.
+ * Output: The surface area of the pyramid
+ */
+function testPyramid() {
+    let pa = pyramidSurfaceArea(8, 7);
+    document.getElementById('output').innerHTML = pa;
+}
+
+
+// Computes and returns the surface area of the
+// four triangular faces of a regular pyramid
+// with the specified base length and height.
+function pyramidSurfaceArea(base, height) {
+    let edge = Math.sqrt(base*base/2 + height*height);
+    let triArea = triangleArea(base, edge, edge);
+    let pyramidArea = 4 * triArea;
+    return pyramidArea;
+}
+
+
+// Computes and returns the area of a
+// triangle with side lengths a, b, and c.
+function triangleArea(a, b, c) {
+    let s = (a + b + c) / 2;
+    let area = Math.sqrt(s * (s-a) * (s-b) * (s-c));
+    return area;
+}
+</script>
+</head>
+
+<body>
+<button type="button" onclick="testPyramid()">Test</button>
+<div id="output"></div>
+</body>
+</html>

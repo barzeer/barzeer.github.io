@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>Compute Total</title>
+<script>
+/* Input: The subtotal for a customer's purchases
+ * Processing: Compute a discounted amount and sales tax
+ *     and add them together to get the total amount that
+ *     the customer owes.
+ * Output: The total that the customer owes.
+ */
+function computeTotal() {
+    // Get the subtotal from the user.
+    let subtotal = parseFloat(
+            document.getElementById('subtotal').value);
+
+    // Compute the customer's total.
+    let discounted = getDiscountedAmount(subtotal);
+    let tax = getSalesTax(discounted);
+    let total = discounted + tax;
+
+    // Display the total for the customer to see.
+    document.getElementById('total').innerHTML = total;
+}
+
+
+// The values in these parallel arrays can be
+// hard coded into your program, or even better,
+// they can be read from a file or database.
+let limits = [300, 600, 1000];
+let rates = [0, 0.02, 0.025, 0.03];
+
+// Computes and returns a discounted purchase amount.
+function getDiscountedAmount(purchase) {
+    // Find the purchase range.
+    for (let i = 0;  i < limits.length;  i++) {
+        if (purchase < limits[i]) {
+            break;
+        }
+    }
+
+    // Get the discount rate that
+    // corresponds to the purchase range.
+    let rate = rates[i];
+
+    // Compute the discount amount and round it to pennies.
+    let discount = purchase * rate;
+    discount = roundToPlaces(discount, 2);
+
+    // Compute and return the discounted price.
+    return purchase - discount;
+}
+
+
+// Computes and returns the sales tax for a purchase amount.
+function getSalesTax(purchase) {
+    let taxRate = 0.06;
+    let tax = purchase * taxRate;
+    tax = roundToPlaces(tax, 2);
+    return tax;
+}
+
+
+// Rounds x to digits places after the decimal point.
+function roundToPlaces(x, digits) {
+    let multiplier = Math.pow(10, digits);
+    let rounded = Math.round(x * multiplier) / multiplier;
+    return rounded;
+}
+</script>
+</head>
+
+<body>
+<h2>Compute Total</h2>
+Subtotal <input type="text" id="subtotal" size="5"><br>
+<button type="button" onclick="computeTotal()">Total</button>
+<div id="total"></div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>Prime Number</title>
+
+<script>
+/* Input: an integer
+ * Processing: determine if the given integer is prime.
+ * Output: __ is prime OR __ is not prime
+ */
+function isPrime() {
+    let candidate = parseInt(
+            document.getElementById('integerInput').value);
+
+    // Count the number of factors
+    // that evenly divide candidate.
+    let factorCount = 0;
+    for (let divisor = 1;  divisor <= candidate;  divisor++) {
+        let remainder = candidate % divisor;
+        if (remainder == 0) {
+            factorCount++;
+        }
+    }
+
+    // Determine the output and show it to the user.
+    let output;
+    if (factorCount == 2) {
+        output = candidate + ' is prime';
+    }
+    else {
+        output = candidate + ' is not prime';
+    }
+    document.getElementById('output').innerHTML = output;
+}
+</script>
+</head>
+
+<body>
+Please enter an integer:
+    <input type="text" id="integerInput"><br>
+<button type="button" onclick="isPrime()">Is Prime</button>
+<div id="output"></div>
+</body>
+</html>

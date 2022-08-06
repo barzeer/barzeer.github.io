@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>Greatest Common Divisor</title>
+
+<script>
+/* Input: No user input
+ * Processing: Call the gcd function
+ * Output: The greatest common divisor of -24 and 472
+ */
+function testGCD() {
+    let x = -24;
+    let y = 472;
+    let divisor = gcd(x, y);
+    document.getElementById('output').innerHTML = divisor;
+}
+
+
+// Finds and returns the greatest common
+// divisor of two integers a and b.
+function gcd(a, b) {
+    // Ensure a and b are not negative.
+    a = Math.abs(a);
+    b = Math.abs(b);
+
+    // Ensure a is greater than or equal to b.
+    if (a < b) {
+        let swap = a;
+        a = b;
+        b = swap;
+    }
+
+    // Repeat until the computer finds
+    // the greatest common divisor.
+    do {
+        let r = a % b;
+        a = b;
+        b = r;
+    } while (b != 0);
+
+    // Return the greatest common divisor.
+    return a;
+}
+</script>
+</head>
+
+<body>
+<button type="button" onclick="testGCD()">Test</button>
+<div id="output"></div>
+</body>
+</html>

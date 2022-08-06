@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>Is Even</title>
+
+<script>
+/* Input: An integer
+ * Processing: Determine if the integer is even or not
+ * Output: A message stating if the integer is even or not
+ */
+function doInputOutput() {
+    let number = parseInt(
+            document.getElementById('numberInput').value);
+    let result = isEven(number);
+    document.getElementById('output').innerHTML =
+        number + ' is even: ' + result;
+}
+
+
+// Returns true if value is an even
+// integer; otherwise returns false.
+function isEven(value) {
+    return (value % 2) == 0;
+}
+</script>
+</head>
+
+<body>
+Please enter an integer: <input type="text" id="numberInput">
+<button type="button" onclick="doInputOutput()">Is Even?</button>
+<div id="output"></div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>Triangle Area</title>
+
+<script>
+/* Input: No user input
+ * Processing: Compute the area of a triangle
+ *     with side lengths 4, 2, and 5
+ * Output: The area of the triangle
+ */
+function testTriangle() {
+    let r = triangleArea(4, 2, 5);
+    document.getElementById('output').innerHTML = r;
+}
+
+
+// Computes and returns the area of a
+// triangle with side lengths a, b, and c.
+function triangleArea(a, b, c) {
+    let s = (a + b + c) / 2;
+    let area = Math.sqrt(s * (s-a) * (s-b) * (s-c));
+    return area;
+}
+</script>
+</head>
+
+<body>
+<button type="button" onclick="testTriangle()">Test</button>
+<div id="output"></div>
+</body>
+</html>

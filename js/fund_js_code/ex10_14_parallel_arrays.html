@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>Student ID to Name</title>
+<script>
+// The values in these parallel arrays can be hard coded
+// into a program, or even better, they can be read from
+// a file or database.
+let studentIDs = ['07-153-4276', '34-513-3186', '26-430-0198'];
+let studentNames = ['Felix', 'Jonathan', 'Grace'];
+
+/* Input: a student's ID
+ * Processing: find the student's name
+ * Output: the student's name
+ */
+function findName() {
+    // Get the student's ID.
+    let studID = document.getElementById('studID').value;
+
+    // Use linear search to find the student's ID.
+    let index = linearSearch(studentIDs, studID);
+
+    let name;
+    if (index == -1) {
+        // The student ID that the user entered
+        // is not stored in the studentIDs array.
+        name = 'No such student ID';
+    }
+    else {
+        // Get the student's name.
+        name = studentNames[index];
+    }
+
+    // Display the student's name for the user to see.
+    document.getElementById('output').innerHTML = name;
+}
+
+
+// If key is in list, returns the first index where
+// key is located within list; otherwise returns -1.
+function linearSearch(list, key) {
+    let index = -1;
+    for (let i = 0;  i < list.length;  i++) {
+        if (list[i] == key) {
+            index = i;
+            break;
+        }
+    }
+    return index;
+}
+</script>
+</head>
+
+<body>
+Student ID: <input type="text" id="studID">
+<button type="button" onclick="findName()">Name</button>
+<div id="output"></div>
+</body>
+</html>

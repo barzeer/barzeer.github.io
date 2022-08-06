@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>Distance</title>
+
+<script>
+/* Input: x and y for two points: x1, y1, x2, y2
+ * Processing:
+ *   1. Calculate the distance between the two points.
+ *   2. Round the distance to two digits after the decimal.
+ * Output: the rounded distance
+ */
+function distance() {
+    // Get the coordinates for two points from the user.
+    let x1 = parseFloat(document.getElementById('x1Input').value);
+    let y1 = parseFloat(document.getElementById('y1Input').value);
+    let x2 = parseFloat(document.getElementById('x2Input').value);
+    let y2 = parseFloat(document.getElementById('y2Input').value);
+
+    // Compute the distance between the two points.
+    let dx = x2 - x1;
+    let dy = y2 - y1;
+    let dist = Math.sqrt(dx * dx + dy * dy);
+
+    // Round the distance to two digits after the decimal.
+    let digits = 2;
+    let multiplier = Math.pow(10, digits);
+    dist = Math.round(dist * multiplier) / multiplier;
+
+    // Display the distance to the user.
+    document.getElementById('outputDiv').innerHTML = dist;
+}
+</script>
+</head>
+
+<body>
+Please enter the x and y coordinates for two points:<br>
+(x1, y1) <input type="text" id="x1Input" size="3">
+         <input type="text" id="y1Input" size="3"><br>
+(x2, y2) <input type="text" id="x2Input" size="3">
+         <input type="text" id="y2Input" size="3"><br>
+<button type="button" onclick="distance()">Distance</button>
+<div id="outputDiv"></div>
+</body>
+</html>

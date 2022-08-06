@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="author" content="Rex Barzee">
+<title>Transpose</title>
+
+<script>
+/* Input: Chord names and an integer
+ * Processing:
+ *     A loop that repeats once for each chord
+ *         Transpose the chord
+ *         Append the transposed chord onto an output string.
+ * Output: The transposed chords
+ */
+function transposeAll() {
+    // Get the chord names entered by the user as a string.
+    let input = document.getElementById('chords').value;
+
+    // Split the string into an array of chord names.
+    let chords = input.split(', ');
+
+    // Get the number of half steps to transpose the chords.
+    let halfSteps = parseInt(
+            document.getElementById('halfSteps').value);
+
+    let sep = '';
+    let output = '';
+    for (let i = 0;  i < chords.length;  ++i) {
+        // Retrieve one chord from the array of chords.
+        let chord = chords[i];
+
+        // Transpose one chord.
+        let transposed = transposeChord(chord, halfSteps);
+
+        // Append the transposed chord to the output.
+        output += sep + transposed;
+        sep = ', ';
+    }
+
+    // Display the transposed chords for the user to see.
+    document.getElementById('output').innerHTML = output;
+}
+
+
+/* Parameters:
+ *     chord - a string that is a chord name.
+ *         Ex: D, Eb, Cm, A7, Fmaj7
+ *     halfSteps - an integer that is the number
+ *         of half steps to transpose the chord
+ * Processing:
+ 1. Separate the chord name into a note name and a suffix.
+ 2. Find the index of the original note name.
+ 3. Transpose the note name by adding the half steps to the index.
+ 4. Normalize the index so that it is between 0 and 11, inclusive.
+ 5. Use the index to find the transposed note name.
+ 6. Combine the transposed note name and suffix into a chord name.
+ * Return: The transposed chord name
+ */
+function transposeChord(chord, halfSteps) {
+    // An array that contains all 12 note names in keyboard order.
+    let notes = [
+        'A', 'Bb', 'B', 'C', 'C#', 'D',
+        'Eb', 'E', 'F', 'F#', 'G', 'Ab'
+    ];
+
+    // Separate the note name and suffix from the chord name.
+    let note = getNote(chord);
+    let suffix = getSuffix(chord);
+
+    // Find where the note name is stored
+    // in the array of all 12 note names.
+    let index = notes.indexOf(note);
+
+    // Transpose the original note by adding the half steps.
+    index += halfSteps;
+
+    // If the half steps value is negative and the
+    // transposed index is less than 0, then repeatedly
+    // add 12 to the index until it is non-negative.
+    while (index < 0) {
+        index += notes.length;
+    }
+
+    // If the half steps value is positive and the
+    // transposed index is 12 or greater, then repeatedly
+    // subtract 12 from the index until it is less than 12.
+    while (index >= notes.length) {
+        index -= notes.length;
+    }
+
+    // Build the transposed chord name by concatenating
+    // the transposed note name to the chord suffix.
+    let transposed = notes[index] + suffix;
+
+    return transposed;
+}
+
+
+/* Parameter: chord - a string that is a chord name.
+ *     Ex: D, Eb, Cm, A7, Fmaj7
+ * Processing: Extract a substring from the chord name.
+ * Return: the note name from the chord.
+ *     Ex: D, Eb, C, A, F
+ */
+function getNote(chord) {
+    let len = 1;
+    if (chord.length > 1 && (chord[1] == 'b' || chord[1] == '#')) {
+        len = 2;
+    }
+    let note = chord.substr(0, len);
+    return note;
+}
+
+
+/* Parameter: chord - a string that is a chord name.
+ *     Ex: D, Eb, Cm, A7, Fmaj7
+ * Processing:
+ *     Get the note name from the chord name.
+ *     Extract a substring from the chord name.
+ * Return: the suffix from the chord. Ex: m, 7, maj7
+ */
+function getSuffix(chord) {
+    let note = getNote(chord);
+    let suffix = chord.substr(note.length);
+    return suffix;
+}
+</script>
+</head>
+
+<body>
+Chords <input type="text" id="chords" size="30"><br>
+Half steps <input type="text" id="halfSteps" size="2"><br>
+<button type="button" onclick="transposeAll()">Transpose</button>
+<div id="output"></div>
+</body>
+</html>
