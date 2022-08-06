@@ -2,7 +2,18 @@
 
 if (!window.hasOwnProperty('smartDev')) {
 	window.smartDev = {
-		/** Reorganizes the structure of the home index.html file. */
+		/** Reorganizes the structure of the home index.html
+		 * file. Surrounds the article with this structure:
+		 * <body>
+		 *     <div class="top"></div>
+		 *     <div class="page">
+		 *         <header></header>
+		 *         <nav></nav>
+		 *         <article></article>
+		 *         <footer></footer>
+		 *     </div>
+		 * </body>
+		 */
 		surroundHome : function() {
 			let body = document.querySelector('body');
 			let article = document.querySelector('article');
@@ -13,8 +24,8 @@ if (!window.hasOwnProperty('smartDev')) {
 			body.appendChild(top);
 			body.appendChild(page);
 
-			let header = this.createHeader();
-			let nav = this.createNav(window.location.pathname);
+			let header = this.createHeader('', window.location.protocol);
+			let nav = this.createNav('', window.location.protocol, null);
 			let footer = this.createHomeFooter();
 			page.appendChild(header);
 			page.appendChild(nav);
@@ -22,6 +33,9 @@ if (!window.hasOwnProperty('smartDev')) {
 			page.appendChild(footer);
 		},
 
+
+		/** Reorganizes the structure of an
+		 * index.html file within a subfolder. */
 		surroundIndex : function() {
 			let body = document.querySelector('body');
 			let article = document.querySelector('article');
@@ -32,29 +46,16 @@ if (!window.hasOwnProperty('smartDev')) {
 			body.appendChild(top);
 			body.appendChild(page);
 
-			let header = this.createHeader();
-			let nav = this.createNav(window.location.pathname);
+			let header = this.createHeader('../', window.location.protocol);
+			let nav = this.createNav('../',
+					window.location.protocol, window.location.pathname);
 			page.appendChild(header);
 			page.appendChild(nav);
 			page.appendChild(article);
 		},
 
 
-		/** Reorganizes the structure of an HTML document or in other
-		 * words, surrounds the article with this structure:
-		 * <body>
-		 *     <div class="top"></div>
-		 *     <div class="page">
-		 *         <header></header>
-		 *         <div class="side">
-		 *             <nav></nav>
-		 *             <div class="author"></div>
-		 *         </div>
-		 *         <article></article>
-		 *         <footer></footer>
-		 *     </div>
-		 * </body>
-		 */
+		/** Reorganizes the structure of an HTML document. */
 		surroundArticle : function() {
 			let body = document.querySelector('body');
 			let article = document.querySelector('article');
@@ -65,8 +66,8 @@ if (!window.hasOwnProperty('smartDev')) {
 			body.appendChild(top);
 			body.appendChild(page);
 
-			let header = this.createHeader();
-			let nav = this.createNav(null);
+			let header = this.createHeader('../', window.location.protocol);
+			let nav = this.createNav('../', window.location.protocol, null);
 			let footer = this.createFooter();
 			page.appendChild(header);
 			page.appendChild(nav);
@@ -75,21 +76,29 @@ if (!window.hasOwnProperty('smartDev')) {
 		},
 
 
-		createHeader : function() {
+		createHeader : function(prefix, protocol) {
 			let header = this.createElem('header');
-			let h2 = this.createElem('h2');
-			let a = this.createElem('a',
-					null, {href: '../'}, 'Barzee’s Notes');
-			h2.appendChild(a);
-			let h3 = this.createElem('h3',
-					null, null, 'Smart Software Development');
+
+			let h2;
+			if (prefix == '') {
+				h2 = this.createElem('h2', null, null, 'Barzee’s Notes');
+			}
+			else {
+				h2 = this.createElem('h2');
+				let suffix = (protocol == "file:" ? 'index.html' : '');
+				let a = this.createElem('a', null,
+						{href: prefix + suffix}, 'Barzee’s Notes');
+				h2.appendChild(a);
+			}
+			let h3 = this.createElem('h3', null, null,
+					'Smart Software Development');
 			header.appendChild(h2);
 			header.appendChild(h3);
 			return header;
 		},
 
 
-		createNav : function(pathname) {
+		createNav : function(prefix, protocol, pathname) {
 			let nav = this.createElem('nav');
 
 			let h2 = this.createElem('h2', null, null, 'Categories');
@@ -98,7 +107,16 @@ if (!window.hasOwnProperty('smartDev')) {
 			let ul = this.createElem('ul');
 			nav.appendChild(ul);
 
-			let items = [
+			let folder = null;
+			if (pathname) {
+				let slash = pathname.lastIndexOf('/');
+				let path = pathname.substring(0, slash);
+				slash = path.lastIndexOf('/');
+				folder = path.substring(slash + 1);
+			}
+			let suffix = (protocol == "file:" ? '/index.html' : '/');
+
+			const items = [
 				['python', 'Python'],
 				['js', 'JavaScript'],
 				['java', 'Java'],
@@ -109,23 +127,16 @@ if (!window.hasOwnProperty('smartDev')) {
 				['excel', 'Excel'],
 				['math', 'Math']
 			];
-			let folder = null;
-			if (pathname) {
-				let slash = pathname.lastIndexOf('/');
-				let path = pathname.substring(0, slash);
-				slash = path.lastIndexOf('/');
-				folder = path.substring(slash + 1);
-			}
 			for (let i = 0;  i < items.length;  ++i) {
 				let direc = items[i][0];
 				let name = items[i][1];
 				let li = this.createElem('li');
 				let div = this.createElem('div');
-				let text = folder == direc ?
-					this.createElem('em', null, null, name) :
-					this.createElem('a', null,
-						{'href': '../' + direc + '/'}, name);
-				div.appendChild(text);
+				let a = (direc == folder ?
+						this.createElem('em', null, null, name) :
+						this.createElem('a', null,
+								{'href': prefix + direc + suffix}, name));
+				div.appendChild(a);
 				li.appendChild(div);
 				ul.appendChild(li);
 			}
@@ -133,20 +144,20 @@ if (!window.hasOwnProperty('smartDev')) {
 		},
 
 
-		// This function sort of works. The code is correct and creates
-		// a div that contains the last date that a file was modified.
-		// Unfortunately, if the website uses a content management
-		// system like GitHub, the system copies all the files each time
-		// the author pushes a commit to the main branch of the
-		// repository. This means that the last modified date for all
-		// files becomes the last date that an author executed a push to
-		// the main branch.
-		//createModified : function() {
-		//	let modified = new Date(document.lastModified);
-		//	let text = 'Last modified: ' + modified.toLocaleDateString();
-		//	let div = this.createElem('div', 'modified', null, text);
-		//	return div;
-		//},
+		/* This function sort of works. The code is correct and creates
+		 * a div that contains the last date that a file was modified.
+		 * Unfortunately, if the website uses a content management
+		 * system like GitHub, each time the author pushes a commit to
+		 * the main branch of the repository the system copies all the
+		 * files. This means that the last modified date for all files
+		 * becomes the last date that an author executed a push to the
+		 * main branch.
+		createModified : function() {
+			let modified = new Date(document.lastModified);
+			let text = 'Last modified: ' + modified.toLocaleDateString();
+			let div = this.createElem('div', 'modified', null, text);
+			return div;
+		},*/
 
 
 		createHomeFooter : function() {
