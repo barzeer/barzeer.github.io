@@ -144,7 +144,7 @@ Message:&lt;br&gt;
 &lt;/head&gt;
 
 &lt;body&gt;
-    &lt;button type="button" onclick="showMessage()"&gt;Message&lt;/button&gt;
+&lt;button type="button" onclick="showMessage()"&gt;Message&lt;/button&gt;
 &lt;/body&gt;
 &lt;/html&gt;</pre></div>
 
@@ -178,7 +178,7 @@ function greetUser() {
 &lt;/head&gt;
 
 &lt;body&gt;
-    &lt;button type="button" onclick="greetUser()"&gt;Hello&lt;/button&gt;
+&lt;button type="button" onclick="greetUser()"&gt;Hello&lt;/button&gt;
 &lt;/body&gt;
 &lt;/html&gt;</pre></div>
 
@@ -253,7 +253,8 @@ function celsToFahr() {
 &lt;/head&gt;
 
 &lt;body&gt;
-Enter a temperature in Celsius: &lt;input type="text" id="celsiusInputBox"&gt;
+Enter a temperature in Celsius:
+    &lt;input type="text" id="celsiusInputBox"&gt;
 &lt;button type="button" onclick="celsToFahr()"&gt;Convert&lt;/button&gt;
 &lt;div id="fahrenDiv"&gt;&lt;/div&gt;
 &lt;/body&gt;
@@ -290,7 +291,8 @@ function fahrToCels() {
 &lt;/head&gt;
 
 &lt;body&gt;
-Enter a temperature in Fahrenheit: &lt;input type="text" id="fahrenInputBox"&gt;
+Enter a temperature in Fahrenheit:
+    &lt;input type="text" id="fahrenInputBox"&gt;
 &lt;button type="button" onclick="fahrToCels()"&gt;Convert&lt;/button&gt;
 &lt;div id="celsiusDiv"&gt;&lt;/div&gt;
 &lt;/body&gt;
@@ -451,9 +453,9 @@ Please enter an integer: &lt;input type="text" id="inputBox"&gt;
 function quadratic() {
     // Get three coefficients a, b, and c
     // for a quadratic equation from the user.
-    let a = parseFloat(document.getElementById('aInputBox').value);
-    let b = parseFloat(document.getElementById('bInputBox').value);
-    let c = parseFloat(document.getElementById('cInputBox').value);
+    let a = parseFloat(document.getElementById('inputA').value);
+    let b = parseFloat(document.getElementById('inputB').value);
+    let c = parseFloat(document.getElementById('inputC').value);
 
     // Compute the root or roots of the
     // quadratic equation if they exist.
@@ -473,9 +475,9 @@ function quadratic() {
 &lt;/head&gt;
 
 &lt;body&gt;
-y = &lt;input type="text" id="aInputBox" size="3"&gt; x&lt;sup&gt;2&lt;/sup&gt; +
-    &lt;input type="text" id="bInputBox" size="3"&gt; x +
-    &lt;input type="text" id="cInputBox" size="3"&gt;
+y = &lt;input type="text" id="inputA" size="3"&gt; x&lt;sup&gt;2&lt;/sup&gt; +
+    &lt;input type="text" id="inputB" size="3"&gt; x +
+    &lt;input type="text" id="inputC" size="3"&gt;
 &lt;button type="button" onclick="quadratic()"&gt;Compute Roots&lt;/button&gt;
 &lt;div id="output"&gt;&lt;/div&gt;
 &lt;/body&gt;
@@ -497,7 +499,8 @@ y = &lt;input type="text" id="aInputBox" size="3"&gt; x&lt;sup&gt;2&lt;/sup&gt; 
  * Output: The ticket price
  */
 function ticketPrice() {
-    // Get a person's age and number of games attended from the user.
+    // Get a person's age and number
+    // of games attended from the user.
     let age = parseInt(document.getElementById('ageBox').value);
     let gamesAttended =
             parseInt(document.getElementById('gamesBox').value);
@@ -534,7 +537,8 @@ function ticketPrice() {
 
 &lt;body&gt;
 Age: &lt;input type="text" id="ageBox" size="3"&gt;&lt;br&gt;
-Number of games attended: &lt;input type="text" id="gamesBox" size="3"&gt;&lt;br&gt;
+Number of games attended:
+    &lt;input type="text" id="gamesBox" size="3"&gt;&lt;br&gt;
 &lt;button type="button" onclick="ticketPrice()"&gt;Ticket Price&lt;/button&gt;
 &lt;div id="priceDiv"&gt;&lt;/div&gt;
 &lt;/body&gt;
@@ -745,10 +749,14 @@ function futureValue() {
 &lt;/head&gt;
 
 &lt;body&gt;
-Balance: &lt;input type="text" id="balance" size="7"&gt;&lt;br&gt;
-Annual growth rate: &lt;input type="text" id="annualRate" size="5"&gt;&lt;br&gt;
-Number of months: &lt;input type="text" id="months" size="3"&gt;&lt;br&gt;
-&lt;button type="button" onclick="futureValue()"&gt;Future Value&lt;/button&gt;
+Principal:
+    &lt;input type="text" id="balance" size="7"&gt;&lt;br&gt;
+Annual growth rate:
+    &lt;input type="text" id="annualRate" size="5"&gt;&lt;br&gt;
+Number of months:
+    &lt;input type="text" id="months" size="3"&gt;&lt;br&gt;
+&lt;button type="button"
+    onclick="futureValue()"&gt;Future Value&lt;/button&gt;
 &lt;div id="output"&gt;&lt;/div&gt;
 &lt;/body&gt;
 &lt;/html&gt;</pre></div>
@@ -764,14 +772,15 @@ Number of months: &lt;input type="text" id="months" size="3"&gt;&lt;br&gt;
 
 &lt;script&gt;
 /* Input: an integer
- * Processing: determine if the given integer is prime or not.
+ * Processing: determine if the given integer is prime.
  * Output: __ is prime OR __ is not prime
  */
 function isPrime() {
     let candidate = parseInt(
             document.getElementById('integerBox').value);
 
-    // Count the number of factors that evenly divide candidate.
+    // Count the number of factors
+    // that evenly divide candidate.
     let factorCount = 0;
     for (let divisor = 1;  divisor &lt;= candidate;  divisor++) {
         let remainder = candidate % divisor;
@@ -794,7 +803,8 @@ function isPrime() {
 &lt;/head&gt;
 
 &lt;body&gt;
-Please enter an integer: &lt;input type="text" id="integerBox"&gt;&lt;br&gt;
+Please enter an integer:
+    &lt;input type="text" id="integerBox"&gt;&lt;br&gt;
 &lt;button type="button" onclick="isPrime()"&gt;Is Prime&lt;/button&gt;
 &lt;div id="outputDiv"&gt;&lt;/div&gt;
 &lt;/body&gt;
@@ -811,7 +821,7 @@ Please enter an integer: &lt;input type="text" id="integerBox"&gt;&lt;br&gt;
 
 &lt;script&gt;
 /* Input: an integer
- * Processing: determine if the given integer is prime or not.
+ * Processing: determine if the given integer is prime.
  * Output: __ is prime OR __ is not prime
  */
 function isPrime() {
@@ -820,7 +830,8 @@ function isPrime() {
     let limit = Math.sqrt(candidate);
     let prime = true;
 
-    // Find the first integer that evenly divides candidate.
+    // Find the first integer that
+    // evenly divides candidate.
     for (let divisor = 2;  divisor &lt;= limit;  divisor++) {
         let remainder = candidate % divisor;
         if (remainder == 0) {
@@ -843,7 +854,8 @@ function isPrime() {
 &lt;/head&gt;
 
 &lt;body&gt;
-Please enter an integer: &lt;input type="text" id="integerBox"&gt;&lt;br&gt;
+Please enter an integer:
+    &lt;input type="text" id="integerBox"&gt;&lt;br&gt;
 &lt;button type="button" onclick="isPrime()"&gt;Is Prime&lt;/button&gt;
 &lt;div id="outputDiv"&gt;&lt;/div&gt;
 &lt;/body&gt;
@@ -1050,8 +1062,15 @@ function determineMonths(principal, annualRate, target) {
     // Repeat while the balance of the
     // investment is less than the target.
     while (balance &lt; target) {
-        let interest = Math.round(balance * monthlyRate * 100) / 100;
+
+        // Compute the the monthly interest and round
+        // it to two digits after the decimal point.
+        let interest = balance * monthlyRate;
+        interest = Math.round(interest * 100) / 100;
+
+        // Add the interest to the investment balance.
         balance += interest;
+
         month++;
     }
 
@@ -1079,14 +1098,14 @@ function determineMonths(principal, annualRate, target) {
 
 &lt;script&gt;
 /* Input: No user input
- * Processing: Determine the greatest common divisor of -24 and 472
- * Output: The greatest common divisor
+ * Processing: Call the gcd function
+ * Output: The greatest common divisor of -24 and 472
  */
 function testGCD() {
     let x = -24;
     let y = 472;
     let divisor = gcd(x, y);
-    document.getElementById('outputDiv').innerHTML = divisor;
+    document.getElementById('output').innerHTML = divisor;
 }
 
 
@@ -1104,7 +1123,8 @@ function gcd(a, b) {
         b = swap;
     }
 
-    // Repeat until the computer finds the greatest common divisor.
+    // Repeat until the computer finds
+    // the greatest common divisor.
     do {
         let r = a % b;
         a = b;
@@ -1119,7 +1139,7 @@ function gcd(a, b) {
 
 &lt;body&gt;
 &lt;button type="button" onclick="testGCD()"&gt;Test&lt;/button&gt;
-&lt;div id="outputDiv"&gt;&lt;/div&gt;
+&lt;div id="output"&gt;&lt;/div&gt;
 &lt;/body&gt;
 &lt;/html&gt;</pre></div>
 
@@ -1133,10 +1153,11 @@ function gcd(a, b) {
 &lt;meta charset="utf-8"&gt;
 &lt;title&gt;Student ID to Name&lt;/title&gt;
 &lt;script&gt;
-// The values in these parallel arrays can be hard coded into a
-// program, or even better, they can be read from a file or database.
-let studentIDs = [ '07-153-4276', '34-513-3186', '26-430-0198' ];
-let studentNames = [ 'Felix', 'Jonathan', 'Grace' ];
+// The values in these parallel arrays can be hard coded
+// into a program, or even better, they can be read from
+// a file or database.
+let studentIDs = ['07-153-4276', '34-513-3186', '26-430-0198'];
+let studentNames = ['Felix', 'Jonathan', 'Grace'];
 
 /* Input: a student's ID
  * Processing: find the student's name
@@ -1220,8 +1241,8 @@ function computeTotal() {
 // The values in these parallel arrays can be
 // hard coded into your program, or even better,
 // they can be read from a file or database.
-let limits = [ 300, 600, 1000 ];
-let rates = [ 0, 0.02, 0.025, 0.03 ];
+let limits = [300, 600, 1000];
+let rates = [0, 0.02, 0.025, 0.03];
 
 // Computes and returns a discounted purchase amount.
 function getDiscountedAmount(purchase) {
@@ -1332,7 +1353,7 @@ function process() {
  *     sorted, and the contents after it is sorted.
  */
 function testSort() {
-    let numbers = [ 7, 10, 8, 16, 3, 35 ];
+    let numbers = [7, 10, 8, 16, 3, 35];
     document.getElementById('output').innerHTML = numbers + '&lt;br&gt;';
     numbers.sort(compareNumbers);
     document.getElementById('output').innerHTML += numbers;
@@ -1602,32 +1623,32 @@ function choose(list) {
  * Output: The transposed chords
  */
 function transposeAll() {
-	// Get the chord names entered by the user as a string.
-	let input = document.getElementById('chords').value;
+    // Get the chord names entered by the user as a string.
+    let input = document.getElementById('chords').value;
 
-	// Split the string into an array of chord names.
-	let chords = input.split(', ');
+    // Split the string into an array of chord names.
+    let chords = input.split(', ');
 
-	// Get the number of half steps to transpose the chords.
-	let halfSteps = parseInt(
+    // Get the number of half steps to transpose the chords.
+    let halfSteps = parseInt(
             document.getElementById('halfSteps').value);
 
-	let sep = '';
-	let output = '';
-	for (let i = 0;  i &lt; chords.length;  ++i) {
-		// Retrieve one chord from the array of chords.
-		let chord = chords[i];
+    let sep = '';
+    let output = '';
+    for (let i = 0;  i &lt; chords.length;  ++i) {
+        // Retrieve one chord from the array of chords.
+        let chord = chords[i];
 
-		// Transpose one chord.
-		let transposed = transposeChord(chord, halfSteps);
+        // Transpose one chord.
+        let transposed = transposeChord(chord, halfSteps);
 
-		// Append the transposed chord to the output.
-		output += sep + transposed;
-		sep = ', ';
-	}
+        // Append the transposed chord to the output.
+        output += sep + transposed;
+        sep = ', ';
+    }
 
-	// Display the transposed chords for the user to see.
-	document.getElementById('output').innerHTML = output;
+    // Display the transposed chords for the user to see.
+    document.getElementById('output').innerHTML = output;
 }
 
 
@@ -1637,51 +1658,51 @@ function transposeAll() {
  *     halfSteps - an integer that is the number
  *         of half steps to transpose the chord
  * Processing:
- *     Separate the chord name into a note name and a suffix.
- *     Find the index of the original note name.
- *     Transpose the note name by adding the half steps to the index.
- *     Normalize the index so that it is between 0 and 11, inclusive.
- *     Use the index to find the transposed note name.
- *     Combine the transposed note name and suffix into a chord name.
+ 1. Separate the chord name into a note name and a suffix.
+ 2. Find the index of the original note name.
+ 3. Transpose the note name by adding the half steps to the index.
+ 4. Normalize the index so that it is between 0 and 11, inclusive.
+ 5. Use the index to find the transposed note name.
+ 6. Combine the transposed note name and suffix into a chord name.
  * Return: The transposed chord name
  */
 function transposeChord(chord, halfSteps) {
-	// An array that contains all 12 note names in keyboard order.
-	let notes = [
-		'A', 'Bb', 'B', 'C', 'C#', 'D',
-		'Eb', 'E', 'F', 'F#', 'G', 'Ab'
-	];
+    // An array that contains all 12 note names in keyboard order.
+    let notes = [
+        'A', 'Bb', 'B', 'C', 'C#', 'D',
+        'Eb', 'E', 'F', 'F#', 'G', 'Ab'
+    ];
 
-	// Separate the note name and suffix from the chord name.
-	let note = getNote(chord);
-	let suffix = getSuffix(chord);
+    // Separate the note name and suffix from the chord name.
+    let note = getNote(chord);
+    let suffix = getSuffix(chord);
 
-	// Find where the note name is stored
-	// in the array of all 12 note names.
-	let index = notes.indexOf(note);
+    // Find where the note name is stored
+    // in the array of all 12 note names.
+    let index = notes.indexOf(note);
 
-	// Transpose the original note by adding the half steps.
-	index += halfSteps;
+    // Transpose the original note by adding the half steps.
+    index += halfSteps;
 
-	// If the half steps value is negative and the
-	// transposed index is less than 0, then repeatedly
-	// add 12 to the index until it is non-negative.
-	while (index &lt; 0) {
-		index += notes.length;
-	}
+    // If the half steps value is negative and the
+    // transposed index is less than 0, then repeatedly
+    // add 12 to the index until it is non-negative.
+    while (index &lt; 0) {
+        index += notes.length;
+    }
 
-	// If the half steps value is positive and the
-	// transposed index is 12 or greater, then repeatedly
-	// subtract 12 from the index until it is less than 12.
-	while (index &gt;= notes.length) {
-		index -= notes.length;
-	}
+    // If the half steps value is positive and the
+    // transposed index is 12 or greater, then repeatedly
+    // subtract 12 from the index until it is less than 12.
+    while (index &gt;= notes.length) {
+        index -= notes.length;
+    }
 
-	// Build the transposed chord name by concatenating
-	// the transposed note name to the chord suffix.
-	let transposed = notes[index] + suffix;
+    // Build the transposed chord name by concatenating
+    // the transposed note name to the chord suffix.
+    let transposed = notes[index] + suffix;
 
-	return transposed;
+    return transposed;
 }
 
 
@@ -1692,12 +1713,12 @@ function transposeChord(chord, halfSteps) {
  *     Ex: D, Eb, C, A, F
  */
 function getNote(chord) {
-	let len = 1;
-	if (chord.length &gt; 1 &amp;&amp; (chord[1] == 'b' || chord[1] == '#')) {
-		len = 2;
-	}
-	let note = chord.substr(0, len);
-	return note;
+    let len = 1;
+    if (chord.length &gt; 1 &amp;&amp; (chord[1] == 'b' || chord[1] == '#')) {
+        len = 2;
+    }
+    let note = chord.substr(0, len);
+    return note;
 }
 
 
@@ -1709,9 +1730,9 @@ function getNote(chord) {
  * Return: the suffix from the chord. Ex: m, 7, maj7
  */
 function getSuffix(chord) {
-	let note = getNote(chord);
-	let suffix = chord.substr(note.length);
-	return suffix;
+    let note = getNote(chord);
+    let suffix = chord.substr(note.length);
+    return suffix;
 }
 &lt;/script&gt;
 &lt;/head&gt;
