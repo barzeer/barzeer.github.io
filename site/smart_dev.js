@@ -85,7 +85,7 @@ if (!window.hasOwnProperty('smartDev')) {
 			}
 			else {
 				h2 = this.createElem('h2');
-				let suffix = (protocol == "file:" ? 'index.html' : '');
+				let suffix = (protocol == 'file:' ? 'index.html' : '');
 				let a = this.createElem('a', null,
 						{href: prefix + suffix}, 'Barzee’s Notes');
 				h2.appendChild(a);
@@ -114,7 +114,7 @@ if (!window.hasOwnProperty('smartDev')) {
 				slash = path.lastIndexOf('/');
 				folder = path.substring(slash + 1);
 			}
-			let suffix = (protocol == "file:" ? '/index.html' : '/');
+			let suffix = (protocol == 'file:' ? '/index.html' : '/');
 
 			const items = [
 				['python', 'Python'],
@@ -209,6 +209,7 @@ if (!window.hasOwnProperty('smartDev')) {
 		},
 
 
+		/** Creates and returns an HTML element in the current document. */
 		createElem : function(tagName, clss, attrs, text) {
 			let elem = document.createElement(tagName);
 			if (clss) {
@@ -227,12 +228,56 @@ if (!window.hasOwnProperty('smartDev')) {
 		},
 
 
+		/** Creates and returns a text node in the current document. */
 		createText : function(text) {
 			return document.createTextNode(text);
 		},
 
 
-		/** Adds line numbers to all pre elements. */
+		/** Fetches the contents from many files on the server. */
+		fetchFiles : function(protocol, folder, filenames) {
+			const self = this;
+
+			const encode = function(html) {
+				return html
+					.replaceAll('&', '&amp;')
+					.replaceAll('<', '&lt;')
+					.replaceAll('>', '&gt;');
+			};
+
+			for (let i = 0;  i < filenames.length;  ++i) {
+				let filename = filenames[i][1];
+				let pathname = folder + '/' + filename;
+				if (protocol == 'file:') {
+					pathname = 'https://barzeer.github.io/' + pathname;
+				}
+
+				let closure = (function (id) {
+					return function (text) {
+						let elem = document.getElementById(id);
+						let encoded = encode(text);
+						elem.innerHTML = encoded;
+					};
+				})(filenames[i][0]);
+
+				fetch(pathname)
+				.then(function (response) {
+					if (response.status != 200) {
+						throw new URIError('status: ' + response.status +
+								JSON.stringify(response));
+					}
+					return response.text();
+				})
+				.then(closure)
+				.catch(function (error) {
+					console.error(JSON.stringify(error));
+					console.error(error);
+				});
+			}
+		},
+
+
+		/** Adds line numbers to all pre elements with class linenums. */
 		addLineNumbers : function() {
 			const newline = /\n|<br>/g;
 			const elems = document.querySelectorAll('pre.linenums');
@@ -245,21 +290,22 @@ if (!window.hasOwnProperty('smartDev')) {
 				elem.appendChild(span);
 				for (let n = 2;  n <= count;  ++n) {
 					elem.appendChild(this.createText('\n'));
-					let span = this.createElem('span', null, null, n.toString());
+					let span = this.createElem('span',
+							null, null, n.toString());
 					elem.appendChild(span);
 				}
 			}
 		},
 
 
-		/** Adds a button to div.pre elements that will copy the code
-		 * within the div's last child pre element to the clipboard. */
+		/** Adds a button to all div.pre elements that will copy to the
+		 * clipboard, the code that is within the div's pre.code child
+		 * element. */
 		addCopyButtons : function() {
 			const copyFunc = function(event) {
 				const button = event.currentTarget;
 				const div = button.parentElement;
-				const elems = div.getElementsByTagName('pre');
-				const pre = elems[elems.length - 1];
+				const pre = div.querySelector('pre.code');
 
 				// Copy the text to the clipboard.
 				const text = pre.textContent;
@@ -274,6 +320,7 @@ if (!window.hasOwnProperty('smartDev')) {
 				// Select the text as a hint to the user that it was
 				// copied to clipboard. Selecting the text is not
 				// necessary for copying the text to the clipboard.
+				// Selecting the text is simply feedback to the user.
 				const select = window.getSelection();
 				let range = document.createRange();
 				range.selectNodeContents(pre);
@@ -296,6 +343,7 @@ if (!window.hasOwnProperty('smartDev')) {
 		},
 
 
+		/** Adds code and classes to line number cross references. */
 		addCrossRefs : function() {
 			const getReferences = function(target) {
 				const space = /(\s|&nbsp;|<br>)+/g;

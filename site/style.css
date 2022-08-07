@@ -847,6 +847,12 @@ article div.pre {
 	padding: 0.25em 0.5em;
 }
 
+article h3 img.codeIcon {
+	padding: 0 0.5em;
+	width: 1em;
+	vertical-align: text-bottom;
+}
+
 article div.pre > button.copy {
 	position: absolute;
 	top: 0.5em;
