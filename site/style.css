@@ -848,12 +848,14 @@ article div.pre {
 }
 
 article h3 img.codeIcon {
+	cursor: pointer;
 	padding: 0 0.5em;
 	width: 1em;
 	vertical-align: text-bottom;
 }
 
 article div.pre > button.copy {
+	cursor: pointer;
 	position: absolute;
 	top: 0.5em;
 	right: 0.25em;
