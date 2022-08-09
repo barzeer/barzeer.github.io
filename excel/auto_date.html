@@ -45,69 +45,98 @@ is automatically entered into cells in column A."></p>
 If you want to change the location of the date column, then change the
 value of <code>dateCol</code> variable. For example if you want Excel to
 automatically enter the current date into column B, then change
-<code>dateCol</code> to 2. In other words change line 11 of the macro to
+<code>dateCol</code> to 2. In other words change
+<span class="cross" data-ref="ex1">line&nbsp;8</span> of the macro to
 be</p>
 
-<div class="pre"><pre class="code lang-vb">    dateCol = 2</pre></div>
+<div class="pre"><pre class="code language-vb">    dateCol = 2</pre></div>
 
 <p>If you want to change the location of cells that cause Excel to enter
 a date, then change the value of <code>keyCells</code>. For example, if
 you want any data entered into columns C, D, and E, then change
-<code>keyCells</code> to "C1:E32765". In other words change line 5 of
-the macro to be</p>
+<code>keyCells</code> to "C1:E32765". In other words change
+<span class="cross" data-ref="ex1">line&nbsp;13</span> of the macro to
+be</p>
 
-<div class="pre"><pre class="code lang-vb">    Set keyCells = Range("C1:E32765")</pre></div>
+<div class="pre"><pre class="code language-vb">    Set keyCells = target.WorksheetRange("C1:E32765")</pre></div>
 
 <p><strong>Warning</strong>: don’t change the <code>dateCol</code> or
-the <code>keyCells</code> so that they overlap. For example dont’t
-change <code>dateCol</code> to 3 and leave <code>keyCells</code> as
-"B1:D32765" because 3 means column C and B1:D3275 includes column C. In
-other words they overlap. Doing this will probably cause Excel to freeze
-or crash.</p>
+the <code>keyCells</code> so that they overlap. For example don’t change
+<code>dateCol</code> to 3 and leave <code>keyCells</code> as "B1:D32765"
+because 3 means column C and B1:D3275 includes column C. In other words
+they overlap. Doing this will probably cause Excel to freeze or
+crash.</p>
 
-<div class="pre"><pre class="linenums"></pre>
-<pre class="code lang-vb">Private Sub Worksheet_Change(ByVal target As Range)
+<div class="pre" id="ex1"><pre class="linenums"></pre>
+<pre class="code language-vb">Option Explicit
+
+
+Private Sub Worksheet_Change(ByVal target As Range)
+    ' dateCol contains the index of the column where
+    ' this macro will enter the current date.
+    Dim dateCol As Integer
+    dateCol = 1
+
     ' keyCells contains the range of cells that when
     ' they are changed will cause a date to be entered.
     Dim keyCells As Range
-    Set keyCells = Range("B2:D32765")
+    Set keyCells = target.Worksheet.Range("B2:D32765")
 
-    If Not (Application.Intersect(keyCells, target) Is Nothing) Then
-        ' dateCol contains the index of the column
-        ' where the date should be entered.
-        Dim dateCol As Integer
-        dateCol = 1
+    ' section contains the intersection of the keyCells
+    ' and target ranges.
+    Dim section As Range
+    Set section = Application.intersect(keyCells, target)
 
-        Dim startRow, endRow, startCol, endCol As Integer
-        Dim row, col As Integer
-        Dim dateCell, currCell As Range
-
-        startRow = target.row
-        endRow = startRow + target.Rows.Count - 1
-        startCol = target.Column
-        endCol = startCol + target.Columns.Count - 1
-        For row = startRow To endRow
-            Set dateCell = Cells(row, dateCol)
-
-            ' If the date cell is empty then check to
-            ' see if other cells in the row have data.
-            If dateCell.Value = "" Then
-                For col = startCol To endCol
-                    Set currCell = Cells(row, col)
-
-                    ' If the date cell is empty and at least
-                    ' one of the cells in the same row has
-                    ' data, then enter a date in the date cell.
-                    If currCell.Value &lt;&gt; "" Then
-                        dateCell.Value = Now()
-                        Exit For
-                    End If
-                Next col
-            End If
-        Next row
+    If Not section Is Nothing Then
+        If WorksheetFunction.CountA(section) &gt; 0 Then
+            InsertDate dateCol, section
+        End If
     End If
-End Sub</pre>
-</div>
+End Sub
+
+
+Private Sub InsertDate(dateCol As Integer, ByRef section As Range)
+    Dim startRow, endRow, startCol, endCol As Integer
+    Dim row As Integer
+    Dim dateCell, otherCells As Range
+
+    startRow = section.row
+    endRow = startRow + section.Rows.count - 1
+    startCol = section.Column
+    endCol = startCol + section.Columns.count - 1
+
+    For row = startRow To endRow
+        Set dateCell = Cells(row, dateCol)
+
+        ' If the date cell is empty then check if
+        ' the other cells in the row are not empty.
+        If dateCell.Value = "" Then
+            Set otherCells = Range( _
+                    Cells(row, startCol), Cells(row, endCol))
+
+            ' If the date cell is empty and at least one
+            ' of the key cells in the same row is not
+            ' empty, then enter a date in the date cell.
+            If WorksheetFunction.CountA(otherCells) &gt; 0 Then
+                dateCell.Value = Now()
+            End If
+        End If
+    Next row
+End Sub</pre></div>
+
+<h2>Further Reading</h2>
+<figure class="pitch">
+<a href="https://www.amazon.com/dp/B0722ZJNGX">
+    <img alt="Front cover of “Programming Fundamentals in Visual Basic”"
+    src="../site/images/fund_vb_front_small.jpg">
+</a>
+</figure>
+
+<p>Most Excel macros are written in Visual Basic for Applications (VBA).
+If you wish to write your own Excel macros, you can learn the basics of
+programming in VBA from the book
+<a href="https://www.amazon.com/dp/B0722ZJNGX">Programming Fundamentals
+in Visual Basic</a>.</p>
 
 <div class="modified">Last modified: 2022-08-01</div>
 </article>
