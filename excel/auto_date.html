@@ -3,10 +3,25 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Date Column</title>
+    <title>Excel Auto Date Column</title>
     <meta name="description" content="Describes and implements a Microsoft Excel spreadsheet with a macro that automatically enters the current date in a column.">
     <meta name="keywords" content="Microsoft Excel, automatic date, auto date, macro, Visual Basic for Applications, VBA">
     <link rel="canonical" href="https://barzeer.github.io/excel/auto_date.html">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Article",
+        "headline": "Excel Auto Date Column",
+        "datePublished": "2020-05-23",
+        "dateModified": "2020-08-08",
+        "description": "Describes and implements a Microsoft Excel spreadsheet with a macro that automatically enters the current date in a column.",
+        "author": {
+            "@type": "Person",
+            "name": "Rex A. Barzee",
+            "url": "https://www.linkedin.com/in/rex-barzee-306a0b37/"
+        },
+    }
+    </script>
     <script src="../site/smart_dev.js"></script>
     <script src="../site/article.js"></script>
     <script src="../site/hljs/highlight.min.js"></script>
@@ -17,21 +32,21 @@
 
 <body>
 <article>
-<h1>Spreadsheet with Auto Date Column</h1>
+<h1>Excel Spreadsheet with Auto Date Column</h1>
 <p>In the past, several people have asked me if there is a way to get
-Microsoft Excel to automatically fill in today’s date in a column.
-These people have tried the <code>=TODAY()</code> function only to find
-that it updates the cell to the current date each time the spreadsheet
-is opened. What they really want is a spread sheet that when they enter
-data in one column, the sheet will automatically enter today’s
-date in a different column. There may be some built-in functionality in
-Excel that will do this, but I am unaware of it. So, I wrote a short VBA
-macro that will fill in a date column.</p>
+Microsoft Excel to automatically fill in today’s date in a column. These
+people have tried the <code>=TODAY()</code> function only to find that
+it updates the cell to the current date each time the spreadsheet is
+opened. What they really want is a spread sheet that when they enter
+data in one column, the sheet will automatically enter today’s date in a
+different column. There may be some built-in functionality in Excel that
+will do this, but I am unaware of it. So, I wrote a short VBA macro that
+will fill in a date column.</p>
 
-<p>After you have <a download href="auto_date.xlsm">downloaded the
-Excel file</a>, opened it in Excel, and <b>enabled macros</b>, you will
-be able to enter anything in columns B, C, or D, and Excel will
-automatically enter today’s date in column A of the same row.</p>
+<p><a download href="auto_date.xlsm">Download the Excel file</a>, open
+it in Excel, and <b>enable macros</b>. Then you will be able to enter
+anything in columns B, C, or D, and Excel will automatically enter
+today’s date in column A of the same row.</p>
 
 <p><img src="auto_date.png"
 alt="Screenshot of a Microsoft Excel spreadsheet where the current date
