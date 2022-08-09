@@ -19,7 +19,7 @@
             "https://barzeer.github.io/excel/auto_date_16x9.png"
         ],
         "datePublished": "2020-05-23",
-        "dateModified": "2022-08-08",
+        "dateModified": "2022-08-09",
         "author": {
             "@type": "Person",
             "name": "Rex A. Barzee",
@@ -40,18 +40,26 @@
 <h1>Excel Spreadsheet with Auto Date Column</h1>
 <p>In the past, several people have asked me if there is a way to get
 Microsoft Excel to automatically fill in today’s date in a column. These
-people have tried the <code>=TODAY()</code> function only to find that
-it updates the cell to the current date each time the spreadsheet is
-opened. What they really want is a spread sheet that when they enter
-data in one column, the sheet will automatically enter today’s date in a
-different column. There may be some built-in functionality in Excel that
-will do this, but I am unaware of it. So, I wrote a short VBA macro that
-will fill in a date column.</p>
+people have tried entering formula with the <code>=TODAY()</code>
+function only to find that it updates the cell to the current date each
+time the spreadsheet is opened. What they really want is an easy way to
+insert today’s date as a static date value and not a formula, and
+<a href="https://support.microsoft.com/en-us/office/insert-the-current-date-and-time-in-a-cell-b5663451-10b0-40ab-9e71-6b0ce5768138">Excel contains a keyboard shortcut</a>
+to do that. To insert the current date in an Excel spreadsheet, use the
+Ctrl-; keyboard shortcut (press and hold the ctrl key and while holding
+the ctrl key press and release the semicolon key).</p>
 
-<p><a download href="auto_date.xlsm">Download the Excel file</a>, open
-it in Excel, and <b>enable macros</b>. Then you will be able to enter
-anything in columns B, C, or D, and Excel will automatically enter
-today’s date in column A of the same row.</p>
+<p>The keyboard shortcut is quick and works well, but is there an easier
+way to get Excel to enter a date in a spreadsheet? Is there a way for a
+user to enter data in a column and Excel will automatically enter
+today’s date in a different column in the same row? There may be some
+built-in functionality in Excel that will do that, but I am unaware of
+it. So, I wrote a short VBA macro that will fill in a date column.</p>
+
+<p><a download href="auto_date.xlsm">Download this Excel file</a>, open
+it in Excel, and <strong>enable macros</strong>. Then you will be able
+to enter anything in columns B, C, or D, and Excel will automatically
+enter today’s date in column A of the same row.</p>
 
 <p><img src="auto_date.png"
 alt="Screenshot of a Microsoft Excel spreadsheet where the current date
@@ -158,7 +166,7 @@ programming in VBA from the book
 <a href="https://www.amazon.com/dp/B0722ZJNGX">Programming Fundamentals
 in Visual Basic</a>.</p>
 
-<div class="modified">Last modified: 2022-08-08</div>
+<div class="modified">Last modified: 2022-08-09</div>
 </article>
 </body>
 </html>
