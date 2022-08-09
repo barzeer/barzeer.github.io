@@ -298,34 +298,46 @@ if (!window.hasOwnProperty('smartDev')) {
 		},
 
 
+		copyCodeToClipboard : function(divId) {
+			let div = document.getElementById(divId);
+			let pre = div.querySelector('pre.code');
+			this.copyToClipboard(pre);
+		},
+
+
+		copyToClipboard : function(pre) {
+			// Copy the text to the clipboard.
+			const text = pre.textContent;
+			const listener = function(event) {
+				event.clipboardData.setData('text/plain', text);
+				event.preventDefault();
+			};
+			document.addEventListener('copy', listener);
+			document.execCommand('copy');
+			document.removeEventListener('copy', listener);
+
+			// Select the text as a hint to the user that it was
+			// copied to clipboard. Selecting the text is not
+			// necessary for copying the text to the clipboard.
+			// Selecting the text is simply feedback to the user.
+			const select = window.getSelection();
+			let range = document.createRange();
+			range.selectNodeContents(pre);
+			select.removeAllRanges();
+			select.addRange(range);
+		},
+
+
 		/** Adds a button to all div.pre elements that will copy to the
 		 * clipboard, the code that is within the div's pre.code child
 		 * element. */
 		addCopyButtons : function() {
+			const self = this;
 			const copyFunc = function(event) {
 				const button = event.currentTarget;
 				const div = button.parentElement;
 				const pre = div.querySelector('pre.code');
-
-				// Copy the text to the clipboard.
-				const text = pre.textContent;
-				const listener = function(event) {
-					event.clipboardData.setData('text/plain', text);
-					event.preventDefault();
-				};
-				document.addEventListener('copy', listener);
-				document.execCommand('copy');
-				document.removeEventListener('copy', listener);
-
-				// Select the text as a hint to the user that it was
-				// copied to clipboard. Selecting the text is not
-				// necessary for copying the text to the clipboard.
-				// Selecting the text is simply feedback to the user.
-				const select = window.getSelection();
-				let range = document.createRange();
-				range.selectNodeContents(pre);
-				select.removeAllRanges();
-				select.addRange(range);
+				self.copyToClipboard(pre);
 			};
 
 			const elems = document.querySelectorAll('div.pre');
