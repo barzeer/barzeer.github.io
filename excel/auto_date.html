@@ -86,7 +86,7 @@ you want any data entered into columns C, D, and E, then change
 <span class="cross" data-ref="ex1">line&nbsp;13</span> of the macro to
 be</p>
 
-<div class="pre"><pre class="code language-vb">    Set keyCells = target.WorksheetRange("C1:E32765")</pre></div>
+<div class="pre"><pre class="code language-vb">    Set keyCells = target.Worksheet.Range("C1:E32765")</pre></div>
 
 <p><strong>Warning</strong>: don’t change the <code>dateCol</code> or
 the <code>keyCells</code> so that they overlap. For example don’t change
@@ -117,7 +117,9 @@ Private Sub Worksheet_Change(ByVal target As Range)
 
     If Not section Is Nothing Then
         If WorksheetFunction.CountA(section) &gt; 0 Then
+            Application.EnableEvents = False
             InsertDate dateCol, section
+            Application.EnableEvents = True
         End If
     End If
 End Sub
@@ -146,7 +148,7 @@ Private Sub InsertDate(dateCol As Integer, ByRef section As Range)
             ' of the key cells in the same row is not
             ' empty, then enter a date in the date cell.
             If WorksheetFunction.CountA(otherCells) &gt; 0 Then
-                dateCell.Value = Now()
+                dateCell.Value = Date
             End If
         End If
     Next row
