@@ -20,19 +20,20 @@
 rules for the normal forms.</p>
 
 <h2>Albums, Tracks, and Artists</h2>
-<p>Below are five different designs (ERDs) and corresponding data tables
-for a database that stores data about albums, songs, and musical
-artists. The first four designs violate first, second, or third normal
-form. The last design does not violate any of the rules for first,
-second, or third normal form and is therefore normalized to third normal
-form.</p>
+<p>Below are five different relational database designs shown as Entity
+Relationship Diagrams (ERDs) and corresponding data tables for a
+database that stores data about albums, songs, and musical artists. The
+first four designs violate first, second, or third normal form. The last
+design does not violate any of the rules for first, second, or third
+normal form and is therefore normalized to third normal form.</p>
 
 <h3>Violates First Normal Form</h3>
-<p>The following design and the corresponding data table violate first
-normal form, because there are lists in the tracks column. Some track
-names, such as “Jesu, Joy of Man’s Desiring” by Beethoven, include
-commas. How will the computer distinguish between a comma that is part
-of a track name and a comma that separates track names?</p>
+<p>The following ERD and corresponding data table violate first normal
+form, because there are lists in the tracks column. The lists in the
+racks column are problematic because some of the track names, such as
+“Jesu, Joy of Man’s Desiring”, include commas. How will the computer
+distinguish between a comma that is part of a track name and a comma
+that separates track names?</p>
 
 <figure class="erd_data">
     <img style="width:8em" src="music/zero_normal_1.svg"
@@ -64,12 +65,12 @@ of a track name and a comma that separates track names?</p>
     </tbody></table></div>
 </figure>
 
-<p>The next design and its corresponding data table also violate first
-normal form because there is a list of columns: track1, track2, &hellip;
-With such a design, how will the designer know how many track columns to
-add to the table? How many of those track columns will be empty most of
-the time? When the computer searches for a particular track, it will
-have to search in all the track columns which is inefficient.</p>
+<p>The next ERD and corresponding data table also violate first normal
+form because there is a list of columns: track1, track2, &hellip; With
+such a design, how will the designer know how many track columns to add
+to the table? How many of those track columns will be empty most of the
+time? When the computer searches for a particular track, it will have to
+search in all the track columns which is inefficient.</p>
 
 <figure class="erd_data">
     <img style="width:8em" src="music/zero_normal_2.svg"
@@ -114,7 +115,7 @@ have to search in all the track columns which is inefficient.</p>
 </figure>
 
 <h3>Violates Second Normal Form</h3>
-<p>The next design and corresponding data table are normalized to first
+<p>The next ERD and corresponding data table are normalized to first
 normal form because there are no lists within cells and no lists of
 columns. However, they violate second normal form because the track
 table contains sub-themes. Album and artist are sub-themes within the
@@ -169,11 +170,12 @@ track table and should be separated.</p>
 
 <h3>Violates Third Normal Form</h3>
 <p>In the next design, the album table is normalized to third normal
-form meaning it doesn’t violate the rules for first, second, or
-third normal forms. The track table doesn’t violate the rules for
-first or second normal form but does violate the rules for third normal
-form because the artistCountry column is not determined by the primary
-key (trackKey column) but is determined by the artist column.</p>
+form, meaning it doesn’t violate the rules for first, second, or third
+normal forms. However, the track table violates the rules for third
+normal form. The track table doesn’t violate the rules for first or
+second normal form but does violate the rules for third normal form
+because the artistCountry column is not determined by the primary key
+(trackKey column) but is determined by the artist column.</p>
 
 <figure class="erd_data">
     <img style="width:8em" src="music/second_normal.svg"
@@ -237,9 +239,9 @@ key (trackKey column) but is determined by the artist column.</p>
 </figure>
 
 <h3>Normalized to Third Normal Form</h3>
-<p>The entities in the next design and the corresponding data tables do
-not violate any of the rules for first, second, or third normal form, so
-we say the design is normalized to third normal form.</p>
+<p>The entities in the next ERD and corresponding data tables do not
+violate any of the rules for first, second, or third normal form, so we
+say the design is normalized to third normal form.</p>
 
 <figure class="erd_data">
     <img style="width:8em" src="music/third_normal.svg"
@@ -306,8 +308,9 @@ we say the design is normalized to third normal form.</p>
 </figure>
 
 <h2>Magazines, Subscriptions, and Subscribers</h2>
-<p>Below are five different designs (ERDs) and corresponding data tables
-for a database that stores data about magazines, subscriptions, and
+<p>Below are five different relational database designs shown as Entity
+Relationship Diagrams (ERDs) and corresponding data tables for a
+database that stores data about magazines, subscriptions, and
 subscribers. The first four designs violate first, second, or third
 normal form. The last design does not violate any of the rules for
 first, second, or third normal form and is therefore normalized to third
@@ -315,7 +318,7 @@ normal form.</p>
 
 <h3>Violates First Normal Form</h3>
 <p>This first design violates first normal form because some of the
-cells contain multiple values.</p>
+cells contain lists of values.</p>
 
 <figure class="erd_data">
     <img style="width:11em" src="magazine/zero_normal_1.svg"
@@ -392,7 +395,7 @@ cells contain multiple values.</p>
 
 <p>The next design violates first normal form because some of the
 columns are repeated (consider Magazine 1 Name, Magazine 2
-Name,&hellip;).</p>
+Name, &hellip;).</p>
 
 <figure class="erd_data">
     <img style="width:11em" src="magazine/zero_normal_2.svg"
@@ -632,7 +635,8 @@ Name, &hellip;).</p>
 <p>The next design doesn’t violate first normal form because all
 multi-valued cells and repeated columns have been removed but does
 violate second normal form because the subscription table contains
-sub-themes that should be separated.</p>
+sub-themes that should be separated. Magazine, subscription, and
+subscriber are each sub-themes and should be in separate tables.</p>
 
 <figure class="erd_data">
     <img style="width:11em" src="magazine/first_normal.svg"
@@ -715,9 +719,9 @@ sub-themes that should be separated.</p>
 </figure>
 
 <h3>Normalized to Third Normal Form</h3>
-<p>The entities in the next design and the corresponding data tables do
-not violate any of the rules for first, second, or third normal form, so
-we say the design is normalized to third normal form.</p>
+<p>The entities in the next ERD and corresponding data tables do not
+violate any of the rules for first, second, or third normal form, so we
+say the design is normalized to third normal form.</p>
 
 <figure class="erd_data">
     <img style="width:11em" src="magazine/third_normal.svg"
@@ -823,7 +827,7 @@ we say the design is normalized to third normal form.</p>
     </tbody></table></div>
 </figure>
 
-<div class="modified">Last modified: 2022-08-02</div>
+<div class="modified">Last modified: 2022-08-12</div>
 </article>
 </body>
 </html>

@@ -178,7 +178,7 @@ footer > img {
 	float: right;
 	margin: 0 0 0.5em 0.5em;
 	@media (max-width: 60em) {
-		width: 7em;
+		width: 6em;
 	}
 	@media (min-width: 60em) {
 		width: 10em;
