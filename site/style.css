@@ -177,6 +177,12 @@ footer > h2 {
 footer > img {
 	float: right;
 	margin: 0 0 0.5em 0.5em;
+	@media (max-width: 60em) {
+		width: 7em;
+	}
+	@media (min-width: 60em) {
+		width: 10em;
+	}
 }
 footer > p {
 	margin-bottom: 1em;
@@ -940,12 +946,12 @@ figure.pitch {
 	margin: 0 0 1em 1em;
 	box-shadow: 0 0 40px rgba(0, 0, 0, .15);
 	background-color: var(--bg-color);
-}
-@media (max-width: 60em) {
-	figure.pitch { width: 10em; }
-}
-@media (min-width: 60em) {
-	figure.pitch { width: 20em; }
+	@media (max-width: 60em) {
+		width: 10em;
+	}
+	@media (min-width: 60em) {
+		width: 20em;
+	}
 }
 
 article div.modified {

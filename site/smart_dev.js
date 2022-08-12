@@ -68,7 +68,7 @@ if (!window.hasOwnProperty('smartDev')) {
 
 			let header = this.createHeader('../', window.location.protocol);
 			let nav = this.createNav('../', window.location.protocol, null);
-			let footer = this.createFooter();
+			let footer = this.createFooter(article);
 			page.appendChild(header);
 			page.appendChild(nav);
 			page.appendChild(article);
@@ -174,8 +174,19 @@ if (!window.hasOwnProperty('smartDev')) {
 		},
 
 
-		createFooter : function() {
-			let year = new Date(document.lastModified).getFullYear();
+		createFooter : function(article) {
+			let year;
+			let mod = article.querySelector('.modified');
+			if (mod) {
+				let match = /2[0-9]{3}-[0-9]{2}-[0-9]{2}/.exec(mod.innerText);
+				if (match) {
+					year = new Date(match[0]).getFullYear();
+				}
+			}
+			if (! year) {
+				year = new Date(document.lastModified).getFullYear();
+			}
+
 			let copy = this.createElem('p', 'clear', null,
 					'Copyright © '+year+' Rex A. Barzee. All rights reserved.');
 			let about = this.createElem('h2', null, null, 'About the Author');
