@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play, Solve, and Analyze Wordle</title>
+    <meta name="description" content="Contains Python programs to play and solve Wordle and analyze a list of words and choose a group of best words.">
+    <meta name="keywords" content="Python, Python programming language, Wordle, play Wordle, solve Wordle, best Wordle words">
+    <link rel="canonical" href="https://barzeer.github.io/python/word_game.html">
+    <script src="../site/smart_dev.js"></script>
+    <script src="../site/article.js"></script>
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" type="text/css" href="../site/style.css">
+</head>
+
+<body>
+<article>
+<h1>Play, Solve, and Analyze Wordle</h1>
+
+<p>Near the end of an introductory Python course that I teach at
+<a href="https://www.byui.edu">BYU-Idaho</a>, students must write a
+program about a topic that they choose. In 2022, I decided that I should
+also choose and write a program so that I demonstrated what the students
+are required to do. I enjoy playing the word game called
+<a href="https://www.nytimes.com/games/wordle/">Wordle®</a> and chose to
+write one or more programs related to it.</p>
+
+<p>* Wordle is a registered trademark of the New York Times Company.</p>
+
+<p>Wordle is a game in which a player has six chances to guess a
+five-letter word. After each guess, the game responds with a clue that
+tells the player which letters are in the secret word and which are not
+and which letters are in the correct position and which are not.</p>
+
+<p>Of course, I enjoyed writing the Python code so much that instead of
+writing one program and a test file as my students are required to do, I
+wrote four programs and a test file. You can download all of the code in
+this
+<a download href="word_game.zip"><code>word_game.zip</code> file</a> or
+you can download the individual programs from the following list.</p>
+
+<dl class="long">
+    <dt><a download href="word_game/play.py"><code>play.py</code></a></dt>
+    <dd>A clone of Wordle implemented in Python that allows a user to
+    play in a terminal or console window.</dd>
+
+    <dt><a download href="word_game/solve.py"><code>solve.py</code></a></dt>
+    <dd>Accepts the clues from a game of Wordle and prints a list of
+    words that match the clues.</dd>
+
+    <dt><a download href="word_game/analyze.py"><code>analyze.py</code></a></dt>
+    <dd>Analyzes all the words in a list of five-letter words and
+    produces groups of four words that have no letters in common. These
+    groups of words are useful for playing Wordle because each group
+    tests 20 letters in a Wordle game.</dd>
+
+    <dt><a download href="word_game/extract.py"><code>extract.py</code></a></dt>
+    <dd>Builds a list of five-letter words by extracting them from a
+    text file.</dd>
+
+    <dt><a download href="word_game/test.py"><code>test.py</code></a></dt>
+    <dd>A Pytest file that verifies the correctness of the other
+    programs.</dd>
+</dl>
+
+<p>According to <code>analyze.py</code>, the best group of four words to
+begin a Wordle game with are "snare", "block", "fight", and "dumpy".
+Notice that none of the words have letters in common with the other
+words. By beginning a Wordle game with these four words, you will have
+tested 20 letters in four guess. This will make it easy to guess the
+word in your remaining two guesses.</p>
+
+<div class="modified">Last modified: 2022-08-17</div>
+</article>
+</body>
+</html>

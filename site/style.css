@@ -330,22 +330,23 @@ article ol > li ol {
 	list-style-type: lower-alpha;
 }
 
-article .long > li {
-	margin: 0 0 1em 0;
+article ul {
+	margin: 0 0 1em 2em;
+	list-style-type: disc;
 }
 
 article li {
 	color: var(--bullet-fg-color);
 }
 
+article .long > li,
+article .long > dd {
+	margin-bottom: 1em;
+}
+
 article li > div {
 	color: var(--fg-color);
 	margin: 0 0 0 0.25em;
-}
-
-article ul {
-	margin: 0 0 1em 2em;
-	list-style-type: disc;
 }
 
 article ul.nosym {
@@ -361,14 +362,10 @@ article li ul {
 }
 
 article dl {
-	margin-left: 1em;
+	margin: 0 0 1em 1em;
 }
 article dl > dd {
 	padding-left: 2em;
-}
-
-article dl.long > dd {
-	margin-bottom: 1em;
 }
 
 article dl.function > dt {

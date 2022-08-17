@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://barzeer.github.io/</loc>
-    <lastmod>2022-08-05</lastmod>
+    <lastmod>2022-08-17</lastmod>
   </url>
   <url>
     <loc>https://barzeer.github.io/c_cpp/</loc>
@@ -174,7 +174,7 @@
   </url>
   <url>
     <loc>https://barzeer.github.io/python/</loc>
-    <lastmod>2022-08-02</lastmod>
+    <lastmod>2022-08-17</lastmod>
   </url>
   <url>
     <loc>https://barzeer.github.io/python/pandas.html</loc>
@@ -183,6 +183,10 @@
   <url>
     <loc>https://barzeer.github.io/python/pandas_matplotlib.html</loc>
     <lastmod>2022-08-01</lastmod>
+  </url>
+  <url>
+    <loc>https://barzeer.github.io/python/word_game.html</loc>
+    <lastmod>2022-08-17</lastmod>
   </url>
   <url>
     <loc>https://barzeer.github.io/shell/</loc>
