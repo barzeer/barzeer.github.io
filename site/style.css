@@ -179,10 +179,14 @@ footer > h2 {
 footer > img {
 	float: right;
 	margin: 0 0 0.5em 0.5em;
-	@media (max-width: 60em) {
+}
+@media (max-width: 60em) {
+	footer > img {
 		width: 6em;
 	}
-	@media (min-width: 60em) {
+}
+@media (min-width: 60em) {
+	footer > img {
 		width: 10em;
 	}
 }
@@ -945,10 +949,14 @@ figure.pitch {
 	margin: 0 0 1em 1em;
 	box-shadow: 0 0 40px rgba(0, 0, 0, .15);
 	background-color: var(--bg-color);
-	@media (max-width: 60em) {
+}
+@media (max-width: 60em) {
+	figure.pitch {
 		width: 10em;
 	}
-	@media (min-width: 60em) {
+}
+@media (min-width: 60em) {
+	figure.pitch {
 		width: 20em;
 	}
 }
