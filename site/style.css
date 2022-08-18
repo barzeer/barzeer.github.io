@@ -164,13 +164,15 @@ div.page > article {
 	margin: 0 2em 1em 2em;
 }
 
-
 div.page > footer {
 	background-color: var(--footer-bg-color);
 	padding: 2em 2em 1em 2em;
+	font-size: 90%;
 }
 
+
 footer > h2 {
+	font-size: 135%;
 	font-weight: bold;
 	margin-bottom: 0.5em;
 }

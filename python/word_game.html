@@ -11,6 +11,55 @@
     <script src="../site/article.js"></script>
     <link rel="icon" type="image/png" href="../site/icons/icon.png">
     <link rel="stylesheet" type="text/css" href="../site/style.css">
+
+    <style>
+        table.wordle {
+            margin: 0 auto 1em 0;
+            border-collapse: separate;
+            border-spacing: 0.35em;
+        }
+        table.wordle th {
+            font-size: larger;
+        }
+        table.wordle td {
+            border: 0.12em solid #878a8c;
+            width: 1em;
+            vertical-align: middle;
+            text-align: center;
+            font-size: larger;
+            font-weight: bold;
+        }
+        table.wordle td.position  {
+            border: 0.12em solid #6aaa64;
+            background-color: #6aaa64;
+            color: white;
+        }
+        table.wordle td.letter {
+            border: 0.12em solid #c9b458;
+            background-color: #c9b458;
+            color: white;
+        }
+        table.wordle td.incorrect {
+            border: 0.12em solid #787c7e;
+            background-color: #787c7e;
+            color: white;
+        }
+        table.wordle td.gap {
+            border: none;
+            width: 1em;
+            font-size: inherit;
+            text-align: left;
+        }
+        table.wordle td.remain {
+            border: none;
+            background-color: #d3d6da;
+            font-size: inherit;
+        }
+        table.wordle td.remain.letter {
+            background-color: #6aaa64;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
@@ -32,6 +81,7 @@ five-letter word. After each guess, the game responds with a clue that
 tells the player which letters are in the secret word and which are not
 and which letters are in the correct position and which are not.</p>
 
+<h2>Five Programs</h2>
 <p>Of course, I enjoyed writing the Python code so much that instead of
 writing one program and a test file as my students are required to do, I
 wrote four programs and a test file. You can download all of the code in
@@ -63,12 +113,261 @@ you can download the individual programs from the following list.</p>
     programs.</dd>
 </dl>
 
+<h2>Best Words</h2>
 <p>According to <code>analyze.py</code>, the best group of four words to
 begin a Wordle game with are "snare", "block", "fight", and "dumpy".
 Notice that none of the words have letters in common with the other
 words. By beginning a Wordle game with these four words, you will have
-tested 20 letters in four guess. This will make it easy to guess the
+tested 20 letters in four guesses. This will make it easy to guess the
 word in your remaining two guesses.</p>
+
+<p>Here are two example games of Wordle using the four words: snare,
+block, fight, and dumpy. Notice how each of the four words finds or
+eliminates five letters.</p>
+
+<table class="wordle"><thead>
+    <tr><th colspan="6"></th>
+        <th colspan="18" class="left">Remaining Letters</th>
+</thead><tbody>
+    <tr>
+        <td class="incorrect">S</td>
+        <td class="incorrect">N</td>
+        <td class="incorrect">A</td>
+        <td class="incorrect">R</td>
+        <td class="position">E</td>
+        <td class="gap"></td>
+        <td class="remain">B</td>
+        <td class="remain">C</td>
+        <td class="remain">D</td>
+        <td class="remain letter">E</td>
+        <td class="remain">F</td>
+        <td class="remain">G</td>
+        <td class="remain">H</td>
+        <td class="remain">I</td>
+        <td class="remain">J</td>
+        <td class="remain">K</td>
+        <td class="remain">L</td>
+        <td class="remain">M</td>
+        <td class="remain">O</td>
+        <td class="remain">P</td>
+        <td class="remain">Q</td>
+        <td class="remain">T</td>
+        <td class="remain">U</td>
+        <td class="gap">&hellip;</td>
+    </tr>
+    <tr>
+        <td class="incorrect">B</td>
+        <td class="incorrect">L</td>
+        <td class="incorrect">O</td>
+        <td class="position">C</td>
+        <td class="incorrect">K</td>
+        <td class="gap"></td>
+        <td class="remain letter">C</td>
+        <td class="remain">D</td>
+        <td class="remain letter">E</td>
+        <td class="remain">F</td>
+        <td class="remain">G</td>
+        <td class="remain">H</td>
+        <td class="remain">I</td>
+        <td class="remain">J</td>
+        <td class="remain">M</td>
+        <td class="remain">P</td>
+        <td class="remain">Q</td>
+        <td class="remain">T</td>
+        <td class="remain">U</td>
+        <td class="remain">V</td>
+        <td class="remain">W</td>
+        <td class="remain">X</td>
+        <td class="remain">Y</td>
+        <td class="remain">Z</td>
+    </tr>
+    <tr>
+        <td class="incorrect">F</td>
+        <td class="letter">I</td>
+        <td class="incorrect">G</td>
+        <td class="incorrect">H</td>
+        <td class="letter">T</td>
+        <td class="gap"></td>
+        <td class="remain letter">C</td>
+        <td class="remain">D</td>
+        <td class="remain letter">E</td>
+        <td class="remain letter">I</td>
+        <td class="remain">J</td>
+        <td class="remain">M</td>
+        <td class="remain">P</td>
+        <td class="remain">Q</td>
+        <td class="remain letter">T</td>
+        <td class="remain">U</td>
+        <td class="remain">V</td>
+        <td class="remain">W</td>
+        <td class="remain">X</td>
+        <td class="remain">Y</td>
+        <td class="remain">Z</td>
+        <td class="gap" colspan="3"></td>
+    </tr>
+    <tr>
+        <td class="incorrect">D</td>
+        <td class="incorrect">U</td>
+        <td class="incorrect">M</td>
+        <td class="incorrect">P</td>
+        <td class="incorrect">Y</td>
+        <td class="gap"></td>
+        <td class="remain letter">C</td>
+        <td class="remain letter">E</td>
+        <td class="remain letter">I</td>
+        <td class="remain">J</td>
+        <td class="remain">Q</td>
+        <td class="remain letter">T</td>
+        <td class="remain">V</td>
+        <td class="remain">W</td>
+        <td class="remain">X</td>
+        <td class="remain">Z</td>
+        <td class="gap" colspan="8"></td>
+    </tr>
+    <tr>
+        <td class="position">T</td>
+        <td class="position">W</td>
+        <td class="position">I</td>
+        <td class="position">C</td>
+        <td class="position">E</td>
+        <td class="gap" colspan="19">Congratulations!</td>
+    </tr>
+    <tr>
+        <td class="">&nbsp;</td>
+        <td class="">&nbsp;</td>
+        <td class="">&nbsp;</td>
+        <td class="">&nbsp;</td>
+        <td class="">&nbsp;</td>
+        <td class="gap" colspan="19"></td>
+    </tr>
+</tbody></table>
+
+<table class="wordle"><thead>
+    <tr><th colspan="6"></th>
+        <th colspan="18" class="left">Remaining Letters</th>
+</thead><tbody>
+    <tr>
+        <td class="letter">S</td>
+        <td class="incorrect">N</td>
+        <td class="incorrect">A</td>
+        <td class="letter">R</td>
+        <td class="letter">E</td>
+        <td class="gap"></td>
+        <td class="remain">B</td>
+        <td class="remain">C</td>
+        <td class="remain">D</td>
+        <td class="remain letter">E</td>
+        <td class="remain">F</td>
+        <td class="remain">G</td>
+        <td class="remain">H</td>
+        <td class="remain">I</td>
+        <td class="remain">J</td>
+        <td class="remain">K</td>
+        <td class="remain">L</td>
+        <td class="remain">M</td>
+        <td class="remain">O</td>
+        <td class="remain">P</td>
+        <td class="remain">Q</td>
+        <td class="remain letter">R</td>
+        <td class="remain letter">S</td>
+        <td class="gap">&hellip;</td>
+    </tr>
+    <tr>
+        <td class="incorrect">B</td>
+        <td class="incorrect">L</td>
+        <td class="incorrect">O</td>
+        <td class="incorrect">C</td>
+        <td class="incorrect">K</td>
+        <td class="gap"></td>
+        <td class="remain">D</td>
+        <td class="remain letter">E</td>
+        <td class="remain">F</td>
+        <td class="remain">G</td>
+        <td class="remain">H</td>
+        <td class="remain">I</td>
+        <td class="remain">J</td>
+        <td class="remain">M</td>
+        <td class="remain">P</td>
+        <td class="remain">Q</td>
+        <td class="remain letter">R</td>
+        <td class="remain letter">S</td>
+        <td class="remain">T</td>
+        <td class="remain">U</td>
+        <td class="remain">V</td>
+        <td class="remain">W</td>
+        <td class="remain">X</td>
+        <td class="gap">&hellip;</td>
+    </tr>
+    <tr>
+        <td class="incorrect">F</td>
+        <td class="incorrect">I</td>
+        <td class="incorrect">G</td>
+        <td class="incorrect">H</td>
+        <td class="position">T</td>
+        <td class="gap"></td>
+        <td class="remain">D</td>
+        <td class="remain letter">E</td>
+        <td class="remain">J</td>
+        <td class="remain">M</td>
+        <td class="remain">P</td>
+        <td class="remain">Q</td>
+        <td class="remain letter">R</td>
+        <td class="remain letter">S</td>
+        <td class="remain letter">T</td>
+        <td class="remain">U</td>
+        <td class="remain">V</td>
+        <td class="remain">W</td>
+        <td class="remain">X</td>
+        <td class="remain">Y</td>
+        <td class="remain">Z</td>
+        <td class="gap" colspan="3"></td>
+    </tr>
+    <tr>
+        <td class="incorrect">D</td>
+        <td class="incorrect">U</td>
+        <td class="incorrect">M</td>
+        <td class="incorrect">P</td>
+        <td class="incorrect">Y</td>
+        <td class="gap"></td>
+        <td class="remain letter">E</td>
+        <td class="remain">J</td>
+        <td class="remain">Q</td>
+        <td class="remain letter">R</td>
+        <td class="remain letter">S</td>
+        <td class="remain letter">T</td>
+        <td class="remain">V</td>
+        <td class="remain">W</td>
+        <td class="remain">X</td>
+        <td class="remain">Z</td>
+        <td class="gap" colspan="8"></td>
+    </tr>
+    <tr>
+        <td class="incorrect">W</td>
+        <td class="letter">R</td>
+        <td class="letter">E</td>
+        <td class="letter">S</td>
+        <td class="position">T</td>
+        <td class="gap"></td>
+        <td class="remain letter">E</td>
+        <td class="remain">J</td>
+        <td class="remain">Q</td>
+        <td class="remain letter">R</td>
+        <td class="remain letter">S</td>
+        <td class="remain letter">T</td>
+        <td class="remain">V</td>
+        <td class="remain">X</td>
+        <td class="remain">Z</td>
+        <td class="gap" colspan="9"></td>
+    </tr>
+    <tr>
+        <td class="position">R</td>
+        <td class="position">E</td>
+        <td class="position">S</td>
+        <td class="position">E</td>
+        <td class="position">T</td>
+        <td class="gap" colspan="19">Congratulations!</td>
+    </tr>
+</tbody></table>
 
 <div class="modified">Last modified: 2022-08-17</div>
 </article>
