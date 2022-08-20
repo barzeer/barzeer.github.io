@@ -28,8 +28,9 @@ following Java code will sometimes give unexpected results.</p>
 <pre class="code language-java">float e = &hellip;
 float f = &hellip;
 
-// WRONG! Don't use this comparison code. It
-// will occasionally give incorrect results.
+// WRONG! Don't use this comparison code
+// for floating-point numbers. It will
+// occasionally give incorrect results.
 if (e == f) {
     // e and f are equal.
 }
@@ -38,12 +39,15 @@ else {
 }
 </pre></div>
 
+<p>These unexpected results are technically correct but contrary to the
+intent of the programmer. In other words, these unexpected results are
+incorrect from the perspective of the programmer and users of a program.
 The reason a simple comparison for equality with floating-point numbers
 will sometimes give unexpected results is that computers approximate
-most real numbers as floating-point numbers. Rounding error almost
-always occurs each time a computer performs calculations with
-floating-point numbers. Consider the simple example of adding 0.1 ten
-times as shown in this Java code and its output:</p>
+most real numbers as floating-point numbers. Each time a computer
+performs calculations with floating-point numbers, rounding error almost
+always occurs. Consider the simple example of adding 0.1 ten times as
+shown in this Java code and its output:</p>
 
 <div class="pre">
 <pre class="code language-java">final float tenth = 0.1F;
@@ -211,7 +215,7 @@ numbers, check out the book
 <a href="https://www.amazon.com/dp/0983384096">Really Understand
 Binary</a>.</p>
 
-<div class="modified">Last modified: 2022-08-19</div>
+<div class="modified">Last modified: 2022-08-20</div>
 </article>
 </body>
 </html>
