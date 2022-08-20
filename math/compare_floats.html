@@ -20,38 +20,34 @@
 <h1>Comparing Floating-Point Numbers</h1>
 
 <p>Within a computer program, comparing floating-point numbers for
-equality is problematic. This is because the computer approximates most
-real numbers as floating-point numbers. There is almost always rounding
-error that occurs each time calculations are performed with
-floating-point numbers. Consider the simple example of adding 0.1 ten
-times as shown in this simple Java code and its output:</p>
+equality is problematic. This is because computers approximate most real
+numbers as floating-point numbers. Rounding error almost always occurs
+each time a computer performs calculations with floating-point numbers.
+Consider the simple example of adding 0.1 ten times as shown in this
+Java code and its output:</p>
 
 <div class="pre">
-<pre class="code lang-java">final float tenth = 0.1F;
+<pre class="code language-java">final float tenth = 0.1F;
 float sum = 0F;
 for (int i = 0;  i &lt; 10;  ++i) {
     sum += tenth;
 }
-System.out.println("sum = " + sum);
-
-
-/* Output */
-sum = 1.0000001</pre></div>
+System.out.println("sum = " + sum);</pre></div>
+<pre class="console">/* Output */
+sum = 1.0000001</pre>
 
 <p>Similar code written in C gives a more precise but equally strange
 output.</p>
 
 <div class="pre">
-<pre class="code lang-c">const float tenth = 0.1F;
+<pre class="code language-c">const float tenth = 0.1F;
 float sum = 0F;
 for (int i = 0;  i &lt; 10;  ++i) {
     sum += tenth;
 }
-printf("sum = %.15f\n", sum);
-
-
-/* Output */
-sum = 1.000000014901161</pre></div>
+printf("sum = %.15f\n", sum);</pre></div>
+<pre class="console">/* Output */
+sum = 1.000000014901161</pre>
 
 <p>Of course, neither answer is correct because the correct answer to
 0.1 added ten times is obviously 1. Because of the rounding error that
@@ -64,24 +60,25 @@ floating-point numbers is to compare the absolute difference between the
 two numbers like this:</p>
 
 <div class="pre">
-<pre class="code lang-java">if (Math.abs(e - f) &lt;= epsilon) {
+<pre class="code language-java">if (Math.abs(e - f) &lt;= epsilon) {
     // e and f are equal.
 }
 else {
     // e and f are not equal.
 }</pre></div>
 
-<p>But how do we choose the value for epsilon? For some applications, we
-may know the range of values that will be in <var>e</var> and
-<var>f</var> and will be able to choose a good epsilon, but for many
-applications, we know very little about the range of values that will be
-in <var>e</var> and <var>f</var>. Perhaps the value of epsilon could be
-calculated from the values of <var>e</var> and <var>f</var>. One
-possibility is to calculate epsilon as a percentage of the larger of
-<var>e</var> and <var>f</var>. For example:</p>
+<p>But how do we choose the value for <var>epsilon</var>? For some
+applications, we may know the range of values that will be in
+<var>e</var> and <var>f</var> and be able to choose a good value for
+<var>epsilon</var>, but for many applications, we know very little about
+the range of values that will be in <var>e</var> and <var>f</var>.
+Perhaps the value of <var>epsilon</var> could be calculated from the
+values of <var>e</var> and <var>f</var>. One possibility is to calculate
+<var>epsilon</var> as a percentage of the larger of <var>e</var> and
+<var>f</var>. For example:</p>
 
 <div class="pre">
-<pre class="code lang-java">float max = Math.max(Math.abs(e), Math.abs(f));
+<pre class="code language-java">float max = Math.max(Math.abs(e), Math.abs(f));
 float epsilon = max * 0.01;
 if (Math.abs(e - f) &lt;= epsilon) {
     // e and f are equal.
@@ -106,7 +103,8 @@ floating-point number to the next larger floating-point number. We can
 use the concept of ulp to make floating-point comparisons for equality
 more exact and robust. Many programming languages that include
 floating-point arithmetic include a function to calculate ulps. Java
-contains two functions in the Math class for computing ulps.</p>
+contains two functions in the <code>Math</code> class for computing
+ulps.</p>
 
 <ul>
     <li><div><code>Math.ulp(float f)</code></div></li>
@@ -118,7 +116,7 @@ the distance between them is less than or equal to two ulps of the
 larger float.</p>
 
 <div class="pre" id="ex5">
-<pre class="code lang-java">float max = Math.max(Math.abs(e), Math.abs(f));
+<pre class="code language-java">float max = Math.max(Math.abs(e), Math.abs(f));
 float ulp = Math.ulp(max);
 if (Math.abs(e - f) &lt;= ulp * 2) {
     // The distance between e and f is less than or
@@ -131,11 +129,11 @@ else {
     // are considered unequal.
 }</pre></div>
 
-<p>We could use this code to build a small function that we can use to
-compare two floating-point numbers for equality.</p>
+<p>We can use the previous code to write a small function to compare two
+floating-point numbers for equality.</p>
 
 <div class="pre" id="ex6">
-<pre class="code lang-java">public static boolean equals(float e, float f, int maxULPs) {
+<pre class="code language-java">public static boolean equals(float e, float f, int maxULPs) {
     boolean eq;
     boolean enan = Float.isNaN(e);
     boolean fnan = Float.isNaN(f);
@@ -194,7 +192,7 @@ numbers, check out the book
 <a href="https://www.amazon.com/dp/0983384096">Really Understand
 Binary</a>.</p>
 
-<div class="modified">Last modified: 2022-08-01</div>
+<div class="modified">Last modified: 2022-08-19</div>
 </article>
 </body>
 </html>
