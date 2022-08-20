@@ -29,7 +29,7 @@ shuffle the values in a single column in a table with 6240 rows.</p>
 <p>Here is the shuffle code.</p>
 
 <div class="pre">
-<pre class="code lang-sql">-- Shuffles the contents of a column using the Fisher-Yates
+<pre class="code language-sql">-- Shuffles the contents of a column using the Fisher-Yates
 -- shuffle algorithm. This is SLOW in MySQL.
 DROP PROCEDURE IF EXISTS shuffle;
 DELIMITER //
@@ -79,7 +79,7 @@ course the table has an index on the primary key. I know that I could
 simply use <code>ORDER BY RAND()</code>, but this is simply a random
 permutation of the order and not the same as a shuffle.</p>
 
-<div class="modified">Last modified: 2022-08-01</div>
+<div class="modified">Last modified: 2022-08-20</div>
 </article>
 </body>
 </html>

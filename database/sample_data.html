@@ -99,7 +99,7 @@ will have these functions:</p>
 one:</p>
 
 <div class="pre">
-<pre class="code lang-sql">-- Select one name from the familyName table.
+<pre class="code language-sql">-- Select one name from the familyName table.
 SELECT name
 FROM familyName AS t
 INNER JOIN (SELECT 1 + FLOOR(RAND() *
@@ -118,7 +118,7 @@ will because the <code>id</code> column is the primary key of the
 naive solution to pseudo randomly choose a row which is:</p>
 
 <div class="pre">
-<pre class="code lang-sql">-- NAIVE SOLUTION
+<pre class="code language-sql">-- NAIVE SOLUTION
 -- Select one name from the familyName table.
 SELECT name
 FROM familyName
@@ -132,7 +132,7 @@ equal probability that each row is chosen, then you will need to rewrite
 some of the functions to use two queries like this:</p>
 
 <div class="pre">
-<pre class="code lang-sql">-- Pseudo randomly choose a row number.
+<pre class="code language-sql">-- Pseudo randomly choose a row number.
 DECLARE size, rowNum INT;
 SET size = (SELECT COUNT(*) FROM familyName);
 SET rowNum = 1 + FLOOR(RAND() * size);
@@ -149,7 +149,7 @@ the sample schema to populate a customer table in a schema named
 company.</p>
 
 <div class="pre">
-<pre class="code lang-sql">
+<pre class="code language-sql">
 -- -----------------------------------------------------
 -- Schema company
 -- -----------------------------------------------------
@@ -240,7 +240,7 @@ DELIMITER ;
 CALL addCustomers(1000) ;
 </pre></div>
 
-<div class="modified">Last modified: 2022-08-02</div>
+<div class="modified">Last modified: 2022-08-20</div>
 </article>
 </body>
 </html>

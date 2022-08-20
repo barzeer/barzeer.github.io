@@ -36,7 +36,7 @@ an interesting study of the basic shell commands sort, sed, and
 comm.</p>
 
 <h3>Intersection</h3>
-<div class="pre"><pre class="code lang-bash">#!/bin/bash
+<div class="pre"><pre class="code language-bash">#!/bin/bash
 
 # intersect
 # Purpose: Compute intersection of sets $1 and $2.
@@ -69,7 +69,7 @@ comm -12 $TMP1 $TMP2
 exit 0</pre></div>
 
 <h3>Union</h3>
-<div class="pre"><pre class="code lang-bash">#!/bin/bash
+<div class="pre"><pre class="code language-bash">#!/bin/bash
 
 # union
 # Purpose:  Compute the union of sets, i.e. merge sets.
@@ -100,7 +100,7 @@ sort -u $TMP
 exit 0</pre></div>
 
 <h3>Relative Complement</h3>
-<div class="pre"><pre class="code lang-bash">#!/bin/bash
+<div class="pre"><pre class="code language-bash">#!/bin/bash
 
 # relcompl
 # Purpose: Compute the complement of set $2 relative to set $1.
@@ -133,7 +133,7 @@ comm -23 $TMP1 $TMP2
 exit 0</pre></div>
 
 <h3>Symmetric Difference</h3>
-<div class="pre"><pre class="code lang-bash">#!/bin/bash
+<div class="pre"><pre class="code language-bash">#!/bin/bash
 
 # symdif
 # Purpose: Compute the symmetric difference
@@ -166,7 +166,7 @@ sort -u &gt; $TMP2
 comm -3 $TMP1 $TMP2 | sed 's/\t//g'
 exit 0</pre></div>
 
-<div class="modified">Last modified: 2022-08-01</div>
+<div class="modified">Last modified: 2022-08-20</div>
 </article>
 </body>
 </html>

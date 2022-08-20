@@ -100,7 +100,7 @@ data, and a query that lists all men’s housing complexes.</p>
     </figure>
 
 <div class="pre">
-<pre class="code lang-sql">-- List all single student complexes that serve men.
+<pre class="code language-sql">-- List all single student complexes that serve men.
 SELECT housing_complex.*
 FROM housing_complex AS c
     INNER JOIN tenant_type AS t ON t.type_id = c.type_id
@@ -140,7 +140,7 @@ WHERE t.type = 'men' OR t.type = 'both';</pre></div>
     </figure>
 
 <div class="pre">
-<pre class="code lang-sql">-- List all single student complexes that serve men.
+<pre class="code language-sql">-- List all single student complexes that serve men.
 SELECT *
 FROM housing_complex
 WHERE men = True;</pre></div>
@@ -179,7 +179,7 @@ WHERE men = True;</pre></div>
     </figure>
 
 <div class="pre">
-<pre class="code lang-sql">-- List all single student complexes that serve men.
+<pre class="code language-sql">-- List all single student complexes that serve men.
 SELECT *
 FROM housing_complex
 WHERE type = 'men' OR type = 'both';</pre></div>
@@ -239,7 +239,7 @@ WHERE type = 'men' OR type = 'both';</pre></div>
     </figure>
 
 <div class="pre">
-<pre class="code lang-sql">-- List all single student complexes that serve men.
+<pre class="code language-sql">-- List all single student complexes that serve men.
 SELECT housing_complex.*
 FROM housing_complex AS c
     INNER JOIN complex_has_type AS ct ON c.cmplx_id = ct.cmplx_id
@@ -268,7 +268,7 @@ housing complex to serve all the types of tenants. Of course, if you
 can’t imagine needing this extensibility in the future then choose one
 of the first three solutions.</p>
 
-<div class="modified">Last modified: 2022-08-02</div>
+<div class="modified">Last modified: 2022-08-20</div>
 </article>
 </body>
 </html>

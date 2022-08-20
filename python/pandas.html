@@ -66,7 +66,7 @@ a single piece of data.</p>
     <var>parse_dates</var> parameters are the most useful for the
     assignments you will complete in this course.
 
-<div class="pre"><pre class="code lang-python">import pandas as pd
+<div class="pre"><pre class="code language-python">import pandas as pd
 <b>df = pd.read_csv("filename.csv")</b></pre></div>
     </div></li>
 
@@ -79,7 +79,7 @@ a single piece of data.</p>
     contains all the data that <code>read_csv</code> read from
     <code>filename.csv</code>.
 
-<div class="pre"><pre class="code lang-python">import pandas as pd
+<div class="pre"><pre class="code language-python">import pandas as pd
 df = pd.read_csv("filename.csv")
 <b>print(df.dtypes)</b></pre></div>
     </div></li>
@@ -91,7 +91,7 @@ df = pd.read_csv("filename.csv")
     help you understand the data that is in the DataFrame. For
     example:
 
-<div class="pre"><pre class="code lang-python">import pandas as pd
+<div class="pre"><pre class="code language-python">import pandas as pd
 df = pd.read_csv("filename.csv")
 <b>print(df.describe())</b></pre></div>
     </div></li>
@@ -100,7 +100,7 @@ df = pd.read_csv("filename.csv")
     However, by default pandas will print only some of the data in large
     data frames.
 
-<div class="pre"><pre class="code lang-python">import pandas as pd
+<div class="pre"><pre class="code language-python">import pandas as pd
 df = pd.read_csv("filename.csv")
 <b>print(df)</b></pre></div>
     </div></li>
@@ -109,14 +109,14 @@ df = pd.read_csv("filename.csv")
     from a DataFrame write the column’s name in square brackets []. For
     example:
 
-<div class="pre"><pre class="code lang-python">import pandas as pd
+<div class="pre"><pre class="code language-python">import pandas as pd
 df = pd.read_csv("filename.csv")
 <b>column = df["column_name"]</b></pre></div>
 
     It is also possible extract multiple columns by writing a list of
     column names between the square brackets like this:
 
-<div class="pre"><pre class="code lang-python">import pandas as pd
+<div class="pre"><pre class="code language-python">import pandas as pd
 original_df = pd.read_csv("filename.csv")
 <b>column_names = ["col_name1", "col_name2", "col_name3"]
 smaller_df = original_df[column_names]</b></pre></div>
@@ -133,7 +133,7 @@ smaller_df = original_df[column_names]</b></pre></div>
     <code><b>original_df["column_name"] &gt; threshold</b></code> have
     been filtered out.
 
-<div class="pre"><pre class="code lang-python">import pandas as pd
+<div class="pre"><pre class="code language-python">import pandas as pd
 original_df = pd.read_csv("filename.csv")
 <b>filter = (original_df["column_name"] &gt; threshold)
 filtered_df = original_df[filter]</b></pre></div>
@@ -146,7 +146,7 @@ filtered_df = original_df[filter]</b></pre></div>
     comparisons, and <var>filtered_or_df</var> is a data frame that
     contains rows that satisfy either or both comparisons.
 
-<div class="pre"><pre class="code lang-python">import pandas as pd
+<div class="pre"><pre class="code language-python">import pandas as pd
 original_df = pd.read_csv("filename.csv")
 <b>andfilt = (original_df["col_name1"] &gt; threshold) \
         &amp; (original_df["col_name2"] == value)
@@ -172,7 +172,7 @@ filtered_or_df = original_df[orfilt]</pre></div>
     is a DataFrame that contains the same data as <var>original_df</var>
     but with all duplicate rows removed.
 
-<div class="pre"><pre class="code lang-python">import pandas as pd
+<div class="pre"><pre class="code language-python">import pandas as pd
 original_df = pd.read_csv("filename.csv")
 <b>no_dups_df = original_df.drop_duplicates()</b></pre></div>
     </div></li>
@@ -183,7 +183,7 @@ original_df = pd.read_csv("filename.csv")
     following code, <var>unique_vals</var> is a list of the unique
     values that appear in a column named <var>column_name</var>.
 
-<div class="pre"><pre class="code lang-python">import pandas as pd
+<div class="pre"><pre class="code language-python">import pandas as pd
 original_df = pd.read_csv("filename.csv")
 column = original_df["column_name"]
 <b>unique_vals = column.unique()</b></pre></div>
@@ -193,7 +193,7 @@ column = original_df["column_name"]
 function counts and returns the number of times that each unique value
 occurs in a Series.
 
-<div class="pre"><pre class="code lang-python">import pandas as pd
+<div class="pre"><pre class="code language-python">import pandas as pd
 original_df = pd.read_csv("filename.csv")
 column = original_df["column_name"]
 <b>counts = column.value_counts()</b></pre></div>
@@ -204,7 +204,7 @@ column = original_df["column_name"]
     column name on the left side of the assignment operator (=). For
     example:
 
-<div class="pre"><pre class="code lang-python">import pandas as pd
+<div class="pre"><pre class="code language-python">import pandas as pd
 original_df = pd.read_csv("filename.csv")
 <b>original_df["new_column_name"] = \
         3 * original_df["existing_column_name"] + 1</b></pre></div>
@@ -217,7 +217,7 @@ original_df = pd.read_csv("filename.csv")
     <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.dt.to_period.html">official documentation</a>).
     For example:
 
-<div class="pre"><pre class="code lang-python">import pandas as pd
+<div class="pre"><pre class="code language-python">import pandas as pd
 original_df = pd.read_csv("filename.csv")
 <b>column = original_df["datetime_column"].dt.to_period("M")</b></pre></div>
     </div></li>
@@ -245,7 +245,7 @@ original_df = pd.read_csv("filename.csv")
     use the <code>.groupby</code> and <code>.aggregate</code> methods as
     shown in this template:
 
-<div class="pre"><pre class="code lang-python">import pandas as pd
+<div class="pre"><pre class="code language-python">import pandas as pd
 original_df = pd.read_csv("filename.csv")
 group = original_df.groupby("existing_column_to_group_by")
 grouped_df = group.aggregate(
@@ -264,7 +264,7 @@ grouped_df = group.aggregate(
     <li><div><a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/intro_tutorials/03_subset_data.html">Select columns</a> from a DataFrame</div></li>
 </ul>
 
-<div class="modified">Last modified: 2022-08-01</div>
+<div class="modified">Last modified: 2022-08-20</div>
 </article>
 </body>
 </html>
