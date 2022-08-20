@@ -20,11 +20,30 @@
 <h1>Comparing Floating-Point Numbers</h1>
 
 <p>Within a computer program, comparing floating-point numbers for
-equality is problematic. This is because computers approximate most real
-numbers as floating-point numbers. Rounding error almost always occurs
-each time a computer performs calculations with floating-point numbers.
-Consider the simple example of adding 0.1 ten times as shown in this
-Java code and its output:</p>
+equality is problematic. Writing an <code>if</code> statement to compare
+floating-point numbers in the same way we would for integers like the
+following Java code will sometimes give unexpected results.</p>
+
+<div class="pre">
+<pre class="code language-java">float e = &hellip;
+float f = &hellip;
+
+// WRONG! Don't use this comparison code. It
+// will occasionally give incorrect results.
+if (e == f) {
+    // e and f are equal.
+}
+else {
+    // e and f are not equal.
+}
+</pre></div>
+
+The reason a simple comparison for equality with floating-point numbers
+will sometimes give unexpected results is that computers approximate
+most real numbers as floating-point numbers. Rounding error almost
+always occurs each time a computer performs calculations with
+floating-point numbers. Consider the simple example of adding 0.1 ten
+times as shown in this Java code and its output:</p>
 
 <div class="pre">
 <pre class="code language-java">final float tenth = 0.1F;
