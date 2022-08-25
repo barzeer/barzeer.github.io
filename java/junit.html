@@ -39,7 +39,7 @@
 </ul>
 
 <h2>Definitions</h2>
-<dl class="long">
+<dl class="int">
     <dt><dfn>Unit</dfn></dt>
     <dd>A part of a program, ranging from as small as a single method to
     as large as all the classes in a package, often a single class</dd>
@@ -52,83 +52,305 @@
     results.</dd>
 </dl>
 
+<h2>How to Use JUnit</h2>
+<p>In order to use JUnit to test one or more Java methods, do the
+following.</p>
+<ol>
+    <li><div>Write one or more Java methods in a class.</div></li>
+    <li><div>In a separate Java file import your Java class and the
+    JUnit classes.</div></li>
+    <li><div>Within the same file as the previous step, write a class
+    that contains test methods. Each test method must be annotated with
+    <code>@org.junit.Test</code>.</div></li>
+    <li><div>Within each test method, write code to call your Java
+    methods, then write one or more calls to
+    <code>org.junit.Assert.assertEquals</code> or the other assert
+    methods.</div></li>
+    <li><div>Run the test class that you wrote.</div></li>
+    <li><div>When you run your test class, <code>assertEquals</code>
+    will compare the value returned from your Java method to the value
+    that you expect your Java method will return.</div></li>
+</ol>
+
+<p>The <code>assertEquals</code> method accepts two or three parameters,
+namely:</p>
+
+<dl class="function">
+    <dt><code>assertEquals(expected, actual, delta);</code></dt>
+    <dd>Compares the expected value to the actual value.<br>
+    <code>expected</code>: the value that you expect your Java function
+    to return.<br>
+    <code>actual</code>: the value that your Java function returned.<br>
+    <code>delta</code>: only needed for floats or doubles; the maximum
+    difference between expected and actual that you're willing to accept
+    and still consider the numbers to be equal.</dd>
+</dl>
+
+<p>There are several other assert methods in the
+<code>org.junit.Assert</code> class, including <code>assertFalse</code>,
+<code>assertTrue</code>, <code>assertNull</code>,
+<code>assertSame</code>, and <code>assertArrayEquals</code>. See the
+<a href="http://junit.sourceforge.net/javadoc/">online java docs</a>
+for junit.</p>
+
 <h2>Example</h2>
-<div class="pre"><pre class="code language-java">import org.junit.Test;
-import static org.junit.Assert.*;
-import account.*;
+<p>The following four Java classes contain simple methods that simulate
+a bank that offers savings accounts and checking accounts to its
+customers. If you’re learning JUnit for the first time, the details of
+the four Java classes may not be important right now. You may want to
+skip down to examine the <code>TestBank</code> class which uses JUnit.</p>
 
+<div class="pre">
+<pre class="code language-java">import java.util.HashMap;
 
-public class TestAccount {
-    private static final double ANNUAL_RATE = 0.035;
-    private static final double OVERDRAFT_LIMIT = 500;
-    private static final double DELTA = 0.001;
+public class Bank {
+    // Use the singleton design pattern to ensure that
+    // the computer creates only one Bank object each
+    // time it runs this program.
+    private static final Bank singleton = new Bank();
 
+    public static Bank getInstance() {
+        return singleton;
+    }
 
-    @Test  // This annotation must appear before each unit test method
-    public void testSavingsAccount() {
-        SavingsAccount a = new SavingsAccount(ANNUAL_RATE);
-
-        Date now = new Date();
-        Date opened = a.getDateOpened();
-
-        /* The assert methods are part of the org.junit.Assert class.
-         * assertEquals follows this format:
-         * assertEquals(expected_value, actual_value, acceptable_difference);
-         */
-        assertEquals(now.getTime(), opened.getTime(), 1000);
-
-        assertEquals(1, a.getId());
-        assertEquals(ANNUAL_RATE, a.getAnnualRate(), 0);
-
-        // Ensure the balance is 0
-        assertEquals(0, a.getBalance(), 0);
-
-        // Deposit $50 and ensure the balance is $50.
-        a.deposit(50);
-        assertEquals(50, a.getBalance(), DELTA);
-
-        // Withdraw $40 and ensure the balance is $10.
-        a.withdraw(40);
-        assertEquals(10, a.getBalance(), DELTA);
-
-        // Attempt to withdraw more money than is in the
-        // account and ensure the balance didn't change.
-        a.withdraw(40);
-        assertEquals(10, a.getBalance(), DELTA);
-
-        // Withdraw $10 and ensure the balance is 0.
-        a.withdraw(10);
-        assertEquals(0, a.getBalance(), DELTA);
-
-        /* There are several other assert methods in the org.junit.Assert
-         * class, notably assertFalse, assertTrue, assertNull, assertSame,
-         * and assertArrayEquals.  See the <a href="http://junit.sourceforge.net/javadoc/">online java docs</a> for junit. */
-
-        assertTrue(a instanceof Account);
+    public static int getNextAccountId() {
+        int id;
+        synchronized(singleton) {
+            id = singleton.nextAccountId;
+            singleton.nextAccountId = id + 1;
+        }
+        return id;
     }
 
 
+    private final HashMap&lt;Integer, Account&gt; accounts;
+    private int nextAccountId;
+
+    private Bank() {
+        this.accounts = new HashMap&lt;Integer, Account&gt;();
+        this.nextAccountId = 1;
+    }
+
+    public void addAccount(Account account) {
+        this.accounts.put(account.getAccountId(), account);
+    }
+
+    public Account getAccount(int accountId) {
+        return this.accounts.get(accountId);
+    }
+}</pre></div>
+
+<div class="pre">
+<pre class="code language-java">import java.util.Date;
+
+public abstract class Account {
+    private final int accountId;
+    private final Date dateOpened;
+    protected double balance;
+
+    public Account() {
+        this.accountId = Bank.getNextAccountId();
+        this.dateOpened = new Date();
+        this.balance = 0;
+    }
+
+    public int getAccountId() {
+        return this.accountId;
+    }
+
+    public double getBalance() {
+        return this.balance;
+    }
+
+    public Date getDateOpened() {
+        return this.dateOpened;
+    }
+
+    public abstract void deposit(double amount);
+    public abstract void withdraw(double amount);
+
+    @Override
+    public int hashCode() {
+        return this.accountId;
+    }
+}</pre></div>
+
+<div class="pre">
+<pre class="code language-java">public class SavingsAccount extends Account {
+    public static final double MINIMUM_BALANCE = 25.0;
+
+
+    public void deposit(double amount) {
+        if (amount &lt;= 0) {
+            throw new IllegalArgumentException(
+                "Incorrect amount; deposit amount is " +
+                amount + " but must be greater than 0.");
+        }
+        this.balance += amount;
+    }
+
+
+    public void withdraw(double amount) {
+        if (amount &lt;= 0) {
+            throw new IllegalArgumentException(
+                "Incorrect amount; withdrawal amount is " +
+                amount + " but must be greater than 0.");
+        }
+        double newBalance = this.balance - amount;
+        if (newBalance &lt; MINIMUM_BALANCE) {
+            throw new IllegalArgumentException(
+                "Insufficient funds to withdraw " + amount +
+                ". Current balance is " + this.balance +
+                ". Balance after withdrawal would be " +
+                + newBalance + " which is less than the" +
+                " minimum balance of " + MINIMUM_BALANCE);
+        }
+        this.balance = newBalance;
+    }
+}</pre></div>
+
+<div class="pre">
+<pre class="code language-java">public class CheckingAccount extends Account {
+    public static final double OVERDRAFT_LIMIT = 500;
+    public static final double OVERDRAFT_FEE = 25;
+
+
+    public void deposit(double amount) {
+        if (amount &lt;= 0) {
+            throw new IllegalArgumentException(
+                "Incorrect amount; deposit amount is " +
+                amount + " but must be greater than 0.");
+        }
+        this.balance += amount;
+    }
+
+
+    public void withdraw(double amount) {
+        if (amount &lt;= 0) {
+            throw new IllegalArgumentException(
+                "Incorrect amount; withdrawal amount is " +
+                amount + " but must be greater than 0.");
+        }
+        double newBalance = this.balance - amount;
+        if (newBalance &lt; 0) {
+            throw new IllegalArgumentException(
+                "Insufficient funds to withdraw " + amount +
+                ". Current balance is " + this.balance +
+                ". Balance after withdrawal would be " +
+                newBalance + ".");
+        }
+        this.balance = newBalance;
+    }
+
+
+    public void settleCheck(double amount) {
+        if (amount &lt;= 0) {
+            throw new IllegalArgumentException(
+                "Incorrect amount; check amount is " +
+                amount + " but must be greater than 0.");
+        }
+        double newBalance = this.balance - amount;
+        if (newBalance &lt; 0) {
+            newBalance -= OVERDRAFT_FEE;
+            if (newBalance &lt; -OVERDRAFT_LIMIT) {
+                throw new IllegalArgumentException(
+                    "Insufficient funds to pay a check for " +
+                    amount + ". Current balance is " +
+                    this.balance + ". Balance after paying" +
+                    " the check and overdraft fee would be " +
+                    newBalance + " which is less than the" +
+                    " overdraft limit.");
+            }
+        }
+        this.balance = newBalance;
+    }
+}</pre></div>
+
+<p>The <code>TestBank</code> class below uses JUnit to test the
+previous four Java classes. Notice that the test methods call the
+<code>assertEquals</code> method and other assert methods many times.
+Each time it is called, the <code>assertEquals</code> method will
+compare an expected value to an actual value. This is how test methods
+automatically verify that a method works correctly.</p>
+
+<div class="pre"><pre class="code language-java">import org.junit.Test;
+import static org.junit.Assert.*;
+import java.util.Date;
+
+
+public class TestBank {
+    private static final double DELTA = 0.001;
+
+
+    // The @Test annotation must appear
+    // before each unit test method.
     @Test
     public void testBank() {
-        Bank bank = new Bank();
+        Bank bank = Bank.getInstance();
 
         // Add two accounts to the bank.
-        Account sa = new SavingsAccount(ANNUAL_RATE);
-        Account ca = new CheckingAccount(ANNUAL_RATE, OVERDRAFT_LIMIT);
+        Account sa = new SavingsAccount();
+        Account ca = new CheckingAccount();
         bank.addAccount(sa);
         bank.addAccount(ca);
 
         // Find the first the account that was just added.
-        Account f = bank.findAccount(sa.getId());
+        Account f = bank.getAccount(sa.getAccountId());
+
+        // Verify that the getAccount method returned the
+        // correct account.
         assertSame(f, sa);
 
+        // Find the second the account that was just added.
+        f = bank.getAccount(ca.getAccountId());
+        assertSame(f, ca);
+
         // Attempt to find an account that doesn't exist.
-        Account f = bank.findAccount(ca.getId() + 1);
+        f = bank.getAccount(-1);
         assertNull(f);
+    }
+
+
+    @Test
+    public void testSavingsAccount() {
+        SavingsAccount acc = new SavingsAccount();
+
+        // Verify that SavingsAccount extends Account.
+        assertTrue(acc instanceof SavingsAccount);
+        assertTrue(acc instanceof Account);
+
+        // Verify that the account's date opened is correct.
+        Date now = new Date();
+        Date opened = acc.getDateOpened();
+        assertEquals(now.getTime(), opened.getTime(), 1000);
+
+        // Verify that the new account's balance is 0.
+        assertEquals(0, acc.getBalance(), 0);
+
+        // Deposit $50 and ensure the balance is $50.
+        acc.deposit(50);
+        assertEquals(50, acc.getBalance(), DELTA);
+
+        // Withdraw $25 and ensure the balance is $25.
+        acc.withdraw(25);
+        assertEquals(25, acc.getBalance(), DELTA);
+
+        // Attempt to withdraw more money than is in the
+        // account and ensure the withdraw method throws
+        // an exception and doesn't change the balance.
+        IllegalArgumentException thrown = null;
+        try {
+            acc.withdraw(40);
+        }
+        catch (IllegalArgumentException ex) {
+            thrown = ex;
+        }
+        assertNotNull(thrown);
+        assertEquals(25, acc.getBalance(), DELTA);
     }
 }</pre></div>
 
-<div class="modified">Last modified: 2022-08-02</div>
+<div class="modified">Last modified: 2022-08-25</div>
 </article>
 </body>
 </html>
