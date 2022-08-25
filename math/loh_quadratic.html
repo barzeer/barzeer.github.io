@@ -45,7 +45,7 @@ course, both methods give the same results. As you can see from the code
 below, Loh’s method is slightly simpler and requires fewer
 computations.</p>
 
-<div class="pre">
+<div class="pre" id="ex1">
 <pre class="linenums"></pre>
 <pre class="code language-python">import math
 
@@ -75,7 +75,7 @@ def quadratic(a, b, c):
         a, b, c: The coefficients of a
         quadratic equation in the form:
         y = ax**2 + bx + c
-    Return: the roots of a quadratic equation in a tuple
+    Return: the roots of the quadratic equation in a tuple
     """
     r1 = None
     r2 = None
@@ -109,7 +109,7 @@ def poshenloh(a, b, c):
         a, b, c: The coefficients of a
         quadratic equation in the form:
         y = ax**2 + bx + c
-    Return: the roots of a quadratic equation in a tuple
+    Return: the roots of the quadratic equation in a tuple
     """
     r1 = None
     r2 = None
@@ -149,7 +149,19 @@ def verify_root(a, b, c, x):
 if __name__ == "__main__":
     main()</pre></div>
 
-<div class="modified">Last modified: 2022-08-20</div>
+<p>To see that Loh’s method requires fewer computations, first count the
+number of arithmetic operators in the <code>quadratic</code> method at
+lines <span class="cross" data-ref="ex1">36&ndash;42</span>. Counting
+the call to the <code>math.sqrt</code> method at line&nbsp;40 as one
+operator, the traditional quadratic formula requires 11 computations.
+Now count the number of arithmetic operators in the
+<code>poshenloh</code> method at lines
+<span class="cross" data-ref="ex1">70&ndash;75</span>. Counting in the
+same way as we counted for the <code>quadratic</code> method, Loh’s
+method requires 9 computations, which is fewer than the 11 required by
+the traditional quadratic formula.</p>
+
+<div class="modified">Last modified: 2022-08-25</div>
 </article>
 </body>
 </html>
