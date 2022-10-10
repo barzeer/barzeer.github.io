@@ -7,13 +7,14 @@ if (! window.hasOwnProperty('smartDev')) {
 smartDev.pageViews = {
 	initFirebase : function() {
 		if (! firebase.apps.length) {
-			let config = {
-				apiKey: 'AIzaSyAnFi9Z3H4V1yaC1JMDtxuuoNdMecLFw-k',
-				authDomain: 'cse111.firebaseapp.com',
-				projectId: 'cse111',
-				storageBucket: 'cse111.appspot.com',
-				messagingSenderId: '735777231553',
-				appId: '1:735777231553:web:6579714c57ba923839ba40'
+			const config = {
+				apiKey: "AIzaSyCedeJh8BVhSTfgxDaIQ0KaHDaM-4pAkCw",
+				authDomain: "page-views-1.firebaseapp.com",
+				databaseURL: "https://page-views-1-default-rtdb.firebaseio.com",
+				projectId: "page-views-1",
+				storageBucket: "page-views-1.appspot.com",
+				messagingSenderId: "61297772601",
+				appId: "1:61297772601:web:51f03bc4f1fbd7d54ca5e8"
 			};
 
 			// Initialize Firebase.

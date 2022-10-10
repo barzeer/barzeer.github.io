@@ -1,6 +1,6 @@
 "use strict";
 
-if (!window.hasOwnProperty('smartDev')) {
+if (! window.hasOwnProperty('smartDev')) {
 	window.smartDev = {
 		/** Reorganizes the structure of the home index.html
 		 * file. Surrounds the article with this structure:

@@ -30,7 +30,7 @@ smartDev.pageViews.writeView = function(source, target) {
 		const tzo = new Date().getTimezoneOffset();
 
 		let db = this.initDatabase();
-		let ref = db.ref('/views/' + target);
+		let ref = db.ref('/barzeer-github-io/' + target);
 		let obj = {
 			'referrer':source,
 			'when':firebase.database.ServerValue.TIMESTAMP,
