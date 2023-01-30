@@ -34,10 +34,10 @@ normal form and is therefore normalized to third normal form.</p>
 <h3>Violates First Normal Form</h3>
 <p>The following ERD and corresponding data table violate first normal
 form, because there are lists in the tracks column. The lists in the
-racks column are problematic because some of the track names, such as
-“Jesu, Joy of Man’s Desiring”, include commas. How will the computer
-distinguish between a comma that is part of a track name and a comma
-that separates track names?</p>
+tracks column are problematic because some of the track titles, such as
+“Something, etc.”, include commas. How will the computer distinguish
+between a comma that is part of a track title and a comma that separates
+track titles?</p>
 
 <figure class="erd_data">
     <img style="width:8em" src="music/zero_normal_1.svg"
@@ -121,9 +121,10 @@ search in all the track columns which is inefficient.</p>
 <h3>Violates Second Normal Form</h3>
 <p>The next ERD and corresponding data table are normalized to first
 normal form because there are no lists within cells and no lists of
-columns. However, they violate second normal form because the track
-table contains sub-themes. Album and artist are sub-themes within the
-track table and should be separated.</p>
+columns and each table has a primary key. However, they violate second
+normal form because the track table contains sub-themes. Album and
+artist are sub-themes within the track table and should be
+separated.</p>
 
 <figure class="erd_data">
     <img style="width:8em" src="music/first_normal.svg"
@@ -133,39 +134,40 @@ track table and should be separated.</p>
 
     <div><table class="data left">
     <caption class="name">album</caption><thead>
-    <tr><th scope="col">albumTitle</th>
+    <tr><th scope="col">albumKey</th>
+        <th scope="col">albumTitle</th>
         <th scope="col">yearReleased</th>
         <th scope="col">label</th>
-        <th scope="col">track</th>
-        <th scope="col">length</th>
+        <th scope="col">trackTitle</th>
+        <th scope="col">duration</th>
         <th scope="col">artist</th>
         <th scope="col">artistCountry</th></tr>
     </thead><tbody>
-        <tr><td>Abbey Road</td> <td class="center">1969</td>
+        <tr><td>ABRD</td> <td>Abbey Road</td> <td class="center">1969</td>
             <td>Apple</td>
             <td>Here Comes the Sun</td> <td class="number">3:06</td>
             <td>Beatles</td> <td class="center">UK</td></tr>
-        <tr><td>Abbey Road</td> <td class="center">1969</td>
+        <tr><td>ABRD</td> <td>Abbey Road</td> <td class="center">1969</td>
             <td>Apple</td>
             <td>Octopus’s Garden</td> <td class="number">2:48</td>
             <td>Beatles</td> <td class="center">UK</td></tr>
-        <tr><td>Abbey Road</td> <td class="center">1969</td>
+        <tr><td>ABRD</td> <td>Abbey Road</td> <td class="center">1969</td>
             <td>Apple</td>
             <td>Something</td> <td class="number">2:59</td>
             <td>Beatles</td> <td class="center">UK</td></tr>
-        <tr><td>Fearless</td> <td class="center">2008</td>
+        <tr><td>FRLS</td> <td>Fearless</td> <td class="center">2008</td>
             <td>Big Machine Records</td>
             <td>Love Story</td> <td class="number">3:57</td>
             <td>Taylor Swift</td> <td class="center">US</td></tr>
-        <tr><td>Fearless</td> <td class="center">2008</td>
+        <tr><td>FRLS</td> <td>Fearless</td> <td class="center">2008</td>
             <td>Big Machine Records</td>
             <td>White Horse</td> <td class="number">3:55</td>
             <td>Taylor Swift</td> <td class="center">US</td></tr>
-        <tr><td>Fearless</td> <td class="center">2008</td>
+        <tr><td>FRLS</td> <td>Fearless</td> <td class="center">2008</td>
             <td>Big Machine Records</td>
             <td>You Belong with Me</td> <td class="number">3:52</td>
             <td>Taylor Swift</td> <td class="center">US</td></tr>
-        <tr><td>Fearless</td> <td class="center">2008</td>
+        <tr><td>FRLS</td> <td>Fearless</td> <td class="center">2008</td>
             <td>Big Machine Records</td>
             <td>Fifteen</td> <td class="number">4:55</td>
             <td>Taylor Swift</td> <td class="center">US</td></tr>
@@ -206,7 +208,7 @@ because the artistCountry column is not determined by the primary key
     <caption class="name">track</caption><thead>
         <tr><th scope="col">trackKey</th>
             <th scope="col">trackTitle</th>
-            <th scope="col">length</th>
+            <th scope="col">duration</th>
             <th scope="col">artist</th>
             <th scope="col">artistCountry</th>
             <th scope="col">albumKey</th></tr>
@@ -269,7 +271,7 @@ say the design is normalized to third normal form.</p>
     <caption class="name">track</caption><thead>
         <tr><th scope="col">trackKey</th>
             <th scope="col">trackTitle</th>
-            <th scope="col">length</th>
+            <th scope="col">duration</th>
             <th scope="col">albumKey</th>
             <th scope="col">artistKey</th></tr>
     </thead><tbody>
@@ -760,7 +762,7 @@ say the design is normalized to third normal form.</p>
             <th scope="col">magazineKey</th>
             <th scope="col">subscriberKey</th>
             <th scope="col">startDate</th>
-            <th scope="col">length</th></tr>
+            <th scope="col">duration</th></tr>
     </thead><tbody>
         <tr><td class="key">1</td>
             <td class="key">1</td> <td class="key">1</td>

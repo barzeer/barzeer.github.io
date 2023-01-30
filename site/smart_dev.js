@@ -328,7 +328,7 @@ if (! window.hasOwnProperty('smartDev')) {
 			document.removeEventListener('copy', listener);
 
 			// Select the text as a hint to the user that it was
-			// copied to clipboard. Selecting the text is not
+			// copied to the clipboard. Selecting the text is not
 			// necessary for copying the text to the clipboard.
 			// Selecting the text is simply feedback to the user.
 			const select = window.getSelection();
