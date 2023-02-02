@@ -5,10 +5,10 @@ if (! window.hasOwnProperty('barzee')) {
 }
 
 barzee.symbols = {
+
 	makeButtons : function() {
 		const article = document.body.querySelector('article');
 		const textarea = article.querySelector('textarea');
-
 
 		function copyFunc(event) {
 			const button = event.target;
@@ -38,7 +38,8 @@ barzee.symbols = {
 			let end = textarea.selectionEnd;
 			let currval = textarea.value;
 			let newval = currval.substring(0, start) + text +
-				currval.substring(end, currval.length);
+				currval.substring(end, currval.length) +
+				'\n(' + x + ', ' + y + ')';
 			start++;
 			textarea.value = newval;
 			textarea.focus();
@@ -46,16 +47,18 @@ barzee.symbols = {
 
 			// Reset the scroll position to what it was before inserting
 			// the text into the textarea.
-			window.scrollTo(x, y);
+			window.scroll(x, y);
+			textarea.value += '\nscrolled';
 
 			// Copy the text to the clipboard.
-			const listener = function(event) {
+			function listener(event) {
 				event.clipboardData.setData('text/plain', text);
 				event.preventDefault();
-			};
+			}
 			document.addEventListener('copy', listener);
 			document.execCommand('copy');
 			document.removeEventListener('copy', listener);
+			textarea.value += '\ncopied to clipboard';
 		}
 
 
