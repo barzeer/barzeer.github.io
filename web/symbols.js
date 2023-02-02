@@ -61,10 +61,14 @@ barzee.symbols = {
 				 Double('right single quote', '&rsquo;',
 						'right double quote', '&rdquo;')]),
 
-			Group('Dashes', 'dashes',
+			Group('Punctuation', 'punc',
 				[Single('em dash', '&mdash;'),
 				 Single('en dash', '&ndash;'),
-				 Single('non-breaking hyphen', '&#x2011;')]),
+				 Single('non-breaking hyphen', '&#x2011;'),
+				 Single('horizontal ellipsis', '&hellip;'),
+				 Single('vertical ellipsis', '&vellip;'),
+				 Single('inverted question mark', '&#x00bf;'),
+				 Single('inverted exclamation mark', '&#x00a1;')]),
 
 			Group('Latin Letters with Accents', 'latin',
 				[Double('lower a with grave', '&agrave;',
@@ -220,8 +224,6 @@ barzee.symbols = {
 			Group('Others', 'others',
 				[Single('section', '&sect;'),
 				 Single('paragraph', '&para;'),
-				 Single('horizontal ellipsis', '&hellip;'),
-				 Single('vertical ellipsis', '&vellip;'),
 				 Single('copyright', '&copy;'),
 				 Single('registered trademark', '&reg;')])
 		];
