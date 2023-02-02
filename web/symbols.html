@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copy Unicode Characters</title>
+    <link rel="canonical" href="https://barzeer.github.io/web/symbols.html">
+
+    <script defer src="../site/barzee.js"></script>
+    <script defer src="../site/article.js"></script>
+    <script defer src="symbols.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script defer src="../site/page_views.js"></script>
+    <script defer src="../site/page_views_write.js"></script>
+
+    <meta name="description" content="Enables a developer or writer to easily copy and paste common Unicode characters into a document">
+    <script type="application/ld+json"> {
+        "@context": "https://schema.org/",
+        "@type": "Article",
+        "headline": "Copy Unicode Characters",
+        "description": "Enables a developer or writer to easily copy and paste common Unicode characters into a document",
+        "copyrightNotice": "Copyright © 2023, Rex A. Barzee. All rights reserved.",
+        "datePublished": "2023-02-01",
+        "dateModified": "2023-02-01",
+        "author": {
+            "@type": "Person",
+            "name": "Rex A. Barzee",
+            "url": "https://www.linkedin.com/in/rex-barzee-306a0b37/"
+        }
+    } </script>
+
+    <link rel="icon" type="image/png" href="../site/icons/icon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Source+Code+Pro&family=Neucha&display=swap">
+    <link rel="stylesheet" href="../site/reset.css">
+    <link rel="stylesheet" href="../site/style.css">
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, Verdana, sans-serif;
+        }
+
+        div.buttons {
+            display: grid;
+            grid-gap: 0.3em 0.5em;
+        }
+        @media (max-width: 600px) {
+            /* Small screens */
+            div.buttons {
+                grid-template-columns: repeat(auto-fit, minmax(1.5em, 3em));
+            }
+        }
+        @media (min-width: 600px) {
+            /* Medium and large screens */
+            div.buttons {
+                grid-template-columns: repeat(11, minmax(1.5em, 3em));
+            }
+        }
+
+        button {
+            font-size: 160%;
+            min-width: 1.5em;
+        }
+
+        textarea {
+            margin: 2em 0 1em 0;
+            font-family: inherit;
+            font-size: 140%;
+            width: 97%;
+            max-width: 27em;
+            height: 4.6em;
+            padding: 0.3em;
+        }
+    </style>
+</head>
+
+<body>
+<article>
+<h1>Copy Unicode Characters</h1>
+<p>To easily copy a unicode character into your document, do the
+following:</p>
+<ol>
+    <li><div>Click one of the unicode character buttons below, which
+    will copy the character to your computer’s clipboard.</div></li>
+    <li><div>Paste the character into your document.</div></li>
+</ol>
+<p>You can copy upper case or other characters by pressing the Caps Lock
+key or by pressing and holding one of the Shift keys.</p>
+
+<textarea></textarea>
+<div class="modified">Last modified: 2023-02-01</div>
+</article>
+</body>
+</html>

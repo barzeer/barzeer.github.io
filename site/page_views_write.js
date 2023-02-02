@@ -1,21 +1,21 @@
-"use strict";
+'use strict';
 
 /* The pageViews object
  * All other links (links to internal, non-downloaded documents) are
  * recorded when the document loads. */
 
 
-smartDev.pageViews.barzeer = /(file:\/\/\/.+\/barzeer\.github\.io\/|https:\/\/barzeer\.github\.io\/)/;
-smartDev.pageViews.protocol = /[^:]+:\/+/;
+barzee.pageViews.barzeer = /(file:\/\/\/.+\/barzeer\.github\.io\/|https:\/\/barzeer\.github\.io\/)/;
+barzee.pageViews.protocol = /[^:]+:\/+/;
 
 
-smartDev.pageViews.recordDoc = function() {
-	smartDev.pageViews.writeView(document.referrer, window.location.href);
+barzee.pageViews.recordDoc = function() {
+	barzee.pageViews.writeView(document.referrer, window.location.href);
 };
 
 
 /** Records that a user viewed a document. */
-smartDev.pageViews.writeView = function(source, target) {
+barzee.pageViews.writeView = function(source, target) {
 	try {
 		const barzeer = this.barzeer;
 		const protocol = this.protocol;
@@ -48,4 +48,4 @@ smartDev.pageViews.writeView = function(source, target) {
 };
 
 
-window.addEventListener('DOMContentLoaded', smartDev.pageViews.recordDoc);
+window.addEventListener('DOMContentLoaded', barzee.pageViews.recordDoc);

@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 
-if (! window.hasOwnProperty('smartDev')) {
-	window.smartDev = {};
+if (! window.hasOwnProperty('barzee')) {
+	window.barzee = {};
 }
 
-smartDev.pageViews = {
+barzee.pageViews = {
 	initFirebase : function() {
 		if (! firebase.apps.length) {
 			const config = {
@@ -81,4 +81,4 @@ smartDev.pageViews = {
 };
 
 
-smartDev.pageViews.makeEncodings();
+barzee.pageViews.makeEncodings();

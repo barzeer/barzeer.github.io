@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
-if (window.hasOwnProperty('smartDev')) {
+if (window.hasOwnProperty('barzee')) {
 	window.addEventListener('DOMContentLoaded', function() {
-		smartDev.surroundIndex();
+		barzee.surroundIndex();
 	});
 }

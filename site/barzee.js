@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
-if (! window.hasOwnProperty('smartDev')) {
-	window.smartDev = {
+if (! window.hasOwnProperty('barzee')) {
+	window.barzee = {
 		/** Reorganizes the structure of the home index.html
 		 * file. Surrounds the article with this structure:
 		 * <body>
@@ -119,13 +119,13 @@ if (! window.hasOwnProperty('smartDev')) {
 			const items = [
 				['python', 'Python'],
 				['js', 'JavaScript'],
-				['java', 'Java'],
+				['web', 'Web'],
 				['c_cpp', 'C and C++'],
-				['shell', 'Shell Scripts'],
+				['java', 'Java'],
 				['database', 'Database'],
-				//['modeling', 'Modeling'],
 				['excel', 'Excel'],
-				['math', 'Math']
+				['math', 'Math'],
+				['shell', 'Shell Scripts']
 			];
 			for (let i = 0;  i < items.length;  ++i) {
 				let direc = items[i][0];

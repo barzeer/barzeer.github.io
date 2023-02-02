@@ -1,13 +1,13 @@
-"use strict";
+'use strict';
 
-if (window.hasOwnProperty('smartDev')) {
+if (window.hasOwnProperty('barzee')) {
 	window.addEventListener('DOMContentLoaded', function() {
-		smartDev.surroundArticle();
-		smartDev.addLineNumbers();
-		smartDev.addCopyButtons();
-		smartDev.addCrossRefs();
-		smartDev.addHighlights();
-		smartDev.shadeDataRows();
+		barzee.surroundArticle();
+		barzee.addLineNumbers();
+		barzee.addCopyButtons();
+		barzee.addCrossRefs();
+		barzee.addHighlights();
+		barzee.shadeDataRows();
 	});
 
 	/*
