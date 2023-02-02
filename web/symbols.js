@@ -8,57 +8,19 @@ barzee.symbols = {
 
 	makeButtons : function() {
 		const article = document.body.querySelector('article');
-		const textarea = article.querySelector('textarea');
 
 		function copyFunc(event) {
-			const button = event.target;
-			const text = button.innerHTML;
+			const text = event.target.innerHTML;
 
-			// Get the current scroll position of the document because
-			// in order for .setSelectionRange() to work, we must call
-			// .focus(), and calling .focus() causes the page to jump to
-			// the textarea.
-			//
-			// It seems to be incredibly difficult to reliably get the
-			// scroll position in all browsers.
-			const x = window.pageXOffset || window.scrollX ||
-					window.scrollLeft ||
-					document.body.scrollLeft ||
-					document.documentElement.scrollLeft ||
-					document.getElementsByTagName('html')[0].scrollLeft;
-			const y = window.pageYOffset || window.scrollY ||
-					window.scrollTop ||
-					document.body.scrollTop ||
-					document.documentElement.scrollTop ||
-					document.getElementsByTagName('html')[0].scrollTop;
-
-			// Copy the text into the textarea
-			// at the bottom of the document.
-			let start = textarea.selectionStart;
-			let end = textarea.selectionEnd;
-			let currval = textarea.value;
-			let newval = currval.substring(0, start) + text +
-				currval.substring(end, currval.length) +
-				'\n(' + x + ', ' + y + ')';
-			start++;
-			textarea.value = newval;
-			textarea.focus();
-			textarea.setSelectionRange(start, start, 'forward');
-
-			// Reset the scroll position to what it was before inserting
-			// the text into the textarea.
-			window.scroll(x, y);
-			textarea.value += '\nscrolled';
-
-			// Copy the text to the clipboard.
 			function listener(event) {
 				event.clipboardData.setData('text/plain', text);
 				event.preventDefault();
 			}
+
+			// Copy the text to the clipboard.
 			document.addEventListener('copy', listener);
 			document.execCommand('copy');
 			document.removeEventListener('copy', listener);
-			textarea.value += '\ncopied to clipboard';
 		}
 
 
@@ -271,7 +233,7 @@ barzee.symbols = {
 			// append it to the document article.
 			let heading = document.createElement('h2');
 			heading.innerText = group.heading;
-			article.insertBefore(heading, textarea);
+			article.appendChild(heading);
 
 			// Create a div that will contain buttons.
 			let div = document.createElement('div');
@@ -283,7 +245,7 @@ barzee.symbols = {
 			}
 
 			// Append the new div to the document article.
-			article.insertBefore(div, textarea);
+			article.appendChild(div);
 		}
 	},
 
