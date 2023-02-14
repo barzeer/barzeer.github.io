@@ -127,15 +127,13 @@ if (! window.hasOwnProperty('barzee')) {
 				['math', 'Math'],
 				['shell', 'Shell Scripts']
 			];
-			for (let i = 0;  i < items.length;  ++i) {
-				let direc = items[i][0];
-				let name = items[i][1];
+			for (let [directory, name] of items) {
 				let li = this.createElem('li');
 				let div = this.createElem('div');
-				let a = (direc == folder ?
+				let a = (directory == folder ?
 						this.createElem('em', null, null, name) :
 						this.createElem('a', null,
-								{'href': prefix + direc + suffix}, name));
+								{'href': prefix + directory + suffix}, name));
 				div.appendChild(a);
 				li.appendChild(div);
 				ul.appendChild(li);
@@ -228,8 +226,7 @@ if (! window.hasOwnProperty('barzee')) {
 			}
 			if (attrs) {
 				for (let name in attrs) {
-					let value = attrs[name];
-					elem.setAttribute(name, value);
+					elem.setAttribute(name, attrs[name]);
 				}
 			}
 			if (text) {
@@ -246,18 +243,17 @@ if (! window.hasOwnProperty('barzee')) {
 
 
 		/** Fetches the contents from many files on the server. */
-		fetchFiles : function(protocol, folder, filenames) {
+		fetchFiles : function(protocol, folder, examples) {
 			const self = this;
 
-			const encode = function(html) {
+			function encode(html) {
 				return html
 					.replaceAll('&', '&amp;')
 					.replaceAll('<', '&lt;')
 					.replaceAll('>', '&gt;');
-			};
+			}
 
-			for (let i = 0;  i < filenames.length;  ++i) {
-				let filename = filenames[i][1];
+			for (let [container, filename] of examples) {
 				let pathname = folder + '/' + filename;
 				if (protocol == 'file:') {
 					pathname = 'https://barzeer.github.io/' + pathname;
@@ -269,7 +265,7 @@ if (! window.hasOwnProperty('barzee')) {
 						let encoded = encode(text);
 						elem.innerHTML = encoded;
 					};
-				})(filenames[i][0]);
+				})(container);
 
 				fetch(pathname)
 				.then(function (response) {
@@ -288,22 +284,27 @@ if (! window.hasOwnProperty('barzee')) {
 		},
 
 
-		/** Adds line numbers to all pre elements with class linenums. */
+		/** Adds line numbers to all <pre class="linenums"> elements. */
 		addLineNumbers : function() {
 			const newline = /\n|<br>/g;
-			const elems = document.querySelectorAll('pre.linenums');
-			for (let i = 0;  i < elems.length;  ++i) {
-				let elem = elems[i];
-				let code = elem.nextElementSibling.innerHTML;
-				let count = code.split(newline).length;
+			const elements = document.querySelectorAll('pre.linenums');
+			for (let pre of elements) {
+				let code = pre.nextElementSibling.innerHTML;
+				if (code.length > 0) {
 
-				let span = this.createElem('span', null, null, '1');
-				elem.appendChild(span);
-				for (let n = 2;  n <= count;  ++n) {
-					elem.appendChild(this.createText('\n'));
-					let span = this.createElem('span',
-							null, null, n.toString());
-					elem.appendChild(span);
+					// If the pre.linenums element contains
+					// any children nodes, remove them.
+					pre.replaceChildren();
+
+					let span = this.createElem('span', null, null, '1');
+					pre.appendChild(span);
+					let count = code.split(newline).length;
+					for (let n = 2;  n <= count;  ++n) {
+						pre.appendChild(this.createText('\n'));
+						let span = this.createElem('span',
+								null, null, n.toString());
+						pre.appendChild(span);
+					}
 				}
 			}
 		},
@@ -317,12 +318,13 @@ if (! window.hasOwnProperty('barzee')) {
 
 
 		copyToClipboard : function(pre) {
-			// Copy the text to the clipboard.
 			const text = pre.textContent;
-			const listener = function(event) {
+
+			// Copy the text to the clipboard.
+			function listener(event) {
 				event.clipboardData.setData('text/plain', text);
 				event.preventDefault();
-			};
+			}
 			document.addEventListener('copy', listener);
 			document.execCommand('copy');
 			document.removeEventListener('copy', listener);
@@ -339,36 +341,9 @@ if (! window.hasOwnProperty('barzee')) {
 		},
 
 
-		/** Adds a button to all div.pre elements that will copy to the
-		 * clipboard, the code that is within the div's pre.code child
-		 * element. */
-		addCopyButtons : function() {
-			const self = this;
-			const copyFunc = function(event) {
-				const button = event.currentTarget;
-				const div = button.parentElement;
-				const pre = div.querySelector('pre.code');
-				self.copyToClipboard(pre);
-			};
-
-			const elems = document.querySelectorAll('div.pre');
-			for (let i = 0;  i < elems.length;  ++i) {
-				let image = this.createElem('img', null,
-						{'src': '../site/icons/copy.png',
-						 'alt': 'Copy code to the clipboard'});
-				let button = this.createElem('button', 'copy',
-						{'type': 'button',
-						 'title': 'Copy code to the clipboard'});
-				button.addEventListener('click', copyFunc);
-				button.appendChild(image);
-				elems[i].appendChild(button);
-			}
-		},
-
-
 		/** Adds code and classes to line number cross references. */
 		addCrossRefs : function() {
-			const getReferences = function(target) {
+			function getReferences(target) {
 				const space = /(\s|&nbsp;|<br>)+/g;
 
 				// Notice the dash and en dash in the character class.
@@ -377,15 +352,14 @@ if (! window.hasOwnProperty('barzee')) {
 				let text = target.innerText;
 				let candidates = text.split(space);
 				let references = [];
-				for (let i = 0;  i < candidates.length;  ++i) {
-					let candidate = candidates[i];
+				for (let candidate of candidates) {
 					if (dash.test(candidate)) {
 						let limits = candidate.split(dash);
 						let start = parseInt(limits[0]);
 						let end = parseInt(limits[1]);
 						if (! (Number.isNaN(start) || Number.isNaN(end))) {
-							for (let j = start;  j <= end;  ++j) {
-								references.push(j);
+							for (let n = start;  n <= end;  ++n) {
+								references.push(n);
 							}
 						}
 					}
@@ -397,47 +371,45 @@ if (! window.hasOwnProperty('barzee')) {
 					}
 				}
 				return references;
-			};
+			}
 
-			const getAllLineNumbers = function(target) {
+			function getAllLineNumbers(target) {
 				let refId = target.getAttribute('data-ref');
 				let div = document.getElementById(refId);
-				let lineNumPre = div.getElementsByTagName('pre')[0];
+				let lineNumPre = div.querySelector('pre.linenums');
 				return lineNumPre.children;
-			};
+			}
 
-			const findLineNumber = function(lineNumbers, key) {
+			function getLineNumber(lineNumbers, key) {
 				// The line numbers begin with 1 at index 0 and are
 				// sequential, so it's easy to find and return the
 				// span with the desired line number.
 				return lineNumbers[key - 1];
-			};
+			}
 
-			const on = function(event) {
+			function on(event) {
 				/** Turn on highlighting for one or more line numbers. */
 				let target = event.target;
 				let lineNumbers = getAllLineNumbers(target);
 				let references = getReferences(target);
-				for (let i = 0;  i < references.length;  ++i) {
-					let number = references[i];
-					let elem = findLineNumber(lineNumbers, number);
+				for (let number of references) {
+					let elem = getLineNumber(lineNumbers, number);
 					elem.classList.add('hi');
 				}
-			};
+			}
 
-			const off = function(event) {
+			function off(event) {
 				/** Turn off highlighting for one or more line numbers. */
 				let target = event.target;
 				let lineNumbers = getAllLineNumbers(target);
 				let references = getReferences(target);
-				for (let i = 0;  i < references.length;  ++i) {
-					let number = references[i];
-					let elem = findLineNumber(lineNumbers, number);
+				for (let number of references) {
+					let elem = getLineNumber(lineNumbers, number);
 					elem.classList.remove('hi');
 				}
-			};
+			}
 
-			const toggle = function(event) {
+			function toggle(event) {
 				let target = event.target;
 				let state = target.getAttribute('data-on');
 				if (state == null) {
@@ -456,9 +428,8 @@ if (! window.hasOwnProperty('barzee')) {
 					// so turn off the highlights.
 					let lineNumbers = getAllLineNumbers(target);
 					let references = getReferences(target);
-					for (let i = 0;  i < references.length;  ++i) {
-						let number = references[i];
-						let elem = findLineNumber(lineNumbers, number);
+					for (number of references) {
+						let elem = getLineNumber(lineNumbers, number);
 						elem.classList.remove('hi');
 					}
 					target.removeAttribute('data-on');
@@ -466,12 +437,11 @@ if (! window.hasOwnProperty('barzee')) {
 					target.addEventListener('mouseout', off);
 					target.setAttribute('title', 'Move mouse over to turn on highlights.\nClick to keep highlights on.');
 				}
-			};
+			}
 
-			// Add event handlers to each span that has a class of 'cross'.
+			// Add event handlers to each <span class="cross"> element.
 			let targets = document.querySelectorAll('span.cross');
-			for (let i = 0;  i < targets.length;  ++i) {
-				let target = targets[i];
+			for (let target of targets) {
 				target.addEventListener('mouseover', on);
 				target.addEventListener('mouseout', off);
 				target.addEventListener('click', toggle);
@@ -480,56 +450,77 @@ if (! window.hasOwnProperty('barzee')) {
 		},
 
 
+		/** Adds a button to all div.pre elements that will copy to the
+		 * clipboard, the code that is within the div's pre.code child
+		 * element. */
+		addCodeCopyButtons : function() {
+			const self = this;
+			function copyFunc(event) {
+				const button = event.currentTarget;
+				const div = button.parentElement;
+				const pre = div.querySelector('pre.code');
+				self.copyToClipboard(pre);
+			}
+
+			const elements = document.querySelectorAll('div.pre');
+			for (let div of elements) {
+				let image = this.createElem('img', null,
+						{'src': '../site/icons/copy.png',
+						 'alt': 'Copy code to the clipboard'});
+				let button = this.createElem('button', 'copy',
+						{'type': 'button',
+						 'title': 'Copy code to the clipboard'});
+				button.addEventListener('click', copyFunc);
+				button.appendChild(image);
+				div.appendChild(button);
+			}
+		},
+
+
 		addHighlights : function() {
-			const on = function(event) {
+			function on(event) {
 				let target = event.currentTarget;
 				let idents = target.getAttribute('data-high').split(' ');
-				for (let i = 0;  i < idents.length;  ++i) {
-					let id = idents[i];
+				for (let id of idents) {
 					let elem = document.getElementById(id);
 					elem.classList.add('highlight');
 				}
-			};
+			}
 
-			const off = function(event) {
+			function off(event) {
 				let target = event.currentTarget;
 				let idents = target.getAttribute('data-high').split(' ');
-				for (let i = 0;  i < idents.length;  ++i) {
-					let id = idents[i];
+				for (let id of idents) {
 					let elem = document.getElementById(id);
 					elem.classList.remove('highlight');
 				}
-			};
+			}
 
-			const on2 = function(event) {
+			function on2(event) {
 				let target = event.currentTarget;
 				let idents = target.getAttribute('data-high2').split(' ');
-				for (let i = 0;  i < idents.length;  ++i) {
-					let id = idents[i];
+				for (let id of idents) {
 					let elem = document.getElementById(id);
 					elem.classList.add('highlight2');
 				}
-			};
+			}
 
-			const off2 = function(event) {
+			function off2(event) {
 				let target = event.currentTarget;
 				let idents = target.getAttribute('data-high2').split(' ');
-				for (let i = 0;  i < idents.length;  ++i) {
-					let id = idents[i];
+				for (let id of idents) {
 					let elem = document.getElementById(id);
 					elem.classList.remove('highlight2');
 				}
-			};
+			}
 
 			let elements = document.querySelectorAll('[data-high]');
-			for (let i = 0;  i < elements.length;  ++i) {
-				let elem = elements[i];
+			for (let elem of elements) {
 				elem.addEventListener('mouseover', on);
 				elem.addEventListener('mouseout', off);
 			}
 			elements = document.querySelectorAll('[data-high2]');
-			for (let i = 0;  i < elements.length;  ++i) {
-				let elem = elements[i];
+			for (let elem of elements) {
 				elem.addEventListener('mouseover', on2);
 				elem.addEventListener('mouseout', off2);
 			}
@@ -539,8 +530,7 @@ if (! window.hasOwnProperty('barzee')) {
 		/** Add the "shaded" class to every third row in data tables. */
 		shadeDataRows : function() {
 			let tables = document.querySelectorAll('table.data');
-			for (let t = 0;  t < tables.length;  ++t) {
-				let table = tables[t];
+			for (let table of tables) {
 				let rows = table.querySelectorAll('tbody tr');
 				for (let r = 2;  r < rows.length;  r += 3) {
 					rows[r].classList.add('shaded');

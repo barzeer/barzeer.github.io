@@ -40,6 +40,8 @@
             font-family: Arial, Helvetica, Verdana, sans-serif;
         }
 
+        #quarry { display: none; }
+
         div.buttons {
             display: grid;
             grid-gap: 0.3em 0.5em;
@@ -56,15 +58,32 @@
                 grid-template-columns: repeat(11, minmax(1.5em, 3em));
             }
         }
+        div.buttons.arrows {
+            grid-template-columns: repeat(3, minmax(1.5em, 3em));
+        }
+        div.buttons.control {
+            grid-template-columns: repeat(7, minmax(1.5em, 3em));
+        }
 
         button {
             font-size: 160%;
             min-width: 1.5em;
         }
+        div.buttons.control button {
+            font-size: 100%;
+            line-height: 1.6;
+        }
+
+        div.charToHex {
+            display: grid;
+            grid-template-columns: max-content auto;
+            grid-gap: 0.3em 0.5em;
+        }
     </style>
 </head>
 
 <body>
+<span id="quarry"></span>
 <article>
 <h1>Copy Unicode Characters</h1>
 <p>To easily copy a unicode character into your document, do the
@@ -77,6 +96,17 @@ following:</p>
 <p>You can copy upper case or other characters by pressing the Caps Lock
 key or by pressing and holding one of the Shift keys.</p>
 
+<h2 id="unknown">Investigate Unknown Characters</h2>
+<p>If you have unknown characters in a document, copy and paste them
+into the input box below, and this page will display the corresponding
+Unicode numbers. Then you can search for the numbers in the official
+<a href="https://unicode.org/charts/">Unicode Charts</a></p>
+
+<div class="charToHex">
+    <span>Characters:</span>
+    <input type="text" oninput="barzee.symbols.charToHex(event)">
+    <span>Unicode (hex):</span> <span class="hex"></span>
+</div>
 <div class="modified">Last modified: 2023-02-01</div>
 </article>
 </body>

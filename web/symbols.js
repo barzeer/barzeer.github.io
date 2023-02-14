@@ -4,13 +4,15 @@ if (! window.hasOwnProperty('barzee')) {
 	window.barzee = {};
 }
 
-barzee.symbols = {
+barzee.unicode = {
 
 	makeButtons : function() {
+		const quarry = document.getElementById('quarry');
 		const article = document.body.querySelector('article');
 
 		function copyFunc(event) {
-			const text = event.target.innerHTML;
+			//const text = event.target.innerHTML;
+			const text = event.target.getAttribute('data-symbol');
 
 			function listener(event) {
 				event.clipboardData.setData('text/plain', text);
@@ -24,33 +26,46 @@ barzee.symbols = {
 		}
 
 
+		function symbolFromEntity(entity) {
+			quarry.innerHTML = entity;
+			return quarry.textContent;
+		}
+
+
 		function Group(heading, clss, buttons) {
 			return {heading: heading, clss: clss, buttons: buttons};
 		}
 
+		function Space() {
+			return document.createElement('span');
+		}
+
 		function Single(name, entity) {
+			const symbol = symbolFromEntity(entity);
 			let button = document.createElement('button');
 			button.setAttribute('type', 'button');
-			button.setAttribute('data-title', name);
-			button.setAttribute('data-shift-title', name);
-			button.setAttribute('data-entity', entity);
-			button.setAttribute('data-shift-entity', entity);
+			button.setAttribute('data-symbol', symbol);
 			button.setAttribute('title', name);
-			button.innerHTML = entity;
+			button.textContent = symbol;
 			button.addEventListener('click', copyFunc);
 			return button;
 		}
 
 		function Double(name, entity, shiftName, shiftEntity) {
-			let button = document.createElement('button');
-			button.setAttribute('type', 'button');
+			let button = Single(name, entity);
+			const symbol = button.getAttribute('data-symbol');
+			const shiftSymbol = symbolFromEntity(shiftEntity);
 			button.setAttribute('data-title', name);
+			button.setAttribute('data-entity', symbol);
 			button.setAttribute('data-shift-title', shiftName);
-			button.setAttribute('data-entity', entity);
-			button.setAttribute('data-shift-entity', shiftEntity);
-			button.setAttribute('title', name);
-			button.innerHTML = entity;
-			button.addEventListener('click', copyFunc);
+			button.setAttribute('data-shift-entity', shiftSymbol);
+			return button;
+		}
+
+		function Control(name, abbrev, entity) {
+			let button = Single(name, abbrev);
+			const symbol = symbolFromEntity(entity);
+			button.setAttribute('data-symbol', symbol);
 			return button;
 		}
 
@@ -173,46 +188,57 @@ barzee.symbols = {
 						'upper Omega;', '&Omega;')]),
 
 			Group('Mathematical', 'math',
-				[Double('times', '&times;',
-						'one tenth', '&#x2152;'),
-				 Double('divide', '&div;',
-						'one ninth', '&#x2151;'),
-				 Double('plus', '&plus;',
-						'one eighth', '&frac18;'),
-				 Double('minus', '&minus;',
-						'one seventh', '&#x2150;'),
+				[Single('times', '&times;'),
+				 Single('divide', '&div;'),
+				 Single('plus', '&plus;'),
+				 Single('minus', '&minus;'),
 				 Double('square root', '&#x221a;',
-						'one sixth', '&frac16;'),
+						'one tenth', '&#x2152;'),
 				 Double('cube root', '&#x221b;',
-						'one fifth', '&frac15;'),
+						'one ninth', '&#x2151;'),
 				 Double('quad root', '&#x221c;',
-						'one fourth', '&frac14;'),
+						'one eighth', '&frac18;'),
 				 Double('less than or equal', '&#x2264;',
-						'one third', '&frac13;'),
+						'one seventh', '&#x2150;'),
 				 Double('greater than or equal', '&#x2265;',
-						'three eighths', '&frac38;'),
+						'one sixth', '&frac16;'),
 				 Double('not equal', '&#x2260;',
-						'two fifths', '&frac25;'),
+						'one fifth', '&frac15;'),
 				 Double('equivalent', '&#x2248;',
-						'one half', '&frac12;'),
+						'one fourth', '&frac14;'),
 				 Double('not equivalent', '&#x2249;',
-						'three fifths', '&frac35;'),
+						'one third', '&frac13;'),
 				 Double('degrees', '&deg;',
-						'five eighths', '&frac58;'),
+						'three eighths', '&frac38;'),
 				 Double('infinity', '&infin;',
-						'two thirds', '&frac23;'),
+						'two fifths', '&frac25;'),
 				 Double('for each', '&#x2203;',
-						'three fourths', '&frac34;'),
+						'one half', '&frac12;'),
 				 Double('for all', '&#x2200;',
-						'four fifths', '&frac45;'),
+						'three fifths', '&frac35;'),
 				 Double('element of', '&#x2208;',
-						'five sixths', '&frac56;'),
+						'five eighths', '&frac58;'),
 				 Double('not an element of', '&#x2209;',
-						'seven eighths', '&frac78;'),
-				 Single('subset of', '&#x2282;'),
-				 Single('not a subset of', '&#x2284;'),
-				 Single('union', '&#x22c3;'),
-				 Single('intersection', '&#x22c2;')]),
+						'two thirds', '&frac23;'),
+				 Double('subset of', '&#x2282;',
+						'three fourths', '&frac34;'),
+				 Double('not a subset of', '&#x2284;',
+						'four fifths', '&frac45;'),
+				 Double('union', '&#x22c3;',
+						'five sixths', '&frac56;'),
+				 Double('intersection', '&#x22c2;',
+						'seven eighths', '&frac78;')]),
+
+			Group('Arrows', 'arrows',
+				[Single('north west arrow', '&nwarr;'),
+				 Single('up arrow', '&uarr;'),
+				 Single('north east arrow', '&nearr;'),
+				 Single('left arrow', '&larr;'),
+				 Space(),
+				 Single('right arrow', '&rarr;'),
+				 Single('south west arrow', '&swarr;'),
+				 Single('down arrow', '&darr;'),
+				 Single('south east arror', '&searr;')]),
 
 			Group('Currency', 'currency',
 				[Single('cent', '&cent;'),
@@ -225,29 +251,43 @@ barzee.symbols = {
 				[Single('section', '&sect;'),
 				 Single('paragraph', '&para;'),
 				 Single('copyright', '&copy;'),
-				 Single('registered trademark', '&reg;')])
+				 Single('registered trademark', '&reg;')]),
+
+			Group('Control', 'control',
+				[Control('null', 'NUL', '&#x0000;'),
+				 Control('acknowledge', 'ACK', '&#x0006;'),
+				 Control('negative acknowledge', 'NAK', '&#x0015;'),
+				 Control('cancel', 'CAN', '&#x0018;'),
+				 Control('bell', 'BEL', '&#x0007;'),
+				 Control('tab',  'TAB', '&#x0009;'),
+				 Control('vertical tab', 'VT', '&#x000b;'),
+				 Control('carriage return', 'CR', '&#x000d;'),
+				 Control('line feed, new line', 'LF', '&#x000a;'),
+				 Control('form feed, new page', 'FF', '&#x000c;'),
+				 Control('escape', 'ESC', '&#x001b;'),
+				 Control('backspace', 'BS', '&#x0008;'),
+				 Control('delete', 'DEL', '&#x007f;')])
 		];
 
-		for (let g = 0;  g < groups.length;  ++g) {
-			let group = groups[g];
+		const next = document.getElementById('unknown');
+		for (let group of groups) {
 
 			// Create a new heading element and
 			// append it to the document article.
 			let heading = document.createElement('h2');
-			heading.innerText = group.heading;
-			article.appendChild(heading);
+			heading.textContent = group.heading;
+			article.insertBefore(heading, next);
 
 			// Create a div that will contain buttons.
 			let div = document.createElement('div');
 			div.classList.add('buttons');
 			div.classList.add(group.clss);
-			let buttons = group.buttons;
-			for (let b = 0;  b < buttons.length;  ++b) {
-				div.appendChild(buttons[b]);
+			for (let button of group.buttons) {
+				div.appendChild(button);
 			}
 
 			// Append the new div to the document article.
-			article.appendChild(div);
+			article.insertBefore(div, next);
 		}
 	},
 
@@ -260,53 +300,68 @@ barzee.symbols = {
 	keydown : function(event) {
 		let code = event.code;
 		if (code == 'ShiftLeft' || code == 'ShiftRight') {
-			let symbols = barzee.symbols;
+			let unicode = barzee.unicode;
 			let currKeyEvent = 'down ' + code;
 
 			// This if statement guards against repeated key down events
 			// that are caused by the user holding down shift key.
-			if (currKeyEvent != symbols.prevKeyEvent) {
-				symbols.changeButtons(symbols.attribNames[1]);
-				symbols.prevKeyEvent = currKeyEvent;
+			if (currKeyEvent != unicode.prevKeyEvent) {
+				unicode.changeButtons(unicode.attribNames[1]);
+				unicode.prevKeyEvent = currKeyEvent;
 			}
 		}
 	},
 
 
 	keyup : function(event) {
-		let code = event.code;
+		const code = event.code;
 		if (code == 'ShiftLeft' || code == 'ShiftRight' || code == 'CapsLock') {
-			let symbols = barzee.symbols;
+			const unicode = barzee.unicode;
+			const attribNames = unicode.attribNames;
 			if (code == 'CapsLock') {
 				// Because the user pressed (down and then up) the Caps
 				// Lock key, swap the attribute names that the keydown
 				// and keyup functions use for the Shift keys.
-				let attribNames = symbols.attribNames;
 				let swap = attribNames[0];
 				attribNames[0] = attribNames[1];
 				attribNames[1] = swap;
 			}
-			symbols.changeButtons(symbols.attribNames[0]);
-			symbols.prevKeyEvent = 'up ' + code;
+			unicode.changeButtons(attribNames[0]);
+			unicode.prevKeyEvent = 'up ' + code;
 		}
 	},
 
 
 	changeButtons : function(attribNames) {
-		let titleKey = attribNames[0];
-		let entityKey = attribNames[1];
-		let buttons = document.getElementsByTagName('button');
-		for (let i = 0;  i < buttons.length;  ++i) {
-			let button = buttons[i];
+		const titleKey = attribNames[0];
+		const entityKey = attribNames[1];
+		const buttons = document.querySelectorAll('button[data-shift-title]');
+		for (let button of buttons) {
 			let title = button.getAttribute(titleKey);
-			let entity = button.getAttribute(entityKey);
+			let symbol = button.getAttribute(entityKey);
 			button.title = title;
-			button.innerHTML = entity;
+			button.setAttribute('data-symbol', symbol);
+			button.textContent = symbol;
 		}
+	},
+
+
+	charToHex : function(event) {
+		const input = event.target;
+		const text = input.value;
+		let sep = '';
+		let points = '';
+		for (let ch of text) {
+			let code = ch.codePointAt(0);
+			points += sep + code.toString(16);
+			sep = ' ';
+		}
+		let output = input.closest('.charToHex').querySelector('.hex');
+		output.textContent = points;
 	}
 };
 
 
-window.addEventListener('DOMContentLoaded', barzee.symbols.makeButtons);
-document.addEventListener('keydown', barzee.symbols.keydown);
-document.addEventListener('keyup', barzee.symbols.keyup);
+window.addEventListener('DOMContentLoaded', barzee.unicode.makeButtons);
+document.addEventListener('keydown', barzee.unicode.keydown);
+document.addEventListener('keyup', barzee.unicode.keyup);
