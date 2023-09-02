@@ -2,6 +2,24 @@
 
 if (! window.hasOwnProperty('barzee')) {
 	window.barzee = {
+		strings : {
+			siteTitle : 'Barzee’s Notes',
+			slogan : 'Smart Software Development',
+
+			copyHint : 'Copy code to the clipboard',
+
+			offHint : 'Click to turn off highlights.',
+			onHint  : 'Move mouse over to turn on highlights.\n' +
+						'Click to keep highlights on.',
+
+			upHint : 'Scroll to the top of this document',
+
+			modified : 'Last modified',
+			copyrightNotice : 'Copyright © 2020 Rex A. Barzee. All rights reserved.',
+			aboutAuthor : 'About the Author',
+			disclaimer : 'Disclaimer'
+		},
+
 		/** Reorganizes the structure of the home index.html
 		 * file. Surrounds the article with this structure:
 		 * <body>
@@ -19,18 +37,16 @@ if (! window.hasOwnProperty('barzee')) {
 			let article = document.querySelector('article');
 			body.removeChild(article);
 
-			let top = this.createElem('div', 'top');
-			let page = this.createElem('div', 'page');
-			body.appendChild(top);
-			body.appendChild(page);
-
-			let header = this.createHeader('', window.location.protocol);
-			let nav = this.createNav('', window.location.protocol, null);
+			let header = this.createHeader('', window.location.protocol, null);
 			let footer = this.createHomeFooter();
+			let page = this.createElem('div', 'page');
 			page.appendChild(header);
-			page.appendChild(nav);
 			page.appendChild(article);
 			page.appendChild(footer);
+
+			let top = this.createElem('div', 'top');
+			body.appendChild(top);
+			body.appendChild(page);
 		},
 
 
@@ -41,72 +57,67 @@ if (! window.hasOwnProperty('barzee')) {
 			let article = document.querySelector('article');
 			body.removeChild(article);
 
-			let top = this.createElem('div', 'top');
+			let header = this.createHeader('../', window.location.protocol,
+							window.location.pathname);
 			let page = this.createElem('div', 'page');
+			page.appendChild(header);
+			page.appendChild(article);
+
+			let top = this.createElem('div', 'top');
 			body.appendChild(top);
 			body.appendChild(page);
-
-			let header = this.createHeader('../', window.location.protocol);
-			let nav = this.createNav('../',
-					window.location.protocol, window.location.pathname);
-			page.appendChild(header);
-			page.appendChild(nav);
-			page.appendChild(article);
 		},
 
 
-		/** Reorganizes the structure of an HTML document. */
+		/** Reorganizes the structure of the other HTML files. */
 		surroundArticle : function() {
 			let body = document.querySelector('body');
 			let article = document.querySelector('article');
 			body.removeChild(article);
+			let copy = this.createCopyright();
+			article.appendChild(copy);
 
-			let top = this.createElem('div', 'top');
+			let header = this.createHeader('../',
+							window.location.protocol, null);
+			let footer = this.createFooter();
 			let page = this.createElem('div', 'page');
-			body.appendChild(top);
-			body.appendChild(page);
-
-			let header = this.createHeader('../', window.location.protocol);
-			let nav = this.createNav('../', window.location.protocol, null);
-			let footer = this.createFooter(article);
 			page.appendChild(header);
-			page.appendChild(nav);
 			page.appendChild(article);
 			page.appendChild(footer);
+
+			let top = this.createElem('div', 'top');
+			body.appendChild(top);
+			body.appendChild(page);
 		},
 
 
-		createHeader : function(prefix, protocol) {
-			let header = this.createElem('header');
+		createHeader : function(prefix, protocol, pathname) {
+			const strings = this.strings;
+			const createElem = this.createElem;
 
 			let h2;
 			if (prefix == '') {
-				h2 = this.createElem('h2', null, null, 'Barzee’s Notes');
+				h2 = createElem('h2', null, null, strings.siteTitle);
 			}
 			else {
-				h2 = this.createElem('h2');
+				h2 = createElem('h2');
 				let suffix = (protocol == 'file:' ? 'index.html' : '');
-				let a = this.createElem('a', null,
-						{href: prefix + suffix}, 'Barzee’s Notes');
+				let a = createElem('a', null,
+						{href : prefix + suffix}, strings.siteTitle);
 				h2.appendChild(a);
 			}
-			let h3 = this.createElem('h3', null, null,
-					'Smart Software Development');
+			let h3 = createElem('h3', null, null, strings.slogan);
+			let nav = this.createNav(prefix, protocol, pathname);
+
+			let header = createElem('header');
 			header.appendChild(h2);
 			header.appendChild(h3);
+			header.appendChild(nav);
 			return header;
 		},
 
 
 		createNav : function(prefix, protocol, pathname) {
-			let nav = this.createElem('nav');
-
-			let h2 = this.createElem('h2', null, null, 'Categories');
-			nav.appendChild(h2);
-
-			let ul = this.createElem('ul');
-			nav.appendChild(ul);
-
 			let folder = null;
 			if (pathname) {
 				let slash = pathname.lastIndexOf('/');
@@ -116,6 +127,7 @@ if (! window.hasOwnProperty('barzee')) {
 			}
 			let suffix = (protocol == 'file:' ? '/index.html' : '/');
 
+			const createElem = this.createElem;
 			const items = [
 				['python', 'Python'],
 				['js', 'JavaScript'],
@@ -127,17 +139,19 @@ if (! window.hasOwnProperty('barzee')) {
 				['math', 'Math'],
 				['shell', 'Shell Scripts']
 			];
+			let ul = createElem('ul');
 			for (let [directory, name] of items) {
-				let li = this.createElem('li');
-				let div = this.createElem('div');
+				let li = createElem('li');
 				let a = (directory == folder ?
-						this.createElem('em', null, null, name) :
-						this.createElem('a', null,
-								{'href': prefix + directory + suffix}, name));
-				div.appendChild(a);
-				li.appendChild(div);
+						createElem('em', null, null, name) :
+						createElem('a', null,
+								{href : prefix + directory + suffix}, name));
+				li.appendChild(a);
 				ul.appendChild(li);
 			}
+
+			let nav = createElem('nav');
+			nav.appendChild(ul);
 			return nav;
 		},
 
@@ -152,55 +166,81 @@ if (! window.hasOwnProperty('barzee')) {
 		 * main branch.
 		createModified : function() {
 			let modified = new Date(document.lastModified);
-			let text = 'Last modified: ' + modified.toLocaleDateString();
+			let text = 'Last modified ' + modified.toLocaleDateString();
 			let div = this.createElem('div', 'modified', null, text);
 			return div;
 		},*/
 
 
-		createHomeFooter : function() {
-			let img = this.createElem('img', null,
-					{src:'site/images/rappelling.jpg'});
-			let about = this.createElem('h2', null, null, 'About the Author');
-			let author = this.createAuthor();
+		createCopyright : function() {
+			const strings = this.strings;
+			const createElem = this.createElem;
+			const copyData = this.getCopyrightData();
 
-			let footer = this.createElem('footer');
+			let inner = createElem('div');
+			if (copyData.modified) {
+				let mod = document.createTextNode(
+						strings.modified + ' ' + copyData.modified);
+				inner.appendChild(mod);
+			}
+			inner.appendChild(createElem('br'));
+			let copy = document.createTextNode(copyData.notice);
+			inner.appendChild(copy);
+
+			//let svg = cse111.createSVG('svgArrowUp', null, strings.upHint);
+			/* TODO
+			let svg = document.createTextNode('Up');
+			let button = createElem('button', 'up',
+					{type : 'button', title : strings.upHint});
+			button.appendChild(svg);
+			button.addEventListener('click', function(){window.scroll(0, 0);});
+			*/
+
+			let outer = createElem('div', 'modcopy');
+			outer.appendChild(inner);
+			//outer.appendChild(button);
+			return outer;
+		},
+
+
+		createHomeFooter : function() {
+			const strings = this.strings;
+			const createElem = this.createElem;
+
+			let about = createElem('h2', null, null, strings.aboutAuthor);
+			let img = createElem('img', null,
+					{src : 'site/images/rappelling.jpg'});
+			let author = this.createAuthor();
+			let clear = createElem('div', 'clear');
+
+			let footer = createElem('footer');
 			footer.appendChild(img);
 			footer.appendChild(about);
 			footer.appendChild(author);
+			footer.appendChild(clear);
 			return footer;
 		},
 
 
-		createFooter : function(article) {
-			let year;
-			let mod = article.querySelector('.modified');
-			if (mod) {
-				let match = /2[0-9]{3}-[0-9]{2}-[0-9]{2}/.exec(mod.innerText);
-				if (match) {
-					year = new Date(match[0]).getFullYear();
-				}
-			}
-			if (! year) {
-				year = new Date(document.lastModified).getFullYear();
-			}
+		createFooter : function() {
+			const strings = this.strings;
+			const createElem = this.createElem;
 
-			let copy = this.createElem('p', 'clear', null,
-					'Copyright © '+year+' Rex A. Barzee. All rights reserved.');
-			let about = this.createElem('h2', null, null, 'About the Author');
-			let img = this.createElem('img', null,
-					{src:'../site/images/rappelling.jpg'});
+			let about = createElem('h2', null, null, strings.aboutAuthor);
+			let img = createElem('img', null,
+					{src : '../site/images/rappelling.jpg'});
 			let author = this.createAuthor();
-			let h2 = this.createElem('h2', null, null, 'Disclaimer');
+			let h2 = createElem('h2', null, null, strings.disclaimer);
 			let disclaim = this.createDisclaimer();
+			let clear = createElem('div', 'clear');
 
-			let footer = this.createElem('footer');
-			footer.appendChild(copy);
+			let footer = createElem('footer');
 			footer.appendChild(about);
 			footer.appendChild(img);
 			footer.appendChild(author);
 			footer.appendChild(h2);
 			footer.appendChild(disclaim);
+			footer.appendChild(clear);
 			return footer;
 		},
 
@@ -218,6 +258,27 @@ if (! window.hasOwnProperty('barzee')) {
 		},
 
 
+		/** Gets the copyright notice and the last modified date, from
+		 * the search engine structured data in this document's head.
+		 * Returns the two values in an object. */
+		getCopyrightData : function() {
+			let notice = this.strings.copyrightNotice;
+			let modified;
+			const query = 'script[type="application/ld+json"]';
+			const script = document.head.querySelector(query);
+			if (script) {
+				const object = JSON.parse(script.innerHTML);
+				if (object.hasOwnProperty('copyrightNotice')) {
+					notice = object.copyrightNotice;
+				}
+				if (object.hasOwnProperty('dateModified')) {
+					modified = object.dateModified;
+				}
+			}
+			return {notice : notice, modified : modified};
+		},
+
+
 		/** Creates and returns an HTML element in the current document. */
 		createElem : function(tagName, clss, attrs, text) {
 			let elem = document.createElement(tagName);
@@ -230,15 +291,9 @@ if (! window.hasOwnProperty('barzee')) {
 				}
 			}
 			if (text) {
-				elem.innerText = text;
+				elem.textContent = text;
 			}
 			return elem;
-		},
-
-
-		/** Creates and returns a text node in the current document. */
-		createText : function(text) {
-			return document.createTextNode(text);
 		},
 
 
@@ -286,23 +341,23 @@ if (! window.hasOwnProperty('barzee')) {
 
 		/** Adds line numbers to all <pre class="linenums"> elements. */
 		addLineNumbers : function() {
+			const createElem = this.createElem;
 			const newline = /\n|<br>/g;
 			const elements = document.querySelectorAll('pre.linenums');
 			for (let pre of elements) {
-				let code = pre.nextElementSibling.innerHTML;
+				let code = pre.nextElementSibling.textContent;
 				if (code.length > 0) {
 
 					// If the pre.linenums element contains
 					// any children nodes, remove them.
 					pre.replaceChildren();
 
-					let span = this.createElem('span', null, null, '1');
+					let span = createElem('span', null, null, '1');
 					pre.appendChild(span);
 					let count = code.split(newline).length;
 					for (let n = 2;  n <= count;  ++n) {
-						pre.appendChild(this.createText('\n'));
-						let span = this.createElem('span',
-								null, null, n.toString());
+						pre.appendChild(document.createTextNode('\n'));
+						let span = createElem('span', null, null, n.toString());
 						pre.appendChild(span);
 					}
 				}
@@ -349,7 +404,7 @@ if (! window.hasOwnProperty('barzee')) {
 				// Notice the dash and en dash in the character class.
 				const dash = /[-–]|&ndash;/;
 
-				let text = target.innerText;
+				let text = target.textContent;
 				let candidates = text.split(space);
 				let references = [];
 				for (let candidate of candidates) {
@@ -410,6 +465,7 @@ if (! window.hasOwnProperty('barzee')) {
 			}
 
 			function toggle(event) {
+				const strings = barzee.strings;
 				let target = event.target;
 				let state = target.getAttribute('data-on');
 				if (state == null) {
@@ -420,7 +476,7 @@ if (! window.hasOwnProperty('barzee')) {
 					target.removeEventListener('mouseover', on);
 					target.removeEventListener('mouseout', off);
 					target.setAttribute('data-on', 'true');
-					target.setAttribute('title', 'Click to turn off highlights.');
+					target.setAttribute('title', strings.offHint);
 				}
 				else {
 					// Highlights are on because the user clicked on the
@@ -435,7 +491,7 @@ if (! window.hasOwnProperty('barzee')) {
 					target.removeAttribute('data-on');
 					target.addEventListener('mouseover', on);
 					target.addEventListener('mouseout', off);
-					target.setAttribute('title', 'Move mouse over to turn on highlights.\nClick to keep highlights on.');
+					target.setAttribute('title', strings.onHint);
 				}
 			}
 
@@ -445,7 +501,7 @@ if (! window.hasOwnProperty('barzee')) {
 				target.addEventListener('mouseover', on);
 				target.addEventListener('mouseout', off);
 				target.addEventListener('click', toggle);
-				target.setAttribute('title', 'Move mouse over to turn on highlights.\nClick to keep highlights on.');
+				target.setAttribute('title', strings.onHint);
 			}
 		},
 
@@ -462,14 +518,14 @@ if (! window.hasOwnProperty('barzee')) {
 				self.copyToClipboard(pre);
 			}
 
+			const copyHint = self.strings.copyHint;
+			const createElem = self.createElem;
 			const elements = document.querySelectorAll('div.pre');
 			for (let div of elements) {
-				let image = this.createElem('img', null,
-						{'src': '../site/icons/copy.png',
-						 'alt': 'Copy code to the clipboard'});
-				let button = this.createElem('button', 'copy',
-						{'type': 'button',
-						 'title': 'Copy code to the clipboard'});
+				let image = createElem('img', null,
+						{src : '../site/icons/copy.png', alt : copyHint});
+				let button = createElem('button', 'copy',
+						{type : 'button', title : copyHint});
 				button.addEventListener('click', copyFunc);
 				button.appendChild(image);
 				div.appendChild(button);

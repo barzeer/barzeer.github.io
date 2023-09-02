@@ -65,12 +65,12 @@ body {
 	line-height: 1.3;
 }
 
-@media (max-width: 60em) {
-	/* Devices with a small screen or in a small window. */
+@media (max-width: 50em) {
+	/* Devices with a small or medium screen or in a small or medium window. */
 	body > div.top { display: none; }
 }
-@media (min-width: 60em) {
-	/* In a medium or large window. */
+@media (min-width: 50em) {
+	/* Large screen or window. */
 	body {
 		z-index: 0;
 		padding-bottom: 2em;
@@ -86,7 +86,23 @@ body {
 		background:
 	linear-gradient(0deg, var(--outside-grad-bottom), var(--outside-grad-top));
 	}
+
+	body > div.page {
+		position: relative;
+		z-index: 2;
+		box-shadow: 0 0 40px rgba(0, 0, 0, .15);
+		margin: 0 auto;
+		width: 50em;
+	}
 }
+
+
+/* Links */
+a:link { color: var(--link-before-fg-color); }
+a:hover { color: var(--link-hover-fg-color); }
+a:active { color: var(--link-active-fg-color); }
+a:visited { color: var(--link-visited-fg-color); }
+
 
 body > div.page {
 	background-color: var(--bg-color);
@@ -94,123 +110,58 @@ body > div.page {
 }
 
 div.page > header {
-	margin: 0 2em 1em 2em;
-	padding: 0.5em 0 1em 0;
-	border-bottom: 1px solid var(--border-color);
+	margin: 0 2em 2em 2em;
+	padding-top: 1em;  /* We must use top padding instead of top margin
+			because the browser collapses the top margin for the first
+			child. */
 }
-
-@media (max-width: 60em) {
-	div.page > nav {
-		display: block;
-		margin: 0 2em 2em 2em;
-	}
-	nav > h2 {
-		display: none;
-	}
-	nav > ul {
-		list-style-type: none;
-	}
-	nav > ul > li {
-		display: inline-block;
-		margin: 0 1em 0.5em 0;
-	}
-}
-@media (min-width: 60em) {
-	body > div.page {
-		position: relative;
-		z-index: 2;
-		box-shadow: 0 0 40px rgba(0, 0, 0, .15);
-		margin: 0 auto;
-		width: 60em;
-	}
-
-	div.page > nav {
-		display: inline-block;
-		margin-left: 2em;
-		width: 8em;
-		vertical-align: top;
-		line-height: 1.2;
-	}
-
-	div.page > article {
-		display: inline-block;
-		width: 46em;
-	}
-
-	nav > h2 {
-		font-size: 120%;
-		font-weight: bold;
-		margin-bottom: 0.5em;
-	}
-	nav > ul {
-		margin-left: 1.25em;
-		list-style-type: disc;
-	}
-	nav > ul > li {
-		margin-bottom: 0.75em;
-		color: var(--bullet-fg-color);
-	}
-	nav > ul > li > div {
-		color: var(--fg-color);
-	}
-}
-
-div.page > article {
-	margin: 0 2em 1em 2em;
-}
-
-div.page > footer {
-	background-color: var(--footer-bg-color);
-	padding: 2em 2em 1em 2em;
-	font-size: 90%;
-}
-
-
-footer > h2 {
-	font-size: 135%;
-	font-weight: bold;
-	margin-bottom: 0.5em;
-}
-footer > img {
-	float: right;
-	margin: 0 0 0.5em 0.5em;
-}
-@media (max-width: 60em) {
-	footer > img {
-		width: 6em;
-	}
-}
-@media (min-width: 60em) {
-	footer > img {
-		width: 10em;
-	}
-}
-footer > p {
-	margin-bottom: 1em;
-}
-
 
 header > h2 {
 	font-size: 250%;
 	font-weight: bold;
+	margin: 0 0;
+	padding: 0 0;
+	line-height: 1;
 	color: var(--outside-grad-top);
 }
-
 header > h3 {
 	font-family: Neucha, "Brush Script MT", cursive;
 	font-size: 150%;
 	color: var(--border-color);
-	margin: 0.5em 0 0 0;
+	margin: 0.8em 0 0 0;
+	padding: 0 0;
+	line-height: 1;
 }
-
-header a:link,
-header a:hover,
-header a:active,
-header a:visited {
+header > h2 > a:link,
+header > h2 > a:hover,
+header > h2 > a:active,
+header > h2 > a:visited {
 	text-decoration: none;
 	color: inherit;
 }
 
+header > nav {
+	margin-top: 1em;
+	border-top: 1px solid var(--border-color);
+	padding-top: 1em;
+	line-height: 1.8;
+}
+header > nav > ul {
+	list-style: none;
+}
+header > nav > ul > li {
+	display: inline-block;
+	margin: 0 0.5em;
+}
+
+
+div.page > article {
+	margin: 0 2em;
+	padding-bottom: 1em;  /* We must use bottom padding instead of
+			bottom margin because the browser collapses the bottom
+			margin for the last child and the article is the last child
+			for index.html files. */
+}
 
 article.home h1 {
 	display: none;
@@ -220,15 +171,7 @@ article.home div.welcome {
 	font-size: 140%;
 	color: var(--border-color);
 	max-width: 27em;
-	margin: 1.5em auto 0 auto;
-}
-@media (max-width: 60em) {
-	article.home div.welcome span.small_win { display: inline; }
-	article.home div.welcome span.medium_win { display: none; }
-}
-@media (min-width: 60em) {
-	article.home div.welcome span.small_win { display: none; }
-	article.home div.welcome span.medium_win { display: inline; }
+	margin: 0 auto;
 }
 
 
@@ -308,13 +251,6 @@ article .menu {
 article p {
 	margin: 0 0 1em 0;
 }
-
-
-/* Links */
-article a:link { color: var(--link-before-fg-color); }
-article a:hover { color: var(--link-hover-fg-color); }
-article a:active { color: var(--link-active-fg-color); }
-article a:visited { color: var(--link-visited-fg-color); }
 
 
 /* Lists */
@@ -414,7 +350,7 @@ article table.features > tbody > tr > td:first-child {
 	text-align: right;
 }
 
-/*  variable promotions */
+/* variable promotions */
 article table.var_promos {
 	margin: 1em auto 1em 0;
 }
@@ -609,9 +545,9 @@ article span.null {
 }
 
 
-/* These elements are normally indented slightly to help distinguish
- * them from text. However, if they are inside a list element (li),
- * don't indent them. */
+/* The following elements are normally indented slightly to help
+ * distinguish them from text. However, if they are inside a list
+ * element (li), don't indent them. */
 article li table.classdia,
 article li div.pre,
 article li pre.console {
@@ -945,22 +881,59 @@ figure.pitch {
 	box-shadow: 0 0 40px rgba(0, 0, 0, .15);
 	background-color: var(--bg-color);
 }
-@media (max-width: 60em) {
+@media (max-width: 50em) {  /* small or medium */
 	figure.pitch {
 		width: 10em;
 	}
 }
-@media (min-width: 60em) {
+@media (min-width: 50em) {  /* large */
 	figure.pitch {
 		width: 20em;
 	}
 }
 
-article div.modified {
-	clear: both;
-	text-align: right;
-	margin: 2.5em 0 0 0;
+article div.modcopy {
+	margin-top: 2em;
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: end;
 }
-figure.pitch ~ div.modified {
-	text-align: left;
+article div.modcopy > div {
+	flex: 1 1 auto;
+	font-size: 90%;
+	line-height: 1.4;
+}
+article div.modcopy > .up {
+	flex: 0 0 auto;
+	margin-left: 1em;
+	cursor: pointer;
+}
+
+
+div.page > footer {
+	clear: both;
+	font-size: 90%;
+	padding: 1em 2em;  /* We must use padding instead of margin so
+			that this entire div has the correct background color. */
+	background-color: var(--footer-bg-color);
+}
+
+footer h2 {
+	font-size: 135%;
+	font-weight: bold;
+	margin-bottom: 0.5em;
+}
+footer h2:not(:first-child) {
+	margin-top: 1em;
+}
+footer .clear { clear: both; }
+footer img {
+	float: right;
+	margin: 0 0 0.5em 0.5em;
+}
+@media (max-width: 50em) {  /* small or medium */
+	footer img { width: 6em; }
+}
+@media (min-width: 50em) {  /* large */
+	footer img { width: 10em; }
 }
