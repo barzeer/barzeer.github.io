@@ -247,7 +247,7 @@ if (! window.hasOwnProperty('barzee')) {
 
 		createAuthor : function() {
 			let author = this.createElem('p');
-			author.innerHTML = 'Rex A. Barzee is a professor of Computer Information Technology at Brigham Young University–Idaho. He is an inventor of <a href="https://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO2&Sect2=HITOFF&u=%2Fnetahtml%2FPTO%2Fsearch-adv.htm&r=0&p=1&f=S&l=50&Query=IN%2F%22Barzee%3B+Rex+A.%22&d=PTXT">two United States patents</a> and the author of numerous courses <a href="https://www.amazon.com/Rex-Barzee/e/B006SYU4S0">and books</a>. He earned a bachelor’s and a master’s degree in computer science from Brigham Young University. Before becoming a professor, he worked for eight years as a software engineer. You can see his <a href="https://www.linkedin.com/in/rex-barzee-306a0b37/">full profile</a> at LinkedIn.';
+			author.innerHTML = 'Rex A. Barzee is a professor of Computer Science at Brigham Young University–Idaho. He is an inventor of <a href="https://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO2&Sect2=HITOFF&u=%2Fnetahtml%2FPTO%2Fsearch-adv.htm&r=0&p=1&f=S&l=50&Query=IN%2F%22Barzee%3B+Rex+A.%22&d=PTXT">two United States patents</a> and the author of numerous courses <a href="https://www.amazon.com/Rex-Barzee/e/B006SYU4S0">and books</a>. He earned a bachelor’s and a master’s degree in computer science from Brigham Young University. Before becoming a professor, he worked for eight years as a software engineer. You can see his <a href="https://www.linkedin.com/in/rex-barzee-306a0b37/">full profile</a> at LinkedIn.';
 			return author;
 		},
 
