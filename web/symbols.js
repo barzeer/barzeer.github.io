@@ -5,7 +5,6 @@ if (! window.hasOwnProperty('barzee')) {
 }
 
 barzee.unicode = {
-
 	makeButtons : function() {
 		const quarry = document.getElementById('quarry');
 		const article = document.body.querySelector('article');
@@ -304,7 +303,7 @@ barzee.unicode = {
 			let currKeyEvent = 'down ' + code;
 
 			// This if statement guards against repeated key down events
-			// that are caused by the user holding down shift key.
+			// that are caused by the user holding down the shift key.
 			if (currKeyEvent != unicode.prevKeyEvent) {
 				unicode.changeButtons(unicode.attribNames[1]);
 				unicode.prevKeyEvent = currKeyEvent;
@@ -346,6 +345,7 @@ barzee.unicode = {
 	},
 
 
+	/** Event listener for the text input at the bottom of the webpage. */
 	charToHex : function(event) {
 		const input = event.target;
 		const text = input.value;
