@@ -21,7 +21,7 @@
         "description": "Compares various relational database designs in first, second, and third normal forms",
         "copyrightNotice": "Copyright © 2020, Rex A. Barzee. All rights reserved.",
         "datePublished": "2020-06-01",
-        "dateModified": "2022-08-12",
+        "dateModified": "2025-05-22",
         "author": {
             "@type": "Person",
             "name": "Rex A. Barzee",
@@ -43,22 +43,25 @@ rules for the normal forms.</p>
 
 <h2>Albums, Tracks, and Artists</h2>
 <p>Below are five different relational database designs shown as Entity
-Relationship Diagrams (ERDs) and corresponding data tables for a
-database that stores data about albums, songs, and musical artists. The
-first four designs violate first, second, or third normal form. The last
+Relationship Diagrams (ERDs) and corresponding tables for a database
+that stores data about albums, songs, and musical artists. The first
+four designs violate first, second, or third normal form. The last
 design does not violate any of the rules for first, second, or third
 normal form and is therefore normalized to third normal form.</p>
 
 <h3>Violates First Normal Form</h3>
-<p>The following ERD and corresponding data table violate first normal
-form, because there are lists in the tracks column. The lists in the
-tracks column are problematic because some of the track titles, such as
-“Something, etc.”, include commas. How will the computer distinguish
-between a comma that is part of a track title and a comma that separates
-track titles?</p>
+<p>A table is in first normal form (1NF) if all cells contain only
+atomic values (not multi-valued), there are no repeating columns, and
+the table has a primary key. The entity in the following ERD and the
+corresponding table violate 1NF, because there are lists in the cells in
+the tracks column. One reason the lists in the tracks column are
+problematic is because some of the track titles, such as “Something,
+etc.”, include commas. How will the computer distinguish between a comma
+that is part of a track title and a comma that separates track
+titles?</p>
 
 <figure class="erd_data">
-    <img style="width:8em" src="music/zero_normal_1.svg"
+    <img style="width:9em" src="music/zero_normal_1.svg"
     alt="An entity relationship diagram containing a non-normalized
     design for artists, albums, and tracks that violates first normal
     form">
@@ -87,15 +90,16 @@ track titles?</p>
     </tbody></table></div>
 </figure>
 
-<p>The next ERD and corresponding data table also violate first normal
-form because there is a list of columns: track1, track2, &hellip; With
-such a design, how will the designer know how many track columns to add
-to the table? How many of those track columns will be empty most of the
-time? When the computer searches for a particular track, it will have to
-search in all the track columns which is inefficient.</p>
+<p>The entity in the next ERD and the corresponding table also violate
+first normal form because there are lists of columns: track1, track2,
+&hellip; With such a design, how will the designer know how many track
+columns to add to the table? How many of those track columns will be
+empty most of the time? When the computer searches for a particular
+track, it will have to search in all the track columns which is
+inefficient.</p>
 
 <figure class="erd_data">
-    <img style="width:8em" src="music/zero_normal_2.svg"
+    <img style="width:9em" src="music/zero_normal_2.svg"
     alt="An entity relationship diagram containing a non-normalized
     design for artists, albums, and tracks that violates first normal
     form">
@@ -137,23 +141,30 @@ search in all the track columns which is inefficient.</p>
 </figure>
 
 <h3>Violates Second Normal Form</h3>
-<p>The next ERD and corresponding data table are normalized to first
-normal form because there are no lists within cells and no lists of
-columns and each table has a primary key. However, they violate second
-normal form because the track table contains sub-themes. Album and
-artist are sub-themes within the track table and should be
-separated.</p>
+<p>A table is in second normal form (2NF) if it meets all the
+requirements for 1NF and all non-key attributes are functionally
+dependent on the entire primary key. The definition of 2NF and the
+definition of primary key imply that if a table is in 1NF and its
+primary key is a single column (not composite), then it’s also in 2NF.
+In other words, only a table with a composite primary key can violate
+2NF.</p>
+
+<p>The entity in the next ERD and the corresponding table are normalized
+to first normal form (1NF) because there are no lists within cells and
+no repeated columns and the table has a primary key. However, they
+violate second normal form (2NF) because the yearReleased depends
+on only the albumTitle which is only one column of the composite primary
+key. Similarly, the duration depends on only the trackTitle.</p>
 
 <figure class="erd_data">
-    <img style="width:8em" src="music/first_normal.svg"
+    <img style="width:9em" src="music/first_normal.svg"
     alt="An entity relationship diagram containing a non-normalized
     design for artists, albums, and tracks that doesn’t violate first
     normal form but does violate second normal form">
 
     <div><table class="data left">
-    <caption class="name">album</caption><thead>
-    <tr><th scope="col">albumKey</th>
-        <th scope="col">albumTitle</th>
+    <caption class="name">track</caption><thead>
+    <tr><th scope="col">albumTitle</th>
         <th scope="col">yearReleased</th>
         <th scope="col">label</th>
         <th scope="col">trackTitle</th>
@@ -161,48 +172,57 @@ separated.</p>
         <th scope="col">artist</th>
         <th scope="col">artistCountry</th></tr>
     </thead><tbody>
-        <tr><td>ABRD</td> <td>Abbey Road</td> <td class="center">1969</td>
+        <tr><td class="key">Abbey Road</td> <td class="center">1969</td>
             <td>Apple</td>
-            <td>Here Comes the Sun</td> <td class="number">3:06</td>
+            <td class="key">Here Comes the Sun</td> <td class="number">3:06</td>
             <td>Beatles</td> <td class="center">UK</td></tr>
-        <tr><td>ABRD</td> <td>Abbey Road</td> <td class="center">1969</td>
+        <tr><td class="key">Abbey Road</td> <td class="center">1969</td>
             <td>Apple</td>
-            <td>Octopus’s Garden</td> <td class="number">2:48</td>
+            <td class="key">Octopus’s Garden</td> <td class="number">2:48</td>
             <td>Beatles</td> <td class="center">UK</td></tr>
-        <tr><td>ABRD</td> <td>Abbey Road</td> <td class="center">1969</td>
+        <tr><td class="key">Abbey Road</td> <td class="center">1969</td>
             <td>Apple</td>
-            <td>Something</td> <td class="number">2:59</td>
+            <td class="key">Something</td> <td class="number">2:59</td>
             <td>Beatles</td> <td class="center">UK</td></tr>
-        <tr><td>FRLS</td> <td>Fearless</td> <td class="center">2008</td>
+        <tr><td class="key">Fearless</td> <td class="center">2008</td>
             <td>Big Machine Records</td>
-            <td>Love Story</td> <td class="number">3:57</td>
+            <td class="key">Love Story</td> <td class="number">3:57</td>
             <td>Taylor Swift</td> <td class="center">US</td></tr>
-        <tr><td>FRLS</td> <td>Fearless</td> <td class="center">2008</td>
+        <tr><td class="key">Fearless</td> <td class="center">2008</td>
             <td>Big Machine Records</td>
-            <td>White Horse</td> <td class="number">3:55</td>
+            <td class="key">White Horse</td> <td class="number">3:55</td>
             <td>Taylor Swift</td> <td class="center">US</td></tr>
-        <tr><td>FRLS</td> <td>Fearless</td> <td class="center">2008</td>
+        <tr><td class="key">Fearless</td> <td class="center">2008</td>
             <td>Big Machine Records</td>
-            <td>You Belong with Me</td> <td class="number">3:52</td>
+            <td class="key">You Belong with Me</td> <td class="number">3:52</td>
             <td>Taylor Swift</td> <td class="center">US</td></tr>
-        <tr><td>FRLS</td> <td>Fearless</td> <td class="center">2008</td>
+        <tr><td class="key">Fearless</td> <td class="center">2008</td>
             <td>Big Machine Records</td>
-            <td>Fifteen</td> <td class="number">4:55</td>
+            <td class="key">Fifteen</td> <td class="number">4:55</td>
             <td>Taylor Swift</td> <td class="center">US</td></tr>
     </tbody></table></div>
 </figure>
 
+<p>In practical terms, a table that violates 2NF contains multiple
+entities and must be split into multiple tables. The track table above
+contains at least three entities, album, track, and artist.</p>
+
 <h3>Violates Third Normal Form</h3>
-<p>In the next design, the album table is normalized to third normal
-form, meaning it doesn’t violate the rules for first, second, or third
-normal forms. However, the track table violates the rules for third
-normal form. The track table doesn’t violate the rules for first or
-second normal form but does violate the rules for third normal form
-because the artistCountry column is not determined by the primary key
-(trackKey column) but is determined by the artist column.</p>
+<p>A table is in third normal form (3NF) if it meets all the
+requirements for 2NF and no non-key attributes is transitively dependent
+on the primary key. In other words, no non-key attribute depends on
+another non-key attribute.</p>
+
+<p>In the next design, the album table is normalized to 3NF, meaning it
+doesn’t violate the rules for 1NF, 2NF, or 3NF. However, the track table
+is normalized to 2NF but violates the rules for 3NF. It violates the
+rules for 3NF because the artistCountry is transitively dependent on the
+primary key (trackTitle). The artistCountry depends on the artist which
+depends on the trackTitle. In other words, artistCountry is determined
+by the artist and not the trackTitle.</p>
 
 <figure class="erd_data">
-    <img style="width:8em" src="music/second_normal.svg"
+    <img style="width:9em" src="music/second_normal.svg"
     alt="An entity relationship diagram containing a non-normalized
     design for artists, albums, and tracks that doesn’t violate first
     normal form because all multi-valued columns and repeated columns
@@ -211,64 +231,55 @@ because the artistCountry column is not determined by the primary key
 
     <div><table class="data left">
     <caption class="name">album</caption><thead>
-        <tr><th scope="col">albumKey</th>
-            <th scope="col">albumTitle</th>
+        <tr><th scope="col">albumTitle</th>
             <th scope="col">yearReleased</th>
             <th scope="col">label</th></tr>
     </thead><tbody>
-        <tr><td>ABRD</td> <td>Abbey Road</td>
+        <tr><td>Abbey Road</td>
             <td class="center">1969</td> <td>Apple</td></tr>
-        <tr><td>FRLS</td> <td>Fearless</td>
+        <tr><td>Fearless</td>
             <td class="center">2008</td> <td>Big Machine Records</td></tr>
     </tbody></table>
 
     <table class="data left">
     <caption class="name">track</caption><thead>
-        <tr><th scope="col">trackKey</th>
-            <th scope="col">trackTitle</th>
+        <tr><th scope="col">trackTitle</th>
             <th scope="col">duration</th>
             <th scope="col">artist</th>
             <th scope="col">artistCountry</th>
-            <th scope="col">albumKey</th></tr>
+            <th scope="col">albumTitle</th></tr>
     </thead><tbody>
-        <tr><td class="key">1</td>
-            <td>Here Comes the Sun</td> <td class="number">3:06</td>
+        <tr><td>Here Comes the Sun</td> <td class="number">3:06</td>
             <td>Beatles</td> <td class="center">UK</td>
-            <td>ABRD</td></tr>
-        <tr><td class="key">2</td>
-            <td>Something</td> <td class="number">2:48</td>
+            <td>Abbey Road</td></tr>
+        <tr><td>Something</td> <td class="number">2:48</td>
             <td>Beatles</td> <td class="center">UK</td>
-            <td>ABRD</td></tr>
-        <tr><td class="key">3</td>
-            <td>Octopus’s Garden</td> <td class="number">2:59</td>
+            <td>Abbey Road</td></tr>
+        <tr><td>Octopus’s Garden</td> <td class="number">2:59</td>
             <td>Beatles</td> <td class="center">UK</td>
-            <td>ABRD</td></tr>
-        <tr><td class="key">4</td>
-            <td>Love Story</td> <td class="number">3:57</td>
+            <td>Abbey Road</td></tr>
+        <tr><td>Love Story</td> <td class="number">3:57</td>
             <td>Taylor Swift</td> <td class="center">US</td>
-            <td>FRLS</td></tr>
-        <tr><td class="key">5</td>
-            <td>White Horse</td> <td class="number">3:55</td>
+            <td>Fearless</td></tr>
+        <tr><td>White Horse</td> <td class="number">3:55</td>
             <td>Taylor Swift</td> <td class="center">US</td>
-            <td>FRLS</td></tr>
-        <tr><td class="key">6</td>
-            <td>You Belong with Me</td> <td class="number">3:52</td>
+            <td>Fearless</td></tr>
+        <tr><td>You Belong with Me</td> <td class="number">3:52</td>
             <td>Taylor Swift</td> <td class="center">US</td>
-            <td>FRLS</td></tr>
-        <tr><td class="key">7</td>
-            <td>Fifteen</td> <td class="number">4:55</td>
+            <td>Fearless</td></tr>
+        <tr><td>Fifteen</td> <td class="number">4:55</td>
             <td>Taylor Swift</td> <td class="center">US</td>
-            <td>FRLS</td></tr>
+            <td>Fearless</td></tr>
     </tbody></table></div>
 </figure>
 
 <h3>Normalized to Third Normal Form</h3>
-<p>The entities in the next ERD and corresponding data tables do not
-violate any of the rules for first, second, or third normal form, so we
-say the design is normalized to third normal form.</p>
+<p>The entities in the next ERD and corresponding tables do not violate
+any of the rules for first, second, or third normal form, so we say the
+design is normalized to third normal form.</p>
 
 <figure class="erd_data">
-    <img style="width:8em" src="music/third_normal.svg"
+    <img style="width:9em" src="music/third_normal.svg"
     alt="An entity relationship diagram for artists, albums, and tracks
     that is normalized to third normal form">
 
@@ -293,25 +304,25 @@ say the design is normalized to third normal form.</p>
             <th scope="col">albumKey</th>
             <th scope="col">artistKey</th></tr>
     </thead><tbody>
-        <tr><td class="key">1</td>
+        <tr><td>1</td>
             <td>Here Comes the Sun</td> <td class="number">3:06</td>
             <td>ABRD</td> <td>BTLS</td></tr>
-        <tr><td class="key">2</td>
+        <tr><td>2</td>
             <td>Something</td> <td class="number">2:48</td>
             <td>ABRD</td> <td>BTLS</td></tr>
-        <tr><td class="key">3</td>
+        <tr><td>3</td>
             <td>Octopus’s Garden</td> <td class="number">2:59</td>
             <td>ABRD</td> <td>BTLS</td></tr>
-        <tr><td class="key">4</td>
+        <tr><td>4</td>
             <td>Love Story</td> <td class="number">3:57</td>
             <td>FRLS</td> <td>TSWF</td></tr>
-        <tr><td class="key">5</td>
+        <tr><td>5</td>
             <td>White Horse</td> <td class="number">3:55</td>
             <td>FRLS</td> <td>TSWF</td></tr>
-        <tr><td class="key">6</td>
+        <tr><td>6</td>
             <td>You Belong with Me</td> <td class="number">3:52</td>
             <td>FRLS</td> <td>TSWF</td></tr>
-        <tr><td class="key">7</td>
+        <tr><td>7</td>
             <td>Fifteen</td> <td class="number">4:55</td>
             <td>FRLS</td> <td>TSWF</td></tr>
     </tbody></table>
@@ -333,16 +344,15 @@ say the design is normalized to third normal form.</p>
 
 <h2>Magazines, Subscriptions, and Subscribers</h2>
 <p>Below are five different relational database designs shown as Entity
-Relationship Diagrams (ERDs) and corresponding data tables for a
-database that stores data about magazines, subscriptions, and
-subscribers. The first four designs violate first, second, or third
-normal form. The last design does not violate any of the rules for
-first, second, or third normal form and is therefore normalized to third
-normal form.</p>
+Relationship Diagrams (ERDs) and corresponding tables for a database
+that stores data about magazines, subscriptions, and subscribers. The
+first four designs violate first, second, or third normal form. The last
+design does not violate any of the rules for first, second, or third
+normal form and is therefore normalized to third normal form.</p>
 
 <h3>Violates First Normal Form</h3>
-<p>This first design violates first normal form because some of the
-cells contain lists of values.</p>
+<p>This first design violates first normal form (1NF) because some of
+the cells contain lists of values.</p>
 
 <figure class="erd_data">
     <img style="width:11em" src="magazine/zero_normal_1.svg"
@@ -417,9 +427,8 @@ cells contain lists of values.</p>
     </tbody></table></div>
 </figure>
 
-<p>The next design violates first normal form because some of the
-columns are repeated (consider Magazine 1 Name, Magazine 2
-Name, &hellip;).</p>
+<p>The next design violates 1NF because some of the columns are repeated
+(consider Magazine 1 Name, Magazine 2 Name, &hellip;).</p>
 
 <figure class="erd_data">
     <img style="width:11em" src="magazine/zero_normal_2.svg"
@@ -531,9 +540,9 @@ Name, &hellip;).</p>
     </tbody></table></div>
 </figure>
 
-<p>The following design violates first normal form because some of the
-columns are repeated (consider Subscriber 1 Last Name, Subscriber 2 Last
-Name, &hellip;).</p>
+<p>The following design violates 1NF because some of the columns are
+repeated (consider Subscriber 1 Last Name, Subscriber 2 Last Name,
+&hellip;).</p>
 
 <figure class="erd_data">
     <img style="width:11em" src="magazine/zero_normal_3.svg"
@@ -656,11 +665,11 @@ Name, &hellip;).</p>
 </figure>
 
 <h3>Violates Second Normal Form</h3>
-<p>The next design doesn’t violate first normal form because all
-multi-valued cells and repeated columns have been removed but does
-violate second normal form because the subscription table contains
-sub-themes that should be separated. Magazine, subscription, and
-subscriber are each sub-themes and should be in separate tables.</p>
+<p>The next design doesn’t violate 1NF because all multi-valued cells
+and repeated columns have been removed but does violate 2NF because the
+subscription table contains multiple entities that should be separated.
+Magazine, subscription, and subscriber are each an entity and should be
+in separate tables.</p>
 
 <figure class="erd_data">
     <img style="width:11em" src="magazine/first_normal.svg"
@@ -743,9 +752,9 @@ subscriber are each sub-themes and should be in separate tables.</p>
 </figure>
 
 <h3>Normalized to Third Normal Form</h3>
-<p>The entities in the next ERD and corresponding data tables do not
-violate any of the rules for first, second, or third normal form, so we
-say the design is normalized to third normal form.</p>
+<p>The entities in the next ERD and corresponding tables do not violate
+any of the rules for first, second, or third normal form, so we say the
+design is normalized to third normal form.</p>
 
 <figure class="erd_data">
     <img style="width:11em" src="magazine/third_normal.svg"
