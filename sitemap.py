@@ -1,3 +1,4 @@
+""" Generate a sitemap.xml file. """
 from datetime import datetime
 import os
 import re
@@ -14,7 +15,7 @@ def main():
             if filename.endswith(".html") and not filename.startswith("google"):
                 add_file(file_list, root, filename)
 
-    with open("sitemap.xml", "wt") as sitemap:
+    with open("sitemap.xml", "wt", encoding="utf-8", newline="\n") as sitemap:
         print('<?xml version="1.0" encoding="UTF-8"?>', end="\n", file=sitemap)
         print('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
                 end="\n", file=sitemap)

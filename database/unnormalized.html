@@ -21,7 +21,7 @@
         "description": "Compares various relational database designs in first, second, and third normal forms",
         "copyrightNotice": "Copyright © 2020, Rex A. Barzee. All rights reserved.",
         "datePublished": "2020-06-01",
-        "dateModified": "2025-05-22",
+        "dateModified": "2026-05-19",
         "author": {
             "@type": "Person",
             "name": "Rex A. Barzee",
@@ -57,8 +57,8 @@ corresponding table violate 1NF, because there are lists in the cells in
 the tracks column. One reason the lists in the tracks column are
 problematic is because some of the track titles, such as “Something,
 etc.”, include commas. How will the computer distinguish between a comma
-that is part of a track title and a comma that separates track
-titles?</p>
+that separates track titles and a comma that is part of a track
+title?</p>
 
 <figure class="erd_data">
     <img style="width:9em" src="music/zero_normal_1.svg"
@@ -154,7 +154,7 @@ to first normal form (1NF) because there are no lists within cells and
 no repeated columns and the table has a primary key. However, they
 violate second normal form (2NF) because the yearReleased depends
 on only the albumTitle which is only one column of the composite primary
-key. Similarly, the duration depends on only the trackTitle.</p>
+key. Similarly, the duration depends only on the trackTitle.</p>
 
 <figure class="erd_data">
     <img style="width:9em" src="music/first_normal.svg"
@@ -209,7 +209,7 @@ contains at least three entities, album, track, and artist.</p>
 
 <h3>Violates Third Normal Form</h3>
 <p>A table is in third normal form (3NF) if it meets all the
-requirements for 2NF and no non-key attributes is transitively dependent
+requirements for 2NF and no non-key attribute is transitively dependent
 on the primary key. In other words, no non-key attribute depends on
 another non-key attribute.</p>
 
